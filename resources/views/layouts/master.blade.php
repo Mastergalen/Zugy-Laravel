@@ -1,9 +1,4 @@
 <?php
-$navbar = array(
-    array("/", "<i class='fa fa-home'></i> Home"),
-    array("https://www.uclh.nhs.uk/OurServices/ServiceA-Z/Neuro/MS/NeuroResponse/Pages/Home.aspx", "<i class='fa fa-book'></i> About us")
-);
-
 $siteName = Config::get('site.siteName');
 ?>
 <!DOCTYPE html>
@@ -19,10 +14,13 @@ $siteName = Config::get('site.siteName');
 
         <footer>@include('includes.footer')</footer>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-        {{--{!! HTML::script('js/main.js') !!}--}}
+        <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-touch.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.js"></script>
+        <script src="js/main.js"></script>
         
         @yield('scripts')
     </body>
