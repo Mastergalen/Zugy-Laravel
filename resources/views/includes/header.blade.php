@@ -1,13 +1,13 @@
-<div class="navbar navbar-fixed-top" ng-controller="NavbarCtrl">
+<div class="navbar navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button class="navbar-toggle" type="button" ng-click="navCollapsed = !navCollapsed">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-cart">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
 
-            <button type="button" class="navbar-toggle" ng-click="cartCollapsed = !cartCollapsed">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <i class="fa fa-shopping-cart"></i>
                 <span class="cart-respons">Cart (24.39&#8364;)</span>
             </button>
@@ -16,11 +16,11 @@
         </div>
 
 
-        <nav collapse="navCollapsed" class="collapse navbar-collapse">
+        <nav class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
-                <li class="dropdown mega-dropdown" dropdown>
-                    <a class="dropdown-toggle" dropdown-toggle href="#"> Shop<b class="caret"></b></a>
+                <li class="dropdown mega-dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Shop<b class="caret"></b></a>
 
                     <ul class="dropdown-menu mega-dropdown-menu row" role="menu">
                         <li class="col-md-2">
@@ -61,7 +61,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden-xs">
-                    <a href="#" ng-click="cartCollapsed = !cartCollapsed">
+                    <a href="#" data-toggle="collapse" data-target=".navbar-cart">
                         <i class="fa fa-shopping-cart"></i>
                         <span class="cart-respons">Cart (24.39&#8364;)</span>
                         <b class="caret"></b>

@@ -2,6 +2,13 @@ h1, h2, h3, h4, h5, h6, p {
     font-family: Montserrat;
 }
 
+.breadcrumb {
+    border: 1px solid #DDDDDD;
+    background: none;
+}
+
+/* Carousel */
+
 .carousel {
     margin-top: 40px !important;
 }
@@ -206,6 +213,7 @@ h1, h2, h3, h4, h5, h6, p {
 /* Dropdown Cart */
 .mini-cart {
     padding: 20px 0px 0px 0px;
+    margin-top: 0px
 }
 
 .mini-cart-product {

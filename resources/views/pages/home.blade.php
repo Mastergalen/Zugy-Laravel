@@ -3,14 +3,14 @@
 @extends('layouts.master')
 
 @section('content')
-    <div ng-controller="CarouselCtrl" class="carousel">
-        <carousel interval="interval">
-            <slide ng-repeat="slide in slides" active="slide.active">
-                <img ng-src="@{{slide.image}}" style="margin:auto;">
+    <div class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="/img/carousel/alcohol-drinks.jpg" style="margin:auto;">
                 <div class="carousel-caption">
                     <div>
                         <img src="/img/zugy-logo-dark.png" alt="Zugy Dark Logo"/>
-                        <h4>@{{slide.tagline}}</h4>
+                        <h4>Your favorite beer, wine, spirits delivered to your doorstep</h4>
 
                         <div class="input-group">
                             <input class="form-control" type="text"
@@ -21,8 +21,8 @@
                         </div>
                     </div>
                 </div>
-            </slide>
-        </carousel>
+            </div>
+        </div>
     </div>
 
     <div class="container">
@@ -60,15 +60,7 @@
 
 @section('scripts')
     <script>
-        app.controller('CarouselCtrl', function ($scope) {
-            $scope.interval = 5000;
-            $scope.slides = [
-                {
-                    image: '/img/carousel/alcohol-drinks.jpg',
-                    tagline: 'Your favorite beer, wine, spirits delivered to your doorstep'
-                }
-            ];
-        });
+
 
     </script>
 @endsection
