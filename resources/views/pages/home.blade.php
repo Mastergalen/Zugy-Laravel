@@ -54,7 +54,7 @@
 
         <div class="parallax">
             <span>MILAN</span>
-        </div
+        </div>
     </div>
 @endsection
 
