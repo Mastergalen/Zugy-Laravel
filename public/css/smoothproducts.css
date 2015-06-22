@@ -1,5 +1,19 @@
 
 /* Custom css */
+
+.product-price {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 10px;
+}
+
+.product-price .price-standard {
+    color: #999999;
+    font-size: 18px;
+    text-decoration: line-through;
+}
+
 .stock {
     font-family: Montserrat;
     font-size: 18px;

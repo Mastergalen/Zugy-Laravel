@@ -28,7 +28,8 @@
         <div class="col-md-6">
             <h1>Smirnoff Vodka</h1>
             <div class="product-price">
-                <span class="price-standard">16.00&#8364;</span>
+                <span class="price-sales">16.00&#8364;</span>
+                <span class="price-standard">23.00&#8364;</span>
             </div>
             <div class="product-description">
                 <p><b>Smirnoff</b> is made from the finest grains with a triple distillation and proprietary filtration process that has made Smirnoff the world’s number-one premium vodka brand. From everyday drinks to a celebratory toast, Smirnoff vodka is the perfect base to any easy, hassle free cocktail.</p>
@@ -48,7 +49,7 @@
             <hr/>
             <button class="btn btn-success btn-lg" type="button"><i class="fa fa-cart-plus"></i> Add to cart</button>
             <div class="stock">
-                <i class="fa fa fa-check-circle-o" style="color: #4CC94A;"></i> In Stock
+                <i class="fa fa fa-check-circle-o" style="color: #4CC94A;"></i> In Stock <small>Deliver within an hour</small>
             </div>
 
             <hr/>
