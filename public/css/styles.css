@@ -17,7 +17,15 @@ a {
     background: none;
 }
 
+.nav-tabs {
+    border-bottom: 3px solid #bfc9ca;
+}
+
 /* Footer */
+footer {
+    margin-top: 20px;
+}
+
 footer .footer-main {
     background: #EDEFF1;
     height: auto;
@@ -212,7 +220,7 @@ footer a {
     text-transform: uppercase;
 }
 
-.nav>li>a:focus, .nav>li>a:hover {
+nav .nav>li>a:focus, nav .nav>li>a:hover {
     background: #2c3e50;
 }
 
