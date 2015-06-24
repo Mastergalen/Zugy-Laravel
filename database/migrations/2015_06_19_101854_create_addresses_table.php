@@ -13,7 +13,29 @@ class CreateAddressesTable extends Migration
     public function up()
     {
         Schema::create('addresses', function (Blueprint $table) {
+            $table->increments('id');
 
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+
+            $table->boolean('isShippingPrimary');
+            $table->boolean('isBillingPrimary');
+
+            $table->string('name', 64);
+            $table->string('street', 64);
+            $table->string('city', 32);
+            $table->string('postcode', 10);
+            $table->string('state', 32);
+            $table->string('phone', 32);
+
+            $table->integer('country_id');
+            $table->foreign('country_id')
+                ->references('id')->on('countries')
+                ->onDelete('no action');
+
+            $table->timestamps();
         });
     }
 

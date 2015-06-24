@@ -18,3 +18,7 @@ Route::get('/', function () {
 Route::get('product', function () {
     return view('pages.product');
 });
+
+Route::group(['prefix' => 'auth'], function () {
+    Route::get('login', 'Auth\AuthController@facebookLogin');
+});

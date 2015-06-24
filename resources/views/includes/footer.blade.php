@@ -37,7 +37,7 @@
 </div>
 <div class="footer-bottom">
     <div class="container">
-        <p class="pull-left">&copy; {!! config('site.name') !!} {!! date("Y") !!}. All rights reserved. | <a href="/privacy-policy">Privacy Policy</a></p>
+        <p class="pull-left">&copy; {!! config('site.name') !!} {!! date("Y") !!}. All rights reserved.</p>
         <div class="pull-right payment-method-img">
             <img height="30" class="pull-right" src="/img/payment/master_card.png" alt="Master Card">
             <img height="30" class="pull-right" src="/img/payment/visa_card.png" alt="Visa">

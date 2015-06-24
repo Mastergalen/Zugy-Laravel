@@ -35,4 +35,15 @@ return [
         'secret' => '',
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_SECRET'),
+        'redirect' => 'http://your-callback-url',
+    ],
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_SECRET'),
+        'redirect' => 'http://homestead.app/auth/login/facebook',
+    ],
+
 ];

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -60,5 +62,14 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function facebookLogin(Request $request) {
+        if(!$request->has('code')) {
+            return Socialite::with('facebook')->redirect();
+        }
+
+        dd(Socialite::driver('facebook')->user());
+
     }
 }

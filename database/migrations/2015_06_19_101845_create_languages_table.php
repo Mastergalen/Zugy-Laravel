@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersBasketTable extends Migration
+class CreateLanguagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,11 @@ class CreateUsersBasketTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('languages', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 32);
+            $table->char('code', 2);
+        });
     }
 
     /**
@@ -22,6 +26,6 @@ class CreateUsersBasketTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('languages');
     }
 }
