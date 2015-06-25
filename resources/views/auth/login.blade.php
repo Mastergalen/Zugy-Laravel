@@ -57,7 +57,7 @@
                         </a>
                     </div>
                     <div class="col-xs-4">
-                        <a href="#" class="btn btn-lg btn-block btn-twitter">
+                        <a href="/auth/login/twitter" class="btn btn-lg btn-block btn-twitter">
                             <i class="fa fa-twitter"></i>
                             <span class="hidden-xs">Twitter</span>
                         </a>
