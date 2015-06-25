@@ -12,7 +12,10 @@
                 <span class="cart-respons">Cart (24.39&#8364;)</span>
             </button>
 
-            <img src="/img/zugy-navbar-logo.png" style="display:inline; height:35px; float: left; margin: 8px 3px 0 0">
+            <a href="/">
+                <img src="/img/zugy-navbar-logo.png"
+                             style="display:inline; height:35px; float: left; margin: 8px 3px 0 0">
+            </a>
         </div>
 
 
@@ -68,22 +71,20 @@
                     </a>
                 </li>
                 @if (Auth::check())
-                    @if(Auth::user()->group_id == 1) {{-- If in admin goup --}}
-                    <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                    @else
-                        <li><a href="{!! route('dashboard') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                    @if(Auth::user()->group_id === 1) {{-- If in admin goup --}}
+                        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
                     @endif
 
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user"></i> {{ Auth::user()->first_name }}<b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="{!! route('your-account') !!}"><i class="fa fa-user"></i> My account <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/account/settings"><i class="fa fa-cog"></i> Account settings</a></li>
+                            <li><a href="/your-account/settings"><i class="fa fa-cog"></i> Account settings</a></li>
                             <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> Sign out</a></li>
                         </ul>
                     </li>
                 @else
                     <li>
-                        <a href="/auth/register"><i class="fa fa-user"></i> My account</a>
+                        <a href="{!! route('your-account') !!}"><i class="fa fa-user"></i> My account</a>
                     </li>
                 @endif
             </ul>
@@ -97,12 +98,12 @@
                         <div class="col-md-offset-3 col-md-6 col-xs-12">
                             <div class="row">
                                 <div class="col-md-2 col-xs-3 mini-cart-product-thumb">
-                                    <div><a href="product-details.html"> <img
+                                    <div><a href="/product"> <img
                                                     src="http://www.lcbo.com/content/dam/lcbo/products/038505.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg"
                                                     alt="img"> </a></div>
                                 </div>
                                 <div class="col-md-5 col-xs-4 miniCartDescription">
-                                    <h4><a href="product-details.html"> Smirnoff Vodka </a></h4>
+                                    <h4><a href="/product"> Smirnoff Vodka </a></h4>
                                     <span class="size"> 1.5 L </span>
 
                                     <div class="price"><span> 12.00&#8364; </span></div>
@@ -117,12 +118,12 @@
                         <div class="col-md-offset-3 col-md-6 col-xs-12">
                             <div class="row">
                                 <div class="col-md-2 col-xs-3 mini-cart-product-thumb">
-                                    <div><a href="product-details.html"> <img
+                                    <div><a href="/product"> <img
                                                     src="http://randolphpackage.com/images/Captain-Morgan%20.jpg"
                                                     alt="img"> </a></div>
                                 </div>
                                 <div class="col-md-5 col-xs-4 miniCartDescription">
-                                    <h4><a href="product-details.html"> Captain Morgan </a></h4>
+                                    <h4><a href="/product"> Captain Morgan </a></h4>
                                     <span class="size"> Spiced Rum 1.0 L </span>
 
                                     <div class="price"><span> 12.39&#8364; </span></div>

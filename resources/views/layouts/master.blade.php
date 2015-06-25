@@ -10,7 +10,9 @@ $siteName = Config::get('site.siteName');
     <body>
         @include('includes.header')
         
-        @yield('content')
+        <div class="main-content">
+            @yield('content')
+        </div>
 
         <footer>@include('includes.footer')</footer>
 

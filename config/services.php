@@ -38,12 +38,17 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_SECRET'),
-        'redirect' => 'http://your-callback-url',
+        'redirect' => env('APP_URL') . '/auth/login/google',
     ],
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_SECRET'),
-        'redirect' => 'http://homestead.app/auth/login/facebook',
+        'redirect' => env('APP_URL') . '/auth/login/facebook',
+    ],
+    'twitter' =>  [
+        'client_id' => env('TWITTER_CLIENT_ID'),
+        'client_secret' => env('TWITTER_SECRET'),
+        'redirect' => env('APP_URL') . '/auth/login/twitter',
     ],
 
 ];

@@ -9,6 +9,7 @@
                 <img src="/img/carousel/alcohol-drinks.jpg" style="margin:auto;">
                 <div class="carousel-caption">
                     <div>
+                        @include('includes.notifications')
                         <img src="/img/zugy-logo-dark.png" alt="Zugy Dark Logo"/>
                         <h4>Your favorite beer, wine, spirits delivered to your doorstep</h4>
 

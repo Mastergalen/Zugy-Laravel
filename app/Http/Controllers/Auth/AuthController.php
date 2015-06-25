@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Services\AuthenticateUser;
 use App\User;
 use Illuminate\Http\Request;
-use Laravel\Socialite\Facades\Socialite;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -64,12 +64,20 @@ class AuthController extends Controller
         ]);
     }
 
-    public function facebookLogin(Request $request) {
-        if(!$request->has('code')) {
-            return Socialite::with('facebook')->redirect();
-        }
+    public function login(Request $request) {
+        return view('auth.login');
+    }
 
-        dd(Socialite::driver('facebook')->user());
+    public function facebookLogin(AuthenticateUser $authenticateUser, Request $request) {
+        return $authenticateUser->facebookLogin($request);
+    }
 
+    public function googleLogin(AuthenticateUser $authenticateUser, Request $request) {
+        return $authenticateUser->googleLogin($request);
+    }
+
+    public function getLogout() {
+        auth()->logout();
+        return redirect('/');
     }
 }

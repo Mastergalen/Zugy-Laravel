@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Providers;
-
 use Illuminate\Support\ServiceProvider;
+use App\Jobs\AuthenticateUser;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,5 +26,9 @@ class AppServiceProvider extends ServiceProvider
         if($this->app->environment('local')) {
             $this->app->register('Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider');
         }
+
+        $this->app->bind(AuthenticateUser::class, function() {
+            return new AuthenticateUser();
+        });
     }
 }

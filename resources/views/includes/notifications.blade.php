@@ -1,4 +1,4 @@
-@if ($message = Session::get('success'))
+@if ($message = session('success'))
 <div class="alert alert-success alert-block">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <h4>Success</h4>
@@ -6,7 +6,7 @@
     @else {{ $message }} @endif
 </div>
 @endif
-@if ($message = Session::get('error'))
+@if ($message = session('error'))
 <div class="alert alert-danger alert-block">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <h4>Error</h4>
@@ -14,7 +14,7 @@
     @else {{ $message }} @endif
 </div>
 @endif
-@if ($message = Session::get('warning'))
+@if ($message = session('warning'))
 <div class="alert alert-warning alert-block">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <h4>Warning</h4>
@@ -22,7 +22,7 @@
     @else {{ $message }} @endif
 </div>
 @endif
-@if ($message = Session::get('info'))
+@if ($message = session('info'))
 <div class="alert alert-info alert-block">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <h4>Info</h4>

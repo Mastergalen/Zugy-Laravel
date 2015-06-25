@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Laravel\Socialite\Two\InvalidStateException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -39,6 +40,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if($e instanceof InvalidStateException) {
+            return redirect()->route('login')->with('error', 'Please try logging in again');
+        }
+
         return parent::render($request, $e);
     }
 }

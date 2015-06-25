@@ -2,16 +2,6 @@ h1, h2, h3, h4, h5, h6, p {
     font-family: Montserrat;
 }
 
-a {
-    color: #34495E;
-    text-decoration: none;
-    outline: none!important;
-    -moz-transition: all .2s ease-in;
-    -webkit-transition: all .2s ease-in;
-    -o-transition: all .2s ease-in;
-    transition: all .2s ease-in;
-}
-
 .breadcrumb {
     border: 1px solid #DDDDDD;
     background: none;
@@ -22,8 +12,13 @@ a {
 }
 
 /* Footer */
-footer {
-    margin-top: 20px;
+body {
+    background-color: #E3E3E3;
+}
+
+.main-content {
+    background-color: #fff;
+    padding-bottom: 20px;
 }
 
 footer .footer-main {
@@ -240,6 +235,12 @@ nav .nav>li>a:focus, nav .nav>li>a:hover {
 
 .navbar-toggle .icon-bar {
     border: solid 2px #fff;
+}
+
+@media (min-width: 979px) {
+    ul.nav li.dropdown:hover > ul.dropdown-menu {
+        display: block;
+    }
 }
 
 /* Megamenu */
