@@ -35,7 +35,7 @@ class AuthenticateUser
     }
 
     public function twitterLogin(Request $request) {
-        if(!$request->has('code')) {
+        if(!$request->has('oauth_token')) {
             return $this->requestToken('twitter');
         }
 
