@@ -1,13 +1,13 @@
 <div class="navbar navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-cart">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
 
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-cart">
                 <i class="fa fa-shopping-cart"></i>
                 <span class="cart-respons">Cart (24.39&#8364;)</span>
             </button>
