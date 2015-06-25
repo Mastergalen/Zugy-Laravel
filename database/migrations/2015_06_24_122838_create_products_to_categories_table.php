@@ -13,6 +13,7 @@ class CreateProductsToCategoriesTable extends Migration
     public function up()
     {
         Schema::create('products_to_categories', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
 
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')

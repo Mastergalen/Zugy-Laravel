@@ -39,6 +39,8 @@ class AuthenticateUser
             return $this->requestToken('twitter');
         }
 
+        dd(Socialite::driver('twitter')->user());
+
         return $this->loginOrCreateUser('twitter', Socialite::driver('twitter')->user());
     }
 

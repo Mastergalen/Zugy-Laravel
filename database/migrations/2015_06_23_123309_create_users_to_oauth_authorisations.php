@@ -13,6 +13,8 @@ class CreateUsersToOauthAuthorisations extends Migration
     public function up()
     {
         Schema::create('users_to_oauth_authorisations', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->string('network');
             $table->string('network_user_id');
 

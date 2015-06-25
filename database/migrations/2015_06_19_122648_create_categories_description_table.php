@@ -13,6 +13,8 @@ class CreateCategoriesDescriptionTable extends Migration
     public function up()
     {
         Schema::create('categories_description', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')
                 ->references('id')->on('categories')

@@ -13,6 +13,8 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('id');
             $table->integer('stock_quantity')->unsigned();
             $table->decimal('price', 10, 2);

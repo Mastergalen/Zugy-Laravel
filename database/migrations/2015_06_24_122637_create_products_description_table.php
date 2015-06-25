@@ -13,6 +13,8 @@ class CreateProductsDescriptionTable extends Migration
     public function up()
     {
         Schema::create('products_description', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')
                 ->references('id')->on('products')

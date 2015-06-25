@@ -13,6 +13,8 @@ class CreateUsersBasketTable extends Migration
     public function up()
     {
         Schema::create('users_basket', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('id');
 
             $table->integer('user_id')->unsigned();

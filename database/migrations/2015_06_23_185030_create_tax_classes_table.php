@@ -13,6 +13,8 @@ class CreateTaxClassesTable extends Migration
     public function up()
     {
         Schema::create('tax_classes', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('id');
             $table->string('title', 32);
             $table->string('description', 255);
