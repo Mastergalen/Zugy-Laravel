@@ -34,16 +34,6 @@ class AuthenticateUser
         return $this->loginOrCreateUser('google', Socialite::driver('google')->user());
     }
 
-    public function twitterLogin(Request $request) {
-        if(!$request->has('oauth_token')) {
-            return $this->requestToken('twitter');
-        }
-
-        dd(Socialite::driver('twitter')->user());
-
-        return $this->loginOrCreateUser('twitter', Socialite::driver('twitter')->user());
-    }
-
     public function loginOrCreateUser($oauth_provider, $oauth_user) {
 
         $oauth_authorisation = OAuthAuthorisations::where('network', '=', $oauth_provider)

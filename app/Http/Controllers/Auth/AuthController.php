@@ -76,10 +76,6 @@ class AuthController extends Controller
         return $authenticateUser->googleLogin($request);
     }
 
-    public function twitterLogin(AuthenticateUser $authenticateUser, Request $request) {
-        return $authenticateUser->twitterLogin($request);
-    }
-
     public function getLogout() {
         auth()->logout();
         return redirect('/');

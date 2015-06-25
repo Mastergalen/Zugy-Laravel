@@ -23,7 +23,6 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('login', ['as' => 'login', 'uses' => 'Auth\AuthController@login']);
     Route::get('login/facebook', 'Auth\AuthController@facebookLogin');
     Route::get('login/google', 'Auth\AuthController@googleLogin');
-    Route::get('login/twitter', 'Auth\AuthController@twitterLogin');
 
     Route::get('logout', ['uses' => 'Auth\AuthController@getLogout']);
 });
