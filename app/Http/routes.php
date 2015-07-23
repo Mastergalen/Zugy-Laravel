@@ -24,13 +24,22 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('login/facebook', 'Auth\AuthController@facebookLogin');
     Route::get('login/google', 'Auth\AuthController@googleLogin');
 
-    Route::get('logout', ['uses' => 'Auth\AuthController@getLogout']);
+    Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 });
 
 Route::group(['prefix' => 'your-account', 'middleware' => 'auth'], function () {
     Route::get('', ['as' => 'your-account',function() {
         return view('pages.account.home');
     }]);
+});
+
+//TODO Change middleware to admin
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+    Route::get('', [function() {
+        return view('admin.pages.dash');
+    }]);
+
+    Route::resource('catalogue', 'Admin\CatalogueController');
 });
 
 Route::get('test', function() {
