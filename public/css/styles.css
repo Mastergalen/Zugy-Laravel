@@ -343,11 +343,3 @@ nav .nav>li>a:focus, nav .nav>li>a:hover {
     background: rgba(0,0,0,0.2);
     color: #ffffff;
 }
-
-/*
-@media (max-width: 767px) {
-    .mini-cart-product, .mini-cart-product a, .mini-cart-product p, .mini-cart-product .size, .mini-cart-product .price, .dropdown-header {
-        color: #FFFFFF;
-    }
-}
-*/
