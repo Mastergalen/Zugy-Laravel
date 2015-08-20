@@ -7,11 +7,8 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
-<!-- Morris -->
-<link href="/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
-
-<link href="/css/admin/animate.css" rel="stylesheet">
 <link href="/css/admin/style.css" rel="stylesheet">
+<link href="/css/admin/skin-blue.css" rel="stylesheet">
 
 <link rel="apple-touch-icon" sizes="57x57" href="/assets/icons/apple-touch-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="/assets/icons/apple-touch-icon-60x60.png">
@@ -32,3 +29,7 @@
 <meta name="msapplication-TileImage" content="/assets/icons/mstile-144x144.png">
 <meta name="msapplication-config" content="/assets/icons/browserconfig.xml">
 <meta name="theme-color" content="#ffffff">
+
+<link href="//cloud.github.com/downloads/lafeber/world-flags-sprite/flags32.css" rel="stylesheet" />
+
+@yield('css')
