@@ -24,28 +24,47 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password', 'settings'];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
+
+    protected $casts = [
+        'settings' => 'json'
+    ];
+
     protected $hidden = ['password', 'remember_token'];
 
-    public function oauth_authorisations() {
+    public function oauth_authorisations()
+    {
         return $this->hasMany('App\OAuthAuthorisations');
     }
 
-    public function orders() {
+    /**
+     * Get the user settings.
+     *
+     * @return Settings
+     */
+    public function settings()
+    {
+        return new Settings($this);
+    }
+
+    public function orders()
+    {
         return $this->hasMany('App\Order');
     }
 
-    public function addresses() {
+    public function addresses()
+    {
         return $this->hasMany('App\Address');
     }
 
-    public function basket() {
+    public function basket()
+    {
         return $this->hasMany('App\Basket');
     }
 }
