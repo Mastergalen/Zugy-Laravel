@@ -19,7 +19,7 @@ class Product extends Model
 
     public function attributes()
     {
-        return $this->belongsToMany('App\Attributes', 'products_to_attributes');
+        return $this->belongsToMany('App\Attribute', 'products_to_attributes');
     }
 
     public function categories()

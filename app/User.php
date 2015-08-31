@@ -67,4 +67,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasMany('App\Basket');
     }
+
+    public function getLanguageCodeAttribute() {
+        return strtolower(Language::find(auth()->user()->settings()->language)->pluck('code'));
+    }
 }

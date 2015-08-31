@@ -291,8 +291,6 @@
                     selectedValues.push(this.value);
                 });
 
-                console.log(selectedValues);
-
                 $attributesContainer.find('.attribute-row option').removeAttr("disabled").filter(function() {
                     var a = $(this).parent('select').val();
                     return (($.inArray(this.value, selectedValues) > -1) && (this.value!=a))

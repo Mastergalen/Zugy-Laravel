@@ -1,5 +1,4 @@
-@section('title', $product->description[0]->title)
-@section('meta_description', $product->description[0]->title)
+@section('title', 'Zugy - Alcohol Delivery on-demand for Milan')
 
 @extends('layouts.default')
 
@@ -10,55 +9,47 @@
     <link rel="stylesheet" href="/css/owl.theme.css">
 
     <ul class="breadcrumb">
-        <li><a href="/">Home</a></li>
-        <li><a href="/shop">Shop</a></li>
-        <li><a href="#">Vodka</a></li>
-        <li class="active">{!! $product->description[0]->title !!}</li>
+        <li> <a href="/">Home</a> </li>
+        <li> <a href="/shop">Shop</a> </li>
+        <li> <a href="#">Vodka</a> </li>
+        <li class="active">Smirnoff Vodka </li>
     </ul>
     <div class="row">
         <div class="col-md-6">
             <div class="gallery sp-wrap">
-                @foreach($product->images as $image)
-                    <a href="{!! $image->url !!}">
-                        <img src="{!! $image->url !!}" alt="{!! $product->description[0]->title !!} image">
-                    </a>
-                @endforeach
+                <a href="http://www.lcbo.com/content/dam/lcbo/products/038505.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg">
+                    <img src="http://www.lcbo.com/content/dam/lcbo/products/038505.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg" alt=""/>
+                </a>
+                <a href="http://i.imgur.com/nh4bSIh.jpg">
+                    <img src="http://i.imgur.com/nh4bSIh.jpg" alt=""/>
+                </a>
             </div>
         </div>
         <div class="col-md-6">
-            <h1>{{$product->description[0]->title}}</h1>
+            <h1>Smirnoff Vodka</h1>
             <div class="product-price">
-                <span class="price-sales">{{$product->price}}&#8364;</span>
-                @if(isset($product->compare_price))
-                    <span class="price-standard">{{$product->compare_price}}&#8364;</span>
-                @endif
+                <span class="price-sales">16.00&#8364;</span>
+                <span class="price-standard">23.00&#8364;</span>
             </div>
             <div class="product-description">
-                {!! $product->description[0]->description !!}
+                <p><b>Smirnoff</b> is made from the finest grains with a triple distillation and proprietary filtration process that has made Smirnoff the world’s number-one premium vodka brand. From everyday drinks to a celebratory toast, Smirnoff vodka is the perfect base to any easy, hassle free cocktail.</p>
             </div>
             <hr/>
-            @if($product->stock_quantity > 0)
-                <select name="quantity" class="form-control" placeholder="Quantity">
-                    <option value="null">Quantity</option>
-                    <?php $i = 1 ?>
-                    @while($i <= 9 && $i <= $product->stock_quantity)
-                        <option value="{!! $i !!}">{!! $i !!}</option>
-                        <?php $i++ ?>
-                    @endwhile
-                </select>
-                <hr/>
-                <button class="btn btn-success btn-lg" type="button"><i class="fa fa-cart-plus"></i> Add to cart</button>
-            @endif
+            <select name="quantity" class="form-control" placeholder="Quantity">
+                <option value="null">Quantity</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select>
+            <hr/>
+            <button class="btn btn-success btn-lg" type="button"><i class="fa fa-cart-plus"></i> Add to cart</button>
             <div class="stock">
-                @if($product->stock_quantity >= 5)
-                    <i class="fa fa fa-check-circle-o" style="color: #4CC94A;"></i> In Stock <small>Delivery within an hour</small>
-                @elseif($product->stock_quantity > 0)
-                    <i class="fa fa fa-check-circle-o" style="color: #4CC94A;"></i> In Stock <small>(only {{$product->stock_quantity}} left) Delivery within an hour</small>
-                @else
-                    <div class="alert alert-danger">
-                        <i class="fa fa fa-times-circle"></i> Out of stock
-                    </div>
-                @endif
+                <i class="fa fa fa-check-circle-o" style="color: #4CC94A;"></i> In Stock <small>Deliver within an hour</small>
             </div>
 
             <hr/>
@@ -76,7 +67,6 @@
                             <td>Item weight</td>
                             <td>1.1kg</td>
                         </tr>
-                        @fo
                         <tr>
                             <td>Volume</td>
                             <td>0.70 litres</td>

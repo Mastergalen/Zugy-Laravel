@@ -70,8 +70,8 @@
                         <td>{{ $p['status'] }}</td>
                         <td class="text-right">
                             <div class="btn-group">
-                                <button class="btn-white btn btn-xs">View</button>
-                                <button class="btn-white btn btn-xs">Edit</button>
+                                <a href="{!! action('ProductController@show', [auth()->user()->language_code, $p['description'][0]['slug']]) !!}" class="btn btn-default btn-xs">View</a>
+                                <button class="btn btn-default btn-xs">Edit</button>
                             </div>
                         </td>
 
