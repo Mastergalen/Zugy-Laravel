@@ -14,7 +14,11 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call('UserTableSeeder');
+        $this->call(CountriesSeeder::class);
+        $this->call(LanguageSeeder::class);
+        $this->call(TaxClassSeeder::class);
+        $this->call(CategoriesSeeder::class);
+        $this->call(AttributesSeeder::class);
 
         Model::reguard();
     }

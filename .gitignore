@@ -3,7 +3,7 @@
 /node_modules
 .env
 
-/public/img
+/public/uploads
 
 composer.lock
 

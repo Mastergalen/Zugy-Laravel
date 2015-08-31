@@ -18,8 +18,8 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->integer('stock_quantity')->unsigned();
             $table->decimal('price', 10, 2);
+            $table->decimal('compare_price', 10, 2)->nullable();
             $table->decimal('weight', 7, 2);
-            $table->dateTime('date_added');
 
             $table->integer('tax_class_id')->unsigned();
             $table->foreign('tax_class_id')

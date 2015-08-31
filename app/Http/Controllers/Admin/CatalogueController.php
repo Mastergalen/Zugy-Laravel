@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Language;
 use App\Product;
+use App\Services\CreateOrUpdateProduct;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -28,7 +30,9 @@ class CatalogueController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.catalogue.create');
+        $languages = Language::all();
+
+        return view('admin.pages.catalogue.create')->with(['languages' => $languages]);
     }
 
     /**
@@ -36,9 +40,9 @@ class CatalogueController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request, CreateOrUpdateProduct $service)
     {
-        //
+        return $service->handler($request);
     }
 
     /**
@@ -69,9 +73,9 @@ class CatalogueController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request, CreateOrUpdateProduct $service, $productId)
     {
-        //
+        $service->handler($request, $productId);
     }
 
     /**

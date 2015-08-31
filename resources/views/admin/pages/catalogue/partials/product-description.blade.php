@@ -1,7 +1,27 @@
 <div class="form-group">
-    <label for="name">Product title</label>
-    {!! Form::text("meta[{$l['code']}][title]", Input::old("meta[{$l['code']}][title]"), ['class' => 'form-control', 'placeholder' => 'Product title']) !!}
+    <label for="meta[{!! $l['code'] !!}][title]">Product title</label>
+    {!! Form::text("meta[{$l['code']}][title]", Input::old("meta[{$l['code']}][title]"), ['class' => 'form-control', 'placeholder' => 'Product title', 'minlength' => '3', 'required' => 'required']) !!}
 </div>
+
+<div class="form-group">
+    <label for="meta[{!! $l['code'] !!}][slug]">Slug</label>
+    <div class="input-group">
+        <span class="input-group-addon">{{ env('APP_URL') }}/product/</span>
+        {!! Form::text(
+            "meta[{$l['code']}][slug]",
+            Input::old("meta[{$l['code']}][slug]"),
+            [
+                'class' => 'form-control',
+                'placeholder' => 'Slug',
+                'minlength' => '3',
+                'pattern' => "^[a-z0-9-]+$",
+                'data-fv-regexp-message' => "The slug can only be alphanumeric and use dashes.",
+                'required' => 'required'
+            ]
+        ) !!}
+    </div>
+</div>
+
 <div class="form-group">
     <label for="">Description</label>
     <div class="summernote">
@@ -22,9 +42,10 @@
             <li>Unknown printer</li>
         </ul>
     </div>
+    {!! Form::hidden("meta[{$l['code']}][description]") !!}
 </div>
 <div class="form-group">
     <label for="meta_description">Meta description</label>
     <span class="help-text">This is the description that will appear on search engine listings.</span>
-    {!! Form::text("meta[{$l['code']}][meta_description]", Input::old("meta[{$l['code']}][meta_description]"), ['class' => 'form-control', 'placeholder' => 'Meta description']) !!}
+    {!! Form::text("meta[{$l['code']}][meta_description]", Input::old("meta[{$l['code']}][meta_description]"), ['class' => 'form-control', 'placeholder' => 'Meta description', 'data-minlength' => '10', 'required' => 'required']) !!}
 </div>

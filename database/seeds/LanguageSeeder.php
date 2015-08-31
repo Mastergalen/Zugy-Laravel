@@ -10,8 +10,8 @@ class LanguageSeeder extends Seeder
 {
     public function run() {
         DB::table('languages')->insert([
-            ['name' => 'English', 'code' => 'EN'],
-            ['name' => 'Italian', 'code' => 'IT']
+            ['id' => 1, 'name' => 'English', 'code' => 'EN', 'flag' => 'gb'],
+            ['id' => 2, 'name' => 'Italian', 'code' => 'IT', 'flag' => 'it']
         ]);
     }
 }

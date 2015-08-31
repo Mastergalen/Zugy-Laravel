@@ -1,5 +1,7 @@
 <?php
 
 return  [
-    "name" => 'Zugy'
+    "name" => 'Zugy',
+
+    'maxImageSize' => 10000000, //10MB
 ];

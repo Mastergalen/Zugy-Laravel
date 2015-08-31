@@ -11,6 +11,8 @@
 |
 */
 
+use App\Product;
+
 Route::get('/', function () {
     return view('pages.home');
 });
@@ -40,8 +42,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     }]);
 
     Route::resource('catalogue', 'Admin\CatalogueController');
+    Route::post('image/upload', 'Admin\ImageController@upload');
 });
 
 Route::get('test', function() {
-    //
 });

@@ -25,10 +25,13 @@ class CreateProductsDescriptionTable extends Migration
                 ->references('id')->on('languages')
                 ->onDelete('no action');
 
+            $table->string('slug', 255)->unique();
+
             $table->primary(['product_id', 'language_id']);
 
             $table->string('title', 255);
             $table->text('description');
+            $table->string('meta_description', 255);
         });
     }
 

@@ -20,7 +20,7 @@
     </header>
 
     <aside class="main-sidebar">
-        <section class="sidebar" style="height: auto">
+        <section class="sidebar">
             <ul class="sidebar-menu">
                 @include('admin.includes.menu')
             </ul>

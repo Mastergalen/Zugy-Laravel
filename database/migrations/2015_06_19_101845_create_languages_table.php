@@ -18,6 +18,7 @@ class CreateLanguagesTable extends Migration
             $table->increments('id');
             $table->string('name', 32);
             $table->char('code', 2);
+            $table->char('flag', 2);
         });
     }
 
