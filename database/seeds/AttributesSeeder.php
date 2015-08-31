@@ -9,11 +9,11 @@ class AttributesSeeder extends Seeder
         Model::unguard();
 
         Attribute::create()->description()->create([
-           'language_id' => 1, 'name' => 'Volume'
+           'language_id' => 1, 'name' => 'Volume', 'unit' => 'litres'
         ]);
 
         Attribute::create()->description()->create([
-            'language_id' => 1, 'name' => 'Alcohol Content'
+            'language_id' => 1, 'name' => 'Alcohol Content', 'unit' => '% Vol'
         ]);
     }
 }

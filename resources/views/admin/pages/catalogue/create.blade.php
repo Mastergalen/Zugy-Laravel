@@ -134,27 +134,47 @@
                     </div>
 
                     <legend>Attributes</legend>
-                    <div class="row">
+                    <div class="form-horizontal" id="attributes-container">
                         <p class="help-text">Give the product attributes like volume, alcohol content, etc.</p>
-                        <div class="col-lg-5">
-                            <div class="form-group">
-                                {!!
-                                    Form::select(
-                                        'attribute_id',
-                                        $Attributes->with(['description' => function ($query) {
-                                            $query->where('language_id', '=', auth()->user()->settings()->language);
-                                        }])->get()->lists('description.0.name','id'),
-                                        null,
-                                        ['class' => 'form-control']
-                                    )
-                                !!}
+                        <div class="form-group attribute-row" data-index="0">
+                            <div class="col-lg-5">
+                                <?php
+                                $attributesArray = $Attributes->getByLanguage(auth()->user()->settings()->language);
+                                ?>
+                                <select name="attributes[0][id]" class="form-control">
+                                    @foreach($attributesArray as $a)
+                                        <option value="{!! $a[0]['attribute_id'] !!}" data-unit="{!! $a[0]['unit'] !!}">{!! $a[0]['name'] !!}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="input-group">
+                                    <input type="text" name="attributes[0][value]" class="form-control">
+                                    <span class="input-group-addon"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
                             </div>
                         </div>
-                        <div class="col-lg-5">
-                            {!! Form::text('attribute_value', Input::old('attribute_value'), ['class' => 'form-control', 'placeholder' => 'Attribute value']) !!}
-                        </div>
-                        <div class="col-lg-2">
-                            <button class="btn btn-default"><i class="fa fa-plus"></i></button>
+
+                        <div class="form-group hide" id="attribute-template">
+                            <div class="col-lg-5">
+                                <select name="id" class="form-control">
+                                    @foreach($attributesArray as $a)
+                                        <option value="{!! $a[0]['attribute_id'] !!}" data-unit="{!! $a[0]['unit'] !!}">{!! $a[0]['name'] !!}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="input-group">
+                                    <input type="text" name="value" class="form-control">
+                                    <span class="input-group-addon"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn btn-default removeButton"><i class="fa fa-remove"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -238,6 +258,7 @@
                 }
             });
 
+            /* Generate slug */
             $('input[name$="[title]"]').keyup(function() {
                 var slug = slugify($(this).val());
 
@@ -250,8 +271,80 @@
                 $form.formValidation('revalidateField', slugName);
             });
 
-            //Initialise hidden inputs
+            /* Product Attributes */
+            var productAttributes = {!! json_encode($Attributes::getByLanguage(auth()->user()->settings()->language)) !!}
+            var $attributesContainer = $('#attributes-container');
+            var attributeIndex = 0;
 
+            $attributesContainer
+                .find('input[name="attributes[0][value]"]')
+                .next('.input-group-addon')
+                .html(productAttributes[0][0].unit);
+
+            $attributesContainer.on('change', 'select[name^="attributes"]', function() {
+                var unit = $(this).find('option:selected').data('unit');
+                $(this).closest('.form-group').find('.input-group-addon').html(unit);
+
+                var selectedValues = [];
+
+                $attributesContainer.find('select[name^="attributes"]').each(function() {
+                    selectedValues.push(this.value);
+                });
+
+                console.log(selectedValues);
+
+                $attributesContainer.find('.attribute-row option').removeAttr("disabled").filter(function() {
+                    var a = $(this).parent('select').val();
+                    return (($.inArray(this.value, selectedValues) > -1) && (this.value!=a))
+                }).attr("disabled","disabled");
+
+                $('#attribute-template').find('option').removeAttr("disabled").filter(function() {
+                    return (($.inArray(this.value, selectedValues) > -1))
+                }).attr("disabled","disabled");
+            });
+
+            $attributesContainer.find('select').eq(0).trigger('change');
+
+            //Add button click handler
+            $attributesContainer.find('.addButton').click(function() {
+                if($attributesContainer.find('.attribute-row').length >= productAttributes.length) {
+                    alert('Max. number of attributes reached!');
+                    return;
+                }
+
+                attributeIndex++;
+                var $template = $('#attribute-template');
+                var $clone = $template
+                    .clone()
+                    .removeClass('hide')
+                    .addClass('attribute-row')
+                    .removeAttr('id')
+                    .attr('data-index', attributeIndex)
+                    .insertBefore($template)
+                    .hide()
+                    .show('slow');
+
+                //Update name attributes
+                $clone
+                    .find('[name="id"]').attr('name', 'attributes[' + attributeIndex + '][id]').end()
+                    .find('[name="value"]').attr('name', 'attributes[' + attributeIndex + '][value]').end()
+
+                $attributesContainer.find('select').eq(0).trigger('change');
+
+                $clone.find('.input-group-addon').html($clone.find('option:selected').data('unit'));
+
+            });
+
+            $attributesContainer.on('click', '.form-group .removeButton', function() {
+                $(this).closest('.form-group')
+                        .hide('slow', function() {
+                            $(this).remove();
+                        });
+
+                $attributesContainer.find('select').eq(0).trigger('change');
+            });
+
+            /* Init Editor */
             $('.summernote').summernote({
                 toolbar: [
                     ['style', ['style', 'bold', 'italic', 'underline', 'clear']],

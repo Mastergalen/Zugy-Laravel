@@ -28,6 +28,7 @@ class CreateAttributesDescriptionTable extends Migration
             $table->primary(['attribute_id', 'language_id']);
 
             $table->string('name', 32);
+            $table->string('unit', 32)->nullable();
         });
     }
 

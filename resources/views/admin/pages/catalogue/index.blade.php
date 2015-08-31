@@ -60,36 +60,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>
-                        Example product 1
-                    </td>
-                    <td>
-                        $50.00
-                    </td>
-                    <td>
-                        1000
-                    </td>
-                    <td>
-                        <span class="label label-primary">Enable</span>
-                    </td>
-                    <td class="text-right footable-visible footable-last-column">
-                        <div class="btn-group">
-                            <button class="btn-white btn btn-xs">View</button>
-                            <button class="btn-white btn btn-xs">Edit</button>
-                        </div>
-                    </td>
-                </tr>
 
                 @foreach($products as $p)
                     <tr>
-                        <td>
-                            {{ $p['name'] }}
-                        </td>
-                        <td>{{ $p['stock'] }}</td>
+                        <td>{{ $p['id'] }}</td>
+                        <td>{{ $p->getDescription(auth()->user()->settings()->language)->title }}</td>
+                        <td>{{ $p['price'] }} &#8364;</td>
+                        <td>{{ $p['stock_quantity'] }}</td>
                         <td>{{ $p['status'] }}</td>
-                        <td>
+                        <td class="text-right">
                             <div class="btn-group">
                                 <button class="btn-white btn btn-xs">View</button>
                                 <button class="btn-white btn btn-xs">Edit</button>

@@ -67,6 +67,11 @@ class CreateOrUpdateProduct
             $product->save();
             $product->categories()->attach($request->input('category_id'));
 
+            //TODO Validate if attribute IDs exist
+            foreach($request->input('attributes') as $a) {
+                $product->attributes()->attach($a['id'], ['value' => $a['value']]);
+            }
+
             foreach ($languages as $l) {
                 $product->description()->create([
                     "language_id" => $l['id'],

@@ -19,7 +19,7 @@ class Product extends Model
 
     public function attributes()
     {
-        return $this->belongsTo('App\Attributes', 'products_to_attributes');
+        return $this->belongsToMany('App\Attributes', 'products_to_attributes');
     }
 
     public function categories()
@@ -30,5 +30,10 @@ class Product extends Model
     public function description()
     {
         return $this->hasMany('App\ProductDescription');
+    }
+
+    public function getDescription($language_id)
+    {
+        return $this->description()->where('language_id', '=', $language_id)->first();
     }
 }

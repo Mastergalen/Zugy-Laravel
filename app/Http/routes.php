@@ -11,15 +11,15 @@
 |
 */
 
-use App\Product;
-
 Route::get('/', function () {
     return view('pages.home');
 });
 
-Route::get('product', function () {
-    return view('pages.product');
+Route::get('demo/product', function () {
+    return view('pages.demo.product');
 });
+
+Route::get('product/{language}/{slug}', ['uses' => 'ProductController@show']);
 
 Route::group(['prefix' => 'auth'], function () {
     Route::get('login', ['as' => 'login', 'uses' => 'Auth\AuthController@login']);
