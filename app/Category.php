@@ -9,7 +9,7 @@ class Category extends Model
     protected $table = 'categories';
 
     public function description() {
-        return $this->hasOne('App\CategoryDescription');
+        return $this->hasMany('App\CategoryDescription');
     }
 
     static public function buildTree() {
@@ -85,6 +85,5 @@ class Category extends Model
         }
 
         return printTree($tree);
-
     }
 }

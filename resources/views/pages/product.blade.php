@@ -12,7 +12,9 @@
     <ul class="breadcrumb">
         <li><a href="/">Home</a></li>
         <li><a href="/shop">Shop</a></li>
-        <li><a href="#">Vodka</a></li>
+        @foreach($product->breadcrumbs as $b)
+            <li><a href="#">{{ collect($b['description'])->where('language_id', $language_id)->first()['name']}}</a></li>
+        @endforeach
         <li class="active">{!! $product->description[0]->title !!}</li>
     </ul>
     <div class="row">
@@ -72,19 +74,18 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="details">
                     <table class="table table-bordered table-striped">
-                        <tr>
-                            <td>Item weight</td>
-                            <td>1.1kg</td>
-                        </tr>
-                        @fo
-                        <tr>
-                            <td>Volume</td>
-                            <td>0.70 litres</td>
-                        </tr>
-                        <tr>
-                            <td>Alchol content</td>
-                            <td>37.50 % Vol</td>
-                        </tr>
+                        @if($product->weight != 0)
+                            <tr>
+                                <td>Item weight</td>
+                                <td>{{$product->weight}} kg</td>
+                            </tr>
+                        @endif
+                        @foreach($product->attributes as $a)
+                            <tr>
+                                <td>{{ $a->description[0]->name }}</td>
+                                <td>{{ $a->pivot->value }} {{ $a->description[0]->unit }}</td>
+                            </tr>
+                        @endforeach
                     </table>
                 </div>
                 <div class="tab-pane" id="shipping">

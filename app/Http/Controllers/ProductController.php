@@ -33,6 +33,6 @@ class ProductController extends Controller
 
         if($product === null) abort(404);
 
-        return view('pages.product')->with(['product' => $product]);
+        return view('pages.product')->with(['product' => $product, 'language_id' => $language_id]);
     }
 }

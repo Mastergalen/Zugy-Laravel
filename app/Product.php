@@ -19,7 +19,7 @@ class Product extends Model
 
     public function attributes()
     {
-        return $this->belongsToMany('App\Attribute', 'products_to_attributes');
+        return $this->belongsToMany('App\Attribute', 'products_to_attributes')->withPivot('value');
     }
 
     public function categories()
@@ -35,5 +35,31 @@ class Product extends Model
     public function getDescription($language_id)
     {
         return $this->description()->where('language_id', '=', $language_id)->first();
+    }
+
+    /**
+     * Generate array to form breadcrumbs
+     * @return array
+     */
+    public function getBreadcrumbsAttribute()
+    {
+        $category_id = $this->categories()->get()->pluck('id')->first();
+
+        $tree = Category::with('description')->get();
+
+        $node = $tree->where('id', $category_id)->first();
+
+        $parent_id = $node->parent_id;
+
+        $breadcrumbs = [];
+        while($parent_id !== null) {
+            array_unshift($breadcrumbs, ['description' => $node->toArray()['description'], 'url' => '']);
+            $node = $tree->where('id', $parent_id)->first();
+            $parent_id = $node->parent_id;
+        }
+
+        array_unshift($breadcrumbs, ['description' => $node->toArray()['description'], 'url' => '']);
+
+        return $breadcrumbs;
     }
 }

@@ -14,6 +14,7 @@ class CategoriesSeeder extends Seeder
 
         DB::table('categories_description')->insert([
             ['category_id' => 1, 'language_id' => 1,  'name' => 'Alcohol'],
+            ['category_id' => 1, 'language_id' => 2,  'name' => 'Alcol'],
             ['category_id' => 2, 'language_id' => 1,  'name' => 'Food'],
             ['category_id' => 3, 'language_id' => 1,  'name' => 'Spirits'],
             ['category_id' => 4, 'language_id' => 1,  'name' => 'Wine & champagne'],
