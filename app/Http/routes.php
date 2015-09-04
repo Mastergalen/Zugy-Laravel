@@ -11,6 +11,10 @@
 |
 */
 
+use App\Basket;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('pages.home');
 });
@@ -35,6 +39,18 @@ Route::group(['prefix' => 'your-account', 'middleware' => 'auth'], function () {
     }]);
 });
 
+Route::get('shop', ['uses' => 'ShopController@index']);
+Route::get('cart', ['uses' => 'PageController@getCart']);
+Route::get('checkout', ['uses' => 'PageController@getCheckout']);
+
+/* API */
+Route::group(['prefix' => 'api'], function () {
+    Route::group(['prefix' => 'v1'], function () {
+        //No auth required
+        Route::resource('cart', 'API\CartController');
+    });
+});
+
 //TODO Change middleware to admin
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('', [function() {
@@ -46,4 +62,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 });
 
 Route::get('test', function() {
+    dd($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+    return response()->json(Cart::content());
 });

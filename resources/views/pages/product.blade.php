@@ -3,6 +3,48 @@
 
 @extends('layouts.default')
 
+@section('css')
+    <style>
+        #quantity-selector {
+            display: inline-block;
+        }
+
+        #quantity-selector input[type=radio] {
+            position: absolute;
+            z-index: -1;
+        }
+
+        #quantity-selector input:checked+label {
+            background-color: #ff931e;
+            border-color: #c76a06;
+            color: white;
+        }
+
+        #quantity-selector label {
+            display: inline-block;
+            min-height: 40px;
+            min-width: 40px;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 6px;
+            font-size: 1.3125em;
+            cursor: pointer;
+            border: 1px solid #cdcdcd;
+            background-color: #e8e8e8;
+            border-radius: 1px;
+            color: #282d33;
+        }
+
+        #quantity-selector .form-group.has-error label {
+            border: 1px solid #BF4949;
+        }
+
+        #btn-add-cart {
+            font-size: 16px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <link rel="stylesheet" href="/css/smoothproducts.css">
 
@@ -40,16 +82,19 @@
             </div>
             <hr/>
             @if($product->stock_quantity > 0)
-                <select name="quantity" class="form-control" placeholder="Quantity">
-                    <option value="null">Quantity</option>
-                    <?php $i = 1 ?>
-                    @while($i <= 9 && $i <= $product->stock_quantity)
-                        <option value="{!! $i !!}">{!! $i !!}</option>
-                        <?php $i++ ?>
-                    @endwhile
-                </select>
-                <hr/>
-                <button class="btn btn-success btn-lg" type="button"><i class="fa fa-cart-plus"></i> Add to cart</button>
+                <h3>Select quantity</h3>
+                <fieldset id="quantity-selector" data-product-id="{!! $product->id !!}" data-product-name="{{$product->description[0]->title}}">
+                    <div class="form-group">
+                        <span class="help-block" style="display: none;">Please select how many you want!</span>
+                        <?php $i = 1 ?>
+                        @while($i <= 9 && $i <= $product->stock_quantity)
+                            <input type="radio" name="quantity" value="{!! $i !!}" id="number-{!! $i !!}">
+                            <label for="number-{!! $i !!}">{!! $i !!}</label>
+                            <?php $i++ ?>
+                        @endwhile
+                    </div>
+                </fieldset>
+                <button class="btn btn-success btn-lg" type="button" id="btn-add-cart"><i class="fa fa-cart-plus"></i> Add to cart</button>
             @endif
             <div class="stock">
                 @if($product->stock_quantity >= 5)
@@ -186,6 +231,42 @@
             $('.sp-wrap').smoothproducts();
 
             $(".products").owlCarousel();
+
+            $('#btn-add-cart').click(function() {
+                var $quantitySelector = $('#quantity-selector');
+                var quantity = $quantitySelector.find('input[name="quantity"]:checked').val();
+
+                if(typeof quantity === 'undefined') {
+                    $quantitySelector.find('.form-group').addClass('has-error').end().find('.help-block').show();
+                    return;
+                }
+
+                console.log("Adding to cart: " +  quantity);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{!! action('API\CartController@store') !!}',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    data: {
+                        'name': $quantitySelector.data('product-name'),
+                        'id': $quantitySelector.data('product-id'),
+                        'qty': quantity
+                    },
+                    async: false,
+                    error: function(xhr, status, error) {
+                        var err = eval("(" + xhr.responseText + ")");
+                        alert(err.message);
+                    }
+                });
+
+                hideErrors();
+            });
         });
+
+        function hideErrors() {
+            $('#quantity-selector .form-group').removeClass('has-error').end().find('.help-block').hide();
+        }
     </script>
 @endsection

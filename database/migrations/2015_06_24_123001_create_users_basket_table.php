@@ -15,8 +15,6 @@ class CreateUsersBasketTable extends Migration
         Schema::create('users_basket', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->increments('id');
-
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
                 ->references('id')->on('users')
@@ -27,7 +25,14 @@ class CreateUsersBasketTable extends Migration
                 ->references('id')->on('products')
                 ->onDelete('cascade');
 
+            $table->primary(['user_id', 'product_id']);
+
+            $table->decimal('price', 10, 2);
+            $table->string('name', 255);
+
             $table->integer('quantity')->unsigned();
+
+            $table->json('options')->nullable();
 
             $table->timestamps();
         });

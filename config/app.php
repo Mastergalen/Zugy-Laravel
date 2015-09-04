@@ -139,6 +139,7 @@ return [
         Illuminate\Html\HtmlServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Webpatser\Countries\CountriesServiceProvider::class,
+        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -199,6 +200,7 @@ return [
         'HTML'      => Illuminate\Html\HtmlFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Countries' => Webpatser\Countries\CountriesFacade::class,
+        'Cart'      => Gloudemans\Shoppingcart\Facades\Cart::class,
 
     ],
 

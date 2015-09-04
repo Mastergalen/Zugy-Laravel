@@ -18,6 +18,10 @@ class EventServiceProvider extends ServiceProvider
         ],
     ];
 
+    protected $subscribe = [
+        'App\Listeners\CartEventsListener',
+    ];
+
     /**
      * Register any other events for your application.
      *

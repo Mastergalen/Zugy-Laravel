@@ -66,7 +66,7 @@
                 <li class="hidden-xs">
                     <a href="#" data-toggle="collapse" data-target=".navbar-cart">
                         <i class="fa fa-shopping-cart"></i>
-                        <span class="cart-respons">Cart (24.39&#8364;)</span>
+                        <span class="cart-respons">Cart ({{money_format("%i", Cart::total())}}&#8364;)</span>
                         <b class="caret"></b>
                     </a>
                 </li>
@@ -137,10 +137,10 @@
 
                     <div class="row mini-cart-footer" style="text-align: center">
                         <div class="mini-cart-footer">
-                            <h3 class="subtotal"> Subtotal: 24.39&#8364; </h3>
-                            <a class="btn btn-sm btn-danger"> <i class="fa fa-shopping-cart"> </i> VIEW CART
+                            <h3 class="subtotal"> Subtotal: {{Cart::total()}}&#8364; </h3>
+                            <a class="btn btn-sm btn-danger" href="{!! action('PageController@getCart') !!}"> <i class="fa fa-shopping-cart"> </i> VIEW CART
                             </a>
-                            <a class="btn btn-sm btn-primary"> CHECKOUT </a>
+                            <a class="btn btn-sm btn-primary" href="{!! action('PageController@getCheckout') !!}" @if(Cart::count(false) === 0)disabled @endif> CHECKOUT </a>
                         </div>
                     </div>
                 </div>
