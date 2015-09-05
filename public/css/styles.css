@@ -217,6 +217,10 @@ footer a {
     text-transform: uppercase;
 }
 
+.navbar-nav .dropdown-menu>li>a {
+    color: #333;
+}
+
 nav .nav>li>a:focus, nav .nav>li>a:hover {
     background: #2c3e50;
 }
