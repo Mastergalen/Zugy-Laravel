@@ -12,6 +12,7 @@
 */
 
 use App\Basket;
+use App\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Route;
 
@@ -19,11 +20,13 @@ Route::get('/', function () {
     return view('pages.home');
 });
 
-Route::get('demo/product', function () {
-    return view('pages.demo.product');
+Route::group([
+    'prefix' => Localization::setLocale(),
+    'middleware' => [ 'localize' ] // Route translate middleware
+],
+function() {
+    Route::get(Localization::transRoute('routes.product'), ['uses' => 'ProductController@show']);
 });
-
-Route::get('product/{language}/{slug}', ['uses' => 'ProductController@show']);
 
 Route::group(['prefix' => 'auth'], function () {
     Route::get('login', ['as' => 'login', 'uses' => 'Auth\AuthController@login']);
@@ -62,6 +65,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 });
 
 Route::get('test', function() {
-    dd($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+    dd(Product::first()->getUrl('en'));
     return response()->json(Cart::content());
 });

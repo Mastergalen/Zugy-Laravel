@@ -70,7 +70,7 @@
                         <td>{{ $p['status'] }}</td>
                         <td class="text-right">
                             <div class="btn-group">
-                                <a href="{!! action('ProductController@show', [auth()->user()->language_code, $p['description'][0]['slug']]) !!}" class="btn btn-default btn-xs">View</a>
+                                <a href="{!! Localization::getURLFromRouteNameTranslated(auth()->user()->language_code, 'routes.product', ['slug' => $p['description'][0]['slug']]) !!}" class="btn btn-default btn-xs">View</a>
                                 <button class="btn btn-default btn-xs">Edit</button>
                             </div>
                         </td>

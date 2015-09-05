@@ -106,13 +106,14 @@
                 </thead>
                 <tbody>
                     @foreach(Cart::content() as $row)
+                        <!-- FIXME Add link to product -->
                          <tr class="cart-row" data-product-id="{{$row->id}}" data-row-id="{{$row->rowid}}">
-                            <td class="cart-product-thumb"><a href=""><img
+                            <td class="cart-product-thumb"><a href="{!! $row->product->getUrl() !!}"><img
                                             src="{!! $row->product->images()->first()->url !!}"
                                             alt="{{ $row->name }}"></a></td>
                             <td>
                                 <div class="cart-description">
-                                    <h4>{{ $row->name }}</h4>
+                                    <h4><a href="{!! $row->product->getUrl() !!}">{{ $row->name }}</a></h4>
                                     <div class="price">{{$row->price}}&euro;</div>
                                 </div>
                             </td>
@@ -140,8 +141,7 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-5">
-            <button class="btn btn-block btn-lg btn-success" style="margin-bottom: 20px" @if(Cart::count(false) === 0)disabled @endif>Proceed to checkout <i class="fa fa-arrow-right"></i></button>
-            <div class="box">
+            <div class="box" style="margin-bottom: 10px">
                 <table id="cart-summary" class="table">
                     <tr>
                         <td>Total products</td>
@@ -158,6 +158,7 @@
                     </tr>
                 </table>
             </div>
+            <button class="btn btn-block btn-lg btn-success" @if(Cart::count(false) === 0)disabled @endif>Proceed to checkout <i class="fa fa-arrow-right"></i></button>
         </div>
     </div>
 @endsection
@@ -200,6 +201,7 @@
                 });
             });
 
+            /* Update cart */
             $('#btn-update-cart').click(function() {
 
                 $('#cart-table .cart-row').each(function() {

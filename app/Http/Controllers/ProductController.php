@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Language;
 use App\Product;
-use Illuminate\Http\Request;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -18,9 +18,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($language_code, $slug)
+    public function show($slug)
     {
-        $language_id = Language::where('code', '=', strtoupper($language_code))->first()->id;
+        $language_id = Language::where('code', '=', strtoupper(LaravelLocalization::getCurrentLocale()))->first()->id;
 
         $product = Product::with(['description' => function($query) use ($language_id, $slug) {
             $query->where('slug', '=', $slug)
@@ -29,9 +29,9 @@ class ProductController extends Controller
             ->with('images')
             ->with(['attributes.description' => function($query) use($language_id) {
                 $query->where('language_id', '=', $language_id);
-            }])->first();
+            }])->get()->where('description.0.slug', $slug)->first();
 
-        if($product === null) abort(404);
+        if($product === null) abort(404, 'That product does not exist');
 
         return view('pages.product')->with(['product' => $product, 'language_id' => $language_id]);
     }

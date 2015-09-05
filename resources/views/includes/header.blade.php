@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-cart">
+            <button type="button" class="navbar-toggle cart-icon" data-toggle="collapse" data-target=".navbar-cart">
                 <i class="fa fa-shopping-cart"></i>
                 <span class="cart-respons">Cart (24.39&#8364;)</span>
             </button>
@@ -17,7 +17,6 @@
                              style="display:inline; height:35px; float: left; margin: 8px 3px 0 0">
             </a>
         </div>
-
 
         <nav class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -63,7 +62,7 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li class="hidden-xs">
+                <li class="hidden-xs cart-icon">
                     <a href="#" data-toggle="collapse" data-target=".navbar-cart">
                         <i class="fa fa-shopping-cart"></i>
                         <span class="cart-respons">Cart ({{money_format("%i", Cart::total())}}&#8364;)</span>
@@ -94,50 +93,39 @@
         <div class="navbar-cart collapse" collapse="cartCollapsed">
             <div class="mega-dropdown ">
                 <div class="mega-dropdown-menu mini-cart">
-                    <div class="mini-cart-product row">
-                        <div class="col-md-offset-3 col-md-6 col-xs-12">
-                            <div class="row">
-                                <div class="col-md-2 col-xs-3 mini-cart-product-thumb">
-                                    <div><a href="/product"> <img
-                                                    src="http://www.lcbo.com/content/dam/lcbo/products/038505.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg"
-                                                    alt="img"> </a></div>
-                                </div>
-                                <div class="col-md-5 col-xs-4 miniCartDescription">
-                                    <h4><a href="/product"> Smirnoff Vodka </a></h4>
-                                    <span class="size"> 1.5 L </span>
+                    @if(Cart::count(false) === 0)
+                        <div class="mini-cart-product row" style="text-align: center; padding-bottom: 17px">
+                            <h2>Nothing your cart yet <i class="fa fa-frown-o"></i></h2>
+                        </div>
+                    @endif
+                    @foreach(Cart::content() as $row)
+                        <div class="mini-cart-product row">
+                            <div class="col-md-offset-3 col-md-6 col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-2 col-xs-3 mini-cart-product-thumb">
+                                        <div>
+                                            <a href="{!! $row->product->getUrl() !!}">
+                                                <img src="{!! $row->product->images()->first()->url !!}" alt="img">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-xs-4 miniCartDescription">
+                                        <h4><a href="{!! $row->product->getUrl() !!}">{{ $row->name }}</a></h4>
+                                        <span class="size"></span>
 
-                                    <div class="price"><span> 12.00&#8364; </span></div>
+                                        <div class="price"><span>{{money_format("%i", $row->price)}}&euro;</span></div>
+                                    </div>
+                                    <div class="col-md-1 col-xs-1 miniCartQuantity">x{!! $row->qty !!}</div>
+                                    <div class="col-md-2 col-xs-2 miniCartSubtotal"><span>{{ money_format("%i", $row->subtotal) }}&euro;</span></div>
+                                    <div class="col-md-1 col-xs-1 delete"><a> <i class="fa fa-remove"></i> </a></div>
                                 </div>
-                                <div class="col-md-1 col-xs-1 miniCartQuantity">x2</div>
-                                <div class="col-md-2 col-xs-2 miniCartSubtotal"><span> 24.00&#8364 </span></div>
-                                <div class="col-md-1 col-xs-1 delete"><a> <i class="fa fa-remove"></i> </a></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="mini-cart-product row">
-                        <div class="col-md-offset-3 col-md-6 col-xs-12">
-                            <div class="row">
-                                <div class="col-md-2 col-xs-3 mini-cart-product-thumb">
-                                    <div><a href="/product"> <img
-                                                    src="http://randolphpackage.com/images/Captain-Morgan%20.jpg"
-                                                    alt="img"> </a></div>
-                                </div>
-                                <div class="col-md-5 col-xs-4 miniCartDescription">
-                                    <h4><a href="/product"> Captain Morgan </a></h4>
-                                    <span class="size"> Spiced Rum 1.0 L </span>
-
-                                    <div class="price"><span> 12.39&#8364; </span></div>
-                                </div>
-                                <div class="col-md-1 col-xs-1 miniCartQuantity">x1</div>
-                                <div class="col-md-2 col-xs-2 miniCartSubtotal"><span> 12.39&#8364 </span></div>
-                                <div class="col-md-1 col-xs-1 delete"><a> <i class="fa fa-remove"></i> </a></div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
 
                     <div class="row mini-cart-footer" style="text-align: center">
                         <div class="mini-cart-footer">
-                            <h3 class="subtotal"> Subtotal: {{Cart::total()}}&#8364; </h3>
+                            <h3 class="subtotal"> Subtotal: {{money_format("%i", Cart::total())}}&#8364; </h3>
                             <a class="btn btn-sm btn-danger" href="{!! action('PageController@getCart') !!}"> <i class="fa fa-shopping-cart"> </i> VIEW CART
                             </a>
                             <a class="btn btn-sm btn-primary" href="{!! action('PageController@getCheckout') !!}" @if(Cart::count(false) === 0)disabled @endif> CHECKOUT </a>

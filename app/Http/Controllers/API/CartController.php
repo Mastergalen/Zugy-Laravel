@@ -20,7 +20,7 @@ class CartController extends Controller
     {
         if(Cart::count(false) === 0 && !auth()->guest()) { //Check if cart stored in database
             foreach(auth()->user()->basket() as $row) {
-                Cart::add($row->product_id, $row->name, $row->quantity, $row->price, $row->options);
+                Cart::associate('Product', 'App')->add($row->product_id, $row->name, $row->quantity, $row->price, $row->options);
             }
         }
 
@@ -60,7 +60,7 @@ class CartController extends Controller
         }
 
         if($searchResult === false) {
-            Cart::add($cartItem);
+            Cart::associate('Product', 'App')->add($cartItem);
         } else {
             $rowId = $searchResult[0];
 

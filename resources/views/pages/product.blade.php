@@ -225,6 +225,7 @@
 @section('scripts')
     <script src="/js/smoothproducts.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <script type="text/javascript">
         /* wait for images to load */
         $(window).load( function() {
@@ -242,6 +243,34 @@
                 }
 
                 console.log("Adding to cart: " +  quantity);
+
+                var $cart = $('.navbar .cart-icon:visible').eq(0);
+                var $imgToDrag = $('.gallery .sp-large a img').eq(0);
+
+                if($imgToDrag) {
+                    var $imgClone = $imgToDrag.clone().offset({
+                        top: $(this).offset().top,
+                        left: $(this).offset().left
+                    }).css({
+                        'opacity': '0.5',
+                        'position': 'absolute',
+                        'height': '150px',
+                        'width': '150px',
+                        'z-index': '100'
+                    }).appendTo($('body')).animate({
+                        'top': $cart.offset().top + 10,
+                        'left': $cart.offset().left + 10,
+                        'width': 75,
+                        'height': 75
+                    }, 1000, 'easeInOutExpo');
+
+                    $imgClone.animate({
+                        'width': 0,
+                        'height': 0
+                    }, function () {
+                        $(this).detach()
+                    });
+                }
 
                 $.ajax({
                     type: 'POST',

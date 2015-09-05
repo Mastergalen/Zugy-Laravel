@@ -3,11 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class Product extends Model
 {
     protected $table = 'products';
 
+    //TODO If no images, display blank image
     public function images()
     {
         return $this->hasMany('App\ProductImage');
@@ -35,6 +37,15 @@ class Product extends Model
     public function getDescription($language_id)
     {
         return $this->description()->where('language_id', '=', $language_id)->first();
+    }
+
+    public function getUrl($language_code = null)
+    {
+        if($language_code === null) $language_code = LaravelLocalization::getCurrentLocale();
+
+        $description = $this->getDescription(Language::getLanguageId($language_code));
+
+        return LaravelLocalization::getURLFromRouteNameTranslated($language_code, 'routes.product', ['slug' => $description->slug]);
     }
 
     /**
