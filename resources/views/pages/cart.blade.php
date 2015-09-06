@@ -168,7 +168,7 @@
                     </tr>
                 </table>
             </div>
-            <button class="btn btn-block btn-lg btn-success" @if(Cart::count(false) === 0)disabled @endif>Proceed to checkout <i class="fa fa-arrow-right"></i></button>
+            <a href="{!! Localization::getURLFromRouteNameTranslated(Localization::getCurrentLocale(), 'routes.checkout') !!}" class="btn btn-block btn-lg btn-success" @if(Cart::count(false) === 0)disabled @endif>Proceed to checkout <i class="fa fa-arrow-right"></i></a>
         </div>
     </div>
 @endsection

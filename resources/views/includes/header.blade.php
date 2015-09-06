@@ -127,9 +127,9 @@
                     <div class="row mini-cart-footer" style="text-align: center">
                         <div class="mini-cart-footer">
                             <h3 class="subtotal"> Subtotal: {{money_format("%i", Cart::total())}}&#8364; </h3>
-                            <a class="btn btn-sm btn-danger" href="{!! action('PageController@getCart') !!}"> <i class="fa fa-shopping-cart"> </i> VIEW CART
+                            <a class="btn btn-sm btn-danger" href="{!! Localization::getURLFromRouteNameTranslated(Localization::getCurrentLocale(), 'routes.cart') !!}"> <i class="fa fa-shopping-cart"> </i> VIEW CART
                             </a>
-                            <a class="btn btn-sm btn-primary" href="{!! action('PageController@getCheckout') !!}" @if(Cart::count(false) === 0)disabled @endif> CHECKOUT </a>
+                            <a class="btn btn-sm btn-primary" href="{!! Localization::getURLFromRouteNameTranslated(Localization::getCurrentLocale(), 'routes.checkout') !!}" @if(Cart::count(false) === 0)disabled @endif> CHECKOUT </a>
                         </div>
                     </div>
                 </div>

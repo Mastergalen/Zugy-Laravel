@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'product' => 'prodotto/{slug}'
+    'product' => 'prodotto/{slug}',
+    'checkout' => 'cassa',
+    'cart' => 'carrello',
 ];

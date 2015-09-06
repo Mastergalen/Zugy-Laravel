@@ -11,8 +11,6 @@
 |
 */
 
-use App\Basket;
-use App\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +24,8 @@ Route::group([
 ],
 function() {
     Route::get(Localization::transRoute('routes.product'), ['uses' => 'ProductController@show']);
+    Route::get(Localization::transRoute('routes.checkout'), ['uses' => 'CheckoutController@getCheckout']);
+    Route::get(Localization::transRoute('routes.cart'), ['uses' => 'PageController@getCart']);
 });
 
 Route::group(['prefix' => 'auth'], function () {
@@ -43,8 +43,6 @@ Route::group(['prefix' => 'your-account', 'middleware' => 'auth'], function () {
 });
 
 Route::get('shop', ['uses' => 'ShopController@index']);
-Route::get('cart', ['uses' => 'PageController@getCart']);
-Route::get('checkout', ['uses' => 'PageController@getCheckout']);
 
 /* API */
 Route::group(['prefix' => 'api'], function () {
