@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\CalculateShipping;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,7 +19,8 @@ class PageController extends Controller
     public function getCart()
     {
         $cart = Cart::content();
+        $shipping = new CalculateShipping($cart);
 
-        return view('pages.cart')->with(['cart' => $cart]);
+        return view('pages.cart')->with(['cart' => $cart, 'shipping' => $shipping->getShippingCosts($cart)]);
     }
 }

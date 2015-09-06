@@ -94,6 +94,11 @@
     <div class="page-header">
         <h1><i class="fa fa-shopping-cart"></i> Shopping Cart</h1>
     </div>
+    @if($shipping != 0)
+        <div class="alert alert-info">Order more than 20&euro; worth and get <b>free shipping</b>!</div>
+
+    @endif
+
     <div class="row">
         <div class="col-lg-9 col-md-9 col-sm-7">
             <table class="table table-responsive" id="cart-table">
@@ -114,14 +119,14 @@
                             <td>
                                 <div class="cart-description">
                                     <h4><a href="{!! $row->product->getUrl() !!}">{{ $row->name }}</a></h4>
-                                    <div class="price">{{$row->price}}&euro;</div>
+                                    <div class="price">{{ money_format("%i", $row->price) }}&euro;</div>
                                 </div>
                             </td>
                             <td class="delete"><i class="fa fa-trash fa-2x" title="Delete"></i></td>
                             <td class="quantity">
                                 <input type="text" name="quantity" value="{!! $row->qty !!}">
                             </td>
-                            <td class="price">{{ $row->subtotal }}&euro;</td>
+                            <td class="price">{{ money_format("%i", $row->subtotal) }}&euro;</td>
                         </tr>
                     @endforeach
                     <tr id="empty-cart-msg" @if(Cart::count(false) !== 0)style="display:none"@endif>
@@ -145,16 +150,21 @@
                 <table id="cart-summary" class="table">
                     <tr>
                         <td>Total products</td>
-                        <td class="price">{!! Cart::total() !!}&euro;</td>
+                        <td class="price">{!! money_format("%i", Cart::total()) !!}&euro;</td>
                     </tr>
                     <tr>
                         <td>Shipping</td>
-                        <td class="price"><span style="color: #8BB418;">Free shipping</span></td>
+                        <td class="price">
+                            @if($shipping == 0)
+                                <span style="color: #8BB418;">Free shipping</span>
+                            @else
+                                {!! money_format("%i", $shipping) !!}&euro;
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <td>Total</td>
-                        <td id="total-price">{!! Cart::total() !!}&euro;</td>
-                        <!--Need to add shipping later -->
+                        <td id="total-price">{!! money_format("%i", Cart::total() + $shipping) !!}&euro;</td>
                     </tr>
                 </table>
             </div>

@@ -65,6 +65,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 });
 
 Route::get('test', function() {
-    dd(Product::first()->getUrl('en'));
     return response()->json(Cart::content());
 });

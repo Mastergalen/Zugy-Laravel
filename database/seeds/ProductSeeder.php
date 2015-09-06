@@ -9,6 +9,7 @@ use Illuminate\Database\Seeder;
  */
 class ProductSeeder extends Seeder
 {
+    //TODO Test Product Seeder
     public function run() {
         $product = Product::create([
             'stock_quantity' => 10,
@@ -17,6 +18,8 @@ class ProductSeeder extends Seeder
             'weight' => 0.50,
             'tax_class_id' => 1,
         ]);
+
+        $product->categories()->attach(5); //Vodka category
 
         $product->description()->create([
             'language_id' => 1,

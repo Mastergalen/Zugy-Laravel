@@ -98,6 +98,7 @@
                             <h2>Nothing your cart yet <i class="fa fa-frown-o"></i></h2>
                         </div>
                     @endif
+                    <!-- Get cart buttons to work -->
                     @foreach(Cart::content() as $row)
                         <div class="mini-cart-product row">
                             <div class="col-md-offset-3 col-md-6 col-xs-12">
