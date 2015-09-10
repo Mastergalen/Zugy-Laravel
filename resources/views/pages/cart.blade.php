@@ -6,88 +6,6 @@
 
 @section('css')
     <link rel="stylesheet" href="/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
-    <style>
-        #empty-cart-msg {
-            font-size: 1.5em;
-        }
-        .btn-cart {
-            background-color: #BDC3C7;
-            color: #FFFFFF;
-        }
-
-        .btn-cart:hover {
-            background-color: #CACFD2;
-            border-color: #CACFD2;
-            color: #FFFFFF;
-        }
-
-        #cart-table {
-            margin-bottom: 0;
-        }
-        #cart-table thead {
-            text-transform: uppercase;
-            font-weight: bold;
-            font-size: 14px;
-            background: #EBEDEF;
-            border-bottom: 1px solid #E7E9EC;
-        }
-
-        #cart-table tr {
-            border-bottom: 1px solid #E7E9EC;
-        }
-
-        #cart-table tbody>tr>td, #cart-table thead>tr>th{
-            padding: 10px 0;
-            text-align: center;
-            vertical-align: middle;
-        }
-
-        #cart-table td:nth-child(2), #cart-table th:nth-child(2) {
-            text-align: left;
-        }
-
-        #cart-table .quantity {
-            width: 102px;
-        }
-
-        .cart-product-thumb a img {
-            width: 86px;
-            max-width: 100%;
-        }
-
-        .box {
-            border: 1px solid #DDDDDD;
-            padding: 10px;
-        }
-
-        #cart-summary tr:first-child td {
-            border: none;
-        }
-
-        #cart-summary tr td:nth-child(2) {
-            text-align: right;
-        }
-
-        #total-price {
-            color: #4ec67f;
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        .price {
-            font-size: 18px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .cart-footer {
-            padding: 20px;
-            border-top: solid 1px #eee;
-            background: #EBEDEF;
-            display: inline-block;
-            width: 100%;
-        }
-    </style>
 @endsection
 
 @section('content')
@@ -111,7 +29,6 @@
                 </thead>
                 <tbody>
                     @foreach(Cart::content() as $row)
-                        <!-- FIXME Add link to product -->
                          <tr class="cart-row" data-product-id="{{$row->id}}" data-row-id="{{$row->rowid}}">
                             <td class="cart-product-thumb"><a href="{!! $row->product->getUrl() !!}"><img
                                             src="{!! $row->product->images()->first()->url !!}"
@@ -136,20 +53,20 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="cart-footer">
+            <div class="form-footer">
                 <div class="pull-left">
-                    <a class="btn btn-cart" href="{!! action('ShopController@index') !!}"><i class="fa fa-arrow-left"></i> Continue shopping</a>
+                    <a class="btn btn-footer" href="{!! action('ShopController@index') !!}"><i class="fa fa-arrow-left"></i> Continue shopping</a>
                 </div>
                 <div class="pull-right">
-                    <button class="btn btn-cart" id="btn-update-cart"><i class="fa fa-repeat"></i> Update cart</button>
+                    <button class="btn btn-footer" id="btn-update-cart"><i class="fa fa-repeat"></i> Update cart</button>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-5">
             <div class="box" style="margin-bottom: 10px">
-                <table id="cart-summary" class="table">
+                <table id="order-summary" class="table">
                     <tr>
-                        <td>Total products</td>
+                        <td>Items</td>
                         <td class="price">{!! money_format("%i", Cart::total()) !!}&euro;</td>
                     </tr>
                     <tr>
@@ -162,13 +79,13 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="total">
                         <td>Total</td>
-                        <td id="total-price">{!! money_format("%i", Cart::total() + $shipping) !!}&euro;</td>
+                        <td class="price">{!! money_format("%i", Cart::total() + $shipping) !!}&euro;</td>
                     </tr>
                 </table>
             </div>
-            <a href="{!! Localization::getURLFromRouteNameTranslated(Localization::getCurrentLocale(), 'routes.checkout') !!}" class="btn btn-block btn-lg btn-success" @if(Cart::count(false) === 0)disabled @endif>Proceed to checkout <i class="fa fa-arrow-right"></i></a>
+            <a href="{!! Localization::getURLFromRouteNameTranslated(Localization::getCurrentLocale(), 'routes.checkout.landing') !!}" class="btn btn-block btn-lg btn-success" @if(Cart::count(false) === 0)disabled @endif>Proceed to checkout <i class="fa fa-arrow-right"></i></a>
         </div>
     </div>
 @endsection

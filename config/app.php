@@ -148,6 +148,7 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\HelperServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
     ],
@@ -199,6 +200,7 @@ return [
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
 
+        'Carbon'       => Carbon\Carbon::class,
         'Form'         => Illuminate\Html\FormFacade::class,
         'HTML'         => Illuminate\Html\HtmlFacade::class,
         'Socialite'    => Laravel\Socialite\Facades\Socialite::class,

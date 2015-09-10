@@ -9,7 +9,7 @@
 
             <button type="button" class="navbar-toggle cart-icon" data-toggle="collapse" data-target=".navbar-cart">
                 <i class="fa fa-shopping-cart"></i>
-                <span class="cart-respons">Cart (24.39&#8364;)</span>
+                <span class="cart-respons">Cart ({!! money_format("%i", Cart::total()) !!}&#8364;)</span>
             </button>
 
             <a href="/">
@@ -65,11 +65,11 @@
                 <li class="hidden-xs cart-icon">
                     <a href="#" data-toggle="collapse" data-target=".navbar-cart">
                         <i class="fa fa-shopping-cart"></i>
-                        <span class="cart-respons">Cart ({{money_format("%i", Cart::total())}}&#8364;)</span>
+                        <span class="cart-respons">Cart ({!! money_format("%i", Cart::total()) !!}&#8364;)</span>
                         <b class="caret"></b>
                     </a>
                 </li>
-                @if (Auth::check())
+                @if (!auth()->guest())
                     @if(Auth::user()->group_id === 1) {{-- If in admin goup --}}
                         <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
                     @endif
@@ -83,7 +83,7 @@
                     </li>
                 @else
                     <li>
-                        <a href="{!! route('your-account') !!}"><i class="fa fa-user"></i> My account</a>
+                        <a href="{!! route('login') !!}"><i class="fa fa-sign-in"></i> Sign in</a>
                     </li>
                 @endif
             </ul>
@@ -95,7 +95,7 @@
                 <div class="mega-dropdown-menu mini-cart">
                     @if(Cart::count(false) === 0)
                         <div class="mini-cart-product row" style="text-align: center; padding-bottom: 17px">
-                            <h2>Nothing your cart yet <i class="fa fa-frown-o"></i></h2>
+                            <h2>Nothing in your cart yet <i class="fa fa-frown-o"></i></h2>
                         </div>
                     @endif
                     <!-- Get cart buttons to work -->
@@ -127,9 +127,9 @@
                     <div class="row mini-cart-footer" style="text-align: center">
                         <div class="mini-cart-footer">
                             <h3 class="subtotal"> Subtotal: {{money_format("%i", Cart::total())}}&#8364; </h3>
-                            <a class="btn btn-sm btn-danger" href="{!! Localization::getURLFromRouteNameTranslated(Localization::getCurrentLocale(), 'routes.cart') !!}"> <i class="fa fa-shopping-cart"> </i> VIEW CART
+                            <a class="btn btn-sm btn-danger" href="{!! localize_url('routes.cart') !!}"> <i class="fa fa-shopping-cart"> </i> VIEW CART
                             </a>
-                            <a class="btn btn-sm btn-primary" href="{!! Localization::getURLFromRouteNameTranslated(Localization::getCurrentLocale(), 'routes.checkout') !!}" @if(Cart::count(false) === 0)disabled @endif> CHECKOUT </a>
+                            <a class="btn btn-sm btn-primary" href="{!! localize_url('routes.checkout.landing') !!}" @if(Cart::count(false) === 0)disabled @endif> CHECKOUT </a>
                         </div>
                     </div>
                 </div>

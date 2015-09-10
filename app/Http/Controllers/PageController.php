@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\CalculateShipping;
+use App\Services\Order\CalculateShipping;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;

@@ -26,7 +26,8 @@ class CreateAddressesTable extends Migration
             $table->boolean('isBillingPrimary');
 
             $table->string('name', 64);
-            $table->string('street', 64);
+            $table->string('line_1', 64);
+            $table->string('line_2', 64);
             $table->string('city', 32);
             $table->string('postcode', 10);
             $table->string('state', 32);
@@ -36,6 +37,8 @@ class CreateAddressesTable extends Migration
             $table->foreign('country_id')
                 ->references('id')->on('countries')
                 ->onDelete('no action');
+
+            $table->text('delivery_instructions')->nullable();
 
             $table->timestamps();
         });

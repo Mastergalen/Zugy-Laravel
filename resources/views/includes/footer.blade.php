@@ -39,12 +39,10 @@
     <div class="container">
         <p class="pull-left">&copy; {!! config('site.name') !!} {!! date("Y") !!}. All rights reserved.</p>
         <div class="pull-right payment-method-img">
-            <img height="30" class="pull-right" src="/img/payment/master_card.png" alt="Master Card">
-            <img height="30" class="pull-right" src="/img/payment/visa_card.png" alt="Visa">
-            <img height="30" class="pull-right" src="/img/payment/paypal.png" alt="PayPal">
-            <img height="30" class="pull-right" src="/img/payment/american_express_card.png" alt="American Express">
-            <img height="30" class="pull-right" src="/img/payment/discover_network_card.png" alt="Discover Network">
-            <img height="30" class="pull-right" src="/img/payment/google_wallet.png" alt="Google Wallet">
+            <img class="pull-right" src="/img/payment/master_card.png" alt="Master Card">
+            <img class="pull-right" src="/img/payment/visa_card.png" alt="Visa">
+            <img class="pull-right" src="/img/payment/american_express_card.png" alt="American Express">
+            <img class="pull-right" src="/img/payment/paypal.png" alt="PayPal">
         </div>
     </div>
 </div>

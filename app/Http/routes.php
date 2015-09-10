@@ -11,7 +11,6 @@
 |
 */
 
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,7 +23,18 @@ Route::group([
 ],
 function() {
     Route::get(Localization::transRoute('routes.product'), ['uses' => 'ProductController@show']);
-    Route::get(Localization::transRoute('routes.checkout'), ['uses' => 'CheckoutController@getCheckout']);
+
+    Route::get(Localization::transRoute('routes.shop'), ['uses' => 'ShopController@index']);
+
+    /* Checkout */
+    Route::get(Localization::transRoute('routes.checkout.landing'), ['uses' => 'CheckoutController@getCheckout']);
+    Route::get(Localization::transRoute('routes.checkout.address'), ['uses' => 'CheckoutController@getCheckoutAddress']);
+    Route::post(Localization::transRoute('routes.checkout.address'), ['uses' => 'CheckoutController@postCheckoutAddress']);
+    Route::get(Localization::transRoute('routes.checkout.payment'), ['uses' => 'CheckoutController@getCheckoutPayment']);
+    Route::post(Localization::transRoute('routes.checkout.payment'), ['uses' => 'CheckoutController@postCheckoutPayment']);
+    Route::get(Localization::transRoute('routes.checkout.review'), ['uses' => 'CheckoutController@getCheckoutReview']);
+
+    /* Cart */
     Route::get(Localization::transRoute('routes.cart'), ['uses' => 'PageController@getCart']);
 });
 
@@ -41,8 +51,6 @@ Route::group(['prefix' => 'your-account', 'middleware' => 'auth'], function () {
         return view('pages.account.home');
     }]);
 });
-
-Route::get('shop', ['uses' => 'ShopController@index']);
 
 /* API */
 Route::group(['prefix' => 'api'], function () {
@@ -63,5 +71,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 });
 
 Route::get('test', function() {
-    return response()->json(Cart::content());
+    $a = auth()->user()->payment_methods()->default();
+    dd($a);
 });

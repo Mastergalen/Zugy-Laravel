@@ -2,7 +2,7 @@
 
 @extends('layouts.default')
 
-@section('content')
+@section('css')
     <style>
         .login .social-buttons a {
             color: white;
@@ -44,6 +44,9 @@
             text-align: center;
         }
     </style>
+@endsection
+
+@section('content')
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="login">
@@ -109,6 +112,10 @@
                         </div>
                     </div>
                 </div>
+
+                <h3>Checkout as guest</h3>
+                <p>Don't have an account and you don't want to register? Checkout as a guest instead!</p>
+                <a href="{!! localize_url('routes.checkout.landing') !!}?guestCheckout" class="btn btn-primary">Checkout as guest</a>
             </div>
         </div>
     </div>

@@ -15,6 +15,7 @@ class Basket extends Model
 
     protected $fillable = [
         'product_id',
+        'name',
         'quantity',
         'price',
         'options',

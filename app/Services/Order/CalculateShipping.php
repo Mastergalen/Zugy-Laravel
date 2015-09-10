@@ -1,40 +1,34 @@
 <?php
+
+namespace App\Services\Order;
+
 /**
  * User: Galen Han
  * Date: 06.09.2015
  * Time: 02:34
  */
 
-namespace App\Services;
-
-
 use Gloudemans\Shoppingcart\CartCollection;
 
 class CalculateShipping
 {
-    public $cart;
-
-    public function __construct(CartCollection $cart) {
-        $this->cart = $cart;
-    }
-
-    public function getShippingCosts() {
-        if($this->cartTotal() < config('site.minimumFreeShipping')) {
+    public function getShippingCosts(CartCollection $cart) {
+        if($this->cartTotal($cart) < config('site.minimumFreeShipping')) {
             return config('site.shippingFee');
         } else {
             return 0;
         }
     }
 
-    private function cartTotal() {
+    private function cartTotal($cart) {
         $total = 0;
 
-        if(empty($this->cart))
+        if(empty($cart))
         {
             return $total;
         }
 
-        foreach($this->cart as $row)
+        foreach($cart as $row)
         {
             $total += $row->subtotal;
         }

@@ -25,7 +25,7 @@ class Category extends Model
 
             $ref['id'] = $row['id'];
             $ref['parent_id']  = $row['parent_id'];
-            $ref['name'] = $row['description']['name'];
+            $ref['name'] = $row['description'][0]['name'];
 
             if($row['parent_id'] == null) {
                 $list[$row['id']] = & $ref;

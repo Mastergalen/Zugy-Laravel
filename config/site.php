@@ -8,4 +8,5 @@ return  [
     /* Shipping */
     'minimumFreeShipping' => 20, //Minimum order value in Euros for free shipping
     'shippingFee' => 3, //Shipping fee
+    'shippingTax' => 22,
 ];

@@ -1,101 +1,130 @@
-@section('title', 'Checkout')
-
-@extends('layouts.default')
-
-@section('css')
-    <style>
-        .order-step {
-            list-style: none;
-            margin: 0;
-            clear: both;
-            display: inline-block;
-            height: auto;
-            padding: 0;
-            margin-bottom: 30px;
-            width: 100%;
-        }
-
-        .order-step li {
-            display: inline-block;
-            float: left;
-            height: auto;
-            margin: 0;
-            min-height: 55px;
-            padding: 0;
-            width: 20%;
-        }
-
-        .order-step li a {
-            background: #EFF0F2;
-            display: inline-block;
-            font-size: 14px;
-            height: 100%;
-            line-height: normal;
-            padding: 20px 0 0;
-            text-align: center;
-            vertical-align: middle;
-            width: 100%;
-            text-transform: uppercase;
-            font-size: 13px;
-
-            color: #34495E;
-            text-decoration: none;
-            outline: none!important;
-        }
-
-        .order-step li a i {
-            border-radius: 0;
-            display: block;
-            font-size: 20px;
-            height: auto;
-            left: 0;
-            line-height: 40px;
-            margin-top: -20px;
-            padding: 0;
-            text-align: center;
-            width: auto;
-            float: none!important;
-            background: rgba(0,0,0,0.05);
-        }
-
-        .order-step li a span {
-            display: block;
-            padding: 5px 0;
-        }
-
-        .order-step li.active a {
-            position: relative;
-            color: #fff;
-            background: #34495e;
-        }
-
-        .order-step li.active a:after {
-            border-top-color: #34495e!important;
-            top: 100%;
-            left: 50%;
-            border: solid transparent;
-            content: " ";
-            height: 0;
-            width: 0;
-            position: absolute;
-            pointer-events: none;
-            border-color: rgba(136,183,213,0);
-            border-width: 10px;
-            margin-left: -10px;
-        }
-    </style>
-@endsection
+@extends('pages.checkout.partials.template')
 
 @section('content')
     <div class="page-header">
         <h1><i class="fa fa-shopping-cart"></i> Checkout</h1>
     </div>
 
-    <ul class="order-step">
-        <li class="active"> <a href="checkout-1.html"> <i class="fa fa-map-marker "></i> <span> Address</span> </a> </li>
-        <li> <a href="checkout-2.html"> <i class="fa fa fa-envelope  "></i> <span> Billing </span></a></li>
-        <li> <a href="checkout-3.html"><i class="fa fa-truck "> </i><span>Shipping</span> </a> </li>
-        <li> <a href="checkout-4.html"><i class="fa fa-money  "> </i><span>Payment</span> </a> </li>
-        <li> <a href="checkout-5.html"><i class="fa fa-check-square "> </i><span>Order</span></a> </li>
-    </ul>
+    @include('pages.checkout.partials.order-step', ['active' => 'address'])
+
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{!! request()->url() !!}" method="POST" id="address-form">
+        {!! Form::token() !!}
+        <legend>Delivery Address</legend>
+        @include('pages.checkout.partials.address-form', ['type' => 'delivery'])
+
+        <legend>Billing Address</legend>
+        <div class="form-group">
+            <div class="checkbox">
+                <label for="billing-same">
+                    <input type="checkbox" name="delivery[billing_same]" id="billing-same" checked> Same as delivery address
+                </label>
+            </div>
+        </div>
+        @include('pages.checkout.partials.address-form', ['type' => 'billing'])
+        <div class="form-footer">
+            <div class="pull-left"> <a class="btn btn-footer" href="{!! Localization::getURLFromRouteNameTranslated(Localization::getCurrentLocale(), 'routes.shop') !!}"> <i class="fa fa-arrow-left"></i> &nbsp; Back to Shop </a> </div>
+            <div class="pull-right"> <button class="btn btn-primary" type="submit">Select payment method &nbsp; <i class="fa fa-arrow-circle-right"></i> </button> </div>
+        </div>
+    {!! Form::close() !!}
+@endsection
+
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/formValidation.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/framework/bootstrap.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#billing-same').click(function () {
+                $('#billing-address').toggle('slow');
+            });
+
+            $('#address-form').formValidation({
+                framework: 'bootstrap',
+                fields: {
+                    'name': {
+                        selector: '.inputName',
+                        validators: {
+                            notEmpty: {},
+                            stringLength: {
+                                max: 64,
+                            }
+                        }
+                    },
+                    'line_1': {
+                        selector: '.inputLine1',
+                        validators: {
+                            notEmpty: {},
+                            stringLength: {
+                                max: 64,
+                            }
+                        }
+                    },
+                    'line_2': {
+                        selector: '.inputLine2',
+                        validators: {
+                            stringLength: {
+                                max: 64,
+                            }
+                        }
+                    },
+                    'delivery[postcode]': {
+                        validators: {
+                            notEmpty: {},
+                            stringLength: {
+                                min: 2,
+                                max: 10,
+                            },
+                            zipCode: {
+                                country: 'IT'
+                            }
+                        }
+                    },
+                    'city': {
+                        selector: '.inputCity',
+                        validators: {
+                            notEmpty: {},
+                            stringLength: {
+                                max: 64,
+                            }
+                        }
+                    },
+                    'delivery[delivery_instructions]': {
+                        validators: {
+                            stringLength: {
+                                max: 1000,
+                            }
+                        }
+                    },
+                    'delivery[phone]': {
+                        validators: {
+                            notEmpty: {},
+                            stringLength: {
+                                min: 5,
+                                max: 32,
+                            }
+                        }
+                    },
+                    'billing[postalcode]': {
+                        validators: {
+                            notEmpty: {},
+                            stringLength: {
+                                max:10
+                            }
+                        }
+                    },
+                }
+            });
+        });
+
+
+    </script>
 @endsection

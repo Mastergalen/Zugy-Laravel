@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+use App\Services\Payment\StripeService;
 use Illuminate\Support\ServiceProvider;
 use App\Jobs\AuthenticateUser;
 
@@ -13,7 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //Set stripe API key
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
     }
 
     /**

@@ -58,7 +58,7 @@ class AuthenticateUser
             auth()->loginUsingId($oauth_authorisation->user_id ,true);
         }
 
-        return redirect()->route('your-account')->with('success', 'Logged in');
+        return redirect()->intended(localize_url('routes.shop'))->with('success', 'Logged in');
     }
 
     public function createUser($name, $email) {
