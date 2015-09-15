@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Request;
 class CartEventsListener
 {
     public function onAddCart($id, $name, $quantity, $price, $options  = null) {
-        if(!auth()->guest() && Request::ajax()) {
+        if(auth()->check() && Request::ajax()) {
             auth()->user()->basket()->create([
                 'product_id' => $id,
                 'quantity' => $quantity,
@@ -20,7 +20,7 @@ class CartEventsListener
     }
 
     public function onUpdateCart($rowId) {
-        if(!auth()->guest()) {
+        if(auth()->check()) {
             $item = Cart::get($rowId);
 
             $row = auth()->user()->basket()->firstOrNew(['product_id' => $item->id]);
@@ -33,7 +33,7 @@ class CartEventsListener
     }
 
     public function onRemoveCart($rowId) {
-        if(!auth()->guest()) {
+        if(auth()->check()) {
             $item = Cart::get($rowId);
 
             auth()->user()->basket()->where('product_id', '=', $item->id)->delete();
@@ -41,7 +41,7 @@ class CartEventsListener
     }
 
     public function onDestroyCart() {
-        if(!auth()->guest()) {
+        if(auth()->check()) {
             auth()->user()->basket()->delete();
         }
     }

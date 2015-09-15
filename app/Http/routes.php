@@ -11,7 +11,13 @@
 |
 */
 
+use App\Order;
+use App\PaymentMethod;
+use App\Services\Order\PlaceOrder;
 use Illuminate\Support\Facades\Route;
+use Zugy\Facades\Cart;
+use Zugy\Facades\PaymentProcessor;
+use Zugy\Facades\Shipping;
 
 Route::get('/', function () {
     return view('pages.home');
@@ -24,15 +30,21 @@ Route::group([
 function() {
     Route::get(Localization::transRoute('routes.product'), ['uses' => 'ProductController@show']);
 
-    Route::get(Localization::transRoute('routes.shop'), ['uses' => 'ShopController@index']);
+    Route::get(Localization::transRoute('routes.shop'), ['uses' => 'ShopController@index', 'as' => 'shop']);
 
     /* Checkout */
     Route::get(Localization::transRoute('routes.checkout.landing'), ['uses' => 'CheckoutController@getCheckout']);
+
+    //Guest checkout
+    Route::get(Localization::transRoute('routes.checkout.guest'), ['uses' => 'CheckoutController@getCheckoutGuest']);
+
     Route::get(Localization::transRoute('routes.checkout.address'), ['uses' => 'CheckoutController@getCheckoutAddress']);
     Route::post(Localization::transRoute('routes.checkout.address'), ['uses' => 'CheckoutController@postCheckoutAddress']);
     Route::get(Localization::transRoute('routes.checkout.payment'), ['uses' => 'CheckoutController@getCheckoutPayment']);
     Route::post(Localization::transRoute('routes.checkout.payment'), ['uses' => 'CheckoutController@postCheckoutPayment']);
     Route::get(Localization::transRoute('routes.checkout.review'), ['uses' => 'CheckoutController@getCheckoutReview']);
+    Route::post(Localization::transRoute('routes.checkout.review'), ['uses' => 'CheckoutController@postCheckoutReview']);
+    Route::get(Localization::transRoute('routes.checkout.confirmation'), ['uses' => 'CheckoutController@getCheckoutConfirmationp']);
 
     /* Cart */
     Route::get(Localization::transRoute('routes.cart'), ['uses' => 'PageController@getCart']);
@@ -70,7 +82,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('image/upload', 'Admin\ImageController@upload');
 });
 
-Route::get('test', function() {
-    $a = auth()->user()->payment_methods()->default();
-    dd($a);
+Route::get('test', function(PlaceOrder $handler) {
+    $item = Cart::get('8a48aa7c8e5202841ddaf767bb4d10da');
+
+    dd($item->product);
 });

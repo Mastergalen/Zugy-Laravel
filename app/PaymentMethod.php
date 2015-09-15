@@ -9,12 +9,17 @@ class PaymentMethod extends Model
     protected $table = 'users_payment_method';
 
     protected $casts = [
-        'payload' => 'json'
+        'payload' => 'json',
     ];
 
     protected $fillable = ['method', 'payload'];
 
     public function scopeDefault($query) {
         return $query->where('isDefault', '=', 1)->first();
+    }
+
+    public function scopeBraintree($query)
+    {
+        return $query->where('method', 'LIKE', 'braintree')->first();
     }
 }

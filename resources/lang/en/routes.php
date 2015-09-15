@@ -5,9 +5,11 @@ return [
     'product' => 'product/{slug}',
     'cart' => 'cart',
     'checkout' => [
-        'landing' => 'checkout',
-        'address' => 'checkout/address',
-        'payment' => 'checkout/payment',
-        'review' => 'checkout/review',
+        'landing'      => 'checkout',
+        'guest'        => 'checkout/guest',
+        'address'      => 'checkout/address',
+        'payment'      => 'checkout/payment',
+        'review'       => 'checkout/review',
+        'confirmation' => 'checkout/confirmation',
     ],
 ];

@@ -17,9 +17,11 @@ use Stripe\Customer;
 class PaymentMethodService
 {
     private $stripeService;
+    private $braintree;
 
-    public function __construct(StripeService $stripeService) {
+    public function __construct(StripeService $stripeService, BraintreeService $braintreeService) {
         $this->stripeService = $stripeService;
+        $this->braintree = $braintreeService;
     }
 
     public function setMethod(Request $request)
@@ -29,7 +31,11 @@ class PaymentMethodService
         ]);
 
         $validator->sometimes('stripeToken', 'required', function($input) {
-            return isset($input->method);
+            return $input->method == 'card';
+        });
+
+        $validator->sometimes('payment_method_nonce', 'required', function($input) {
+            return $input->method == 'braintree';
         });
 
         if($validator->fails()) {
@@ -38,16 +44,27 @@ class PaymentMethodService
 
         switch($request->input('method')) {
             case 'card':
-                session()->put('checkout.method', $request->input('method'));
-
                 //TODO Multiple card selection saved to session
 
                 if($request->has('stripeToken')) {
                     $this->stripeService->addCard($request->input('stripeToken'), $request->has('defaultPayment'));
+                } else {
+                    throw new \Exception('Missing Stripe token');
                 }
 
                 break;
+            case 'braintree':
+                if($request->has('payment_method_nonce')) {
+                    $this->braintree->addMethod($request->input('payment_method_nonce'));
+                }
+                break;
+
+            default:
+                throw new \Exception('Payment method not supported');
+                break;
         }
+
+        session()->put('checkout.method', $request->input('method'));
 
         return true;
     }

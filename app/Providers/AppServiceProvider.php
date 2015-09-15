@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Providers;
-use App\Services\Payment\StripeService;
+
 use Illuminate\Support\ServiceProvider;
 use App\Jobs\AuthenticateUser;
+use Braintree_Configuration;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,6 +18,11 @@ class AppServiceProvider extends ServiceProvider
     {
         //Set stripe API key
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        Braintree_Configuration::environment(env('BRAINTREE_ENVIRONMENT'));
+        Braintree_Configuration::merchantId(env('BRAINTREE_MERCHANT_ID'));
+        Braintree_Configuration::publicKey(env('BRAINTREE_PUBLIC'));
+        Braintree_Configuration::privateKey(env('BRAINTREE_PRIVATE'));
     }
 
     /**

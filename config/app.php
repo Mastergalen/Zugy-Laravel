@@ -1,5 +1,7 @@
 <?php
 
+use Zugy\Checkout\CheckoutServiceProvider;
+
 return [
 
     /*
@@ -137,10 +139,14 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Illuminate\Html\HtmlServiceProvider::class,
+
+        /*
+         * Optional framework providers
+         */
         Laravel\Socialite\SocialiteServiceProvider::class,
         Webpatser\Countries\CountriesServiceProvider::class,
-        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
+        Dimsav\Translatable\TranslatableServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -150,6 +156,13 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+         * Zugy Service Providers
+         */
+        Zugy\Cart\CartServiceProvider::class,
+        Zugy\Checkout\CheckoutServiceProvider::class,
+        Zugy\PaymentProcessor\PaymentProcessorServiceProvider::class,
 
     ],
 
@@ -200,14 +213,19 @@ return [
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
 
+        /*
+         * Optional Laravel Components
+         */
         'Carbon'       => Carbon\Carbon::class,
         'Form'         => Illuminate\Html\FormFacade::class,
         'HTML'         => Illuminate\Html\HtmlFacade::class,
         'Socialite'    => Laravel\Socialite\Facades\Socialite::class,
         'Countries'    => Webpatser\Countries\CountriesFacade::class,
-        'Cart'         => Gloudemans\Shoppingcart\Facades\Cart::class,
-        'Localization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class
+        'Localization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
 
+        'Cart'         => Zugy\Facades\Cart::class,
+        'Checkout'     => Zugy\Facades\Checkout::class,
+        'PaymentProcessor' => Zugy\Facades\PaymentProcessor::class,
     ],
 
 ];

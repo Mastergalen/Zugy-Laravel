@@ -12,7 +12,7 @@
     <div class="page-header">
         <h1><i class="fa fa-shopping-cart"></i> Shopping Cart</h1>
     </div>
-    @if($shipping != 0)
+    @if(Cart::shipping() != 0)
         <div class="alert alert-info">Order more than 20&euro; worth and get <b>free shipping</b>!</div>
 
     @endif
@@ -72,16 +72,16 @@
                     <tr>
                         <td>Shipping</td>
                         <td class="price">
-                            @if($shipping == 0)
+                            @if(Cart::shipping() == 0)
                                 <span style="color: #8BB418;">Free shipping</span>
                             @else
-                                {!! money_format("%i", $shipping) !!}&euro;
+                                {!! money_format("%i", Cart::shipping()) !!}&euro;
                             @endif
                         </td>
                     </tr>
                     <tr class="total">
                         <td>Total</td>
-                        <td class="price">{!! money_format("%i", Cart::total() + $shipping) !!}&euro;</td>
+                        <td class="price">{!! money_format("%i", Cart::grandTotal()) !!}&euro;</td>
                     </tr>
                 </table>
             </div>

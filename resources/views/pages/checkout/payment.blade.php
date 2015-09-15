@@ -125,20 +125,40 @@
                 </h4>
             </div>
             <div id="paypal" class="panel-collapse collapse" role="tabpanel">
+                <div class="panel-body">
+                    <p>Pay with PayPal or Card</p>
+                    <form action="{!! request()->url() !!}" method="POST" id="braintree-form">
+                        {!! Form::token() !!}
+                        <div id="braintree"></div>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Proceed <i class="fa fa-right"></i></button>
+                        <input type="hidden" name="method" value="braintree">
+                        <input type="hidden" name="payment_method_nonce">
+                        <!-- Add a set as default payment method -->
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 @endsection
 
 @section('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/formValidation.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/framework/bootstrap.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.3.2/jquery.payment.min.js"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
     <script>
         Stripe.setPublishableKey('{!! env('STRIPE_PUBLIC') !!}');
 
         jQuery(function($) {
+            braintree.setup('{!! $braintreeToken !!}', "dropin", {
+                container: "braintree",
+                onPaymentMethodReceived: function(obj) {
+                    console.log('Method received');
+                    var $braintreeForm = $('#braintree-form');
+                    $braintreeForm.find('input[name="payment_method_nonce"]').val(obj.nonce);
+                    $braintreeForm.submit();
+                }
+            });
+
             $stripeForm = $('#stripe-form')
 
             $('#card-number').payment('formatCardNumber')

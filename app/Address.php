@@ -14,4 +14,8 @@ class Address extends Model
     public function user() {
         return $this->belongsTo('App\User');
     }
+
+    public function scopeBilling($query) {
+        return $query->where('isBillingPrimary', '=', 1)->first();
+    }
 }

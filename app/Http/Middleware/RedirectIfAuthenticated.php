@@ -35,7 +35,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next)
     {
         if ($this->auth->check()) {
-            return redirect()->route('your-account');
+            return redirect()->route('shop');
         }
 
         return $next($request);

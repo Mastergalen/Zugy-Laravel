@@ -9,6 +9,8 @@ class Product extends Model
 {
     protected $table = 'products';
 
+    protected $with = ['tax_class'];
+
     //TODO If no images, display blank image
     public function images()
     {

@@ -2,7 +2,11 @@
     <div class="col-xs-12 col-sm-6">
         <div class="form-group">
             <label for="{!! $type !!}[name]">Full Name <sup>*</sup> </label>
-            {!! Form::text($type . "[name]", Input::old($type . "name", auth()->user()->name), ['class' => 'form-control inputName', 'placeholder' => "Full Name", 'data-fv-notempty' => 'true']) !!}
+            @if(auth()->check())
+                {!! Form::text($type . "[name]", Input::old($type . "name", auth()->user()->name), ['class' => 'form-control inputName', 'placeholder' => "Full Name", 'data-fv-notempty' => 'true']) !!}
+            @else
+                {!! Form::text($type . "[name]", Input::old($type . "name"), ['class' => 'form-control inputName', 'placeholder' => "Full Name", 'data-fv-notempty' => 'true']) !!}
+            @endif
         </div>
         <div class="form-group">
             <label for="{!! $type !!}[line_1]">Address Line 1 <sup>*</sup> </label>

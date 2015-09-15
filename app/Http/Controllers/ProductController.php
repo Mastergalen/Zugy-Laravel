@@ -20,7 +20,7 @@ class ProductController extends Controller
      */
     public function show($slug)
     {
-        $language_id = Language::where('code', '=', strtoupper(LaravelLocalization::getCurrentLocale()))->first()->id;
+        $language_id = Language::getLanguageId(LaravelLocalization::getCurrentLocale());
 
         $product = Product::with(['description' => function($query) use ($language_id, $slug) {
             $query->where('slug', '=', $slug)

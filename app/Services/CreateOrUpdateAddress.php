@@ -51,7 +51,7 @@ class CreateOrUpdateAddress
 
         auth()->user()->addresses()->save($address);
 
-        return true;
+        return $address;
     }
 
     public function billing(array $billingInput, $addressId = null)
@@ -75,6 +75,6 @@ class CreateOrUpdateAddress
 
         $address->save();
 
-        return true;
+        return $address;
     }
 }

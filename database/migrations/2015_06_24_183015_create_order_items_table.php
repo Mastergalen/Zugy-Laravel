@@ -33,7 +33,7 @@ class CreateOrderItemsTable extends Migration
             $table->decimal('final_price', 10, 2);
             $table->decimal('tax', 9, 6);
 
-
+            $table->timestamps();
         });
     }
 

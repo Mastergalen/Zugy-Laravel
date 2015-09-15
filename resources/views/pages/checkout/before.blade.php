@@ -15,7 +15,6 @@
         }
 
         .login .social-buttons .btn-facebook {background: #3b5998;}
-        .login .social-buttons .btn-twitter {background: #00aced;}
         .login .social-buttons .btn-google {background: #4285f4;;}
 
         .login .login-or {
@@ -113,9 +112,17 @@
                     </div>
                 </div>
 
+                <hr/>
+
+                <h3>Create an account</h3>
+                <p>Create an account for fast checkout and easy access to order history. </p>
+                <a class="btn btn-default" href="#">Create account</a> <!--TODO Add facebook and google login buttons on create account page -->
+
+                <hr/>
                 <h3>Checkout as guest</h3>
                 <p>Don't have an account and you don't want to register? Checkout as a guest instead!</p>
-                <a href="{!! localize_url('routes.checkout.landing') !!}?guestCheckout" class="btn btn-primary">Checkout as guest</a>
+                <a class="btn btn-primary" href="{!! localize_url('routes.checkout.guest') !!}">Checkout as guest</a>
+
             </div>
         </div>
     </div>

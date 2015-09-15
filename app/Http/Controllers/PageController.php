@@ -18,9 +18,6 @@ class PageController extends Controller
      */
     public function getCart()
     {
-        $cart = Cart::content();
-        $shipping = new CalculateShipping($cart);
-
-        return view('pages.cart')->with(['cart' => $cart, 'shipping' => $shipping->getShippingCosts($cart)]);
+        return view('pages.cart');
     }
 }
