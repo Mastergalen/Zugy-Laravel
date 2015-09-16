@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost',
+    'url' => env('APP_URL'),
 
     /*
     |--------------------------------------------------------------------------
@@ -147,6 +147,7 @@ return [
         Webpatser\Countries\CountriesServiceProvider::class,
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
         Dimsav\Translatable\TranslatableServiceProvider::class,
+        Fedeisas\LaravelMailCssInliner\LaravelMailCssInlinerServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -11,6 +11,7 @@
 |
 */
 
+use App\Events\OrderWasPlaced;
 use App\Order;
 use App\PaymentMethod;
 use App\Services\Order\PlaceOrder;
@@ -32,7 +33,9 @@ function() {
 
     Route::get(Localization::transRoute('routes.shop'), ['uses' => 'ShopController@index', 'as' => 'shop']);
 
-    /* Checkout */
+    /*
+     * Checkout
+     */
     Route::get(Localization::transRoute('routes.checkout.landing'), ['uses' => 'CheckoutController@getCheckout']);
 
     //Guest checkout
@@ -44,7 +47,9 @@ function() {
     Route::post(Localization::transRoute('routes.checkout.payment'), ['uses' => 'CheckoutController@postCheckoutPayment']);
     Route::get(Localization::transRoute('routes.checkout.review'), ['uses' => 'CheckoutController@getCheckoutReview']);
     Route::post(Localization::transRoute('routes.checkout.review'), ['uses' => 'CheckoutController@postCheckoutReview']);
-    Route::get(Localization::transRoute('routes.checkout.confirmation'), ['uses' => 'CheckoutController@getCheckoutConfirmationp']);
+    Route::get(Localization::transRoute('routes.checkout.confirmation'), ['uses' => 'CheckoutController@getCheckoutConfirmation']);
+
+    Route::get(Localization::transRoute('routes.order.show'), ['uses' => 'OrderController@show']);
 
     /* Cart */
     Route::get(Localization::transRoute('routes.cart'), ['uses' => 'PageController@getCart']);
@@ -83,7 +88,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 });
 
 Route::get('test', function(PlaceOrder $handler) {
-    $item = Cart::get('8a48aa7c8e5202841ddaf767bb4d10da');
+    $order = \App\Order::first();
 
-    dd($item->product);
+    //\Event::fire(new OrderWasPlaced($order));
+
+    return view('emails.order-confirmation')->with(compact('order'));
 });

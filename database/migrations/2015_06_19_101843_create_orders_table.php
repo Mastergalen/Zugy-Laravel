@@ -27,6 +27,7 @@ class CreateOrdersTable extends Migration
             $table->dateTime('order_completed')->nullable();
             $table->text('comments');
 
+            $table->string('email');
             $table->string('delivery_name', 64);
             $table->string('delivery_line_1', 64);
             $table->string('delivery_line_2', 64)->nullable();

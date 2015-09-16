@@ -11,5 +11,8 @@ return [
         'payment'      => 'cassa/pagamento',
         'review'       => 'cassa/rivedere',
         'confirmation' => 'cassa/conferma',
+    ],
+    'order' => [
+        'show' => 'ordine/{id}',
     ]
 ];

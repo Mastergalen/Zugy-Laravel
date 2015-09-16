@@ -38,6 +38,7 @@ class PaymentProcessor
             $payment = new Payment;
             $payment->status = 1; //Mark as paid
             $payment->amount = $amount;
+            $payment->currency = $result->transaction->currencyIsoCode;
             $payment->method = $this->paymentMethod->method;
             $payment->metadata = [
                 'id' => $result->transaction->id,

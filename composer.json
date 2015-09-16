@@ -15,7 +15,9 @@
         "nesbot/carbon": "~1.14",
         "stripe/stripe-php": "3.*",
         "braintree/braintree_php" : "3.4.0",
-        "dimsav/laravel-translatable": "^5.1"
+        "dimsav/laravel-translatable": "^5.1",
+        "guzzlehttp/guzzle": "~5.3|~6.0",
+        "fedeisas/laravel-mail-css-inliner": "@dev"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

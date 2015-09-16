@@ -21,6 +21,10 @@ class Order extends Model
 {
     protected $table = 'orders';
 
+    protected $with = ['items'];
+
+    protected $appends = ['total'];
+
     public function user()
     {
         return $this->belongsTo('App\User');
@@ -34,5 +38,10 @@ class Order extends Model
     public function payment()
     {
         return $this->hasOne('App\Payment');
+    }
+
+    public function getTotalAttribute()
+    {
+        return $this->items()->sum('final_price');
     }
 }

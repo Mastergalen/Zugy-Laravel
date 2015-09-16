@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ccc2d30e6cf3ef27f781684b7d80ca1b",
+    "hash": "7763ecdb7fd9e6d3a4716cd2c5c1ad1c",
     "packages": [
         {
             "name": "braintree/braintree_php",
@@ -310,6 +310,58 @@
                 "string"
             ],
             "time": "2014-12-20 21:24:13"
+        },
+        {
+            "name": "fedeisas/laravel-mail-css-inliner",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fedeisas/laravel-mail-css-inliner.git",
+                "reference": "430ebd087347812f75a2476bcedc26ced2f4753f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fedeisas/laravel-mail-css-inliner/zipball/430ebd087347812f75a2476bcedc26ced2f4753f",
+                "reference": "430ebd087347812f75a2476bcedc26ced2f4753f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~4.0|~5.0",
+                "php": ">=5.3.2",
+                "tijsverkoyen/css-to-inline-styles": "~1.2"
+            },
+            "require-dev": {
+                "jakub-onderka/php-console-highlighter": "0.3.*",
+                "jakub-onderka/php-parallel-lint": "0.8.*",
+                "phpmd/phpmd": "~1.5",
+                "phpunit/phpunit": "~4.0",
+                "satooshi/php-coveralls": "~0.7@dev",
+                "squizlabs/php_codesniffer": "~1.5",
+                "swiftmailer/swiftmailer": "~5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Fedeisas\\LaravelMailCssInliner\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fede Isas",
+                    "email": "fedeisas@hotmail.com"
+                }
+            ],
+            "description": "Inline the CSS of your HTML emails using Laravel",
+            "keywords": [
+                "css",
+                "laravel",
+                "mailer"
+            ],
+            "time": "2014-12-09 12:53:44"
         },
         {
             "name": "gloudemans/shoppingcart",
@@ -1560,16 +1612,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v3.2.0",
+            "version": "v3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "ae629cdadf088983f3f7bcd6bd5856fc0feaf104"
+                "reference": "c22eb5b8d5a3549c3bf83302fbbbc9ff49e2842c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/ae629cdadf088983f3f7bcd6bd5856fc0feaf104",
-                "reference": "ae629cdadf088983f3f7bcd6bd5856fc0feaf104",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/c22eb5b8d5a3549c3bf83302fbbbc9ff49e2842c",
+                "reference": "c22eb5b8d5a3549c3bf83302fbbbc9ff49e2842c",
                 "shasum": ""
             },
             "require": {
@@ -1611,7 +1663,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2015-08-17 23:42:30"
+            "time": "2015-09-14 23:29:09"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2365,6 +2417,53 @@
             "time": "2015-08-31 12:28:11"
         },
         {
+            "name": "tijsverkoyen/css-to-inline-styles",
+            "version": "1.5.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tijsverkoyen/CssToInlineStyles.git",
+                "reference": "3065b197f54c83392a4e0ba355678a5080dd9ee2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tijsverkoyen/CssToInlineStyles/zipball/3065b197f54c83392a4e0ba355678a5080dd9ee2",
+                "reference": "3065b197f54c83392a4e0ba355678a5080dd9ee2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "symfony/css-selector": "~2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TijsVerkoyen\\CssToInlineStyles\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Tijs Verkoyen",
+                    "email": "css_to_inline_styles@verkoyen.eu",
+                    "role": "Developer"
+                }
+            ],
+            "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
+            "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
+            "time": "2015-04-01 14:40:03"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v1.1.1",
             "source": {
@@ -2965,16 +3064,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.2.2",
+            "version": "2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "2d7c03c0e4e080901b8f33b2897b0577be18a13c"
+                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/2d7c03c0e4e080901b8f33b2897b0577be18a13c",
-                "reference": "2d7c03c0e4e080901b8f33b2897b0577be18a13c",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ef1ca6835468857944d5c3b48fa503d5554cff2f",
+                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f",
                 "shasum": ""
             },
             "require": {
@@ -3023,7 +3122,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-08-04 03:42:39"
+            "time": "2015-09-14 06:51:16"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -3156,16 +3255,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.4.6",
+            "version": "1.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b"
+                "reference": "3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
-                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da",
+                "reference": "3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da",
                 "shasum": ""
             },
             "require": {
@@ -3201,20 +3300,20 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2015-08-16 08:51:00"
+            "time": "2015-09-15 10:49:45"
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.6",
+            "version": "4.8.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2246830f4a1a551c67933e4171bf2126dc29d357"
+                "reference": "dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2246830f4a1a551c67933e4171bf2126dc29d357",
-                "reference": "2246830f4a1a551c67933e4171bf2126dc29d357",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa",
+                "reference": "dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa",
                 "shasum": ""
             },
             "require": {
@@ -3273,7 +3372,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-08-24 04:09:38"
+            "time": "2015-09-14 06:57:22"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3804,7 +3903,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "fedeisas/laravel-mail-css-inliner": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

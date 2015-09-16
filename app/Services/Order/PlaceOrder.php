@@ -2,6 +2,7 @@
 
 namespace App\Services\Order;
 
+use App\Events\OrderWasPlaced;
 use App\Payment;
 use App\Product;
 use App\User;
@@ -46,10 +47,11 @@ class PlaceOrder
         $order = $this->saveOrderToDB($payment);
 
         //TODO Alert drivers
-        //TODO Send order confirmation to user with receipt, with link to track orders, even for guests
 
         //Empty checkout session settings
         Checkout::forget();
+
+        \Event::fire(new OrderWasPlaced($order));
 
         return $order;
     }
@@ -102,6 +104,8 @@ class PlaceOrder
         $order = new Order();
         $order->order_status = 0; //New order status
         $order->order_placed = Carbon::now();
+
+        $order->email                   = $this->user->email;
 
         $order->delivery_name           = $this->deliveryAddress->name;
         $order->delivery_line_1         = $this->deliveryAddress->line_1;

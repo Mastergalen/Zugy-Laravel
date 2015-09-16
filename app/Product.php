@@ -36,8 +36,10 @@ class Product extends Model
         return $this->hasMany('App\ProductDescription');
     }
 
-    public function getDescription($language_id)
+    public function getDescription($language_id = null)
     {
+        if($language_id == null) $language_id = \App\Language::getLanguageId();
+
         return $this->description()->where('language_id', '=', $language_id)->first();
     }
 

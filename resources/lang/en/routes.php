@@ -12,4 +12,7 @@ return [
         'review'       => 'checkout/review',
         'confirmation' => 'checkout/confirmation',
     ],
+    'order' => [
+        'show' => 'order/{id}',
+    ]
 ];
