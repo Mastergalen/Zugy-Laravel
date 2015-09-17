@@ -39,5 +39,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AuthenticateUser::class, function() {
             return new AuthenticateUser();
         });
+
+        $this->app->bind('Zugy\Repos\Order\OrderRepository', 'Zugy\Repos\Order\DbOrderRepository');
     }
 }

@@ -137,46 +137,7 @@ class CheckoutController extends Controller
         $cart = Cart::content();
 
         //Fetch payment information
-        $payment = [];
-
-        if($paymentMethod->method == 'card') {
-            $payload = auth()->user()->payment_methods()->where('method', '=', 'card')->first()->payload;
-
-            $stripeCustomer = \Stripe\Customer::retrieve($payload['stripeId']);
-            $card = $stripeCustomer->sources->retrieve(session('checkout.card.id'));
-
-            if(!session()->has('checkout.card.id')) {
-                session()->put('checkout.card.id', $payload['defaultCardId']);
-            }
-
-            $payment['method'] = 'card';
-            $payment['card']['brand'] = $card->brand;
-            $payment['card']['last4'] = $card->last4;
-            $payment['card'] = $stripeCustomer->sources->retrieve(session('checkout.card.id'));
-        } elseif($paymentMethod->method == 'braintree') {
-            $braintreeId = $paymentMethod->payload['id'];
-
-            $customer = \Braintree_Customer::find($braintreeId);
-
-            $paymentMethods = $customer->paymentMethods;
-
-            foreach($paymentMethods as $p) {
-
-                if($p->default === true) {
-                    if($p instanceof \Braintree_PayPalAccount) {
-                        $payment['method'] = 'paypal';
-                        $payment['email'] = $p->email;
-                    } elseif($p instanceof \Braintree_CreditCard) {
-                        $payment['method'] = 'card';
-                        $payment['card']['brand'] = $p->cardType;
-                        $payment['card']['last4'] = $p->last4;
-                    }
-                    break;
-                }
-            }
-        } else {
-            throw new \Exception('Payment method does not exist');
-        }
+        $payment = $paymentMethod->getFormatted();
 
         return view('pages.checkout.review')->with([
             'cart' => $cart,
@@ -192,7 +153,6 @@ class CheckoutController extends Controller
         try {
             $result = $service->handler($user);
         } catch(OutOfStockException $e) {
-            //TODO show which item was out of stock
             return redirect()->back()->withErrors($e->getErrorMessages());
 
         } /* catch(\Exception $e) {
@@ -201,8 +161,6 @@ class CheckoutController extends Controller
         } */
 
         if(!$result instanceof Order) return $result;
-
-        dd($result);
 
         return view('pages.checkout.confirmation')->with(['order' => $result]);
 

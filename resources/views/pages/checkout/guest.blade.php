@@ -90,10 +90,11 @@
             </form>
         </div><!--column /-->
         <div class="col-lg-3 col-md-3 col-sm-5">
-            @include('pages.checkout.partials.order-summary')
+            @include('includes.order-summary',  ['total' => Cart::total(), 'shipping' => Cart::shipping(), 'grandTotal' => Cart::grandTotal()])
         </div>
     </div>
 
+    @include('includes.vat-popover', ['vat' => Cart::vat(), 'grandTotal' => Cart::grandTotal()])
 
 @endsection
 
@@ -103,6 +104,13 @@
             <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
             <script>
                 $(document).ready(function() {
+
+                    $('#vat-expand').popover({
+                        html: true,
+                        title: 'VAT Summary',
+                        placement: 'bottom',
+                        content: $('#vat-popover-template').html()
+                    })
 
                     /* Payment method */
                     braintree.setup('{!! \Braintree_ClientToken::generate() !!}', "dropin", {

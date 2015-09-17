@@ -11,14 +11,7 @@
 |
 */
 
-use App\Events\OrderWasPlaced;
-use App\Order;
-use App\PaymentMethod;
-use App\Services\Order\PlaceOrder;
 use Illuminate\Support\Facades\Route;
-use Zugy\Facades\Cart;
-use Zugy\Facades\PaymentProcessor;
-use Zugy\Facades\Shipping;
 
 Route::get('/', function () {
     return view('pages.home');
@@ -87,10 +80,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('image/upload', 'Admin\ImageController@upload');
 });
 
-Route::get('test', function(PlaceOrder $handler) {
-    $order = \App\Order::first();
-
-    //\Event::fire(new OrderWasPlaced($order));
-
-    return view('emails.order-confirmation')->with(compact('order'));
+Route::get('test', function() {
 });

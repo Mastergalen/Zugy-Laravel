@@ -19,4 +19,28 @@ class Payment extends Model
     protected $casts = [
         'metadata' => 'json',
     ];
+
+    public function getFormatted()
+    {
+        $payment = [];
+
+        if($this->attributes['method'] == 'braintree') {
+            $transactionId = json_decode($this->attributes['metadata'])->id;
+
+            $transaction = \Braintree_Transaction::find($transactionId);
+
+            if($transaction->paymentInstrumentType == 'paypal_account') {
+                $payment['method'] = 'paypal';
+                $payment['email'] = $transaction->paypalDetails->payerEmail;
+            } elseif($transaction->paymentInstrumentType == 'credit_card') {
+                $payment['method'] = 'card';
+                $payment['card']['brand'] = $transaction->creditCardDetails->cardType;
+                $payment['card']['last4'] = $transaction->creditCardDetails->last4;
+            }
+        } else {
+            throw new \Exception('Payment method does not exist');
+        }
+
+        return $payment;
+    }
 }
