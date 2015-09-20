@@ -1,0 +1,17 @@
+#order-summary tr:first-child td {
+  border: none;
+}
+
+#order-summary tr td:nth-child(2) {
+  text-align: right;
+}
+
+#order-summary tr.total td {
+  font-size: 20px;
+}
+
+#order-summary tr.total .price {
+  color: #4ec67f;
+  font-size: 22px;
+  font-weight: bold;
+}

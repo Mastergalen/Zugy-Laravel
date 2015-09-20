@@ -1,0 +1,50 @@
+@import "variables";
+
+/* Marketing */
+.marketing {
+  text-align: center;
+}
+.marketing i {
+  font-size: 90px;
+  color: #BBBBBB;
+}
+
+/* Locations */
+.locations {
+  text-align: center;
+}
+.locations h4 {
+  background-color: rgba(0,0,0,0);
+  box-shadow: 8px 0 0 rgba(0,0,0,0), -8px 0 0 rgba(0,0,0,0);
+  text-transform: uppercase;
+  font-size: 28px;
+}
+
+.locations p {
+  font-size: 16px;
+  color: #393836;
+}
+
+//noinspection CssUnknownTarget
+.parallax {
+  margin-top: 20px;
+
+  height: 600px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+  background-image: url('/img/home/milan-cathedral.jpg');
+}
+
+.parallax span {
+  font-family: $font-family-base;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0px;
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 600px;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
