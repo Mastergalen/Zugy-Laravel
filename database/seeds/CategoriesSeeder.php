@@ -12,13 +12,13 @@ class CategoriesSeeder extends Seeder
             ['id' => 5, 'parent_id' => 4],
         ]);
 
-        DB::table('categories_description')->insert([
-            ['category_id' => 1, 'language_id' => 1,  'name' => 'Alcohol'],
-            ['category_id' => 1, 'language_id' => 2,  'name' => 'Alcol'],
-            ['category_id' => 2, 'language_id' => 1,  'name' => 'Food'],
-            ['category_id' => 3, 'language_id' => 1,  'name' => 'Spirits'],
-            ['category_id' => 4, 'language_id' => 1,  'name' => 'Wine & champagne'],
-            ['category_id' => 5, 'language_id' => 1,  'name' => 'Vodka'],
+        DB::table('category_translations')->insert([
+            ['category_id' => 1, 'locale' => 'en',  'name' => 'Alcohol', 'slug' => 'alcohol'],
+            ['category_id' => 1, 'locale' => 'it',  'name' => 'Alcol', 'slug' => 'alcol'],
+            ['category_id' => 2, 'locale' => 'en',  'name' => 'Food', 'slug' => 'food'],
+            ['category_id' => 3, 'locale' => 'en',  'name' => 'Spirits', 'slug' => 'spirits'],
+            ['category_id' => 4, 'locale' => 'en',  'name' => 'Wine & champagne', 'slug' => 'wine-and-champagne'],
+            ['category_id' => 5, 'locale' => 'en',  'name' => 'Vodka', 'slug' => 'vodka'],
         ]);
     }
 }

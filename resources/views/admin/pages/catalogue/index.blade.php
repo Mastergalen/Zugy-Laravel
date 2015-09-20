@@ -64,7 +64,7 @@
                 @foreach($products as $p)
                     <tr>
                         <td>{{ $p['id'] }}</td>
-                        <td>{{ $p->getDescription(auth()->user()->settings()->language)->title }}</td>
+                        <td>{{ $p->title }}</td>
                         <td>{{ $p['price'] }} &#8364;</td>
                         <td>{{ $p['stock_quantity'] }}</td>
                         <td>{{ $p['status'] }}</td>

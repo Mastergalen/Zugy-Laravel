@@ -41,7 +41,7 @@
                             </thead>
                             @foreach($order->items as $i)
                                 <tr>
-                                    <td><a href="{!! $i->product->getUrl() !!}">{{$i->product->getDescription()->title}}</a></td>
+                                    <td><a href="{!! $i->product->getUrl() !!}">{{$i->product->title}}</a></td>
                                     <td>{!! $i->quantity !!}</td>
                                     <td>{!! $i->price !!}&euro;</td>
                                     <td>{!! $i->final_price !!}&euro;</td>
@@ -77,7 +77,7 @@
         @foreach($order->items as $i)
         <div itemprop="acceptedOffer" itemscope itemtype="http://schema.org/Offer">
             <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Product">
-                <meta itemprop="name" content="{{$i->product->getDescription()->title}}"/>
+                <meta itemprop="name" content="{{$i->product->title}}"/>
                 <meta itemprop="sku" content="{!! $i->product->id !!}"/>
                 <link itemprop="url" href="{!! $i->product->getUrl() !!}"/>
                 <link itemprop="image" href="{!! $i->product->images->first()->url !!}"/>

@@ -1,23 +1,18 @@
 <?php
-/**
- * User: Galen Han
- * Date: 26.07.2015
- * Time: 14:52
- */
 
 namespace App\Services;
 
 use App\Product;
 use App\ProductImage;
 use Illuminate\Http\Request;
-use App\Language;
+use Mcamara\LaravelLocalization\LaravelLocalization;
 use Illuminate\Support\Facades\Validator;
 
 class CreateOrUpdateProduct
 {
     public function handler(Request $request, $productId = null)
     {
-        $languages = Language::all();
+        $languages = LaravelLocalization::getSupportedLanguagesKeys();
 
         $rules = [
             'price' => 'required|numeric|min:0',
@@ -29,10 +24,10 @@ class CreateOrUpdateProduct
         ];
 
         foreach ($languages as $l) {
-            $rules["meta.{$l['code']}.title"] = "required|max:255";
-            $rules["meta.{$l['code']}.slug"] = "required|max:255|alpha_dash|unique:products_description,slug,NULL,id,language_id,{$l['id']}"; //TODO Validate slug
-            $rules["meta.{$l['code']}.description"] = "required|max:65535";
-            $rules["meta.{$l['code']}.meta_description"] = "required|max:255";
+            $rules["meta.{$l}.title"] = "required|max:255";
+            $rules["meta.{$l}.slug"] = "required|max:255|alpha_dash|unique:products_description,slug,NULL,id,language_id,{$l['id']}"; //TODO Validate slug
+            $rules["meta.{$l}.description"] = "required|max:65535";
+            $rules["meta.{$l}.meta_description"] = "required|max:255";
         }
 
         if ($productId !== null) {
@@ -64,6 +59,16 @@ class CreateOrUpdateProduct
             $product->price = $request->input('price');
             $product->compare_price = $request->input('compare_price');
             $product->tax_class_id = $request->input('tax_class_id');
+
+            foreach ($languages as $l) {
+                $product->$l = [
+                    "title" => $request->input("meta.{$l}.title"),
+                    "slug" => $request->input("meta.{$l}.slug"),
+                    "description" => $request->input("meta.{$l}.description"),
+                    "meta_description" => $request->input("meta.{$l}.meta_description"),
+                ];
+            }
+
             $product->save();
             $product->categories()->attach($request->input('category_id'));
 
@@ -72,15 +77,7 @@ class CreateOrUpdateProduct
                 $product->attributes()->attach($a['id'], ['value' => $a['value']]);
             }
 
-            foreach ($languages as $l) {
-                $product->description()->create([
-                    "language_id" => $l['id'],
-                    "title" => $request->input("meta.{$l['code']}.title"),
-                    "slug" => $request->input("meta.{$l['code']}.slug"),
-                    "description" => $request->input("meta.{$l['code']}.description"),
-                    "meta_description" => $request->input("meta.{$l['code']}.meta_description"),
-                ]);
-            }
+
 
             $product->save();
 

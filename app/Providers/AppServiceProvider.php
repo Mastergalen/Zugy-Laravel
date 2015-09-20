@@ -41,5 +41,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->bind('Zugy\Repos\Order\OrderRepository', 'Zugy\Repos\Order\DbOrderRepository');
+        $this->app->bind('Zugy\Repos\Category\CategoryRepository', 'Zugy\Repos\Category\DbCategoryRepository');
+        $this->app->bind('Zugy\Repos\Product\ProductRepository', 'Zugy\Repos\Product\DbProductRepository');
     }
 }

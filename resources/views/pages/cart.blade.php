@@ -7,7 +7,7 @@
 @section('css')
     <link rel="stylesheet" href="/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
 @endsection
-
+<!-- TODO Show estimated delivery -->
 @section('content')
     <div class="page-header">
         <h1><i class="fa fa-shopping-cart"></i> Shopping Cart</h1>

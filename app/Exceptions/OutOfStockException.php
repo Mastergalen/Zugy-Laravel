@@ -22,11 +22,10 @@ class OutOfStockException extends \Exception
         $language_id = Language::getLanguageId(LaravelLocalization::getCurrentLocale());
 
         foreach($this->products as $p) {
-            $description = $p->getDescription($language_id);
             if($p->stock_quantity == 0) {
-                $errors[] = "{$description->title} is out of stock. Please remove the item from your cart to place your order."; //FIXME Show item name
+                $errors[] = "{$p->title} is out of stock. Please remove the item from your cart to place your order."; //FIXME Show item name
             } else {
-                $errors[] = "{$description->title} only has {$p->stock_quantity} units left in stock. Please reduce the order quantity in your cart to place your order.";
+                $errors[] = "{$p->title} only has {$p->stock_quantity} units left in stock. Please reduce the order quantity in your cart to place your order.";
             }
         }
 

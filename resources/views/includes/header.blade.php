@@ -123,7 +123,7 @@
                             </div>
                         </div>
                     @endforeach
-
+                    <!-- TODO Show estimated delivery -->
                     <div class="row mini-cart-footer" style="text-align: center">
                         <div class="mini-cart-footer">
                             <h3 class="subtotal"> Subtotal: {{money_format("%i", Cart::total())}}&#8364; </h3>

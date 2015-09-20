@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoriesDescriptionTable extends Migration
+class CreateCategoryTranslationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateCategoriesDescriptionTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories_description', function (Blueprint $table) {
+        Schema::create('category_translations', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
             $table->integer('category_id')->unsigned();
@@ -20,14 +20,15 @@ class CreateCategoriesDescriptionTable extends Migration
                 ->references('id')->on('categories')
                 ->onDelete('no action');
 
-            $table->integer('language_id')->unsigned();
-            $table->foreign('language_id')
-                ->references('id')->on('languages')
-                ->onDelete('no action');
+            $table->string('locale')->index();
 
-            $table->primary(['category_id', 'language_id']);
+            $table->primary(['category_id', 'locale']);
 
             $table->string('name', 32);
+            $table->string('slug', 255);
+            $table->string('meta_description', 255);
+
+            $table->unique(['locale', 'slug']);
         });
     }
 
@@ -38,6 +39,6 @@ class CreateCategoriesDescriptionTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('category_translations');
     }
 }

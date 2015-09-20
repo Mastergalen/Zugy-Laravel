@@ -66,39 +66,40 @@
             </div>
         </div>
         @include('includes.vat-popover', ['vat' => $order->vat, 'grandTotal' => $order->grandTotal])
+
+        <hr>
+
+        @foreach($order->items as $item)
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div class="cart-product-thumb">
+                                <a href="{!! $item->product->getUrl() !!}"><img
+                                            src="{!! $item->product->images()->first()->url !!}"
+                                            alt="{{ $item->product->title }}"></a>
+                            </div>
+                        </div>
+                        <div class="col-xs-9">
+                            <div class="cart-description">
+                                <h4><a href="{!! $item->product->getUrl() !!}">{{ $item->product->title }}</a></h4>
+
+                                <div class="price">{{ money_format("%i", $item->price) }}&euro;</div>
+
+                                <p><b>Quantity: </b>{!! $item->quantity !!}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        @endforeach
     @else
         @if(auth()->guest())
-            <p><a href="{!! route('login') !!}">Sign in</a> to get more information on your order.</p>
+            <div class="well"><a href="{!! route('login') !!}">Sign in</a> to view more information on your order.</div>
         @endif
     @endcan
 
-    <hr>
-
-    @foreach($order->items as $item)
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <div class="cart-product-thumb">
-                            <a href="{!! $item->product->getUrl() !!}"><img
-                                        src="{!! $item->product->images()->first()->url !!}"
-                                        alt="{{ $item->product->getDescription()->title }}"></a>
-                        </div>
-                    </div>
-                    <div class="col-xs-9">
-                        <div class="cart-description">
-                            <h4><a href="{!! $item->product->getUrl() !!}">{{ $item->product->getDescription()->title }}</a></h4>
-
-                            <div class="price">{{ money_format("%i", $item->price) }}&euro;</div>
-
-                            <p><b>Quantity: </b>{!! $item->quantity !!}</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    @endforeach
 @endsection
 
 @section('scripts')

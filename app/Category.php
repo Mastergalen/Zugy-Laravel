@@ -2,35 +2,35 @@
 
 namespace App;
 
+use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    use Translatable;
+
     protected $table = 'categories';
 
-    public function description() {
-        return $this->hasMany('App\CategoryDescription');
-    }
+    public $translatedAttributes = ['name', 'slug', 'meta_description'];
 
-    static public function buildTree() {
+    static public function buildTree() { //TODO Hide categories with no children
         $refs = [];
         $list = [];
 
-        $rows = Category::with(['description' => function ($query) {
-            $query->where('language_id', '=', auth()->user()->settings()->language);
-        }])->get()->toArray();
+        $rows = Category::with('translations')->get();
 
         foreach($rows as $row) {
-            $ref = & $refs[$row['id']];
+            $ref = & $refs[$row->id];
 
-            $ref['id'] = $row['id'];
-            $ref['parent_id']  = $row['parent_id'];
-            $ref['name'] = $row['description'][0]['name'];
+            $ref['id'] = $row->id;
+            $ref['parent_id']  = $row->parent_id;
+            $ref['name'] = $row->name;
+            $ref['slug'] = $row->slug;
 
-            if($row['parent_id'] == null) {
-                $list[$row['id']] = & $ref;
+            if($row->parent_id == null) {
+                $list[$row->id] = & $ref;
             } else {
-                $refs[$row['parent_id']]['children'][$row['id']] = & $ref;
+                $refs[$row->parent_id]['children'][$row->id] = & $ref;
             }
         }
 
@@ -47,16 +47,16 @@ class Category extends Model
 
         function toUL(array $array)
         {
-            $html = '<ul>' . PHP_EOL;
+            $html = '<ul class="list-group">' . PHP_EOL;
 
             foreach ($array as $value)
             {
-                $html .= '<li>' . $value['name'];
+                $html .= '<li class="list-group-item"><a href="' . localize_url('routes.shop.category', ['slug' => $value['slug']]) . '">' . $value['name'];
                 if (!empty($value['children']))
                 {
                     $html .= toUL($value['children']);
                 }
-                $html .= '</li>' . PHP_EOL;
+                $html .= '</a></li>' . PHP_EOL;
             }
 
             $html .= '</ul>' . PHP_EOL;

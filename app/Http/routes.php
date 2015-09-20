@@ -24,7 +24,11 @@ Route::group([
 function() {
     Route::get(Localization::transRoute('routes.product'), ['uses' => 'ProductController@show']);
 
-    Route::get(Localization::transRoute('routes.shop'), ['uses' => 'ShopController@index', 'as' => 'shop']);
+    /*
+     * Shop
+     */
+    Route::get(Localization::transRoute('routes.shop.index'), ['uses' => 'ShopController@index', 'as' => 'shop']);
+    Route::get(Localization::transRoute('routes.shop.category'), ['uses' => 'ShopController@category']);
 
     /*
      * Checkout

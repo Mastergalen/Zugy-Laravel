@@ -1,5 +1,5 @@
-@section('title', $product->description[0]->title)
-@section('meta_description', $product->description[0]->title)
+@section('title', $product->title)
+@section('meta_description', $product->title)
 
 @extends('layouts.default')
 
@@ -55,22 +55,22 @@
         <li><a href="/">Home</a></li>
         <li><a href="/shop">Shop</a></li>
         @foreach($product->breadcrumbs as $b)
-            <li><a href="#">{{ collect($b['description'])->where('language_id', $language_id)->first()['name']}}</a></li>
+            <li><a href="{!! localize_url('routes.shop.category', ['slug' => $b['slug']]) !!}">{{ $b['name'] }}</a></li>
         @endforeach
-        <li class="active">{!! $product->description[0]->title !!}</li>
+        <li class="active">{!! $product->title !!}</li>
     </ul>
     <div class="row">
         <div class="col-md-6">
             <div class="gallery sp-wrap">
                 @foreach($product->images as $image)
                     <a href="{!! $image->url !!}">
-                        <img src="{!! $image->url !!}" alt="{!! $product->description[0]->title !!} image">
+                        <img src="{!! $image->url !!}" alt="{!! $product->title !!} image">
                     </a>
                 @endforeach
             </div>
         </div>
         <div class="col-md-6">
-            <h1>{{$product->description[0]->title}}</h1>
+            <h1>{{$product->title}}</h1>
             <div class="product-price">
                 <span class="price-sales">{{$product->price}}&#8364;</span>
                 @if(isset($product->compare_price))
@@ -78,12 +78,12 @@
                 @endif
             </div>
             <div class="product-description">
-                {!! $product->description[0]->description !!}
+                {!! $product->description !!}
             </div>
             <hr/>
             @if($product->stock_quantity > 0)
                 <h3>Select quantity</h3>
-                <fieldset id="quantity-selector" data-product-id="{!! $product->id !!}" data-product-name="{{$product->description[0]->title}}">
+                <fieldset id="quantity-selector" data-product-id="{!! $product->id !!}" data-product-name="{{$product->title}}">
                     <div class="form-group">
                         <span class="help-block" style="display: none;">Please select how many you want!</span>
                         <?php $i = 1 ?>

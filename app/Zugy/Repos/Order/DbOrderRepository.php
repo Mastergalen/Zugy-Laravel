@@ -2,7 +2,6 @@
 
 namespace Zugy\Repos\Order;
 
-
 use App\Order;
 use Zugy\Repos\DbRepository;
 

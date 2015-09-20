@@ -6,9 +6,30 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Zugy\Repos\Category\CategoryRepository;
+use Zugy\Repos\Product\ProductRepository;
 
 class ShopController extends Controller
 {
+    /**
+     * @var ProductRepository
+     */
+    private $productRepo;
+    /**
+     * @var CategoryRepository
+     */
+    private $categoryRepo;
+
+    /**
+     * ShopController constructor.
+     * @param $productRepo ProductRepository
+     */
+    public function __construct(ProductRepository $productRepo, CategoryRepository $categoryRepo)
+    {
+        $this->productRepo = $productRepo;
+        $this->categoryRepo = $categoryRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,69 +40,11 @@ class ShopController extends Controller
         return "nothing yet";
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
+    public function category($category_slug) {
+        $category = $this->categoryRepo->getBySlug($category_slug);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $products = $this->productRepo->category($category_slug);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('pages.shop.category')->with(compact('products', 'category'));
     }
 }

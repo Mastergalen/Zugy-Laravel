@@ -1,7 +1,18 @@
+$price-color: #2c3e50;
+
 .price {
   font-size: 18px;
   font-weight: bold;
-  color: #2c3e50;
+  color: $price-color;
+}
+
+.price a {
+  color: $price-color;
+}
+
+.price a:hover {
+  color: $price-color;
+  text-decoration: none;
 }
 
 .breadcrumb {

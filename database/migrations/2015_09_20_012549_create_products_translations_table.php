@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductsDescriptionTable extends Migration
+class CreateProductsTranslationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateProductsDescriptionTable extends Migration
      */
     public function up()
     {
-        Schema::create('products_description', function (Blueprint $table) {
+        Schema::create('product_translations', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
             $table->integer('product_id')->unsigned();
@@ -20,14 +20,12 @@ class CreateProductsDescriptionTable extends Migration
                 ->references('id')->on('products')
                 ->onDelete('cascade');
 
-            $table->integer('language_id')->unsigned();
-            $table->foreign('language_id')
-                ->references('id')->on('languages')
-                ->onDelete('no action');
+            $table->string('locale')->index();
 
-            $table->string('slug', 255)->unique();
+            $table->string('slug', 255);
+            $table->unique(['locale', 'slug']);
 
-            $table->primary(['product_id', 'language_id']);
+            $table->primary(['product_id', 'locale']);
 
             $table->string('title', 255);
             $table->text('description');
@@ -42,6 +40,6 @@ class CreateProductsDescriptionTable extends Migration
      */
     public function down()
     {
-        Schema::drop('products_description');
+        Schema::drop('product_translations');
     }
 }

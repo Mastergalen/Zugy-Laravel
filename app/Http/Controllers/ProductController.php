@@ -8,9 +8,24 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Zugy\Repos\Product\ProductRepository;
 
 class ProductController extends Controller
 {
+    /**
+     * @var ProductRepository
+     */
+    private $productRepo;
+
+    /**
+     * ProductController constructor.
+     * @param ProductRepository $productRepo
+     */
+    public function __construct(ProductRepository $productRepo)
+    {
+        $this->productRepo = $productRepo;
+    }
+
 
     /**
      * Display the specified resource.
@@ -20,19 +35,10 @@ class ProductController extends Controller
      */
     public function show($slug)
     {
-        $language_id = Language::getLanguageId(LaravelLocalization::getCurrentLocale());
-
-        $product = Product::with(['description' => function($query) use ($language_id, $slug) {
-            $query->where('slug', '=', $slug)
-                  ->where('language_id', '=', $language_id);
-            }])
-            ->with('images')
-            ->with(['attributes.description' => function($query) use($language_id) {
-                $query->where('language_id', '=', $language_id);
-            }])->get()->where('description.0.slug', $slug)->first();
+        $product = $this->productRepo->getBySlug($slug);
 
         if($product === null) abort(404, 'That product does not exist');
 
-        return view('pages.product')->with(['product' => $product, 'language_id' => $language_id]);
+        return view('pages.product')->with(['product' => $product]);
     }
 }

@@ -1,7 +1,10 @@
 <?php
 
 return [
-    'shop' => 'shop',
+    'shop' => [
+        'index' => 'shop',
+        'category' => 'shop/category/{slug}',
+    ],
     'product' => 'product/{slug}',
     'cart' => 'cart',
     'checkout' => [
