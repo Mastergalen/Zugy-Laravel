@@ -19,9 +19,7 @@ class CatalogueController extends Controller
      */
     public function index()
     {
-        $products = Product::with(['description' => function($query) {
-            $query->where('language_id', '=', auth()->user()->settings()->language);
-        }])->paginate(30);
+        $products = Product::with('translations')->paginate(30);
         return view('admin.pages.catalogue.index')->with(['products' => $products]);
     }
 

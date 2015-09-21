@@ -23,8 +23,8 @@
 <link href="/css/plugins/summernote/summernote.css" rel="stylesheet">
 <link href="/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
-<link href="/css/admin/plugins/dropzone/dropzone.css" rel="stylesheet">
-<link href="/css/admin/plugins/dropzone/basic.css" rel="stylesheet">
+<link href="/css/plugins/dropzone/dropzone.css" rel="stylesheet">
+<link href="/css/plugins/dropzone/basic.css" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/css/formValidation.min.css">
 

@@ -7,8 +7,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
-<link href="/css/admin/style.css" rel="stylesheet">
-<link href="/css/admin/skin-blue.css" rel="stylesheet">
+<link href="/dist/assets/css/admin/admin.css" rel="stylesheet">
 
 <link rel="apple-touch-icon" sizes="57x57" href="/assets/icons/apple-touch-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="/assets/icons/apple-touch-icon-60x60.png">

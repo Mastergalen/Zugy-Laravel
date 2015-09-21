@@ -64,14 +64,14 @@
                 @foreach($products as $p)
                     <tr>
                         <td>{{ $p['id'] }}</td>
-                        <td>{{ $p->title }}</td>
+                        <td><a href="{!! action('Admin\CatalogueController@edit', $p->id) !!}">{{ $p->title }}</a></td>
                         <td>{{ $p['price'] }} &#8364;</td>
                         <td>{{ $p['stock_quantity'] }}</td>
                         <td>{{ $p['status'] }}</td>
                         <td class="text-right">
                             <div class="btn-group">
-                                <a href="{!! Localization::getURLFromRouteNameTranslated(auth()->user()->language_code, 'routes.product', ['slug' => $p['description'][0]['slug']]) !!}" class="btn btn-default btn-xs">View</a>
-                                <button class="btn btn-default btn-xs">Edit</button>
+                                <a href="{!! $p->getUrl() !!}" class="btn btn-default btn-xs">View</a>
+                                <a href="{!! action('Admin\CatalogueController@edit', $p->id) !!}" class="btn btn-default btn-xs">Edit</a>
                             </div>
                         </td>
 
