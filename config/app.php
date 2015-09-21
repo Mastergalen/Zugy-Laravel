@@ -164,6 +164,7 @@ return [
         Zugy\Cart\CartServiceProvider::class,
         Zugy\Checkout\CheckoutServiceProvider::class,
         Zugy\PaymentProcessor\PaymentProcessorServiceProvider::class,
+        Zugy\Helpers\Maps\MapsServiceProvider::class,
 
     ],
 
@@ -227,6 +228,7 @@ return [
         'Cart'         => Zugy\Facades\Cart::class,
         'Checkout'     => Zugy\Facades\Checkout::class,
         'PaymentProcessor' => Zugy\Facades\PaymentProcessor::class,
+        'Maps'         => Zugy\Facades\Maps::class,
     ],
 
 ];

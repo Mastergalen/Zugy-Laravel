@@ -5,10 +5,16 @@
     </a>
 </li>
 <li>
-    <a href="/admin/orders">
+    <a href="{!! action('Admin\OrderController@index') !!}">
         <i class="fa fa-file-text"></i>
         <span>Orders</span>
-        <span class="label label-warning pull-right">3</span>
+        <?php $orderUnprocessedCount = \App\Order::unprocessed()->count() ?>
+
+        @if($orderUnprocessedCount === 0)
+            <span class="label label-success pull-right">{!! $orderUnprocessedCount !!}</span>
+        @else
+            <span class="label label-warning pull-right">{!! $orderUnprocessedCount !!}</span>
+        @endif
     </a>
 </li>
 <li>

@@ -74,4 +74,8 @@ class Order extends Model
     {
         return $this->getTotalAttribute() + $this->attributes['shipping_fee'];
     }
+
+    public function scopeUnprocessed($query) {
+        return $query->where('order_status', '=', 0);
+    }
 }

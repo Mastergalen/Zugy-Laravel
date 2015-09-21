@@ -27,13 +27,8 @@
     </div>
     <div class="row">
         <div class="col-md-9 col-md-push-3">
-            @if($products->count() == 0)
-                <div class="alert alert-info">
-                    No products in this category
-                </div>
-            @endif
             <div class="row">
-                @foreach($products as $p)
+                @forelse($products as $p)
                     <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-6">
                         <div class="panel panel-default">
                             <div class="panel-body">
@@ -44,7 +39,11 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="alert alert-info">
+                        No products in this category
+                    </div>
+                @endforelse
             </div>
         </div>
         <div class="col-md-3 col-md-pull-9">

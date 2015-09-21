@@ -13,17 +13,7 @@
     <p>Ordered on {!! $order->order_placed->toFormattedDateString() !!}</p>
 
     <p>Order status: <!--TODO more pretty tracking -->
-        @if($order->order_status == 0)
-            <span class="label label-default">Awaiting processing</span>
-        @elseif($order->order_status == 1)
-            <span class="label label-primary">Being processed</span>
-        @elseif($order->order_status == 2)
-            <span class="label label-primary">Out for delivery</span>
-        @elseif($order->order_status == 3)
-            <span class="label label-success">Delivered</span>
-        @elseif($order->order_status == 4)
-            <span class="label label-danger">Cancelled</span>
-        @endif
+        @include('includes.status.order-status', ['status' => $order->order_status])
     </p>
 
     @can('view-confidential-order', $order)
@@ -59,7 +49,8 @@
                 <h4>Order summary</h4>
                 @include('includes.order-summary',  ['total' => $order->total, 'shipping' => $order->shipping_fee, 'grandTotal' => $order->grandTotal])
                 <form action="{!! request()->url() !!}">
-                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_method" value="PATCH">
+                    <input type="hidden" name="action" value="cancel">
                     {!! Form::token() !!}
                     <button class="btn btn-danger btn-block btn-sm"><i class="fa fa-remove"></i> Cancel order</button><!--FIXME Cancel order and refund-->
                 </form>

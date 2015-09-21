@@ -2,12 +2,28 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Zugy\Repos\Order\OrderRepository;
 
 class OrderController extends Controller
 {
+    /**
+     * @var OrderRepository
+     */
+    private $orderRepository;
+
+    /**
+     * OrderController constructor.
+     */
+    public function __construct(OrderRepository $orderRepository)
+    {
+        $this->orderRepository = $orderRepository;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -15,17 +31,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $orders = $this->orderRepository->paginate(30);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('admin.pages.order.index')->with(compact('orders'));
     }
 
     /**
@@ -47,7 +55,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = $this->orderRepository->find($id);
+
+        return view('admin.pages.order.show')->with(compact('order'));
     }
 
     /**

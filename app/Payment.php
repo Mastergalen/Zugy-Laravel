@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * 0 | Unpaid
  * 1 | Paid
  * 2 | Refunded
- * 3 | Payment at delivery
+ * 3 | Payment on delivery
  */
 
 class Payment extends Model

@@ -11,4 +11,8 @@ abstract class DbRepository
     public function all() {
         return $this->model->all();
     }
+
+    public function paginate($perPage) {
+        return $this->model->paginate($perPage);
+    }
 }
