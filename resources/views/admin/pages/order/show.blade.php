@@ -42,6 +42,11 @@
                                 <dd>{{ $order->order_placed }}</dd>
                                 <dd>{{ $order->order_placed->diffForHumans() }}</dd>
 
+                                @if($order->payment->paid)
+                                    <dt>Paid:</dt>
+                                    <dd>{{ $order->payment->paid }}</dd>
+                                @endif
+
                                 @if($order->order_completed)
                                     <dt>Order completed:</dt>
                                     <dd>{{ $order->order_completed }}</dd>

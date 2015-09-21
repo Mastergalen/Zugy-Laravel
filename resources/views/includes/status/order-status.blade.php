@@ -16,11 +16,11 @@ if(!isset($type)) $type = 'label';
     @endif
 @else
     @if($status == 0)
-        <div class="callout callout-info">Awaiting processing</div>
+        <div class="callout callout-default">Awaiting processing</div>
     @elseif($status == 1)
-        <div class="callout callout-primary">Being processed</div>
+        <div class="callout callout-info">Being processed</div>
     @elseif($status == 2)
-        <div class="callout callout-primary">Out for delivery</div>
+        <div class="callout callout-info">Out for delivery</div>
     @elseif($status == 3)
         <div class="callout callout-success">Delivered</div>
     @elseif($status == 4)
