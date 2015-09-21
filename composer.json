@@ -17,7 +17,8 @@
         "braintree/braintree_php" : "3.4.0",
         "dimsav/laravel-translatable": "^5.1",
         "guzzlehttp/guzzle": "~5.3|~6.0",
-        "fedeisas/laravel-mail-css-inliner": "@dev"
+        "fedeisas/laravel-mail-css-inliner": "@dev",
+        "ivkos/pushbullet": "3.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

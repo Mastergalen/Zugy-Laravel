@@ -19,4 +19,13 @@ return  [
         'support' => 'support@myzugy.com',
         'logo_path' => env('APP_URL') . '/img/zugy-logo-dark.png', //Full URL to logo
     ],
+
+    /*
+     * Pushbullet
+     */
+    'pushbullet' => [
+        'channels' => [
+            'orders' => 'zugyorders',
+        ],
+    ],
 ];

@@ -15,7 +15,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'App\Events\OrderWasPlaced' => [
             'App\Listeners\SendOrderConfirmationMail',
-            //'App\Listeners\NotifyDrivers',
+            'App\Listeners\NotifyDriversOfOrder',
         ],
     ];
 
