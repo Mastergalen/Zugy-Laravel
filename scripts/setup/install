@@ -1,0 +1,8 @@
+cd ../../
+composer dump-autoload
+composer install
+sudo npm install --global gulp
+npm install
+php artisan migrate
+php artisan db:seed
+echo "Don't forget to update .env!"

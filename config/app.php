@@ -1,7 +1,5 @@
 <?php
 
-use Zugy\Checkout\CheckoutServiceProvider;
-
 return [
 
     /*
