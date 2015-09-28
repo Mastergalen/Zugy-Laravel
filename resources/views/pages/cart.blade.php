@@ -31,7 +31,7 @@
                     @foreach(Cart::content() as $row)
                          <tr class="cart-row" data-product-id="{{$row->id}}" data-row-id="{{$row->rowid}}">
                             <td class="cart-product-thumb"><a href="{!! $row->product->getUrl() !!}"><img
-                                            src="{!! $row->product->images()->first()->url !!}"
+                                            src="{!! $row->product->cover() !!}"
                                             alt="{{ $row->name }}"></a></td>
                             <td>
                                 <div class="cart-description">

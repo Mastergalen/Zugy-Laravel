@@ -32,7 +32,7 @@
                     <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-6">
                         <div class="panel panel-default">
                             <div class="panel-body">
-                                <a href="{!! $p->getUrl() !!}"><img src="{!! $p->thumbnail() !!}" class="img-responsive"
+                                <a href="{!! $p->getUrl() !!}"><img src="{!! $p->cover() !!}" class="img-responsive"
                                                   alt=""></a>
                                 <h4><a href="{!! $p->getUrl() !!}">{!! $p->title !!}</a></h4>
                                 <div class="price"><a href="{!! $p->getUrl() !!}">{!! $p->price !!}&euro;</a></div>

@@ -67,7 +67,7 @@
                         <div class="col-xs-3">
                             <div class="cart-product-thumb">
                                 <a href="{!! $item->product->getUrl() !!}"><img
-                                            src="{!! $item->product->images()->first()->url !!}"
+                                            src="{!! $item->product->cover() !!}"
                                             alt="{{ $item->product->title }}"></a>
                             </div>
                         </div>

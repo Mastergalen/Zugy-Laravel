@@ -21,7 +21,7 @@ class Product extends Model
         return $this->hasMany('App\ProductImage');
     }
 
-    public function thumbnail()
+    public function cover()
     {
         $images = $this->images()->get();
 

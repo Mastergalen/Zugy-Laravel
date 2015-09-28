@@ -99,14 +99,14 @@
                     @endif
                     <!-- Get cart buttons to work -->
                     @foreach(Cart::content() as $row)
-                        <?php $row->product->thumbnail() ?>
+                        <?php $row->product->cover() ?>
                         <div class="mini-cart-product row">
                             <div class="col-md-offset-3 col-md-6 col-xs-12">
                                 <div class="row">
                                     <div class="col-md-2 col-xs-3 mini-cart-product-thumb">
                                         <div>
                                             <a href="{!! $row->product->getUrl() !!}">
-                                                <img src="{!! $row->product->thumbnail() !!}" alt="img">
+                                                <img src="{!! $row->product->cover() !!}" alt="img">
                                             </a>
                                         </div>
                                     </div>
