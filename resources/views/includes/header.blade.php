@@ -88,7 +88,6 @@
                 @endif
             </ul>
         </nav><!--/.nav-collapse -->
-
         <!--Navbar cart-->
         <div class="navbar-cart collapse" collapse="cartCollapsed">
             <div class="mega-dropdown ">
@@ -100,13 +99,14 @@
                     @endif
                     <!-- Get cart buttons to work -->
                     @foreach(Cart::content() as $row)
+                        <?php $row->product->thumbnail() ?>
                         <div class="mini-cart-product row">
                             <div class="col-md-offset-3 col-md-6 col-xs-12">
                                 <div class="row">
                                     <div class="col-md-2 col-xs-3 mini-cart-product-thumb">
                                         <div>
                                             <a href="{!! $row->product->getUrl() !!}">
-                                                <img src="{!! $row->product->images()->first()->url !!}" alt="img">
+                                                <img src="{!! $row->product->thumbnail() !!}" alt="img">
                                             </a>
                                         </div>
                                     </div>
@@ -123,7 +123,7 @@
                             </div>
                         </div>
                     @endforeach
-                    <!-- TODO Show estimated delivery -->
+                            <!-- TODO Show estimated delivery -->
                     <div class="row mini-cart-footer" style="text-align: center">
                         <div class="mini-cart-footer">
                             <h3 class="subtotal"> Subtotal: {{money_format("%i", Cart::total())}}&#8364; </h3>

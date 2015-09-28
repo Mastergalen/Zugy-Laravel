@@ -46,11 +46,6 @@
 @endsection
 
 @section('content')
-    <link rel="stylesheet" href="/css/smoothproducts.css">
-
-    <link rel="stylesheet" href="/css/owl.carousel.css">
-    <link rel="stylesheet" href="/css/owl.theme.css">
-
     <ul class="breadcrumb">
         <li><a href="/">Home</a></li>
         <li><a href="/shop">Shop</a></li>
@@ -62,11 +57,15 @@
     <div class="row">
         <div class="col-md-6">
             <div class="gallery sp-wrap">
-                @foreach($product->images as $image)
+                @forelse($product->images as $image)
                     <a href="{!! $image->url !!}">
                         <img src="{!! $image->url !!}" alt="{!! $product->title !!} image">
                     </a>
-                @endforeach
+                @empty
+                    <a href="/img/zugy-placeholder-image.png">
+                        <img src="/img/zugy-placeholder-image.png" alt="Zugy Placeholder image">
+                    </a>
+                @endforelse
             </div>
         </div>
         <div class="col-md-6">

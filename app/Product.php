@@ -16,10 +16,20 @@ class Product extends Model
 
     protected $with = ['tax_class'];
 
-    //TODO If no images, display blank image
     public function images()
     {
         return $this->hasMany('App\ProductImage');
+    }
+
+    public function thumbnail()
+    {
+        $images = $this->images()->get();
+
+        if($images->count() === 0) {
+            return asset('/img/zugy-placeholder-image.png');
+        } else {
+            return $images->first()->url;
+        }
     }
 
     public function tax_class() {
