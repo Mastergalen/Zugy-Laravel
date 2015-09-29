@@ -20,11 +20,11 @@ class ImageController extends Controller
         $location = $this->generateFilePath($request->file('file'));
 
         //Avoid hash collision
-        while(Storage::disk('public')->exists($location)) {
+        while(Storage::disk('uploads')->exists($location)) {
             $location = $this->generateFilePath($request->file('file'));
         }
 
-        Storage::disk('public')->put($location, file_get_contents($request->file('file')->getRealPath()));
+        Storage::disk('uploads')->put($location, file_get_contents($request->file('file')->getRealPath()));
 
         $image = new ProductImage();
         $image->location = $location;
@@ -43,7 +43,7 @@ class ImageController extends Controller
             ->where('created_at', '<', Carbon::now()->subHour(24)); //Orphaned images older than 24h deleted
 
         foreach($toBeDeleted->get() as $d) {
-            Storage::disk('public')->delete($d['location']);
+            Storage::disk('uploads')->delete($d['location']);
         }
 
         $toBeDeleted->delete();

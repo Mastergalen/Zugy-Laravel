@@ -77,8 +77,6 @@ class CreateOrUpdateProduct
                 $product->attributes()->attach($a['id'], ['value' => $a['value']]);
             }
 
-
-
             $product->save();
 
             ProductImage::whereIn('id', $request->input('images'))->update(['product_id' => $product->id]);
