@@ -226,7 +226,6 @@
     <script src="/js/owl.carousel.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <script type="text/javascript">
-        /* wait for images to load */
         $(window).load( function() {
             $('.sp-wrap').smoothproducts();
 
@@ -241,10 +240,12 @@
                     return;
                 }
 
+                hideErrors();
+
                 console.log("Adding to cart: " +  quantity);
 
                 var $cart = $('.navbar .cart-icon:visible').eq(0);
-                var $imgToDrag = $('.gallery .sp-large a img').eq(0);
+                    var $imgToDrag = $('.gallery .sp-large a img').eq(0);
 
                 if($imgToDrag) {
                     var $imgClone = $imgToDrag.clone().offset({
@@ -271,6 +272,8 @@
                     });
                 }
 
+                //TODO Update cart in navbar price after success
+                //TODO Prevent adding more than in stock and show error message
                 $.ajax({
                     type: 'POST',
                     url: '{!! action('API\CartController@store') !!}',
@@ -282,14 +285,14 @@
                         'id': $quantitySelector.data('product-id'),
                         'qty': quantity
                     },
-                    async: false,
+                    success: function() {
+
+                    },
                     error: function(xhr, status, error) {
                         var err = eval("(" + xhr.responseText + ")");
                         alert(err.message);
                     }
                 });
-
-                hideErrors();
             });
         });
 
