@@ -23,13 +23,14 @@
         </div>
     @endif
 
-    <p>Your order has been placed. We will notify you when your order is out for delivery.</p>
+    <p>Your order has been placed. We will notify via email you when your order is out for delivery.</p>
 
-    <p>You can expect to your receive your order in 1-2 hours.</p>
+    <p>You can expect to your receive in under 1 hour.</p>
 
-    <p>We're delivering to: </p>
+    <hr>
 
-    <p>Your order: </p>
+    @include('includes.order-template')
+
 @endsection
 
 @section('scripts')
