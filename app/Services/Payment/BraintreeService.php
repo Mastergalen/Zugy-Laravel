@@ -10,10 +10,13 @@ namespace App\Services\Payment;
 
 use App\Exceptions\PaymentMethodDeclined;
 use App\PaymentMethod;
+use Zugy\Facades\Checkout;
 
 class BraintreeService
 {
     private $methodName = 'braintree';
+
+    protected $paymentMethod;
 
     public function addMethod($paymentMethodNonce) {
         $customer = $this->createOrFetchCustomer();
@@ -26,35 +29,29 @@ class BraintreeService
         if($result->success === false) {
             throw new PaymentMethodDeclined;
         }
+
+        return $this->paymentMethod;
     }
 
     public function createOrFetchCustomer() {
-        if(auth()->guest()) {
-            //Create new customer
+        $p = auth()->user()->payment_methods()->where('method', '=', $this->methodName)->first();
+
+        if($p === null) {
             $customer = $this->createCustomer();
         } else {
-            $p = auth()->user()->payment_methods()->where('method', '=', $this->methodName)->first();
+            $customerId = $p->payload['id'];
 
-            if($p === null) {
-                $customer = $this->createCustomer();
-            } else {
-                $customerId = $p->payload['id'];
+            $customer = \Braintree_Customer::find($customerId);
 
-                $customer = \Braintree_Customer::find($customerId);
-            }
+            $this->paymentMethod = $p;
         }
 
         return $customer;
     }
 
     public function createCustomer() {
-        if(auth()->guest()) {
-            $billingAddress = session('checkout.address.billing');
-            $email = session('checkout.guest.email');
-        } else {
-            $billingAddress = auth()->user()->addresses()->billing();
-            $email = auth()->user()->email;
-        }
+        $billingAddress = Checkout::getBillingAddress();
+        $email = auth()->user()->email;
 
         $namePieces = explode(' ', $billingAddress->name);
         $firstName = $namePieces[0];
@@ -67,14 +64,15 @@ class BraintreeService
             'email' => $email,
         ]);
 
-        if(auth()->check()) {
-            $dbObj = new PaymentMethod();
-            $dbObj->method = $this->methodName;
-            $dbObj->payload = ['id' => $result->customer->id];
-            $dbObj->isDefault = request('defaultPayment', false);
+        //Store in DB
+        $dbObj = new PaymentMethod();
+        $dbObj->method = $this->methodName;
+        $dbObj->payload = ['id' => $result->customer->id];
+        $dbObj->isDefault = request('defaultPayment', false);
 
-            auth()->user()->payment_methods()->save($dbObj);
-        }
+        auth()->user()->payment_methods()->save($dbObj);
+
+        $this->paymentMethod = $dbObj;
 
         return $result->customer;
     }

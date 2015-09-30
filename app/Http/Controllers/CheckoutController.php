@@ -72,6 +72,8 @@ class CheckoutController extends Controller
         if(!$request->has('delivery.billing_same')) {
             $billing = $handler->billing($request->input('billing'));
             if(! $billing instanceof Address) return $billing;
+        } else {
+            $billing = $delivery;
         }
 
         Checkout::setShippingAddress($delivery);
@@ -127,11 +129,11 @@ class CheckoutController extends Controller
         $paymentMethod = Checkout::getPaymentMethod();
 
         if($shippingAddress === null) {
-            return redirect(localize_url('routes.checkout.address'));
+            return redirect(localize_url('routes.checkout.address'))->with('info', 'Please enter your address');
         }
 
         if($paymentMethod === null) {
-            return redirect(localize_url('routes.checkout.payment'));
+            return redirect(localize_url('routes.checkout.payment'))->with('info', 'Please select a payment method');
         }
 
         $cart = Cart::content();

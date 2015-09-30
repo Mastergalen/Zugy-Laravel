@@ -32,7 +32,7 @@
         </div>
         @include('pages.checkout.partials.address-form', ['type' => 'billing'])
         <div class="form-footer">
-            <div class="pull-left"> <a class="btn btn-footer" href="{!! Localization::getURLFromRouteNameTranslated(Localization::getCurrentLocale(), 'routes.shop') !!}"> <i class="fa fa-arrow-left"></i> &nbsp; Back to Shop </a> </div>
+            <div class="pull-left"> <a class="btn btn-footer" href="{!! localize_url('routes.shop.index') !!}"> <i class="fa fa-arrow-left"></i> &nbsp; Back to Shop </a> </div>
             <div class="pull-right"> <button class="btn btn-primary" type="submit">Select payment method &nbsp; <i class="fa fa-arrow-circle-right"></i> </button> </div>
         </div>
     {!! Form::close() !!}

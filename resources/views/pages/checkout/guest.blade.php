@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="page-header">
-        <h1><i class="fa fa-shopping-cart"></i> Checkout</h1>
+        <h1><i class="fa fa-shopping-cart"></i> Guest Checkout</h1>
     </div>
 
     @if (count($errors) > 0)
@@ -22,6 +22,7 @@
                 <div class="form-group">
                     <label for="email">E-Mail</label>
                     <input type="text" class="form-control" name="email" placeholder="Email" required>
+                    <p class="help-block">We will only email you to send you the receipt and inform you on the status of your order. No spam, promise!</p>
                 </div>
 
                 <div class="panel-group" role="tablist" id="accordion">
@@ -91,6 +92,9 @@
         </div><!--column /-->
         <div class="col-lg-3 col-md-3 col-sm-5">
             @include('includes.order-summary',  ['total' => Cart::total(), 'shipping' => Cart::shipping(), 'grandTotal' => Cart::grandTotal()])
+            <button class="btn btn-block btn-lg btn-success" type="submit">
+                <i class="fa fa-check-square"></i> Place order
+            </button>
         </div>
     </div>
 

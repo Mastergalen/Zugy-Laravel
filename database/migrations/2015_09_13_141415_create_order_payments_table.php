@@ -33,7 +33,7 @@ class CreateOrderPaymentsTable extends Migration
             $table->string('billing_line_2', 64)->nullable();
             $table->string('billing_city', 32);
             $table->string('billing_postcode', 10);
-            $table->string('billing_state', 32);
+            $table->string('billing_state', 32)->nullable();
             $table->string('billing_phone', 32);
             $table->integer('billing_country_id');
             $table->foreign('billing_country_id')

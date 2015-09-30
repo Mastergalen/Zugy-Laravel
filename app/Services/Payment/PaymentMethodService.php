@@ -7,20 +7,16 @@
 
 namespace App\Services\Payment;
 
-
-use App\PaymentMethod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Stripe\Stripe;
-use Stripe\Customer;
+use Zugy\Facades\Checkout;
 
 class PaymentMethodService
 {
     private $stripeService;
     private $braintree;
 
-    public function __construct(StripeService $stripeService, BraintreeService $braintreeService) {
-        $this->stripeService = $stripeService;
+    public function __construct(BraintreeService $braintreeService) {
         $this->braintree = $braintreeService;
     }
 
@@ -29,10 +25,6 @@ class PaymentMethodService
         $validator = Validator::make($request->all(), [
             'method' => 'required',
         ]);
-
-        $validator->sometimes('stripeToken', 'required', function($input) {
-            return $input->method == 'card';
-        });
 
         $validator->sometimes('payment_method_nonce', 'required', function($input) {
             return $input->method == 'braintree';
@@ -43,19 +35,9 @@ class PaymentMethodService
         }
 
         switch($request->input('method')) {
-            case 'card':
-                //TODO Multiple card selection saved to session
-
-                if($request->has('stripeToken')) {
-                    $this->stripeService->addCard($request->input('stripeToken'), $request->has('defaultPayment'));
-                } else {
-                    throw new \Exception('Missing Stripe token');
-                }
-
-                break;
             case 'braintree':
                 if($request->has('payment_method_nonce')) {
-                    $this->braintree->addMethod($request->input('payment_method_nonce'));
+                    $paymentMethod = $this->braintree->addMethod($request->input('payment_method_nonce'));
                 }
                 break;
 
@@ -64,7 +46,7 @@ class PaymentMethodService
                 break;
         }
 
-        session()->put('checkout.method', $request->input('method'));
+        Checkout::setPaymentMethod($paymentMethod);
 
         return true;
     }

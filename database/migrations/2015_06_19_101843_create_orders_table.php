@@ -33,7 +33,7 @@ class CreateOrdersTable extends Migration
             $table->string('delivery_line_2', 64)->nullable();
             $table->string('delivery_city', 32);
             $table->string('delivery_postcode', 10);
-            $table->string('delivery_state', 32);
+            $table->string('delivery_state', 32)->nullable();
             $table->string('delivery_phone', 32);
             $table->integer('delivery_country_id');
             $table->foreign('delivery_country_id')
