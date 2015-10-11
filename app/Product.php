@@ -5,14 +5,31 @@ namespace App;
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Product extends Model
 {
     use Translatable;
+    use SearchableTrait;
 
     protected $table = 'products';
 
     public $translatedAttributes = ['slug', 'title', 'description', 'meta_description'];
+
+    /**
+     * Searchable rules
+     *
+     * @var array
+     */
+    protected $searchable = [
+        'columns' => [
+            'product_translations.title' => 10,
+            'product_translations.description' => 2,
+        ],
+        'joins' => [
+            'product_translations' => ['products.id', 'product_translations.product_id']
+        ]
+    ];
 
     protected $with = ['tax_class'];
 

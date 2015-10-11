@@ -18,7 +18,8 @@
         "dimsav/laravel-translatable": "^5.1",
         "guzzlehttp/guzzle": "~5.3|~6.0",
         "fedeisas/laravel-mail-css-inliner": "@dev",
-        "ivkos/pushbullet": "3.*"
+        "ivkos/pushbullet": "3.*",
+        "nicolaslopezj/searchable": "1.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
