@@ -6,6 +6,7 @@ return [
         'category' => 'shop/category/{slug}',
     ],
     'product' => 'product/{slug}',
+    'search' => 'search/{query}',
     'cart' => 'cart',
     'checkout' => [
         'landing'      => 'checkout',

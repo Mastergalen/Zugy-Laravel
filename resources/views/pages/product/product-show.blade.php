@@ -108,7 +108,7 @@
             </div>
 
             <hr/>
-            
+
             <ul class="nav nav-tabs" role="tablist">
                 <li class="active">
                     <a href="#details" data-toggle="tab">Details</a>
@@ -135,9 +135,9 @@
                 <div class="tab-pane" id="shipping">
                     <table class="table table-bordered">
                         <thead>
-                            <th>Shipping method</th>
-                            <th>Shipping time</th>
-                            <th>Cost</th>
+                        <th>Shipping method</th>
+                        <th>Shipping time</th>
+                        <th>Cost</th>
                         </thead>
                         <tr>
                             <td>Standard</td>
@@ -245,7 +245,7 @@
                 console.log("Adding to cart: " +  quantity);
 
                 var $cart = $('.navbar .cart-icon:visible').eq(0);
-                    var $imgToDrag = $('.gallery .sp-large a img').eq(0);
+                var $imgToDrag = $('.gallery .sp-large a img').eq(0);
 
                 if($imgToDrag) {
                     var $imgClone = $imgToDrag.clone().offset({

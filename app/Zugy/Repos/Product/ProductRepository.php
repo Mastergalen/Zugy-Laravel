@@ -12,4 +12,5 @@ interface ProductRepository
 {
     public function category($category_slug);
     public function getBySlug($slug);
+    public function search($query);
 }

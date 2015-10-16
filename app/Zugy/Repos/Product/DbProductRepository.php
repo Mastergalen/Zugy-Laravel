@@ -66,5 +66,10 @@ class DbProductRepository extends DbRepository implements ProductRepository
         return $product;
     }
 
+    public function search($query)
+    {
+        return $this->model->search($query)->get();
+    }
+
 
 }

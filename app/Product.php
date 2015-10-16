@@ -5,7 +5,7 @@ namespace App;
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use Nicolaslopezj\Searchable\SearchableTrait;
+use Zugy\Searchable\SearchableTrait;
 
 class Product extends Model
 {
@@ -24,7 +24,7 @@ class Product extends Model
     protected $searchable = [
         'columns' => [
             'product_translations.title' => 10,
-            'product_translations.description' => 2,
+            'product_translations.description' => 5,
         ],
         'joins' => [
             'product_translations' => ['products.id', 'product_translations.product_id']

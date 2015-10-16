@@ -1,4 +1,8 @@
-@section('title', 'Shop for ' . $category->name)
+@if(isset($category))
+    @section('title', 'Shop for ' . $category->name)
+@else
+    @section('title', 'Search results for ' . $query)
+@endif
 @section('meta_description', '') <!-- TODO Add meta description for category page-->
 
 @extends('layouts.default')
@@ -22,27 +26,40 @@
 
 @section('content')
     <div class="page-header">
-        <h1 style="display: inline">{{ $category->name }}</h1>
+        <h1 style="display: inline">
+            @if(isset($category))
+                {{ $category->name }}
+            @elseif(isset($query))
+                <i class="fa fa-search"></i> Search results for {{ $query }}
+            @endif
+        </h1>
         <div class="pull-right">{{ trans_choice('product.count', $products->count(), ['count' => $products->count()]) }}</div>
     </div>
     <div class="row">
         <div class="col-md-9 col-md-push-3">
             <div class="row">
+                <!-- FIXME Add pagination -->
                 @forelse($products as $p)
                     <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-6">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <a href="{!! $p->getUrl() !!}"><img src="{!! $p->cover() !!}" class="img-responsive"
-                                                  alt=""></a>
+                                                                    alt=""></a>
                                 <h4><a href="{!! $p->getUrl() !!}">{!! $p->title !!}</a></h4>
                                 <div class="price"><a href="{!! $p->getUrl() !!}">{!! $p->price !!}&euro;</a></div>
                             </div>
                         </div>
                     </div>
                 @empty
-                    <div class="alert alert-info">
-                        No products in this category
-                    </div>
+                    @if(isset($query))
+                        <div class="alert alert-info">
+                            No results matching the query <b>"{{$query}}"</b>
+                        </div>
+                    @else
+                        <div class="alert alert-info">
+                            No products in this category
+                        </div>
+                    @endif
                 @endforelse
             </div>
         </div>

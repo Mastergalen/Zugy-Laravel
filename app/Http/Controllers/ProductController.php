@@ -39,6 +39,13 @@ class ProductController extends Controller
 
         if($product === null) abort(404, 'That product does not exist');
 
-        return view('pages.product')->with(['product' => $product]);
+        return view('pages.product.product-show')->with(['product' => $product]);
+    }
+
+    public function search($query)
+    {
+        $products = $this->productRepo->search($query);
+
+        return view('pages.product.product-list')->with(['products' => $products, 'query' => $query]);
     }
 }

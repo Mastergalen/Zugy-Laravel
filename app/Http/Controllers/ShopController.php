@@ -45,6 +45,6 @@ class ShopController extends Controller
 
         $products = $this->productRepo->category($category_slug);
 
-        return view('pages.shop.category')->with(compact('products', 'category'));
+        return view('pages.product.product-list')->with(compact('products', 'category'));
     }
 }

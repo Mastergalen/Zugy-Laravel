@@ -8,6 +8,7 @@ return [
 
     'product' => 'prodotto/{slug}',
     'cart' => 'carrello',
+    'search' => 'ricerca/{query}',
     'checkout' => [
         'landing'      => 'cassa',
         'guest'        => 'cassa/ospite',
