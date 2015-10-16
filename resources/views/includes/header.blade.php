@@ -12,6 +12,12 @@
                 <span class="cart-respons">Cart ({!! money_format("%i", Cart::total()) !!}&#8364;)</span>
             </button>
 
+            <div class="search-box visible-xs">
+                <div class="input-group">
+                    <button class="btn btn-nobg getFullSearch" type="button"> <i class="fa fa-search"> </i> </button>
+                </div>
+            </div>
+
             <a href="/">
                 <img src="/img/zugy-navbar-logo.png"
                              style="display:inline; height:35px; float: left; margin: 8px 3px 0 0">
@@ -62,6 +68,11 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+                <div class="search-box">
+                    <div class="input-group">
+                        <button class="btn btn-nobg getFullSearch" type="button"> <i class="fa fa-search"> </i> </button>
+                    </div>
+                </div>
                 <li class="hidden-xs cart-icon">
                     <a href="#" data-toggle="collapse" data-target=".navbar-cart">
                         <i class="fa fa-shopping-cart"></i>
@@ -136,6 +147,16 @@
             </div>
         </div>
 
+    </div>
+
+    <div id="search-full" class="text-right">
+        <a class="pull-right search-close" id="search-close"> <i class=" fa fa-times-circle"> </i> </a>
+        <div class="search-input-box pull-right">
+            <form id="search-form" method="GET" action="#">
+                <input type="search" data-search-url="{!! localize_url('routes.search', ['query' => '']) !!}" name="q" placeholder="start typing and hit enter to search" class="search-input">
+                <button class="btn-nobg search-btn" type="submit"> <i class="fa fa-search"> </i> </button>
+            </form>
+        </div>
     </div>
 </div><!--/Navigation Bar-->
 

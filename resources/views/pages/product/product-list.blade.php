@@ -51,15 +51,17 @@
                         </div>
                     </div>
                 @empty
-                    @if(isset($query))
-                        <div class="alert alert-info">
-                            No results matching the query <b>"{{$query}}"</b>
-                        </div>
-                    @else
-                        <div class="alert alert-info">
-                            No products in this category
-                        </div>
-                    @endif
+                    <div class="col-md-12">
+                        @if(isset($query))
+                            <div class="alert alert-info">
+                                No results matching the query <b>"{{$query}}"</b>
+                            </div>
+                        @else
+                            <div class="alert alert-info">
+                                No products in this category
+                            </div>
+                        @endif
+                    </div>
                 @endforelse
             </div>
         </div>

@@ -16,4 +16,8 @@ elixir.config.sourcemaps = false;
 elixir(function(mix) {
     mix.sass('app.scss', 'public/dist/assets/css');
     mix.sass('admin/admin.scss', 'public/dist/assets/css/admin');
+
+    mix.scripts([
+        'app.js'
+    ], 'public/dist/js/app.js')
 });
