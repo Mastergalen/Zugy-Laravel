@@ -35,7 +35,7 @@ class CreateOrUpdateAddress
 
         $address = new Address($deliveryInput);
 
-        $country_id = Countries::where('iso_3166_3', '=', $deliveryInput['country'])->first()->pluck('id');
+        $country_id = Countries::where('iso_3166_3', '=', $deliveryInput['country'])->first()->id;
 
         $address->country_id = $country_id;
 
