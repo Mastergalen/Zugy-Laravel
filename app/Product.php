@@ -38,6 +38,10 @@ class Product extends Model
         return $this->hasMany('App\ProductImage');
     }
 
+    /**
+     * Fetch URL thumbnail for product
+     * @return string
+     */
     public function cover()
     {
         $images = $this->images()->get();

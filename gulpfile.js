@@ -18,6 +18,12 @@ elixir(function(mix) {
     mix.sass('admin/admin.scss', 'public/dist/assets/css/admin');
 
     mix.scripts([
-        'app.js'
+        /*
+        * Vendor
+        */
+        'vendor/mustache/mustache.js',
+
+        'search.js',
+        'cart.js',
     ], 'public/dist/js/app.js')
 });

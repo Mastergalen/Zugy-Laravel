@@ -46,7 +46,7 @@
 @endsection
 
 @section('content')
-    <ul class="breadcrumb">
+    <ul class="breadcrumb hidden-xs">
         <li><a href="/">Home</a></li>
         <li><a href="/shop">Shop</a></li>
         @foreach($product->breadcrumbs as $b)
@@ -82,7 +82,13 @@
             <hr/>
             @if($product->stock_quantity > 0)
                 <h3>Select quantity</h3>
-                <fieldset id="quantity-selector" data-product-id="{!! $product->id !!}" data-product-name="{{$product->title}}">
+                <fieldset id="quantity-selector"
+                          data-product-id="{!! $product->id !!}"
+                          data-product-name="{{$product->title}}"
+                          data-price="{{$product->price}}"
+                          data-thumbnail="{{$product->cover()}}"
+                          data-url="{{$product->getUrl()}}"
+                        >
                     <div class="form-group">
                         <span class="help-block" style="display: none;">Please select how many you want!</span>
                         <?php $i = 1 ?>
@@ -240,9 +246,16 @@
                     return;
                 }
 
-                hideErrors();
+                var item = {
+                    'id': $quantitySelector.data('product-id'),
+                    name: $quantitySelector.data('product-name'),
+                    'quantity': quantity,
+                    price: $quantitySelector.data('price'),
+                    thumbnail: $quantitySelector.data('thumbnail'),
+                    url: $quantitySelector.data('url')
+                }
 
-                console.log("Adding to cart: " +  quantity);
+                hideErrors();
 
                 var $cart = $('.navbar .cart-icon:visible').eq(0);
                 var $imgToDrag = $('.gallery .sp-large a img').eq(0);
@@ -281,12 +294,12 @@
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                     },
                     data: {
-                        'name': $quantitySelector.data('product-name'),
-                        'id': $quantitySelector.data('product-id'),
-                        'qty': quantity
+                        'name': item.name,
+                        'id': item.id,
+                        'qty': item.quantity
                     },
                     success: function() {
-
+                        cart.add(item.url, item.thumbnail, item.name, item.price, item.quantity);
                     },
                     error: function(xhr, status, error) {
                         var err = eval("(" + xhr.responseText + ")");
