@@ -2,7 +2,7 @@
     <div class="container">
         <div class="col-md-3">
             <h3>Support</h3>
-            <h4><i class="fa fa-phone"></i> 123 456 7890</h4>
+            <h4><i class="fa fa-phone"></i> (+39) 344-281-6494</h4>
             <h4><a href="mailto:help@myzugy.com"><i class="fa fa-envelope"></i> help@myzugy.com</a></h4>
         </div>
         <div class="col-md-2">
@@ -10,8 +10,8 @@
             <ul>
                 <li><a href="#">About us</a></li>
                 <li><a href="#">Contact us</a></li>
-                <li><a href="#">Terms & Conditions</a></li>
-                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="{!! localize_url('routes.terms-and-conditions') !!}">Terms & Conditions</a></li>
+                <li><a href="{!! localize_url('routes.privacy-policy') !!}">Privacy Policy</a></li>
             </ul>
         </div>
         <div class="col-md-3">

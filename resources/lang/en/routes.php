@@ -1,12 +1,6 @@
 <?php
 
 return [
-    'shop' => [
-        'index' => 'shop',
-        'category' => 'shop/category/{slug}',
-    ],
-    'product' => 'product/{slug}',
-    'search' => 'search/{query}',
     'cart' => 'cart',
     'checkout' => [
         'landing'      => 'checkout',
@@ -18,5 +12,13 @@ return [
     ],
     'order' => [
         'show' => 'order/{id}',
-    ]
+    ],
+    'privacy-policy' => 'privacy-policy',
+    'product' => 'product/{slug}',
+    'search' => 'search/{query}',
+    'shop' => [
+        'index' => 'shop',
+        'category' => 'shop/category/{slug}',
+    ],
+    'terms-and-conditions' => 'terms-and-conditions',
 ];

@@ -51,6 +51,13 @@ function() {
 
     /* Cart */
     Route::get(Localization::transRoute('routes.cart'), ['uses' => 'PageController@getCart']);
+
+    Route::get(Localization::transRoute('routes.terms-and-conditions'), function() {
+        return view('pages.terms-and-conditions');
+    });
+    Route::get(Localization::transRoute('routes.privacy-policy'), function() {
+        return view('pages.privacy-policy');
+    });
 });
 
 Route::group(['prefix' => 'auth'], function () {

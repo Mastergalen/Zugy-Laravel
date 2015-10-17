@@ -1,5 +1,5 @@
 @section('title', $product->title)
-@section('meta_description', $product->title)
+@section('meta_description', $product->meta_description)
 
 @extends('layouts.default')
 

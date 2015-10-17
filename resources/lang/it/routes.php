@@ -1,14 +1,7 @@
 <?php
 
 return [
-    'shop' => [
-        'index' => 'negozio',
-        'category' => 'negozio/categoria/{slug}',
-    ],
-
-    'product' => 'prodotto/{slug}',
     'cart' => 'carrello',
-    'search' => 'ricerca/{query}',
     'checkout' => [
         'landing'      => 'cassa',
         'guest'        => 'cassa/ospite',
@@ -19,5 +12,13 @@ return [
     ],
     'order' => [
         'show' => 'ordine/{id}',
-    ]
+    ],
+    'privacy-policy' => 'informativa-sulla-privacy',
+    'product' => 'prodotto/{slug}',
+    'search' => 'ricerca/{query}',
+    'shop' => [
+        'index' => 'negozio',
+        'category' => 'negozio/categoria/{slug}',
+    ],
+    'terms-and-conditions' => 'termini-e-condizioni',
 ];
