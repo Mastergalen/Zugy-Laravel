@@ -39,7 +39,7 @@ class CheckoutController extends Controller
             return redirect(localize_url('routes.checkout.address'));
         }
 
-        if(Checkout::getPaymentMethod()) {
+        if(Checkout::getPaymentMethod() === null) {
             return redirect(localize_url('routes.checkout.payment'));
         }
 

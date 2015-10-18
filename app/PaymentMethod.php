@@ -34,13 +34,13 @@ class PaymentMethod extends Model
 
             $paymentMethods = $customer->paymentMethods;
 
-            foreach($paymentMethods as $p) {
+            foreach ($paymentMethods as $p) {
 
-                if($p->default === true) {
-                    if($p instanceof \Braintree_PayPalAccount) {
+                if ($p->default === true) {
+                    if ($p instanceof \Braintree_PayPalAccount) {
                         $payment['method'] = 'paypal';
                         $payment['email'] = $p->email;
-                    } elseif($p instanceof \Braintree_CreditCard) {
+                    } elseif ($p instanceof \Braintree_CreditCard) {
                         $payment['method'] = 'card';
                         $payment['card']['brand'] = $p->cardType;
                         $payment['card']['last4'] = $p->last4;
@@ -48,6 +48,9 @@ class PaymentMethod extends Model
                     break;
                 }
             }
+
+        } elseif($this->attributes['method'] == 'cash') {
+            $payment['method'] = 'cash';
         } else {
             throw new \Exception('Payment method does not exist');
         }

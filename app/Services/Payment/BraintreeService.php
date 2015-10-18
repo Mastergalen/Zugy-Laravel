@@ -12,18 +12,18 @@ use App\Exceptions\PaymentMethodDeclined;
 use App\PaymentMethod;
 use Zugy\Facades\Checkout;
 
-class BraintreeService
+class BraintreeService extends GenericPaymentService
 {
-    private $methodName = 'braintree';
+    protected $methodName = 'braintree';
 
     protected $paymentMethod;
 
-    public function addMethod($paymentMethodNonce) {
+    public function addOrUpdateMethod() {
         $customer = $this->createOrFetchCustomer();
 
         $result = \Braintree_PaymentMethod::create([
             'customerId' => $customer->id,
-            'paymentMethodNonce' => $paymentMethodNonce,
+            'paymentMethodNonce' => request('payment_method_nonce'),
         ]);
 
         if($result->success === false) {
@@ -71,6 +71,8 @@ class BraintreeService
         $dbObj->isDefault = request('defaultPayment', false);
 
         auth()->user()->payment_methods()->save($dbObj);
+
+        $this->updateDefault($dbObj, request('defaultPayment', false));
 
         $this->paymentMethod = $dbObj;
 

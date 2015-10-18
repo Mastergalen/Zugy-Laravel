@@ -13,11 +13,15 @@ use Zugy\Facades\Checkout;
 
 class PaymentMethodService
 {
-    private $stripeService;
     private $braintree;
+    /**
+     * @var CashService
+     */
+    private $cashService;
 
-    public function __construct(BraintreeService $braintreeService) {
+    public function __construct(BraintreeService $braintreeService, CashService $cashService) {
         $this->braintree = $braintreeService;
+        $this->cashService = $cashService;
     }
 
     public function setMethod(Request $request)
@@ -39,6 +43,9 @@ class PaymentMethodService
                 if($request->has('payment_method_nonce')) {
                     $paymentMethod = $this->braintree->addMethod($request->input('payment_method_nonce'));
                 }
+                break;
+            case 'cash':
+                $paymentMethod = $this->cashService->addOrUpdateMethod();
                 break;
 
             default:

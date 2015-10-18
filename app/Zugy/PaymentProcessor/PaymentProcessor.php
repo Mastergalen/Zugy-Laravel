@@ -22,6 +22,8 @@ class PaymentProcessor
 
     public function charge($amount)
     {
+        $payment = new Payment;
+
         if($this->paymentMethod->method === 'braintree') {
             $result = \Braintree_Transaction::sale([
                 'customerId' => $this->paymentMethod->payload['id'],
@@ -31,25 +33,32 @@ class PaymentProcessor
                 ],
             ]);
 
-            if($result != true) {
+            if ($result != true) {
                 throw new PaymentFailedException; //TODO Handle failed payments https://developers.braintreepayments.com/javascript+php/reference/response/transaction#unsuccessful-result
             }
 
-            $payment = new Payment;
+            ;
             $payment->status = 1; //Mark as paid
-            $payment->amount = $amount;
-            $payment->currency = $result->transaction->currencyIsoCode;
-            $payment->method = $this->paymentMethod->method;
+            $payment->paid = Carbon::now();
+
             $payment->metadata = [
                 'id' => $result->transaction->id,
                 'currency' => $result->transaction->currencyIsoCode,
                 'type' => $result->transaction->type,
             ];
-            $payment->paid = Carbon::now();
 
-            return $payment;
+        } elseif($this->paymentMethod->method === 'cash') {
+            $payment->status = 0; //Mark as unpaid
         } else {
             throw new PaymentMethodUndefinedException;
         }
+
+        $payment->amount = $amount;
+        $payment->currency = 'EUR';
+        $payment->method = $this->paymentMethod->method;
+
+        //Do not save to DB
+
+        return $payment;
     }
 }

@@ -93,6 +93,8 @@ class PlaceOrder
     public function processPayment() {
         if($this->paymentMethod->method == 'braintree') {
             $payment = PaymentProcessor::method($this->paymentMethod)->charge(Cart::grandTotal()); //FIXME make this work
+        } else if($this->paymentMethod->method == 'cash') {
+            $payment = PaymentProcessor::method($this->paymentMethod)->charge(Cart::grandTotal());
         } else {
             throw new PaymentMethodUndefinedException;
         }

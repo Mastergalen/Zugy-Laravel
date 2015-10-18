@@ -29,14 +29,16 @@ class Payment extends Model
 
             $transaction = \Braintree_Transaction::find($transactionId);
 
-            if($transaction->paymentInstrumentType == 'paypal_account') {
+            if ($transaction->paymentInstrumentType == 'paypal_account') {
                 $payment['method'] = 'paypal';
                 $payment['email'] = $transaction->paypalDetails->payerEmail;
-            } elseif($transaction->paymentInstrumentType == 'credit_card') {
+            } elseif ($transaction->paymentInstrumentType == 'credit_card') {
                 $payment['method'] = 'card';
                 $payment['card']['brand'] = $transaction->creditCardDetails->cardType;
                 $payment['card']['last4'] = $transaction->creditCardDetails->last4;
             }
+        } else if($this->attributes['method'] == 'cash') {
+            $payment['method'] = 'cash';
         } else {
             throw new \Exception('Payment method does not exist');
         }

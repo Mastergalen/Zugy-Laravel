@@ -70,10 +70,16 @@
                     <form action="{!! request()->url() !!}" method="POST" id="braintree-form">
                         {!! Form::token() !!}
                         <div id="braintree"></div>
+
+                        <div class="checkbox">
+                            <label for="">
+                                <input type="checkbox" name="defaultPayment" value="1" checked> Use this as default
+                            </label>
+                        </div>
+
                         <button class="btn btn-primary btn-lg btn-block" type="submit">Proceed <i class="fa fa-right"></i></button>
                         <input type="hidden" name="method" value="braintree">
                         <input type="hidden" name="payment_method_nonce">
-                        <!-- Add a set as default payment method -->
                     </form>
                 </div>
             </div>
@@ -89,7 +95,16 @@
             <div id="cash" class="panel-collapse collapse" role="tabpanel">
                 <div class="panel-body">
                     <p>Pay with cash on delivery</p>
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Pay with cash</button>
+                    <form action="{!! request()->url() !!}" method="POST">
+                        {!! Form::token() !!}
+                        <input type="hidden" name="method" value="cash">
+                        <div class="checkbox">
+                            <label for="">
+                                <input type="checkbox" name="defaultPayment" value="1" checked> Use this as default
+                            </label>
+                        </div>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Pay with cash</button>
+                    </form>
                 </div>
             </div>
         </div>
