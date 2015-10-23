@@ -60,20 +60,26 @@ class CheckoutController extends Controller
      */
     public function getCheckoutAddress()
     {
-        return view('pages.checkout.address');
+        $addresses = auth()->user()->addresses()->get();
+
+        return view('pages.checkout.address')->with(['addresses' => $addresses]);
     }
 
     public function postCheckoutAddress(Request $request, CreateOrUpdateAddress $handler) {
-        //Save to address to session if guest
-        $delivery = $handler->delivery($request->input('delivery'));
-
-        if(! $delivery instanceof Address) return $delivery;
-
-        if(!$request->has('delivery.billing_same')) {
-            $billing = $handler->billing($request->input('billing'));
-            if(! $billing instanceof Address) return $billing;
-        } else {
+        if($request->has('delivery.addressId')) {
+            $delivery = Address::find($request->input('delivery.addressId'));
             $billing = $delivery;
+        } else {
+            $delivery = $handler->delivery($request->input('delivery'));
+
+            if(! $delivery instanceof Address) return $delivery;
+
+            if(!$request->has('delivery.billing_same')) {
+                $billing = $handler->billing($request->input('billing'));
+                if(! $billing instanceof Address) return $billing;
+            } else {
+                $billing = $delivery;
+            }
         }
 
         Checkout::setShippingAddress($delivery);
@@ -165,8 +171,6 @@ class CheckoutController extends Controller
         if(!$result instanceof Order) return $result;
 
         return view('pages.checkout.confirmation')->with(['order' => $result]);
-
-        //TODO redirect to order confirmation after succesful order
     }
 
     public function getCheckoutConfirmation(Request $request) {

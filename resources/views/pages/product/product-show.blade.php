@@ -238,6 +238,9 @@
             $(".products").owlCarousel();
 
             $('#btn-add-cart').click(function() {
+                var $button = $(this);
+                $button.prop('disabled', true);
+
                 var $quantitySelector = $('#quantity-selector');
                 var quantity = $quantitySelector.find('input[name="quantity"]:checked').val();
 
@@ -306,6 +309,8 @@
                         alert(err.message);
                     }
                 });
+
+                $button.prop('disabled', false);
             });
         });
 

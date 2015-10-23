@@ -7,14 +7,14 @@
         </tr>
         <tr>
             <td class="aligncenter content-block">
-                View the {!! config('site.name') !!} <a href="#">Terms of Service</a> <!--TODO Add ToS link -->
+                View the {!! config('site.name') !!} <a href="{!! localize_url('routes.terms-and-conditions') !!}">Terms of Service</a> <!--TODO Add ToS link -->
             </td>
         </tr>
         <tr>
             <td class="aligncenter content-block">
                 Questions? Email <a href="mailto:">{!! config('site.email.support') !!}</a><br>
                 &copy; {!! Carbon::now()->year !!} <a href="{!! config('app.url') !!}">{!! config('site.name') !!}</a> | All rights reserved.<br>
-                Acme Inc. 123 Van Ness, San Francisco 94102
+                {!! config('site.address') !!}
             </td>
         </tr>
     </table>

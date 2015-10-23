@@ -79,6 +79,11 @@ Route::group(['prefix' => 'api'], function () {
     Route::group(['prefix' => 'v1'], function () {
         //No auth required
         Route::resource('cart', 'API\CartController');
+
+        //Auth required
+        Route::group(['middleware' => 'auth'], function () {
+            Route::resource('address', 'API\AddressController');
+        });
     });
 });
 
@@ -94,4 +99,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 });
 
 Route::get('test', function() {
+    dd(action('API\AddressController@index'));
 });

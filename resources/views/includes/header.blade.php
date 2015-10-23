@@ -104,7 +104,7 @@
             <div class="mega-dropdown ">
                 <div class="mega-dropdown-menu mini-cart">
                     @if(Cart::count(false) === 0)
-                        <div class="mini-cart-product row" style="text-align: center; padding-bottom: 17px">
+                        <div class="mini-cart-product row" id="empty-cart-row" style="text-align: center; padding-bottom: 17px">
                             <h2>Nothing in your cart yet <i class="fa fa-frown-o"></i></h2>
                         </div>
                     @endif
@@ -137,14 +137,12 @@
                         @endforeach
                     </div>
                     @include('pages.product.partials.mini-cart-product-template')
-                            <!-- TODO Show estimated delivery -->
+                    <!-- TODO Show estimated delivery -->
                     <div class="row mini-cart-footer" style="text-align: center">
-                        <div class="mini-cart-footer">
-                            <h3 class="subtotal"> Subtotal: <span class="cart-subtotal">{{money_format("%i", Cart::total())}}</span>&#8364; </h3>
-                            <a class="btn btn-sm btn-danger" href="{!! localize_url('routes.cart') !!}"> <i class="fa fa-shopping-cart"> </i> VIEW CART
-                            </a>
-                            <a class="btn btn-sm btn-primary" href="{!! localize_url('routes.checkout.landing') !!}" @if(Cart::count(false) === 0)disabled @endif> CHECKOUT </a>
-                        </div>
+                        <h3 class="subtotal"> Subtotal: <span class="cart-subtotal">{{money_format("%i", Cart::total())}}</span>&#8364; </h3>
+                        <a class="btn btn-sm btn-danger" href="{!! localize_url('routes.cart') !!}"> <i class="fa fa-shopping-cart"> </i> VIEW CART
+                        </a>
+                        <a class="btn btn-sm btn-primary btn-checkout" href="{!! localize_url('routes.checkout.landing') !!}" @if(Cart::count(false) === 0)disabled @endif> CHECKOUT </a>
                     </div>
                 </div>
             </div>

@@ -22,7 +22,7 @@ class CreateOrUpdateAddress
         'country' => 'required|size:3|exists:countries,iso_3166_3', //TODO validate is Italy
     ];
 
-    public function delivery(array $deliveryInput, $addressId = null)
+    public function delivery(array $deliveryInput, Address $address = null)
     {
         $this->rules['delivery_instructions'] = 'max:1000';
         $this->rules['phone'] = 'required'; //TODO Validate valid phone
@@ -33,7 +33,11 @@ class CreateOrUpdateAddress
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $address = new Address($deliveryInput);
+        if($address == null) {
+            $address = new Address($deliveryInput);
+        } else {
+            $address->fill($deliveryInput);
+        }
 
         $country_id = Countries::where('iso_3166_3', '=', $deliveryInput['country'])->first()->id;
 
@@ -54,7 +58,7 @@ class CreateOrUpdateAddress
         return $address;
     }
 
-    public function billing(array $billingInput, $addressId = null)
+    public function billing(array $billingInput, Address $address = null)
     {
         $validator = Validator::make($billingInput, $this->rules);
 

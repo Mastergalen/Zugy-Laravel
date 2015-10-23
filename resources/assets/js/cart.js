@@ -22,5 +22,9 @@
         subtotal = (parseFloat(subtotal) + parseFloat(price * quantity)).toFixed(2);
 
         $('.cart-subtotal').html(subtotal);
+
+        $('#empty-cart-row').hide();
+
+        $('.mini-cart-footer .btn-checkout').prop('disabled', false);
     }
 }( window.cart = window.cart || {}, jQuery ));

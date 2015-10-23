@@ -17,7 +17,43 @@
         </div>
     @endif
 
-    <form action="{!! request()->url() !!}" method="POST" id="address-form">
+    @if(count($addresses) > 0)
+        <form action="{!! request()->url() !!}" method="POST">
+            {!! Form::token() !!}
+            <legend>Choose a delivery address</legend>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        Choose a delivery address
+                    </div>
+                </div>
+                <div class="panel-body">
+                    @foreach($addresses as $a)
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name=delivery[addressId]" value="{!! $a->id !!}">
+                                <b>{{$a->name}}</b> {{$a->line_1}}@if(isset($a->line_2)), {{$a->line_2}}@endif, {{$a->city}}, {{$a->postcode}}
+                                <b><a href="#" class="btn-edit-address" data-address='{{$a}}'>Edit</a></b>
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-primary">Use this address</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p><a href="#" id="btn-add-address">Deliver to a new address <i class="fa fa-caret-right"></i></a></p>
+
+                <p><span class="small">Add a new delivery address to your address book.</span></p>
+            </div>
+        </div>
+    @endif
+
+    <form action="{!! request()->url() !!}" method="POST" id="address-form" @if(count($addresses) > 0)style="display: none"@endif>
         {!! Form::token() !!}
         <legend>Delivery Address</legend>
         @include('pages.checkout.partials.address-form', ['type' => 'delivery'])
@@ -31,11 +67,78 @@
             </div>
         </div>
         @include('pages.checkout.partials.address-form', ['type' => 'billing'])
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit"><i class="fa fa-plus"></i> Add new address</button>
+        </div>
         <div class="form-footer">
             <div class="pull-left"> <a class="btn btn-footer" href="{!! localize_url('routes.shop.index') !!}"> <i class="fa fa-arrow-left"></i> &nbsp; Back to Shop </a> </div>
-            <div class="pull-right"> <button class="btn btn-primary" type="submit">Select payment method &nbsp; <i class="fa fa-arrow-circle-right"></i> </button> </div>
         </div>
     {!! Form::close() !!}
+
+    <div class="modal fade" id="edit-address-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Edit address</h4>
+                </div>
+                <form>
+                    <input type="hidden" name="addressId">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">Full Name <sup>*</sup> </label>
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="line_1">Address Line 1 <sup>*</sup> </label>
+                            <input type="text" class="form-control" name="line_1">
+                            <span class="help-text">House name/number and street, P.O. box, company name, c/o</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="line_2">Address Line 2</label>
+                            <input type="text" class="form-control" name="line_2">
+                            <span class="help-text">Apartment, suite, unit, building, floor, etc.</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="zip">Zip / Postal Code <sup>*</sup> </label>
+                                    <input type="text" class="form-control" name="postcode"
+                                           placeholder="Zip / Postal Code">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="city">Town/City <sup>*</sup> </label>
+                                    <input type="text" class="form-control" name="city" placeholder="Town/City">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country <sup>*</sup></label>
+                            <select class="form-control" name="country" disabled>
+                                <option value="ITA">Italy</option>
+                            </select>
+                            <input type="hidden" name="country" value="ITA">
+                        </div>
+                        <div class="form-group">
+                            <label for="InputAdditionalInformation">Delivery Instructions</label>
+                            <textarea rows="3" cols="26" name="delivery_instructions" class="form-control"></textarea>
+                            <span class="help-text">Additional information for our driver</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="InputMobile">Phone <sup>*</sup></label>
+                            <input type="tel" name="phone" class="form-control">
+                            <span class="help-text">In case our driver needs to contact you for delivery.</span>
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
@@ -45,6 +148,51 @@
         $(document).ready(function() {
             $('#billing-same').click(function () {
                 $('#billing-address').toggle('slow');
+            });
+
+            $('#btn-add-address').click(function() {
+                $('#address-form').show('slow');
+            });
+
+            /*
+             * Edit address modal
+             */
+            $('.btn-edit-address').click(function() {
+                var $modal = $('#edit-address-modal');
+                var data = $(this).data('address');
+                $modal.modal();
+
+                $modal.find('input[name=addressId]').val(data.id);
+                $modal.find('input[name=name]').val(data.name);
+                $modal.find('input[name=line_1]').val(data.line_1);
+                $modal.find('input[name=line_2]').val(data.line_2);
+                $modal.find('input[name=postcode]').val(data.postcode);
+                $modal.find('input[name=city]').val(data.city);
+                $modal.find('input[name=delivery_instructions]').val(data.delivery_instructions);
+                $modal.find('input[name=phone]').val(data.phone);
+
+            });
+
+            $('#edit-address-modal').find('form').submit(function (e) {
+                e.preventDefault();
+
+                var addressId = $(this).find('input[name=addressId]').val();
+
+                console.log($(this).serialize());
+
+                $.ajax({
+                    url: "{!! action('API\AddressController@index') !!}/" + addressId,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    type: 'PUT',
+                    data: $(this).serialize(),
+                    success: function() {
+                        $(this).modal('hide');
+                        alert("Updated address successfully"); //TODO Use awesome alerts
+                    }
+                });
+
             });
 
             $('#address-form').formValidation({
@@ -124,7 +272,5 @@
                 }
             });
         });
-
-
     </script>
 @endsection

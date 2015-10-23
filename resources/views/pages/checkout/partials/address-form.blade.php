@@ -40,7 +40,7 @@
                 </select>
                 <input type="hidden" name="{!! $type !!}[country]" value="ITA">
             @else
-                <!-- Show country names in Italian -->
+                <!-- TODO Show country names in Italian -->
                 {!! Form::select($type. "[country]", Countries::lists('name', 'iso_3166_3'), 'ITA', ['class' => 'form-control']) !!}
             @endif
         </div>

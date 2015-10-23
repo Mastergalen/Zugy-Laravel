@@ -29,5 +29,9 @@ class AuthServiceProvider extends ServiceProvider
         $gate->define('view-confidential-order', function($user, $order) {
             return $user->id === $order->user_id;
         });
+
+        $gate->define('address', function($user, $address) {
+            return $user->id === $address->user_id;
+        });
     }
 }
