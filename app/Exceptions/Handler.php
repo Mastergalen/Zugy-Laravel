@@ -44,6 +44,14 @@ class Handler extends ExceptionHandler
             return redirect()->route('login')->with('error', 'Please try logging in again');
         }
 
+        if ($e instanceof \Illuminate\Session\TokenMismatchException)
+        {
+            return redirect()
+                ->back()
+                ->withInput($request->except('password'))
+                ->withErrors(['Validation Token was expired. Please try again']);
+        }
+
         return parent::render($request, $e);
     }
 }
