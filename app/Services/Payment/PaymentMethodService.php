@@ -41,7 +41,7 @@ class PaymentMethodService
         switch($request->input('method')) {
             case 'braintree':
                 if($request->has('payment_method_nonce')) {
-                    $paymentMethod = $this->braintree->addMethod($request->input('payment_method_nonce'));
+                    $paymentMethod = $this->braintree->addOrUpdateMethod();
                 }
                 break;
             case 'cash':
