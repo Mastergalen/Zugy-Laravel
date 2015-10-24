@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'account' => [
+        'index' => 'conto',
+        'orders' => 'conto/ordini',
+        'settings' => 'conto/impostazioni'
+    ],
     'cart' => 'carrello',
     'checkout' => [
         'landing'      => 'cassa',
@@ -11,7 +16,7 @@ return [
         'confirmation' => 'cassa/conferma',
     ],
     'order' => [
-        'show' => 'ordine/{id}',
+        'show' => 'ordini/{id}',
     ],
     'privacy-policy' => 'informativa-sulla-privacy',
     'product' => 'prodotto/{slug}',

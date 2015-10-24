@@ -25,7 +25,7 @@
 
     <p>Your order has been placed. We will notify via email you when your order is out for delivery.</p>
 
-    <p>You can expect to your receive in under 1 hour.</p>
+    <p>You can expect to receive your order in under 1 hour.</p>
 
     <hr>
 

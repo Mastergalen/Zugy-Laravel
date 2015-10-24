@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'account' => [
+        'index' => 'your-account',
+        'orders' => 'your-account/orders',
+        'settings' => 'your-account/settings',
+    ],
     'cart' => 'cart',
     'checkout' => [
         'landing'      => 'checkout',

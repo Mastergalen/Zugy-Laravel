@@ -22,6 +22,15 @@ Route::group([
     'middleware' => [ 'localize' ] // Route translate middleware
 ],
 function() {
+    /*
+     * Account
+     */
+    Route::group(['middleware' => 'auth'], function () {
+        Route::get(Localization::transRoute('routes.account.index'), ['as' => 'your-account', 'uses' => 'AccountController@getHome']);
+        Route::get(Localization::transRoute('routes.account.settings'), ['as' => 'your-account', 'uses' => 'AccountController@getSettings']);
+        Route::get(Localization::transRoute('routes.account.orders'), ['uses' => 'AccountController@getOrders']);
+    });
+
     Route::get(Localization::transRoute('routes.product'), ['uses' => 'ProductController@show']);
 
     Route::get(Localization::transRoute('routes.search'), ['uses' => 'ProductController@search']);
@@ -66,12 +75,6 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('login/google', 'Auth\AuthController@googleLogin');
 
     Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
-});
-
-Route::group(['prefix' => 'your-account', 'middleware' => 'auth'], function () {
-    Route::get('', ['as' => 'your-account',function() {
-        return view('pages.account.home');
-    }]);
 });
 
 /* API */
