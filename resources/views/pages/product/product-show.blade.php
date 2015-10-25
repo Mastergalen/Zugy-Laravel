@@ -290,25 +290,7 @@
 
                 //TODO Update cart in navbar price after success
                 //TODO Prevent adding more than in stock and show error message
-                $.ajax({
-                    type: 'POST',
-                    url: '{!! action('API\CartController@store') !!}',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                    },
-                    data: {
-                        'name': item.name,
-                        'id': item.id,
-                        'qty': item.quantity
-                    },
-                    success: function() {
-                        cart.add(item.url, item.thumbnail, item.name, item.price, item.quantity);
-                    },
-                    error: function(xhr, status, error) {
-                        var err = eval("(" + xhr.responseText + ")");
-                        alert(err.message);
-                    }
-                });
+                cart.add(item);
 
                 $button.prop('disabled', false);
             });

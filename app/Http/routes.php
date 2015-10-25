@@ -102,5 +102,4 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 });
 
 Route::get('test', function() {
-    dd(action('API\AddressController@index'));
 });

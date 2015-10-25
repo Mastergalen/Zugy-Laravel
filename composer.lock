@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ca4639bdeeab4d0954be4b688ccd07b8",
-    "content-hash": "537573cdf7e3543cd631e79f9fd8ff7a",
+    "hash": "29901182d2b6ccc9801f94baa22badda",
+    "content-hash": "12b8a0c391dfa7666c235a919330fbc9",
     "packages": [
         {
             "name": "braintree/braintree_php",
@@ -1708,6 +1708,57 @@
                 "shell"
             ],
             "time": "2015-07-16 15:26:57"
+        },
+        {
+            "name": "spatie/laravel-pjax",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-pjax.git",
+                "reference": "e4d565dd308c0fb291915245819a3b1ad0039cfc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-pjax/zipball/e4d565dd308c0fb291915245819a3b1ad0039cfc",
+                "reference": "e4d565dd308c0fb291915245819a3b1ad0039cfc",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "^5.1",
+                "illuminate/support": "^5.1",
+                "php": ">=5.5.0",
+                "symfony/css-selector": "^2.7",
+                "symfony/dom-crawler": "^2.7"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Pjax\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A pjax middleware for Laravel 5freek@spatie.be",
+            "homepage": "https://github.com/spatie/laravel-pjax",
+            "keywords": [
+                "laravel-pjax",
+                "spatie"
+            ],
+            "time": "2015-10-16 21:07:33"
         },
         {
             "name": "stripe/stripe-php",

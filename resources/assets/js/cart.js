@@ -1,30 +1,59 @@
 (function( cart, $, undefined ) {
-    cart.add = function (url, thumbnail, title, price, quantity) {
-        $container = $('#mini-cart-container');
+    var apiEndpoint = '/api/v1/cart';
 
-        var template = $('#mini-cart-product-row-template').html();
-        Mustache.parse('template');
+    cart.add = function (item) {
+        $.ajax({
+            type: 'POST',
+            url: apiEndpoint,
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+        data: {
+            'name': item.name,
+                'id': item.id,
+                'qty': item.quantity
+        },
+        success: function() {
+            $.pjax.reload('#mini-cart-container');
+        },
+        error: function(xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+            alert(err.message);
+        }
+    });
 
-        var rendered = Mustache.render(template, {
-            url: url,
-            thumbnail: thumbnail,
-            price: price.toFixed(2),
-            title: title,
-            quantity: quantity,
-            subtotal: (price * quantity).toFixed(2)
+}
+
+    cart.update = function(rowId, quantity) {
+        $.ajax({
+            type: 'PATCH',
+            url: apiEndpoint + '/' + rowId,
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            data: {
+                'qty': quantity
+            },
+            async: false,
+                error: function(xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                alert(err.message);
+            }
         });
+    }
 
-        $container.append(rendered);
-
-        //Update subtotal
-        var subtotal = $('.cart-subtotal').eq(0).html();
-
-        subtotal = (parseFloat(subtotal) + parseFloat(price * quantity)).toFixed(2);
-
-        $('.cart-subtotal').html(subtotal);
-
-        $('#empty-cart-row').hide();
-
-        $('.mini-cart-footer .btn-checkout').prop('disabled', false);
+    cart.delete = function(rowId) {
+        $.ajax({
+            type: 'DELETE',
+            url: apiEndpoint + '/' + rowId,
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+        async: false,
+            error: function(xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+            alert(err.message);
+        }
+    });
     }
 }( window.cart = window.cart || {}, jQuery ));

@@ -104,20 +104,7 @@
                 $row = $(this).closest('.cart-row')
                 var rowId = $row.data('row-id');
 
-                console.log('Deleting ' + $row.data('row-id'));
-
-                $.ajax({
-                    type: 'DELETE',
-                    url: '{!! action('API\CartController@index') !!}/' + rowId,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                    },
-                    async: false,
-                    error: function(xhr, status, error) {
-                        var err = eval("(" + xhr.responseText + ")");
-                        alert(err.message);
-                    }
-                });
+                cart.delete(rowId);
 
                 $row.fadeOut('slow', function() {
                     $(this).remove();
@@ -130,7 +117,6 @@
 
             /* Update cart */
             $('#btn-update-cart').click(function() {
-
                 $('#cart-table .cart-row').each(function() {
                     var rowId = $(this).data('row-id');
                     var quantity = $(this).find('.quantity input').val();
@@ -144,21 +130,7 @@
                         return;
                     }
 
-                    $.ajax({
-                        type: 'PATCH',
-                        url: '{!! action('API\CartController@index') !!}/' + rowId,
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                        },
-                        data: {
-                            'qty': quantity
-                        },
-                        async: false,
-                        error: function(xhr, status, error) {
-                            var err = eval("(" + xhr.responseText + ")");
-                            alert(err.message);
-                        }
-                    });
+                    cart.update(rowId, quantity);
                 });
 
                 window.location.reload();
