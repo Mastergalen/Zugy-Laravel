@@ -44,7 +44,7 @@ class Settings
      */
     public function get($key)
     {
-        if(array_key_exists($key, $this->userSettings))
+        if($this->has($key))
             return array_get($this->userSettings, $key);
         else //Return default
             return $this->settings[$key];
@@ -64,14 +64,31 @@ class Settings
     }
 
     /**
+     * Check if user has a setting set
+     *
+     * @param $key
+     * @return bool
+     */
+    public function has($key)
+    {
+        if(is_null($this->userSettings)) {
+            $hasUserSettings = false;
+        } else {
+            $hasUserSettings = array_key_exists($key, $this->userSettings);
+        }
+
+        return $hasUserSettings;
+    }
+
+    /**
      * Determine if the given setting exists.
      *
      * @param  string $key
      * @return boolean
      */
-    public function has($key)
+    public function exists($key)
     {
-        return array_key_exists($key, $this->userSettings) || array_key_exists($key, $this->settings);
+        return array_key_exists($key, $this->settings);
     }
 
     /**
@@ -120,7 +137,7 @@ class Settings
      */
     public function __get($key)
     {
-        if ($this->has($key)) {
+        if ($this->exists($key)) {
             return $this->get($key);
         }
 
