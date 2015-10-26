@@ -32,4 +32,3 @@
         </div>
     @endforeach
 </div>
-@include('pages.product.partials.mini-cart-product-template')

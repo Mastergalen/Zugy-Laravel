@@ -8,6 +8,7 @@
 namespace Zugy\Repos\Category;
 
 use App\CategoryTranslation;
+use App\Exceptions\NoTranslationException;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Zugy\Repos\DbRepository;
 use App\Category;
@@ -49,10 +50,14 @@ class DbCategoryRepository extends DbRepository implements CategoryRepository
     }
 
     public function getBySlug($slug) {
-        $categoryId = CategoryTranslation::where('slug', '=', $slug)
-            ->where('locale', '=', LaravelLocalization::getCurrentLocale())->first()->category_id;
+        $category = CategoryTranslation::where('slug', '=', $slug)
+            ->where('locale', '=', LaravelLocalization::getCurrentLocale())->first();
 
-        $category = $this->model->find($categoryId);
+        if(is_null($category)) {
+            throw new NoTranslationException();
+        }
+
+        $category = $this->model->find($category->category_id);
 
         return $category;
     }

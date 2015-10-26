@@ -116,7 +116,21 @@
 
                 <h3>Create an account</h3>
                 <p>Create an account for fast checkout and easy access to order history. </p>
-                <a class="btn btn-default" href="#">Create account</a> <!--TODO Add facebook and google login buttons on create account page -->
+                <div class="row social-buttons">
+                    <div class="col-xs-6">
+                        <a href="/auth/login/facebook" class="btn btn-lg btn-block btn-facebook">
+                            <i class="fa fa-facebook"></i>
+                            <span class="hidden-xs">Facebook</span>
+                        </a>
+                    </div>
+                    <div class="col-xs-6">
+                        <a href="/auth/login/google" class="btn btn-lg btn-block btn-google">
+                            <i class="fa fa-google"></i>
+                            <span class="hidden-xs">Google</span>
+                        </a>
+                    </div>
+                </div>
+                <a class="btn btn-block btn-default" href="#">Create account with email</a> <!--TODO Add facebook and google login buttons on create account page -->
 
                 <hr/>
                 <h3>Checkout as guest</h3>

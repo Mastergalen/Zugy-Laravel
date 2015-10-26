@@ -1,20 +1,19 @@
-<?php $noindex = true ?>
+<?php $noindex = true; ?>
 @section('title', 'Cart')
-@section('meta_description', '')
 
 @extends('layouts.default')
 
 @section('css')
     <link rel="stylesheet" href="/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
 @endsection
-<!-- TODO Show estimated delivery -->
+
 @section('content')
+    <!-- TODO Show estimated delivery -->
     <div class="page-header">
         <h1><i class="fa fa-shopping-cart"></i> Shopping Cart</h1>
     </div>
     @if(Cart::shipping() != 0)
         <div class="alert alert-info">Order more than 20&euro; worth and get <b>free shipping</b>!</div>
-
     @endif
 
     <div class="row">

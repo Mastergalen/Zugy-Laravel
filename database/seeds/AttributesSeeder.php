@@ -13,7 +13,15 @@ class AttributesSeeder extends Seeder
         ]);
 
         Attribute::create()->description()->create([
+            'language_id' => 2, 'name' => 'Volume', 'unit' => 'litri'
+        ]);
+
+        Attribute::create()->description()->create([
             'language_id' => 1, 'name' => 'Alcohol Content', 'unit' => '% Vol'
+        ]);
+
+        Attribute::create()->description()->create([
+            'language_id' => 2, 'name' => 'Grado alcolico', 'unit' => '% Vol'
         ]);
     }
 }

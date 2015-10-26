@@ -8,7 +8,7 @@
 namespace App\Exceptions;
 
 
-class PaymentMethodDeclined extends  \Exception
+class PaymentMethodDeclined extends \Exception
 {
 
 }
