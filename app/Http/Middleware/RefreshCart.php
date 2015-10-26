@@ -23,7 +23,7 @@ class RefreshCart
         return $next($request);
     }
 
-    public function refreshCart() {
+    private function refreshCart() {
         foreach(auth()->user()->basket()->get() as $row) {
             Cart::associate('Product', 'App')->add($row->product_id, $row->name, $row->quantity, $row->price, $row->options);
         }
