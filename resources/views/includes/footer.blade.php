@@ -23,8 +23,13 @@
         </div>
         <div class="col-md-4">
             <h3>Stay in touch</h3>
-            <input class="form-control" type="text" placeholder="Email"/>
-            <button type="button" class="btn btn-success btn-block" style="margin-top: 5px"><i class="fa fa-envelope"></i> Subscribe</button>
+
+            <form action="//myzugy.us12.list-manage.com/subscribe/post?u=e2c66627a36b26aef58321a7e&amp;id=f5f12357e0" method="POST" target="_blank">
+                <input class="form-control" type="email" name="EMAIL" placeholder="Email"/>
+                <button type="submit" class="btn btn-success btn-block" style="margin-top: 5px"><i
+                            class="fa fa-envelope"></i> Subscribe
+                </button>
+            </form>
             <ul class="social">
                 <li><a href="http://facebook.com"> <i class=" fa fa-facebook"> &nbsp; </i> </a></li>
                 <li><a href="http://twitter.com"> <i class="fa fa-twitter"> &nbsp; </i> </a></li>
