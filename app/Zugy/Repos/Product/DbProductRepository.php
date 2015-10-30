@@ -59,9 +59,7 @@ class DbProductRepository extends DbRepository implements ProductRepository
 
         $product = $this->model->find($productId);
 
-        $product->load(['images' => function(){}, 'attributes.description' => function($query) use($language_id) {
-            $query->where('language_id', '=', $language_id);
-        }]);
+        $product->load(['images', 'attributes']);
 
         return $product;
     }

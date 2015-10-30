@@ -38,5 +38,40 @@ class ProductSeeder extends Seeder
         $product->images()->create([
            'location' => 'demo/absolut-vodka/absolut-vodka.jpeg'
         ]);
+
+        ####
+
+        $product = Product::create([
+            'stock_quantity' => 10,
+            'price' => 15.00,
+            'compare_price' => 16.36,
+            'weight' => 0.50,
+            'tax_class_id' => 1,
+
+            'en' => [
+                'title' => 'Bacardi 70cl',
+                'slug' => 'bacardi',
+                'description' => "<p>Bacardi's original, the Superior is a highly versatile white Rum which has been around since 1862.</p><p>Aged in oak barrels, look out for the smooth taste and the almond and tropical fruit aroma.</p>",
+                'meta_description' => '',
+            ],
+            'it' => [
+                'title' => 'Bacardi 70cl',
+                'slug' => 'bacardi',
+                'description' => '',
+                'meta_description' => '',
+            ]
+        ]);
+
+        $product->categories()->attach(6); //Rum category
+
+        $product->attributes()->attach(1, ['value' => 0.700]); //Volume
+        $product->attributes()->attach(2, ['value' => 37.5]); //% Vol
+
+        $img = Storage::disk('public')->get('img/demo/products/bacardi/bacardi.jpg');
+        Storage::disk('uploads')->put('demo/bacardi/bacardi.jpg', $img);
+
+        $product->images()->create([
+            'location' => 'demo/bacardi/bacardi.jpg'
+        ]);
     }
 }

@@ -4,9 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AttributeDescription extends Model
+class AttributeTranslation extends Model
 {
-    protected $table = 'attributes_description';
-
     public $timestamps = false;
+    protected $fillable = ['name', 'unit'];
 }

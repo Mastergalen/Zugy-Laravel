@@ -2,17 +2,12 @@
 
 namespace App;
 
+use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 
 class Attribute extends Model
 {
-    public function description() {
-        return $this->hasMany('App\AttributeDescription');
-    }
+    use Translatable;
 
-    public static function getByLanguage($language_id) {
-        return Attribute::with(['description' => function ($query) use ($language_id) {
-            $query->where('language_id', '=', $language_id);
-        }])->get()->pluck('description');
-    }
+    public $translatedAttributes = ['name', 'unit'];
 }

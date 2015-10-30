@@ -9,7 +9,8 @@ class CategoriesSeeder extends Seeder
             ['id' => 2, 'parent_id' => null],
             ['id' => 3, 'parent_id' => 1],
             ['id' => 4, 'parent_id' => 1],
-            ['id' => 5, 'parent_id' => 4],
+            ['id' => 5, 'parent_id' => 3],
+            ['id' => 6, 'parent_id' => 3],
         ]);
 
         DB::table('category_translations')->insert([
@@ -27,6 +28,9 @@ class CategoriesSeeder extends Seeder
 
             ['category_id' => 5, 'locale' => 'en',  'name' => 'Vodka', 'slug' => 'vodka'],
             ['category_id' => 5, 'locale' => 'it',  'name' => 'Vodka', 'slug' => 'vodka'],
+
+            ['category_id' => 6, 'locale' => 'en',  'name' => 'Rum', 'slug' => 'rum'],
+            ['category_id' => 6, 'locale' => 'it',  'name' => 'Rum', 'slug' => 'rum'],
         ]);
     }
 }

@@ -8,20 +8,28 @@ class AttributesSeeder extends Seeder
     public function run() {
         Model::unguard();
 
-        Attribute::create()->description()->create([
-           'language_id' => 1, 'name' => 'Volume', 'unit' => 'litres'
+        Attribute::create([
+            'id' => 1,
+            'en' => [
+                'name' => 'Volume',
+                'unit' => 'litres'
+            ],
+            'it' => [
+                'name' => 'Volume',
+                'unit' => 'litri'
+            ]
         ]);
 
-        Attribute::create()->description()->create([
-            'language_id' => 2, 'name' => 'Volume', 'unit' => 'litri'
-        ]);
-
-        Attribute::create()->description()->create([
-            'language_id' => 1, 'name' => 'Alcohol Content', 'unit' => '% Vol'
-        ]);
-
-        Attribute::create()->description()->create([
-            'language_id' => 2, 'name' => 'Grado alcolico', 'unit' => '% Vol'
+        Attribute::create([
+            'id' => 2,
+            'en' => [
+                'name' => 'Alcohol Content',
+                'unit' => '% Vol'
+            ],
+            'it' => [
+                'name' => 'Grado alcolico',
+                'unit' => '% Vol'
+            ]
         ]);
     }
 }
