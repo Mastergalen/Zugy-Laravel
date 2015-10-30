@@ -13,13 +13,15 @@
                         <img src="/img/zugy-logo-dark.png" alt="Zugy Dark Logo"/>
                         <h4>Your favorite beer, wine, spirits delivered to your doorstep</h4>
 
-                        <div class="input-group">
-                            <input class="form-control" type="text"
-                                   placeholder="Enter your postcode"/>
-                            <span class="input-group-btn">
-                                <a class="btn btn-primary" href="#">Shop now</a>
-                            </span>
-                        </div>
+                        <form action="/en/shop/category/alcohol" method="GET">
+                            {!! Form::token() !!}
+                            <div class="input-group">
+                                <input class="form-control" type="text" name="postcode" placeholder="Enter your postcode" autocomplete="off"/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit">Shop now</button>
+                                </span>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
