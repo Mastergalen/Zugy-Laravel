@@ -37,10 +37,10 @@
     </div>
     <div class="row">
         <div class="col-md-9 col-md-push-3">
-            <div class="row">
+            <div class="row product-list">
                 <!-- FIXME Add pagination -->
                 @forelse($products as $p)
-                    <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-6">
+                    <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <a href="{!! $p->getUrl() !!}"><img src="{!! $p->cover() !!}" class="img-responsive"
