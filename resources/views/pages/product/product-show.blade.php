@@ -132,8 +132,8 @@
                         @endif
                         @foreach($product->attributes as $a)
                             <tr>
-                                <td>{{ $a->description[0]->name }}</td>
-                                <td>{{ $a->pivot->value }} {{ $a->description[0]->unit }}</td>
+                                <td>{{ $a->name }}</td>
+                                <td>{{ $a->pivot->value }} {{ $a->unit }}</td>
                             </tr>
                         @endforeach
                     </table>

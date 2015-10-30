@@ -73,5 +73,215 @@ class ProductSeeder extends Seeder
         $product->images()->create([
             'location' => 'demo/bacardi/bacardi.jpg'
         ]);
+
+        ####
+
+        $product = Product::create([
+            'stock_quantity' => 10,
+            'price' => 15.00,
+            'compare_price' => 16.57,
+            'weight' => 0.80,
+            'tax_class_id' => 1,
+
+            'en' => [
+                'title' => 'Havana Club 70cl',
+                'slug' => 'havana',
+                'description' => "",
+                'meta_description' => '',
+            ],
+            'it' => [
+                'title' => 'Havana Club 70cl',
+                'slug' => 'havana',
+                'description' => '',
+                'meta_description' => '',
+            ]
+        ]);
+
+        $product->categories()->attach(6); //Rum category
+
+        $product->attributes()->attach(1, ['value' => 0.700]); //Volume
+        $product->attributes()->attach(2, ['value' => 40.0]); //% Vol
+
+        $img = Storage::disk('public')->get('img/demo/products/havana/havana.jpg');
+        Storage::disk('uploads')->put('demo/havana/havana.jpg', $img);
+
+        $product->images()->create([
+            'location' => 'demo/havana/havana.jpg'
+        ]);
+
+        ####
+
+        $product = Product::create([
+            'stock_quantity' => 10,
+            'price' => 3.00,
+            'compare_price' => null,
+            'weight' => 0.60,
+            'tax_class_id' => 1,
+
+            'en' => [
+                'title' => 'Heineken',
+                'slug' => 'heineken',
+                'description' => "",
+                'meta_description' => '',
+            ],
+            'it' => [
+                'title' => 'Heineken',
+                'slug' => 'heineken',
+                'description' => '',
+                'meta_description' => '',
+            ]
+        ]);
+
+        $product->categories()->attach(7); //Beer category
+
+        $product->attributes()->attach(1, ['value' => 0.660]); //Volume
+        $product->attributes()->attach(2, ['value' => 5]); //% Vol
+
+        $img = Storage::disk('public')->get('img/demo/products/heineken/heineken.jpg');
+        Storage::disk('uploads')->put('demo/heineken/heineken.jpg', $img);
+
+        $product->images()->create([
+            'location' => 'demo/heineken/heineken.jpg'
+        ]);
+
+        ###
+
+        $product = Product::create([
+            'stock_quantity' => 10,
+            'price' => 2.50,
+            'compare_price' => null,
+            'weight' => 0.60,
+            'tax_class_id' => 1,
+
+            'en' => [
+                'title' => 'Peroni',
+                'slug' => 'peroni',
+                'description' => "",
+                'meta_description' => '',
+            ],
+            'it' => [
+                'title' => 'Peroni',
+                'slug' => 'peroni',
+                'description' => '',
+                'meta_description' => '',
+            ]
+        ]);
+
+        $product->categories()->attach(7); //Beer category
+
+        $product->attributes()->attach(1, ['value' => 0.660]); //Volume
+        $product->attributes()->attach(2, ['value' => 5.1]); //% Vol
+
+        $img = Storage::disk('public')->get('img/demo/products/peroni/peroni.jpg');
+        Storage::disk('uploads')->put('demo/peroni/peroni.jpg', $img);
+
+        $product->images()->create([
+            'location' => 'demo/peroni/peroni.jpg'
+        ]);
+
+        ###
+
+        $product = Product::create([
+            'stock_quantity' => 10,
+            'price' => 28.00,
+            'compare_price' => 37.15,
+            'weight' => 0.60,
+            'tax_class_id' => 1,
+
+            'en' => [
+                'title' => 'Sauza Silver Tequila 100cl',
+                'slug' => 'sauza-silver',
+                'description' => "",
+                'meta_description' => '',
+            ],
+            'it' => [
+                'title' => 'Sauza Silver Tequila 100cl',
+                'slug' => 'sauza-silver',
+                'description' => '',
+                'meta_description' => '',
+            ]
+        ]);
+
+        $product->categories()->attach(8); //Tequila category
+
+        $product->attributes()->attach(1, ['value' => 1.0]); //Volume
+        $product->attributes()->attach(2, ['value' => 40.0]); //% Vol
+
+        $img = Storage::disk('public')->get('img/demo/products/sauza-tequila/sauza-tequila.jpg');
+        Storage::disk('uploads')->put('demo/sauza-tequila/sauza-tequila.jpg', $img);
+
+        $product->images()->create([
+            'location' => 'demo/sauza-tequila/sauza-tequila.jpg'
+        ]);
+
+        ###
+
+        $product = Product::create([
+            'stock_quantity' => 10,
+            'price' => 90.00,
+            'compare_price' => 128.10,
+            'weight' => 0.60,
+            'tax_class_id' => 1,
+
+            'en' => [
+                'title' => 'Veuve Clicquot Champagne',
+                'slug' => 'veuve-clicquot',
+                'description' => "Veuve Clicquot",
+                'meta_description' => '',
+            ],
+            'it' => [
+                'title' => 'Peroni',
+                'slug' => 'veuve-clicquot',
+                'description' => '',
+                'meta_description' => '',
+            ]
+        ]);
+
+        $product->categories()->attach(4); //Wine & champagne category
+
+        $product->attributes()->attach(1, ['value' => 0.750]); //Volume
+        $product->attributes()->attach(2, ['value' => 12]); //% Vol
+
+        $img = Storage::disk('public')->get('img/demo/products/veuve-clicquot/veuve-clicquot.jpg');
+        Storage::disk('uploads')->put('demo/veuve-clicquot/veuve-clicquot.jpg', $img);
+
+        $product->images()->create([
+            'location' => 'demo/veuve-clicquot/veuve-clicquot.jpg'
+        ]);
+
+        ###
+
+        $product = Product::create([
+            'stock_quantity' => 10,
+            'price' => 90.00,
+            'compare_price' => 128.10,
+            'weight' => 0.60,
+            'tax_class_id' => 1,
+
+            'en' => [
+                'title' => 'Moet And Chandon Brut Imperial Non Vintage Champagne',
+                'slug' => 'moet-chandon-imperial',
+                'description' => "",
+                'meta_description' => '',
+            ],
+            'it' => [
+                'title' => 'Moet And Chandon Brut Imperial Champagne',
+                'slug' => 'moet-chandon-imperial',
+                'description' => '',
+                'meta_description' => '',
+            ]
+        ]);
+
+        $product->categories()->attach(4); //Wine & champagne category
+
+        $product->attributes()->attach(1, ['value' => 0.750]); //Volume
+        $product->attributes()->attach(2, ['value' => 12]); //% Vol
+
+        $img = Storage::disk('public')->get('img/demo/products/moet-chandon-imperial/moet-chandon-imperial.jpg');
+        Storage::disk('uploads')->put('demo/moet-chandon-imperial/moet-chandon-imperial.jpg', $img);
+
+        $product->images()->create([
+            'location' => 'demo/moet-chandon-imperial/moet-chandon-imperial.jpg'
+        ]);
     }
 }
