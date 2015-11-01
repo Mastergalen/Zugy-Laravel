@@ -2,6 +2,14 @@
 
 @extends('layouts.master')
 
+@section('css')
+    <style>
+        .main-content {
+            padding-bottom: 0px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="carousel slide" data-ride="carousel">
         <div class="carousel-inner" role="listbox">
