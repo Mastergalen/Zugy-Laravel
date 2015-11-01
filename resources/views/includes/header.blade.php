@@ -33,7 +33,7 @@
                     <ul class="dropdown-menu mega-dropdown-menu row" role="menu">
                         @include('includes.mega-dropdown')
                     </ul>
-                </ul>
+                </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
