@@ -2,7 +2,7 @@
 
 return  [
     "name" => 'Zugy',
-    'address' => 'Viale Tibaldi 66, 20136 Milan, Italy',
+    'address' => 'Azalia Naviglio Grande 36, 20141 Milan, Italy',
 
     'maxImageSize' => 10000000, //10MB
 
