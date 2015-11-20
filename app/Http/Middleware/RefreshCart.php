@@ -2,7 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Basket;
 use Closure;
+use Gloudemans\Shoppingcart\Exceptions\ShoppingcartInvalidItemException;
+use Gloudemans\Shoppingcart\Exceptions\ShoppingcartInvalidPriceException;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class RefreshCart
@@ -25,7 +28,11 @@ class RefreshCart
 
     private function refreshCart() {
         foreach(auth()->user()->basket()->get() as $row) {
-            Cart::associate('Product', 'App')->add($row->product_id, $row->name, $row->quantity, $row->price, $row->options);
+            try {
+                Cart::associate('Product', 'App')->add($row->product_id, $row->name, $row->quantity, $row->price, $row->options);
+            } catch(ShoppingcartInvalidItemException $e) {
+                Basket::where('product_id', '=', $row->product_id)->where('user_id', '=', $row->user_id)->delete();
+            }
         }
     }
 }
