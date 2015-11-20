@@ -37,7 +37,7 @@ class CartController extends Controller
     {
         $this->validate($request, [
             'id' => 'required|exists:products',
-            'name' => 'required|max:255',
+            'name' => 'required|max:255|min:1',
             'qty' => 'required|integer|min:0',
             'options' => 'array',
         ]);

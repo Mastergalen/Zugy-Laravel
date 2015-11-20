@@ -288,7 +288,6 @@
                     });
                 }
 
-                //TODO Update cart in navbar price after success
                 //TODO Prevent adding more than in stock and show error message
                 cart.add(item);
 
