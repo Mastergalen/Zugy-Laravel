@@ -139,11 +139,11 @@
                         <div class="form-group attribute-row" data-index="0">
                             <div class="col-lg-5">
                                 <?php
-                                $attributesArray = $Attributes->getByLanguage(auth()->user()->settings()->language);
+                                $attributesArray = $Attributes->get();
                                 ?>
                                 <select name="attributes[0][id]" class="form-control">
                                     @foreach($attributesArray as $a)
-                                        <option value="{!! $a[0]['attribute_id'] !!}" data-unit="{!! $a[0]['unit'] !!}">{!! $a[0]['name'] !!}</option>
+                                        <option value="{!! $a[0]['id'] !!}" data-unit="{!! $a[0]['unit'] !!}">{!! $a[0]['name'] !!}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -272,7 +272,7 @@
             });
 
             /* Product Attributes */
-            var productAttributes = {!! json_encode($Attributes::getByLanguage(auth()->user()->settings()->language)) !!}
+            var productAttributes = {!! json_encode($Attributes::get()) !!}
             var $attributesContainer = $('#attributes-container');
             var attributeIndex = 0;
 
