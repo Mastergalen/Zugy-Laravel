@@ -130,13 +130,7 @@
                         </a>
                     </div>
                 </div>
-                <a class="btn btn-block btn-default" href="#">Create account with email</a> <!--TODO Add facebook and google login buttons on create account page -->
-
-                <hr/>
-                <h3>Checkout as guest</h3>
-                <p>Don't have an account and you don't want to register? Checkout as a guest instead!</p>
-                <a class="btn btn-primary" href="{!! localize_url('routes.checkout.guest') !!}">Checkout as guest</a>
-
+                <a class="btn btn-block btn-primary" href="#" style="margin-top: 10px"><i class="fa fa-envelope"></i> Create account with email</a> <!--TODO Add facebook and google login buttons on create account page -->
             </div>
         </div>
     </div>

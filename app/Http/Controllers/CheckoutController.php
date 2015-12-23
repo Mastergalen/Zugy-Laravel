@@ -46,15 +46,6 @@ class CheckoutController extends Controller
         return redirect(localize_url('routes.checkout.review'));
     }
 
-    public function getCheckoutGuest()
-    {
-        if(auth()->check()) {
-            return redirect(localize_url('routes.checkout.landing'));
-        }
-
-        return view('pages.checkout.guest');
-    }
-
     /**
      * /checkout/address
      */
