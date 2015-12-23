@@ -72,16 +72,7 @@
         <!--Navbar cart-->
         <div class="navbar-cart collapse" collapse="cartCollapsed">
             <div class="mega-dropdown ">
-                <div class="mega-dropdown-menu mini-cart">
-                    @include('includes._mini-cart')
-                    <!-- TODO Show estimated delivery -->
-                    <div class="row mini-cart-footer" style="text-align: center">
-                        <h3 class="subtotal"> Subtotal: <span class="cart-subtotal">{{money_format("%i", Cart::total())}}</span>&#8364; </h3>
-                        <a class="btn btn-sm btn-danger" href="{!! localize_url('routes.cart') !!}"> <i class="fa fa-shopping-cart"> </i> VIEW CART
-                        </a>
-                        <a class="btn btn-sm btn-primary btn-checkout" href="{!! localize_url('routes.checkout.landing') !!}" @if(Cart::count(false) === 0)disabled="disabled" @endif> CHECKOUT </a>
-                    </div>
-                </div>
+                @include('includes._mini-cart')
             </div>
         </div>
 

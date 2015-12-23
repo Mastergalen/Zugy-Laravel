@@ -6,5 +6,6 @@ php artisan db:seed
 echo "Don't forget to update .env!"
 
 # Only to be run on dev machine outside Homestead
+# npm config set prefix ~/npm
 # npm install --global gulp
 # npm install --no-bin-links
