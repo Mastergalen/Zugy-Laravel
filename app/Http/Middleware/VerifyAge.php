@@ -15,6 +15,10 @@ class VerifyAge
      */
     public function handle($request, Closure $next)
     {
+        if(env('APP_ENV') === "testing") {
+            return $next($request);
+        }
+
         //Allow search crawlers
         if($this->isBot()) {
             return $next($request);

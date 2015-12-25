@@ -10,6 +10,18 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
+/**
+ * Class User
+ *
+ * Group ID:
+ * 0 - Normal user
+ * 1 - Super admin
+ * 2 - Admin
+ * 3 - Driver
+ *
+ * @package App
+ */
+
 class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword;

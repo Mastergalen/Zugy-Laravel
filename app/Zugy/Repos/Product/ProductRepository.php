@@ -10,6 +10,7 @@ namespace Zugy\Repos\Product;
 
 interface ProductRepository
 {
+    public function all();
     public function category($category_slug);
     public function getBySlug($slug);
     public function search($query);

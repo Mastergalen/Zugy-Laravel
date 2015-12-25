@@ -1,8 +1,11 @@
 @if(isset($category))
     @section('title', 'Shop for ' . $category->name)
-@else
+@elseif(isset($query))
     @section('title', 'Search results for ' . $query)
+@else
+    @section('title', 'Shop for Alcohol')
 @endif
+
 @section('meta_description', '') <!-- TODO Add meta description for category page-->
 
 @extends('layouts.default')

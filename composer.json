@@ -14,13 +14,13 @@
         "mcamara/laravel-localization": "1.0.*",
         "nesbot/carbon": "~1.14",
         "stripe/stripe-php": "3.*",
-        "braintree/braintree_php" : "3.4.0",
         "dimsav/laravel-translatable": "^5.1",
         "guzzlehttp/guzzle": "~5.3|~6.0",
         "fedeisas/laravel-mail-css-inliner": "@dev",
         "ivkos/pushbullet": "3.*",
         "nicolaslopezj/searchable": "1.*",
-        "spatie/laravel-pjax": "^1.0"
+        "spatie/laravel-pjax": "^1.0",
+        "omnipay/paypal": "~2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

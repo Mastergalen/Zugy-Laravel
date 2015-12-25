@@ -8,16 +8,14 @@ use App\Product;
 use App\User;
 use App\Order;
 use App\OrderItem;
-use App\Address;
 
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 use Zugy\Facades\Checkout;
-use Zugy\Facades\PaymentProcessor;
+use Zugy\Facades\PaymentGateway;
 
 use App\Exceptions\OutOfStockException;
-use Zugy\PaymentProcessor\Exceptions\PaymentMethodUndefinedException;
 
 class PlaceOrder
 {
@@ -91,13 +89,7 @@ class PlaceOrder
     }
 
     public function processPayment() {
-        if($this->paymentMethod->method == 'braintree') {
-            $payment = PaymentProcessor::method($this->paymentMethod)->charge(Cart::grandTotal()); //FIXME make this work
-        } else if($this->paymentMethod->method == 'cash') {
-            $payment = PaymentProcessor::method($this->paymentMethod)->charge(Cart::grandTotal());
-        } else {
-            throw new PaymentMethodUndefinedException;
-        }
+        $payment = PaymentGateway::set($this->paymentMethod->method)->charge($this->paymentMethod, Cart::grandTotal());
 
         return $payment;
     }

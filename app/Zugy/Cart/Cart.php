@@ -7,7 +7,6 @@ use App\Product;
 
 class Cart extends BaseCart
 {
-
     /**
      * Get shipping costs
      * @return int|mixed

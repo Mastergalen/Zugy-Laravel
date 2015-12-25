@@ -42,14 +42,15 @@
             </ul>
         </div>
     @endif
+
+    <!-- Card -->
     <div class="panel-group" id="payment-methods">
         <div class="panel panel-default credit-card-box">
             <div class="panel-heading display-table">
                 <div class="row display-tr panel-title">
-                    <a role="button" class="display-td" data-toggle="collapse" data-parent="#payment-methods"
-                       href="#braintree-panel">
-                        <h4 class="">
-                            <i class="fa fa-credit-card"></i> Card or <i class="fa fa-paypal"></i> PayPal
+                    <a role="button" class="display-td" data-toggle="collapse" data-parent="#payment-methods" href="#card">
+                        <h4 class="panel-title">
+                            <i class="fa fa-credit-card"></i> Card
                         </h4>
                     </a>
                     <div class="payment-method-img display-td">
@@ -64,26 +65,83 @@
                     </a>
                 </div>
             </div>
-            <div id="braintree-panel" class="panel-collapse collapse" role="tabpanel">
+            <div id="card" class="panel-collapse collapse in" role="tabpanel">
                 <div class="panel-body">
-                    <p>Pay with PayPal or Card</p>
-                    <form action="{!! request()->url() !!}" method="POST" id="braintree-form">
-                        {!! Form::token() !!}
-                        <div id="braintree"></div>
+                    <div class="row">
+                        <div class="col-md-offset-4 col-md-4">
+                            <form action="{!! request()->url() !!}" method="POST" id="stripe-form" class="form">
+                                {!! Form::token() !!}
+                                <input type="hidden" name="method" value="stripe">
+                                <span class="payment-errors text-danger"></span>
+                                <div class="form-group">
+                                    <label>Card Number</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="card-brand">
+                                            <i class="fa fa-credit-card"></i>
+                                        </span>
+                                        <input type="tel" size="20" class="form-control" id="card-number" autocomplete="cc-number" data-stripe="number"/>
+                                    </div>
+                                </div>
 
+                                <div class="row">
+                                    <div class="col-xs-7 col-md-7">
+                                        <div class="form-group">
+                                            <label>CVC</label>
+                                            <input type="tel" size="4" class="form-control" placeholder="CVC"
+                                                   id="card-cvc" autocomplete="off" data-stripe="cvc"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-5 col-md-5 pull-right">
+                                        <div class="form-group">
+                                            <label>Expiration (MM/YY)</label>
+                                            <input type="tel" size="2" id="card-exp" class="form-control" placeholder="MM / YY"
+                                                   data-stripe="exp-month"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label for="default">
+                                            <input type="checkbox" name="defaultPayment" value="true" checked> Set this as the default payment method
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">Use credit card</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PayPal -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#payment-methods" href="#paypal">
+                        <i class="fa fa-paypal"></i> PayPal
+                    </a>
+                </h4>
+            </div>
+            <div id="paypal" class="panel-collapse collapse" role="tabpanel">
+                <div class="panel-body">
+                    <form action="{!! request()->url() !!}" method="POST">
+                        {!! Form::token() !!}
+                        <input type="hidden" name="method" value="paypal">
                         <div class="checkbox">
                             <label for="">
                                 <input type="checkbox" name="defaultPayment" value="1" checked> Use this as default
                             </label>
                         </div>
-
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Proceed <i class="fa fa-right"></i></button>
-                        <input type="hidden" name="method" value="braintree">
-                        <input type="hidden" name="payment_method_nonce">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Pay with PayPal</button>
                     </form>
                 </div>
             </div>
         </div>
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -112,18 +170,94 @@
 @endsection
 
 @section('scripts')
-    <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/formValidation.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/framework/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.3.2/jquery.payment.min.js"></script>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script>
+        Stripe.setPublishableKey('{!! env('STRIPE_PUBLIC') !!}');
+
         jQuery(function($) {
-            braintree.setup('{!! $braintreeToken !!}', "dropin", {
-                container: "braintree",
-                onPaymentMethodReceived: function(obj) {
-                    console.log('Method received');
-                    var $braintreeForm = $('#braintree-form');
-                    $braintreeForm.find('input[name="payment_method_nonce"]').val(obj.nonce);
-                    $braintreeForm.submit();
+            $stripeForm = $('#stripe-form')
+
+            $('#card-number').payment('formatCardNumber')
+            $('#card-cvc').payment('formatCardCVC')
+            $('#card-exp').payment('formatCardExpiry')
+
+            $.fn.toggleInputError = function(erred) {
+                this.closest('.form-group').toggleClass('has-error', erred);
+                return this;
+            };
+
+            $stripeForm.find('#card-number').keyup(function() {
+                var cardType = $.payment.cardType($('#card-number').val());
+
+                if(cardType != null) {
+                    $stripeForm.find('#card-brand').html($('<i>').attr('class', 'fa fa-cc-' + cardType));
+                } else {
+                    $stripeForm.find('#card-brand').html($('<i>').attr('class', 'fa fa-credit-card'));
                 }
             });
+
+            $('#card-number').keyup(validateNumber);
+            $('#card-exp').keyup(validateExp);
+            $('#card-cvc').keyup(validateCvc);
+
+            $stripeForm.submit(function(e) {
+                e.preventDefault();
+
+                var $form = $(this);
+
+                // Disable the submit button to prevent repeated clicks
+                $form.find('button').prop('disabled', true);
+
+                validateNumber();
+                validateExp();
+                validateCvc();
+
+                if($form.find('.has-error').length > 0) {
+                    $form.find('button').prop('disabled', false);
+                    return false;
+                }
+
+                Stripe.card.createToken({
+                    number: $('#card-number').val(),
+                    cvc: $('#card-cvc').val(),
+                    exp_month: $('#card-exp').payment('cardExpiryVal').month,
+                    exp_year: $('#card-exp').payment('cardExpiryVal').year
+                }, stripeResponseHandler);
+            });
         });
+
+        function validateNumber() {
+            $('#card-number').toggleInputError(!$.payment.validateCardNumber($('#card-number').val()));
+        }
+
+        function validateExp() {
+            $('#card-exp').toggleInputError(!$.payment.validateCardExpiry($('#card-exp').payment('cardExpiryVal')));
+        }
+
+        function validateCvc() {
+            var cardType = $.payment.cardType($('#card-number').val());
+            $('#card-cvc').toggleInputError(!$.payment.validateCardCVC($('#card-cvc').val(), cardType));
+        }
+
+        function stripeResponseHandler(status, response) {
+            var $form = $('#stripe-form');
+
+            if (response.error) {
+                // Show the errors on the form
+                $form.find('.payment-errors').text(response.error.message);
+                $form.find('button').prop('disabled', false);
+            } else {
+                // response contains id and card, which contains additional card details
+                var token = response.id;
+                // Insert the token into the form so it gets submitted to the server
+                $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+                // and submit
+                $form.get(0).submit();
+            }
+        }
+
     </script>
 @endsection

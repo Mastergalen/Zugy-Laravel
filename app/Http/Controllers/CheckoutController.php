@@ -17,11 +17,11 @@ use Checkout;
 class CheckoutController extends Controller
 {
     public function __construct() {
-        $this->middleware('checkout', ['except' => ['getCheckout', 'getCheckoutGuest', 'postCheckoutGuest']]);
+        $this->middleware('checkout', ['except' => ['getCheckout']]);
     }
 
     /**
-     * /checkout
+     * GET /checkout
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function getCheckout(Request $request)
@@ -80,31 +80,35 @@ class CheckoutController extends Controller
     }
 
     /**
-     * /checkout/payment
+     * GET /checkout/payment
      * @return \Illuminate\View\View
      */
     public function getCheckoutPayment()
     {
-        $brainTreeSettings = [];
-        if(auth()->check()) {
-            $braintree = auth()->user()->payment_methods()->braintree();
-            if($braintree->count() != 0) $brainTreeSettings = ['customerId' => $braintree->payload['id']];
+        if(Checkout::getShippingAddress() === null) {
+            return redirect(localize_url('routes.checkout.address'))->with('info', 'Please enter your address');
         }
 
-        $braintreeToken =  \Braintree_ClientToken::generate($brainTreeSettings);
-
-
-        return view('pages.checkout.payment')->with(['braintreeToken' => $braintreeToken]);
+        return view('pages.checkout.payment');
     }
 
-    public function postCheckoutPayment(Request $request, PaymentMethodService $handler)
+    /**
+     * POST /checkout/payment
+     * @param Request $request
+     * @param PaymentMethodService $handler
+     * @return $this|bool|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
+     */
+    public function postCheckoutPayment(Request $request, PaymentMethodService $paymentHandler)
     {
         try {
-            $result = $handler->setMethod($request);
+            $result = $paymentHandler->setMethod($request);
         } catch(\Stripe\Error\InvalidRequest $e) {
             return redirect()->back()->withErrors(['An internal error occurred. Please try again']);
-        }  catch(\Stripe\Error\Card $e) {
+        } catch(\Stripe\Error\Card $e) {
             return redirect()->back()->withErrors([$e->getMessage()])->withInput();
+        } catch(Exception $e) {
+            return redirect()->back()->withErrors(['An unknown error occurred: ' . $e->getMessage()])->withInput();
         }
 
         if($result !== true) return $result;
@@ -153,7 +157,8 @@ class CheckoutController extends Controller
             $result = $service->handler($user);
         } catch(OutOfStockException $e) {
             return redirect()->back()->withErrors($e->getErrorMessages());
-
+        } catch(\Stripe\Error\Card $e) { //Card was rejected
+            return redirect()->back()->withErrors([$e->getMessage()])->withInput();
         } /* catch(\Exception $e) {
             //FIXME Log this error and alert developer
             return redirect()->back()->withErrors(['Uh oh! An unknown error occurred while placing your order.']);

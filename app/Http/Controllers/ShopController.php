@@ -37,7 +37,9 @@ class ShopController extends Controller
      */
     public function index()
     {
-        return "nothing yet";
+        $products = $this->productRepo->all();
+
+        return view('pages.product.product-list')->with(compact('products', 'category'));
     }
 
     public function category($category_slug) {

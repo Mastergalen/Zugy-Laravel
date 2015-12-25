@@ -32,7 +32,19 @@ class DbProductRepository extends DbRepository implements ProductRepository
         $this->model = $model;
     }
 
-    public function category($category_slug) {
+    /**
+     * Fetch all products
+     */
+    public function all()
+    {
+        return $this->model->all();
+    }
+
+    /**
+     * Fetch all products for a category slug
+     */
+    public function category($category_slug)
+    {
         $category = $this->categoryRepo->getBySlug($category_slug);
 
         $categoryIds = $this->categoryRepo->children($category->id);
@@ -50,6 +62,11 @@ class DbProductRepository extends DbRepository implements ProductRepository
         return $products;
     }
 
+    /**
+     * Fetch a product by its slug
+     * @param $slug
+     * @return mixed
+     */
     public function getBySlug($slug)
     {
         $language_id = Language::getLanguageId();

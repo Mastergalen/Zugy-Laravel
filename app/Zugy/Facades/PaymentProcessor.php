@@ -1,10 +1,4 @@
 <?php
-/**
- * User: Galen Han
- * Date: 13.09.2015
- * Time: 16:32
- */
-
 namespace Zugy\Facades;
 
 use Illuminate\Support\Facades\Facade;
