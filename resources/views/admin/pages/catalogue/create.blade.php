@@ -124,7 +124,7 @@
 
                     <div class="form-group">
                         <label for="tax_class_id">Tax class</label>
-                        {!! Form::select('tax_class_id', $TaxClass::lists('title', 'id'), null, ['class' => 'form-control']) !!}
+                        {!! Form::select('tax_class_id', $TaxClass::pluck('title', 'id'), null, ['class' => 'form-control']) !!}
                     </div>
 
                     <legend><i class="fa fa-archive"></i> Inventory</legend>
