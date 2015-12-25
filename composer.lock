@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5eedbdfd13075210f7ee7a932617ee82",
-    "content-hash": "d3fb25553a007638cb62618572544660",
+    "hash": "8aa29b2d54d6cb2bc5fb8b813c5057d9",
+    "content-hash": "fe4187cdb001bf69e83396eb02cee547",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1152,24 +1152,24 @@
         },
         {
             "name": "mcamara/laravel-localization",
-            "version": "1.0.12",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mcamara/laravel-localization.git",
-                "reference": "ebd734314f2f36ad9d9444728c19532a4cef5494"
+                "reference": "a086769ca5b6f72fd824a4729bfc454deee09752"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/ebd734314f2f36ad9d9444728c19532a4cef5494",
-                "reference": "ebd734314f2f36ad9d9444728c19532a4cef5494",
+                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/a086769ca5b6f72fd824a4729bfc454deee09752",
+                "reference": "a086769ca5b6f72fd824a4729bfc454deee09752",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "~5.0",
-                "php": ">=5.4.0"
+                "laravel/framework": "~5.2",
+                "php": ">=5.5.0"
             },
             "require-dev": {
-                "orchestra/testbench": "3.0.*"
+                "orchestra/testbench": "3.2.*"
             },
             "type": "library",
             "autoload": {
@@ -1196,7 +1196,7 @@
                 "localization",
                 "php"
             ],
-            "time": "2015-11-28 12:32:19"
+            "time": "2015-12-24 00:17:29"
         },
         {
             "name": "monolog/monolog",
