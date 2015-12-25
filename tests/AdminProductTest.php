@@ -2,6 +2,7 @@
 
 class AdminProductTest extends TestCase
 {
+
     public function testIndexProductView()
     {
         $this->visit('admin/catalogue');

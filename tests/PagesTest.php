@@ -2,6 +2,7 @@
 
 class PagesTest extends TestCase
 {
+
     public function testHomepage()
     {
         $this->visit('/');
@@ -9,16 +10,16 @@ class PagesTest extends TestCase
 
     public function testCart()
     {
-        $this->visit('en/cart')->see('Shopping Cart');
+        $this->visit('cart')->see('Shopping Cart');
     }
 
     public function testPrivacyPolicy()
     {
-        $this->visit('en/privacy-policy')->see('Privacy Policy');
+        $this->visit('privacy-policy')->see('Privacy Policy');
     }
 
     public function testTermsConditions()
     {
-        $this->visit('en/terms-and-conditions')->see('Terms and Conditions');
+        $this->visit('terms-and-conditions')->see('Terms and Conditions');
     }
 }
