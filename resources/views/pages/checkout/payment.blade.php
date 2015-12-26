@@ -183,16 +183,21 @@
             </div>
             <div id="paypal" class="panel-collapse collapse" role="tabpanel">
                 <div class="panel-body">
-                    <form action="{!! request()->url() !!}" method="POST">
-                        {!! Form::token() !!}
-                        <input type="hidden" name="method" value="paypal">
-                        <div class="checkbox">
-                            <label for="">
-                                <input type="checkbox" name="defaultPayment" value="1" checked> Use this as default
-                            </label>
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-8">
+                            <form action="{!! request()->url() !!}" method="POST">
+                                {!! Form::token() !!}
+                                <input type="hidden" name="method" value="paypal">
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay with PayPal</button>
+                                <div class="checkbox">
+                                    <label for="">
+                                        <input type="checkbox" name="defaultPayment" value="true" checked> Use this as
+                                        default
+                                    </label>
+                                </div>
+                            </form>
                         </div>
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Pay with PayPal</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -207,17 +212,22 @@
             </div>
             <div id="cash" class="panel-collapse collapse" role="tabpanel">
                 <div class="panel-body">
-                    <p>Pay with cash on delivery</p>
-                    <form action="{!! request()->url() !!}" method="POST">
-                        {!! Form::token() !!}
-                        <input type="hidden" name="method" value="cash">
-                        <div class="checkbox">
-                            <label for="">
-                                <input type="checkbox" name="defaultPayment" value="1" checked> Use this as default
-                            </label>
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-8">
+                            <p>Pay with cash on delivery</p>
+                            <form action="{!! request()->url() !!}" method="POST">
+                                {!! Form::token() !!}
+                                <input type="hidden" name="method" value="cash">
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay with cash</button>
+                                <div class="checkbox">
+                                    <label for="">
+                                        <input type="checkbox" name="defaultPayment" value="true" checked> Use this as
+                                        default
+                                    </label>
+                                </div>
+                            </form>
                         </div>
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Pay with cash</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

@@ -86,8 +86,13 @@
             <form action="{!! localize_url('routes.checkout.review') !!}" method="POST">
                 {!! Form::token() !!}
                 <button class="btn btn-block btn-lg btn-success" type="submit">
-                    <i class="fa fa-check-square"></i> Place order
+                    @if($payment['method'] == 'paypal')
+                        <i class="fa fa-check-square"></i> Pay with PayPal
+                    @else
+                        <i class="fa fa-check-square"></i> Place order
+                    @endif
                 </button>
+
             </form>
             <small>By placing your order you agree to {!! config('site.name') !!}'s <a href="{!! localize_url('routes.privacy-policy') !!}">Privacy Policy</a> and
                 <a href="{!! localize_url('routes.terms-and-conditions') !!}">Terms and Conditions</a>.</small><!--TODO Fix links-->

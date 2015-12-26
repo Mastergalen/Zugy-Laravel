@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Cart;
 use Checkout;
 use Zugy\Facades\PaymentGateway;
+use Zugy\PaymentGateway\Exceptions\PaymentFailedException;
 
 class CheckoutController extends Controller
 {
@@ -165,13 +166,16 @@ class CheckoutController extends Controller
         try {
             $result = $service->handler($user);
         } catch(OutOfStockException $e) {
-            return redirect()->back()->withErrors($e->getErrorMessages());
+            return redirect(localize_url('routes.checkout.review'))->withErrors($e->getErrorMessages());
         } catch(\Stripe\Error\Card $e) { //Card was rejected
-            return redirect()->back()->withErrors([
+            return redirect(localize_url('routes.checkout.review'))->withErrors([
                 $e->getMessage(),
                 'Try using another payment method. <a href="' . localize_url('routes.checkout.address') . '?change">Change</a>'
-            ])->withInput();
-        } /* catch(\Exception $e) {
+            ]);
+        } catch(PaymentFailedException $e) {
+            return redirect(localize_url('routes.checkout.review'))
+                ->withErrors(['There was an error processing your payment. Try again or use use another payment method. <a href="' . localize_url('routes.checkout.address') . '?change">Change</a>']);
+        }/* catch(\Exception $e) {
             //FIXME Log this error and alert developer
             return redirect()->back()->withErrors(['Uh oh! An unknown error occurred while placing your order.']);
         } */
@@ -179,6 +183,14 @@ class CheckoutController extends Controller
         if(!$result instanceof Order) return $result;
 
         return view('pages.checkout.confirmation')->with(['order' => $result]);
+    }
+
+    /**
+     * Redirect back here from payment gateway e.g. PayPal
+     */
+    public function getGatewayReturn(PlaceOrder $service)
+    {
+        return $this->postCheckoutReview($service);
     }
 
     public function getCheckoutConfirmation(Request $request) {

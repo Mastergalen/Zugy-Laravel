@@ -5,6 +5,7 @@ namespace Zugy\PaymentGateway;
 use App\PaymentMethod;
 use Zugy\PaymentGateway\Gateways\AbstractGateway;
 use Zugy\PaymentGateway\Gateways\Cash;
+use Zugy\PaymentGateway\Gateways\PayPal;
 use Zugy\PaymentGateway\Gateways\Stripe;
 use Zugy\PaymentGateway\Exceptions\PaymentMethodUndefinedException;
 
@@ -30,6 +31,9 @@ class PaymentGateway
                 break;
             case 'cash':
                 return new Cash($paymentMethod);
+                break;
+            case 'paypal':
+                return new PayPal($paymentMethod);
                 break;
             default:
                 throw new PaymentMethodUndefinedException("Using $gateway");

@@ -27,6 +27,7 @@ class EnvTest extends TestCase
 
     public function testPaypal()
     {
+        $this->assertTrue(env('PAYPAL_TESTMODE') == 'true');
         $this->assertTrue(env('PAYPAL_USERNAME') !== null);
         $this->assertTrue(env('PAYPAL_PASSWORD') !== null);
         $this->assertTrue(env('PAYPAL_SIGNATURE') !== null);

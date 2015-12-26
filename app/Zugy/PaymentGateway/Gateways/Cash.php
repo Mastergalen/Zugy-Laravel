@@ -15,7 +15,7 @@ class Cash extends AbstractGateway
             $this->paymentMethod = $this->createPaymentMethod();
         }
 
-        $this->setAsDefault(request('defaultPayment', false));
+        $this->setAsDefault(request('defaultPayment') !== null);
 
         return $this->paymentMethod;
     }
@@ -35,6 +35,8 @@ class Cash extends AbstractGateway
 
     public function getFormatted()
     {
-        $formatted['method'] = $this->methodName;
+        return [
+            'method' => $this->methodName,
+        ];
     }
 }

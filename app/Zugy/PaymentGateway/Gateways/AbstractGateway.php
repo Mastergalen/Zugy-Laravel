@@ -79,7 +79,7 @@ abstract class AbstractGateway
 
             PaymentMethod::where('user_id', '=', $userId)->update(['isDefault' => false]);
         }
-        $this->paymentMethod->isDefault = $setAsDefault == true;
+        $this->paymentMethod->isDefault = $setAsDefault;
         $this->paymentMethod->save();
     }
 

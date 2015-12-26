@@ -22,18 +22,26 @@ class Payment extends Model
 
     public function getFormatted()
     {
-        $payment = [];
-
-        if($this->attributes['method'] == 'stripe') {
-            $payment['method'] = 'card';
-            $payment['card']['brand'] = $this->metadata['source']['brand'];
-            $payment['card']['last4'] = $this->metadata['source']['last4'];
-        } else if($this->attributes['method'] == 'cash') {
-            $payment['method'] = 'cash';
-        } else {
-            throw new \Exception('Payment method does not exist:' . $this->attributes['method']);
+        switch($this->attributes['method']) {
+            case 'stripe':
+                return [
+                    'method' => 'card',
+                    'card' => [
+                        'brand' => $this->metadata['source']['brand'],
+                        'last4' => $this->metadata['source']['last4']
+                    ],
+                ];
+            case 'paypal':
+                return [
+                    'method' => 'paypal'
+                ];
+            case 'cash':
+                return [
+                    'method' => 'cash'
+                ];
+            default:
+                throw new \Exception('Payment method does not exist:' . $this->attributes['method']);
+                break;
         }
-
-        return $payment;
     }
 }

@@ -23,7 +23,7 @@ class CreateUsersPaymentMethod extends Migration
                 ->onDelete('cascade');
 
             $table->string('method', 64);
-            $table->json('payload');
+            $table->json('payload')->nullable();
             $table->boolean('isDefault');
 
             $table->timestamps();

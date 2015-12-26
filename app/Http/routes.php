@@ -45,9 +45,6 @@ function() {
      */
     Route::get(Localization::transRoute('routes.checkout.landing'), ['uses' => 'CheckoutController@getCheckout']);
 
-    //Guest checkout
-    Route::get(Localization::transRoute('routes.checkout.guest'), ['uses' => 'CheckoutController@getCheckoutGuest']);
-
     Route::get(Localization::transRoute('routes.checkout.address'), ['uses' => 'CheckoutController@getCheckoutAddress']);
     Route::post(Localization::transRoute('routes.checkout.address'), ['uses' => 'CheckoutController@postCheckoutAddress']);
     Route::get(Localization::transRoute('routes.checkout.payment'), ['uses' => 'CheckoutController@getCheckoutPayment']);
@@ -55,6 +52,7 @@ function() {
     Route::get(Localization::transRoute('routes.checkout.review'), ['uses' => 'CheckoutController@getCheckoutReview']);
     Route::post(Localization::transRoute('routes.checkout.review'), ['uses' => 'CheckoutController@postCheckoutReview']);
     Route::get(Localization::transRoute('routes.checkout.confirmation'), ['uses' => 'CheckoutController@getCheckoutConfirmation']);
+    Route::get(Localization::transRoute('routes.checkout.gatewayReturn'), ['uses' => 'CheckoutController@getGatewayReturn']);
 
     Route::get(Localization::transRoute('routes.order.show'), ['uses' => 'OrderController@show']);
 
@@ -91,7 +89,7 @@ Route::group(['prefix' => 'api'], function () {
 });
 
 //TODO Change middleware to admin
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('', [function() {
         return view('admin.pages.dash');
     }]);

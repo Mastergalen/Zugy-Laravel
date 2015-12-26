@@ -42,6 +42,8 @@ class PlaceOrder
 
         $payment = $this->processPayment();
 
+        if(!$payment instanceof Payment) return $payment; //E.g. for PayPal, return redirect to gateway processor
+
         $order = $this->saveOrderToDB($payment);
 
         //TODO Alert drivers
@@ -80,12 +82,6 @@ class PlaceOrder
         if(count($outOfStockProducts) > 0) throw new OutOfStockException($outOfStockProducts);
 
         return true;
-    }
-
-    public function getTotal(CalculateShipping $shipping) {
-        $shippingFee = $shipping->getShippingCosts(Cart::content());
-
-        return $shippingFee + Cart::total();
     }
 
     public function processPayment() {

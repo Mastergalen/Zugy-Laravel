@@ -8,12 +8,12 @@ return [
     ],
     'cart' => 'cart',
     'checkout' => [
-        'landing'      => 'checkout',
-        'guest'        => 'checkout/guest',
-        'address'      => 'checkout/address',
-        'payment'      => 'checkout/payment',
-        'review'       => 'checkout/review',
-        'confirmation' => 'checkout/confirmation',
+        'landing'       => 'checkout',
+        'address'       => 'checkout/address',
+        'payment'       => 'checkout/payment',
+        'review'        => 'checkout/review',
+        'confirmation'  => 'checkout/confirmation',
+        'gatewayReturn' => 'checkout/gatewayReturn',
     ],
     'order' => [
         'show' => 'order/{id}',

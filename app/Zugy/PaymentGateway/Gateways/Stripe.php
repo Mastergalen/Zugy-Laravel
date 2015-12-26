@@ -61,7 +61,7 @@ class Stripe extends AbstractGateway
 
         }
 
-        $this->setAsDefault(request('defaultPayment', false));
+        $this->setAsDefault(request('defaultPayment') !== null);
 
         return $this->paymentMethod;
     }
@@ -80,7 +80,6 @@ class Stripe extends AbstractGateway
 
         $payment->metadata = [
             'id' => $result->id,
-            'currency' => $result->currency,
             'source' => $result->source
         ];
 
@@ -96,7 +95,7 @@ class Stripe extends AbstractGateway
     public function getFormatted()
     {
         //First card in sources array is always default card
-        $formatted = [
+        return [
             'method' => 'card',
             'card' => [
                 'brand' => $this->paymentMethod->payload['sources']['data'][0]['brand'],
@@ -104,8 +103,6 @@ class Stripe extends AbstractGateway
                 'expiry' => $this->paymentMethod->payload['sources']['data'][0]['exp_month'] . '/' . $this->paymentMethod->payload['sources']['data'][0]['exp_year']
             ]
         ];
-
-        return $formatted;
     }
 
     public function listCards()
