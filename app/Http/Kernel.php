@@ -34,5 +34,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'localize' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
         'checkout' => \App\Http\Middleware\Checkout::class,
+        'admin' => \App\Http\Middleware\AdminOnly::class,
     ];
 }

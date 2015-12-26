@@ -16,8 +16,8 @@
         @include('includes.status.order-status', ['status' => $order->order_status])
     </p>
 
-    @can('view-confidential-order', $order)
-        @include('includes.order-template');
+    @can('show', $order)
+        @include('includes.order-template')
     @else
         @if(auth()->guest())
             <div class="well"><a href="{!! route('login') !!}">Sign in</a> to view more information on your order.</div>

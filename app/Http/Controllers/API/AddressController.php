@@ -26,7 +26,7 @@ class AddressController extends Controller
     {
         $address = Address::findOrFail($id);
 
-        if(Gate::denies('address', $address)) {
+        if(Gate::denies('update', $address)) {
             abort(403);
         }
 

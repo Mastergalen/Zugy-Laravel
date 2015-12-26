@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Address;
+use App\Order;
+use App\Product;
+use App\Policies\AddressPolicy;
+use App\Policies\ProductPolicy;
+use App\Policies\OrderPolicy;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -13,7 +19,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        Product::class => ProductPolicy::class,
+        Order::class   => OrderPolicy::class,
+        Address::class => AddressPolicy::class,
     ];
 
     /**
@@ -25,13 +33,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(GateContract $gate)
     {
         parent::registerPolicies($gate);
-
-        $gate->define('view-confidential-order', function($user, $order) {
-            return $user->id === $order->user_id;
-        });
-
-        $gate->define('address', function($user, $address) {
-            return $user->id === $address->user_id;
-        });
     }
 }
