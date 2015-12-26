@@ -24,23 +24,14 @@ class Payment extends Model
     {
         $payment = [];
 
-        if($this->attributes['method'] == 'braintree') {
-            $transactionId = json_decode($this->attributes['metadata'])->id;
-
-            $transaction = \Braintree_Transaction::find($transactionId);
-
-            if ($transaction->paymentInstrumentType == 'paypal_account') {
-                $payment['method'] = 'paypal';
-                $payment['email'] = $transaction->paypalDetails->payerEmail;
-            } elseif ($transaction->paymentInstrumentType == 'credit_card') {
-                $payment['method'] = 'card';
-                $payment['card']['brand'] = $transaction->creditCardDetails->cardType;
-                $payment['card']['last4'] = $transaction->creditCardDetails->last4;
-            }
+        if($this->attributes['method'] == 'stripe') {
+            $payment['method'] = 'card';
+            $payment['card']['brand'] = $this->metadata['source']['brand'];
+            $payment['card']['last4'] = $this->metadata['source']['last4'];
         } else if($this->attributes['method'] == 'cash') {
             $payment['method'] = 'cash';
         } else {
-            throw new \Exception('Payment method does not exist');
+            throw new \Exception('Payment method does not exist:' . $this->attributes['method']);
         }
 
         return $payment;

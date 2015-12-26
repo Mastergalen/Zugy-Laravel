@@ -20,6 +20,16 @@ abstract class AbstractGateway
     protected $paymentMethod;
 
     /**
+     * AbstractGateway constructor.
+     * @param PaymentMethod $paymentMethod
+     */
+    public function __construct(PaymentMethod $paymentMethod = null)
+    {
+        $this->paymentMethod = $paymentMethod;
+    }
+
+
+    /**
      * Adds or updates the payment method to the currently signed in user
      */
     abstract public function addOrUpdateMethod();
@@ -32,23 +42,45 @@ abstract class AbstractGateway
         return auth()->user()->payment_methods()->where('method', '=', $this->methodName)->first();
     }
 
-    public function storePaymentMethod($payload = null) {
+    /**
+     * Store payment method in DB
+     * @param array|null $payload
+     * @return PaymentMethod
+     */
+    public function createPaymentMethod(array $payload = null) {
         return auth()->user()->payment_methods()->create([
             'method' => $this->methodName,
             'payload' => $payload
         ]);
     }
 
-    public function setAsDefault(PaymentMethod $paymentMethod, $setAsDefault = true) {
+
+    /**
+     * Update payment method in DB
+     * @param array|null $payload
+     * @return PaymentMethod
+     */
+    public function updatePaymentMethod(array $payload = null) {
+        $this->paymentMethod->payload = $payload;
+        $this->paymentMethod->save();
+
+        return $this->paymentMethod;
+    }
+
+    /**
+     * Sets the current method to default in DB
+     * @param bool $setAsDefault
+     */
+    public function setAsDefault($setAsDefault = true) {
 
         //Make other payment methods false for that user first
         if($setAsDefault == true) {
-            $userId = $paymentMethod->user_id;
+            $userId = $this->paymentMethod->user_id;
 
             PaymentMethod::where('user_id', '=', $userId)->update(['isDefault' => false]);
         }
-        $paymentMethod->isDefault = $setAsDefault;
-        $paymentMethod->save();
+        $this->paymentMethod->isDefault = $setAsDefault == true;
+        $this->paymentMethod->save();
     }
 
     /**
@@ -57,12 +89,12 @@ abstract class AbstractGateway
      * @param String $amount E.g. '15.99'
      * @return Payment
      */
-    abstract public function charge(PaymentMethod $paymentMethod, $amount);
+    abstract public function charge($amount);
 
     /**
      * Retrieve printable information on the payment method
      * @param PaymentMethod $paymentMethod
      * @return array
      */
-    abstract public function getFormatted(PaymentMethod $paymentMethod);
+    abstract public function getFormatted();
 }

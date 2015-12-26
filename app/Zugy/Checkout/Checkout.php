@@ -51,7 +51,7 @@ class Checkout
         $content = ($this->session->has($this->sessionKey . '.payment')) ? $this->session->get($this->sessionKey . '.payment') : null;
 
         if($content === null && auth()->check()) {
-            $content = auth()->user()->payment_methods()->default();
+            $content = auth()->user()->payment_methods()->default()->get()->first();
         }
 
         return $content;

@@ -51,7 +51,7 @@
                                 <td>Shipping</td>
                                 <td></td>
                                 <td></td>
-                                <td>{!! $order->shipping_fee !!}&euro;</td>
+                                <td>{!! money_format("%i", $order->shipping_fee) !!}&euro;</td>
                             </tr>
                             <tr class="total">
                                 <td colspan="3">Total paid</td>

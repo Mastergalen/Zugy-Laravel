@@ -89,7 +89,7 @@ class PlaceOrder
     }
 
     public function processPayment() {
-        $payment = PaymentGateway::set($this->paymentMethod->method)->charge($this->paymentMethod, Cart::grandTotal());
+        $payment = PaymentGateway::set($this->paymentMethod)->charge(Cart::grandTotal());
 
         return $payment;
     }
@@ -112,6 +112,7 @@ class PlaceOrder
         $order->delivery_instructions   = $this->deliveryAddress->delivery_instructions;
 
         $order->shipping_fee            = Cart::shipping();
+        $order->currency                = 'EUR';
 
         $order = $this->user->orders()->save($order);
 

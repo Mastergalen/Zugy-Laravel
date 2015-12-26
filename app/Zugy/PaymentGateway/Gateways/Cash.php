@@ -2,7 +2,6 @@
 
 namespace Zugy\PaymentGateway\Gateways;
 
-use App\PaymentMethod;
 use App\Payment;
 
 class Cash extends AbstractGateway
@@ -10,18 +9,18 @@ class Cash extends AbstractGateway
     protected $methodName = 'cash';
 
     public function addOrUpdateMethod() {
-        $paymentMethod = $this->fetchPaymentMethod();
+        $this->paymentMethod = $this->fetchPaymentMethod();
 
-        if($paymentMethod === null) {
-            $this->storePaymentMethod();
+        if($this->paymentMethod === null) {
+            $this->paymentMethod = $this->createPaymentMethod();
         }
 
-        $this->setAsDefault($paymentMethod, request('defaultPayment', false));
+        $this->setAsDefault(request('defaultPayment', false));
 
-        return $paymentMethod;
+        return $this->paymentMethod;
     }
 
-    public function charge(PaymentMethod $paymentMethod, $amount)
+    public function charge($amount)
     {
         $payment = new Payment();
 

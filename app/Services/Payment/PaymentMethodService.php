@@ -16,7 +16,11 @@ class PaymentMethodService
         ]);
 
         $validator->sometimes('stripeToken', 'required', function($input) {
-            return $input->method == 'stripe';
+            return ($input->method == 'stripe') && ($input->cardId === null);
+        });
+
+        $validator->sometimes('cardId', 'required', function($input) {
+            return ($input->method == 'stripe') && ($input->stripeToken === null);
         });
 
         if($validator->fails()) {

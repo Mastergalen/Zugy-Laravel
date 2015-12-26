@@ -21,12 +21,12 @@ class PaymentMethod extends Model
      * @return mixed
      */
     public function scopeDefault($query) {
-        return $query->where('isDefault', '=', 1)->first();
+        return $query->where('isDefault', '=', 1);
     }
 
     public function getFormatted()
     {
-        $formattedPayment = PaymentGateway::set($this->attributes['method'])->getFormatted($this);
+        $formattedPayment = PaymentGateway::set($this)->getFormatted();
 
         return $formattedPayment;
     }

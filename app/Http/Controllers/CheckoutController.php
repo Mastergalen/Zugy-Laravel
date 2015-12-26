@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Cart;
 use Checkout;
+use Zugy\Facades\PaymentGateway;
 
 class CheckoutController extends Controller
 {
@@ -85,11 +86,19 @@ class CheckoutController extends Controller
      */
     public function getCheckoutPayment()
     {
+        $paymentMethods = auth()->user()->payment_methods()->get();
+
+        $stripe = $paymentMethods->where('method', 'stripe')->first();
+
+        if($stripe !== null) {
+            $cards = PaymentGateway::set($stripe)->listCards($stripe);
+        }
+
         if(Checkout::getShippingAddress() === null) {
             return redirect(localize_url('routes.checkout.address'))->with('info', 'Please enter your address');
         }
 
-        return view('pages.checkout.payment');
+        return view('pages.checkout.payment')->with(compact('cards'));
     }
 
     /**
@@ -158,7 +167,10 @@ class CheckoutController extends Controller
         } catch(OutOfStockException $e) {
             return redirect()->back()->withErrors($e->getErrorMessages());
         } catch(\Stripe\Error\Card $e) { //Card was rejected
-            return redirect()->back()->withErrors([$e->getMessage()])->withInput();
+            return redirect()->back()->withErrors([
+                $e->getMessage(),
+                'Try using another payment method. <a href="' . localize_url('routes.checkout.address') . '?change">Change</a>'
+            ])->withInput();
         } /* catch(\Exception $e) {
             //FIXME Log this error and alert developer
             return redirect()->back()->withErrors(['Uh oh! An unknown error occurred while placing your order.']);

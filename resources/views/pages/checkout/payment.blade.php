@@ -25,6 +25,16 @@
         #card {
             padding-bottom: 20px;
         }
+
+        .card-select .payment-selected {
+            background-color: #FCF5EE;
+            border: 1px solid #FBD8B4;
+        }
+
+        .card-select label {
+            display: block;
+            font-weight: inherit;
+        }
     </style>
 @endsection
 
@@ -67,7 +77,42 @@
             </div>
             <div id="card" class="panel-collapse collapse in" role="tabpanel">
                 <div class="panel-body">
-                    <div class="row">
+                    @if(count($cards) > 0)
+                        <form action="{!! request()->url() !!}" class="card-select" method="POST">
+                            {!! Form::token() !!}
+                            <input type="hidden" name="method" value="stripe">
+                            <div class="row">
+                                <div class="col-md-offset-2 col-md-8">
+                                    <h4>Your cards</h4>
+                                    <div class="your-cards">
+                                        @foreach($cards as $c)
+                                            <label>
+                                                <div class="panel panel-default" data-card-id="{!! $c->id !!}">
+                                                    <div class="panel-body">
+                                                        <div class="col-xs-2">
+                                                            <input type="radio" name="cardId" value="{!! $c->id !!}">
+                                                        </div>
+                                                        <div class="col-xs-6">
+                                                            <p><b>{!! $c->brand !!}</b> ending in {!! $c->last4 !!}</p>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            <p class="pull-right">Expires {!! $c->exp_month !!}/{!! $c->exp_year !!}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                    <hr>
+                                    <button class="btn btn-primary" type="submit">Use this card</button>
+                                    <button class="btn btn-default pull-right" type="button" id="btn-add-card"><i class="fa fa-plus"></i> Add a new card</button>
+                                </div>
+                            </div>
+                        </form>
+                    @endif
+
+                    <!-- Credit Card form -->
+                    <div class="row" id="add-card" @if(count($cards) > 0) style="display:none" @endif>
                         <div class="col-md-offset-4 col-md-4">
                             <form action="{!! request()->url() !!}" method="POST" id="stripe-form" class="form">
                                 {!! Form::token() !!}
@@ -80,6 +125,16 @@
                                             <i class="fa fa-credit-card"></i>
                                         </span>
                                         <input type="tel" size="20" class="form-control" id="card-number" autocomplete="cc-number" data-stripe="number"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Cardholder Name</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-user"></i>
+                                        </span>
+                                        <input type="text" class="form-control" id="card-name" value="{!! auth()->user()->name !!}">
                                     </div>
                                 </div>
 
@@ -178,6 +233,21 @@
         Stripe.setPublishableKey('{!! env('STRIPE_PUBLIC') !!}');
 
         jQuery(function($) {
+            /*
+             * Card Select
+             */
+            $('#btn-add-card').click(function() {
+                $('#add-card').toggle('slow');
+            });
+
+            $('.card-select input').click(function() {
+                $('.your-cards .panel').toggleClass('payment-selected', false);
+                $(this).closest('.panel').toggleClass('payment-selected', true);
+            });
+
+            /*
+             * Credit Card Form
+             */
             $stripeForm = $('#stripe-form')
 
             $('#card-number').payment('formatCardNumber')
@@ -202,6 +272,7 @@
             $('#card-number').keyup(validateNumber);
             $('#card-exp').keyup(validateExp);
             $('#card-cvc').keyup(validateCvc);
+            $('#card-name').keyup(validateCardName);
 
             $stripeForm.submit(function(e) {
                 e.preventDefault();
@@ -214,6 +285,7 @@
                 validateNumber();
                 validateExp();
                 validateCvc();
+                validateCardName();
 
                 if($form.find('.has-error').length > 0) {
                     $form.find('button').prop('disabled', false);
@@ -222,6 +294,7 @@
 
                 Stripe.card.createToken({
                     number: $('#card-number').val(),
+                    name: $('#card-name').val(),
                     cvc: $('#card-cvc').val(),
                     exp_month: $('#card-exp').payment('cardExpiryVal').month,
                     exp_year: $('#card-exp').payment('cardExpiryVal').year
@@ -240,6 +313,11 @@
         function validateCvc() {
             var cardType = $.payment.cardType($('#card-number').val());
             $('#card-cvc').toggleInputError(!$.payment.validateCardCVC($('#card-cvc').val(), cardType));
+        }
+
+        function validateCardName() {
+            var $cardName = $('#card-name')
+            $cardName.toggleInputError($cardName.val().length === 0);
         }
 
         function stripeResponseHandler(status, response) {
