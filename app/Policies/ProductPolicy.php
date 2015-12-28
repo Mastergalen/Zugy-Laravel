@@ -10,6 +10,11 @@ class ProductPolicy
 {
     protected $writeAccessGroupIds = [1,2]; //Super Admins, Admins
 
+    public function create(User $user, Product $product)
+    {
+        return in_array($user->group_id, $this->writeAccessGroupIds);
+    }
+
     public function update(User $user, Product $product)
     {
         return in_array($user->group_id, $this->writeAccessGroupIds);

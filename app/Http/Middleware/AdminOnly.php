@@ -15,7 +15,8 @@ class AdminOnly
      */
     public function handle($request, Closure $next)
     {
-        if(!in_array(auth()->user()->group_id, [1,2])) {
+        //Allow Super Admins, Admins, Drivers
+        if(!in_array(auth()->user()->group_id, [1,2,3])) {
             abort(403);
         }
 

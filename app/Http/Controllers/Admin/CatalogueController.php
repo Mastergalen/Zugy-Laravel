@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Attribute;
 use App\Language;
 use App\Product;
 use App\Services\CreateOrUpdateProduct;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 
 class CatalogueController extends Controller
 {
@@ -30,9 +32,17 @@ class CatalogueController extends Controller
      */
     public function create()
     {
-        $languages = Language::all();
+        if(Gate::denies('create', new Product())) {
+            abort(403);
+        }
 
-        return view('admin.pages.catalogue.create')->with(['languages' => $languages]);
+        $languages = Language::all();
+        $attributes = Attribute::all();
+
+        return view('admin.pages.catalogue.create')->with([
+            'languages' => $languages,
+            'attributes' => $attributes,
+        ]);
     }
 
     /**
@@ -42,6 +52,10 @@ class CatalogueController extends Controller
      */
     public function store(Request $request, CreateOrUpdateProduct $service)
     {
+        if(Gate::denies('create', new Product())) {
+            return redirect()->back()->withErrors('You do not have permission to create new products');
+        }
+
         return $service->handler($request);
     }
 

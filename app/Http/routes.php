@@ -100,4 +100,25 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 });
 
 Route::get('test', function() {
+    $p = new \App\Product();
+    //$p = \App\Product::first();
+
+    dd($p->translateOrNew('en'));
+    $p->translate('en')->title = 'Potato';
+
+
+    /*
+    $p->tax_class_id = 1;
+    $p = \App\Product::create([
+        'tax_class_id' => 1,
+        'en' => [
+            'title' => 'Beer'
+        ],
+        'it' => [
+            'title' => 'Cerveza'
+        ]
+    ]);
+    */
+
+    dd($p);
 });

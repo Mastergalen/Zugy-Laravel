@@ -3,7 +3,6 @@
 @section('title', 'Add a product')
 
 @inject('TaxClass', 'App\TaxClass')
-@inject('Attributes', 'App\Attribute')
 @inject('Category', 'App\Category')
 
 @section('header')
@@ -20,11 +19,10 @@
 @endsection
 
 @section('css')
-<link href="/css/plugins/summernote/summernote.css" rel="stylesheet">
-<link href="/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+<link href="/plugins/summernote/summernote.css" rel="stylesheet">
 
-<link href="/css/plugins/dropzone/dropzone.css" rel="stylesheet">
-<link href="/css/plugins/dropzone/basic.css" rel="stylesheet">
+<link href="/plugins/dropzone/dropzone.css" rel="stylesheet">
+<link href="/plugins/dropzone/basic.css" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/css/formValidation.min.css">
 
@@ -39,6 +37,10 @@
         font-size: 2em;
         font-weight: 400;
         color: #646C7F;
+    }
+
+    .dropzone .dz-preview.selected .dz-image {
+        border: 2px solid #FB5E5E;
     }
 </style>
 @endsection
@@ -90,6 +92,7 @@
                     <div class="form-group">
                         <span class="help-block" id="images-error"></span>
                         <div id="my-dropzone" class="dropzone"></div>
+                        {!! Form::hidden('thumbnail_id', '-1') !!}
                         {!! Form::checkbox('images[]', '-1', false, ['style' => 'display:none']) !!}
                     </div>
 
@@ -136,46 +139,17 @@
                     <legend>Attributes</legend>
                     <div class="form-horizontal" id="attributes-container">
                         <p class="help-text">Give the product attributes like volume, alcohol content, etc.</p>
-                        <div class="form-group attribute-row" data-index="0">
-                            <div class="col-lg-5">
-                                <?php
-                                $attributesArray = $Attributes->get();
-                                ?>
-                                <select name="attributes[0][id]" class="form-control">
-                                    @foreach($attributesArray as $a)
-                                        <option value="{!! $a[0]['id'] !!}" data-unit="{!! $a[0]['unit'] !!}">{!! $a[0]['name'] !!}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-lg-5">
-                                <div class="input-group">
-                                    <input type="text" name="attributes[0][value]" class="form-control">
-                                    <span class="input-group-addon"></span>
+                        @foreach($attributes as $a)
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">{{ $a['name'] }}</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <input type="text" name="attributes[{{ $a['id'] }}]" class="form-control">
+                                        <span class="input-group-addon">{{ $a['unit'] }}</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-2">
-                                <button class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="form-group hide" id="attribute-template">
-                            <div class="col-lg-5">
-                                <select name="id" class="form-control">
-                                    @foreach($attributesArray as $a)
-                                        <option value="{!! $a[0]['attribute_id'] !!}" data-unit="{!! $a[0]['unit'] !!}">{!! $a[0]['name'] !!}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-lg-5">
-                                <div class="input-group">
-                                    <input type="text" name="value" class="form-control">
-                                    <span class="input-group-addon"></span>
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <button class="btn btn-default removeButton"><i class="fa fa-remove"></i></button>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -203,193 +177,159 @@
 @endsection
 
 @section('scripts')
-    <script src="/js/admin/plugins/summernote/summernote.min.js"></script>
-    <script src="/js/admin/plugins/dropzone/dropzone.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/formValidation.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/framework/bootstrap.js"></script>
-    <script>
-        function slugify(text)
-        {
-            return text.toString().toLowerCase()
-                    .replace(/\s+/g, '-')           // Replace spaces with -
-                    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-                    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-                    .replace(/^-+/, '')             // Trim - from start of text
-                    .replace(/-+$/, '');            // Trim - from end of text
-        }
+<script src="/plugins/summernote/summernote.min.js"></script>
+<script src="/plugins/dropzone/dropzone.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/formValidation.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/framework/bootstrap.js"></script>
+<script>
+    function slugify(text)
+    {
+        return text.toString().toLowerCase()
+                .replace(/\s+/g, '-')           // Replace spaces with -
+                .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+                .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+                .replace(/^-+/, '')             // Trim - from start of text
+                .replace(/-+$/, '');            // Trim - from end of text
+    }
 
-        $(document).ready(function() {
-            var $form = $('#create-product-form');
-            $form.formValidation({
-                framework: 'bootstrap',
-                excluded: [':disabled'],
-                fields: {
-                    price: {
-                        validators: {
-                            notEmpty: {},
-                            numeric: {
-                                message: 'The price must be a number'
-                            },
-                            greaterThan: {
-                                value: 0
-                            }
+    $(document).ready(function() {
+        var $form = $('#create-product-form');
+        $form.formValidation({
+            framework: 'bootstrap',
+            excluded: [':disabled'],
+            fields: {
+                price: {
+                    validators: {
+                        notEmpty: {},
+                        numeric: {
+                            message: 'The price must be a number'
+                        },
+                        greaterThan: {
+                            value: 0
                         }
-                    },
-                    'compare_price': {
-                        validators: {
-                            numeric: {
-                                message: 'The price must be a number'
-                            },
-                            greaterThan: {
-                                value: 0
-                            }
+                    }
+                },
+                'compare_price': {
+                    validators: {
+                        numeric: {
+                            message: 'The price must be a number'
+                        },
+                        greaterThan: {
+                            value: 0
                         }
-                    },
-                    'images[]': {
-                        excluded: false,
-                        err: '#images-error',
-                        validators: {
-                            choice: {
-                                min: 1,
-                                message: 'You need to add at least 1 image'
-                            },
-                        }
-                    },
+                    }
+                },
+                'images[]': {
+                    excluded: false,
+                    err: '#images-error',
+                    validators: {
+                        choice: {
+                            min: 1,
+                            message: 'You need to add at least 1 image'
+                        },
+                    }
+                },
+            }
+        });
+
+        /*
+         * Generate slug
+         */
+        $('input[name$="[title]"]').keyup(function() {
+            var slug = slugify($(this).val());
+
+            var $slug = $(this).parent().next().find('input[name$="[slug]"]')
+
+            $slug.val(slug);
+
+            var slugName = $slug.attr('name');
+
+            $form.formValidation('revalidateField', slugName);
+        });
+
+        /* Init Editor */
+        $('.summernote').summernote({
+            toolbar: [
+                ['style', ['style', 'bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['insert', ['link', 'hr', 'table']],
+                ['misc', ['fullscreen', 'codeview']],
+                ['help', ['help']]
+            ],
+            onInit: function() {
+                $(this).nextAll('input').val($(this).code());
+            },
+            onKeyup: function(e) {
+                $(this).nextAll('input').val($(this).code());
+            },
+        });
+
+        Dropzone.autoDiscover = false;
+        var $myDropzone = $('#my-dropzone').dropzone({
+            url: "{!! action('Admin\ImageController@upload') !!}",
+            parallelUploads: 20,
+            maxFiles: 20,
+            clickable: true,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            error: function(file, msg) {
+                console.error(msg);
+            },
+            success: function(file, resp) {
+                console.log("Image upload successful");
+                console.log(resp);
+
+                $checkbox = $('<input type="checkbox" name="images[]" value="' + resp.id + '" style="display:none; " checked/>');
+                $dropzone = $('#my-dropzone').after($checkbox);
+
+                //Add ID to DOM
+                file.previewElement.setAttribute('data-image-id', resp.id);
+
+                //Update thumbnail if first image
+                $thumbnailInput = $('input[name=thumbnail_id]');
+                if($thumbnailInput.val() == '-1') {
+                    $thumbnailInput.val(resp.id);
+
+                    $(file.previewElement).addClass('selected');
                 }
-            });
 
-            /* Generate slug */
-            $('input[name$="[title]"]').keyup(function() {
-                var slug = slugify($(this).val());
+                $parent = $dropzone.parent();
 
-                var $slug = $(this).parent().next().find('input[name$="[slug]"]')
+                $options = $parent.find('[name="images[]"]');
 
-                $slug.val(slug);
+                $form.formValidation('addField', $options)
+                        .formValidation('revalidateField', 'images[]');
+            },
 
-                var slugName = $slug.attr('name');
-
-                $form.formValidation('revalidateField', slugName);
-            });
-
-            /* Product Attributes */
-            var productAttributes = {!! json_encode($Attributes::get()) !!}
-            var $attributesContainer = $('#attributes-container');
-            var attributeIndex = 0;
-
-            $attributesContainer
-                .find('input[name="attributes[0][value]"]')
-                .next('.input-group-addon')
-                .html(productAttributes[0][0].unit);
-
-            $attributesContainer.on('change', 'select[name^="attributes"]', function() {
-                var unit = $(this).find('option:selected').data('unit');
-                $(this).closest('.form-group').find('.input-group-addon').html(unit);
-
-                var selectedValues = [];
-
-                $attributesContainer.find('select[name^="attributes"]').each(function() {
-                    selectedValues.push(this.value);
+            init: function() {
+                this.on("sending", function(file, xhr, formData) {
+                    formData.append("_token", $("input[name='_token']").val());
                 });
 
-                $attributesContainer.find('.attribute-row option').removeAttr("disabled").filter(function() {
-                    var a = $(this).parent('select').val();
-                    return (($.inArray(this.value, selectedValues) > -1) && (this.value!=a))
-                }).attr("disabled","disabled");
-
-                $('#attribute-template').find('option').removeAttr("disabled").filter(function() {
-                    return (($.inArray(this.value, selectedValues) > -1))
-                }).attr("disabled","disabled");
-            });
-
-            $attributesContainer.find('select').eq(0).trigger('change');
-
-            //Add button click handler
-            $attributesContainer.find('.addButton').click(function() {
-                if($attributesContainer.find('.attribute-row').length >= productAttributes.length) {
-                    alert('Max. number of attributes reached!');
-                    return;
-                }
-
-                attributeIndex++;
-                var $template = $('#attribute-template');
-                var $clone = $template
-                    .clone()
-                    .removeClass('hide')
-                    .addClass('attribute-row')
-                    .removeAttr('id')
-                    .attr('data-index', attributeIndex)
-                    .insertBefore($template)
-                    .hide()
-                    .show('slow');
-
-                //Update name attributes
-                $clone
-                    .find('[name="id"]').attr('name', 'attributes[' + attributeIndex + '][id]').end()
-                    .find('[name="value"]').attr('name', 'attributes[' + attributeIndex + '][value]').end()
-
-                $attributesContainer.find('select').eq(0).trigger('change');
-
-                $clone.find('.input-group-addon').html($clone.find('option:selected').data('unit'));
-
-            });
-
-            $attributesContainer.on('click', '.form-group .removeButton', function() {
-                $(this).closest('.form-group')
-                        .hide('slow', function() {
-                            $(this).remove();
-                        });
-
-                $attributesContainer.find('select').eq(0).trigger('change');
-            });
-
-            /* Init Editor */
-            $('.summernote').summernote({
-                toolbar: [
-                    ['style', ['style', 'bold', 'italic', 'underline', 'clear']],
-                    ['font', ['strikethrough', 'superscript', 'subscript']],
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['height', ['height']],
-                    ['insert', ['link', 'hr', 'table']],
-                    ['misc', ['fullscreen', 'codeview']],
-                    ['help', ['help']]
-                ],
-                onInit: function() {
-                    $(this).nextAll('input').val($(this).code());
-                },
-                onKeyup: function(e) {
-                    $(this).nextAll('input').val($(this).code());
-                },
-            });
-
-            Dropzone.autoDiscover = false;
-            var myDropzone = new Dropzone('div#my-dropzone', {
-                url: "{!! action('Admin\ImageController@upload') !!}",
-                parallelUploads: 20,
-                maxFiles: 20,
-                clickable: true,
-                acceptedFiles: ".jpeg,.jpg,.png,.gif",
-                error: function(file, msg) {
-                    console.error(msg);
-                },
-                success: function(file, resp) {
-                    console.log(resp);
-                    $checkbox = $('<input type="checkbox" name="images[]" value="' + resp.id + '" style="display:none" checked/>');
-                    $dropzone = $('#my-dropzone').after($checkbox);
-                    $parent = $dropzone.parent();
-
-                    $options = $parent.find('[name="images[]"]');
-
-                    $form.formValidation('addField', $options)
-                            .formValidation('revalidateField', 'images[]');
-                }
-            });
-
-            myDropzone.on("sending", function(file, xhr, formData) {
-                formData.append("_token", $("input[name='_token']").val());
-            });
+                this.on("removedfile", function(file) {
+                    console.log(file);
+                });
+            }
         });
-    </script>
+
+        $myDropzone.on('click', '.dz-preview', function() {
+            $myDropzone.find('.dz-preview').removeClass('selected');
+
+            $(this).addClass('selected');
+
+            var imageId = $(this).data('image-id');
+            $('input[name=thumbnail_id]').val(imageId);
+        });
+
+        $myDropzone.tooltip({
+            selector: '.dz-preview',
+            title: 'Set this as thumbnail'
+        });
+
+    });
+</script>
 @endsection
 

@@ -16,6 +16,8 @@ class Product extends Model
 
     public $translatedAttributes = ['slug', 'title', 'description', 'meta_description'];
 
+    protected $fillable = ['slug', 'title', 'description', 'meta_description'];
+
     /**
      * Searchable rules
      *
@@ -44,6 +46,12 @@ class Product extends Model
      */
     public function cover()
     {
+        $thumbnailId = $this->thumbnail_id;
+
+        if($thumbnailId !== null) {
+            return $this->images()->find($thumbnailId)->url;
+        }
+
         $images = $this->images()->get();
 
         if($images->count() === 0) {

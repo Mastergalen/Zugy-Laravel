@@ -14,7 +14,7 @@
         "mcamara/laravel-localization": "1.1.*",
         "nesbot/carbon": "~1.14",
         "stripe/stripe-php": "3.*",
-        "dimsav/laravel-translatable": "^5.1",
+        "dimsav/laravel-translatable": "^5.4",
         "guzzlehttp/guzzle": "~5.3|~6.0",
         "fedeisas/laravel-mail-css-inliner": "@dev",
         "ivkos/pushbullet": "3.*",
