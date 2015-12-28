@@ -39,6 +39,7 @@
             </ol>
         </section>
         <section class="content">
+            @include('includes.notifications')
             @yield('content')
         </section>
     </div>

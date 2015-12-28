@@ -15,6 +15,7 @@ class CreateCategoryTranslationsTable extends Migration
         Schema::create('category_translations', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
+            $table->increments('id');
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')
                 ->references('id')->on('categories')
@@ -22,7 +23,7 @@ class CreateCategoryTranslationsTable extends Migration
 
             $table->string('locale')->index();
 
-            $table->primary(['category_id', 'locale']);
+            $table->unique(['category_id', 'locale']);
 
             $table->string('name', 32);
             $table->string('slug', 255);

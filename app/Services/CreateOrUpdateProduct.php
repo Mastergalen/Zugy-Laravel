@@ -14,20 +14,28 @@ class CreateOrUpdateProduct
     {
         $languages = \Localization::getSupportedLanguagesKeys();
 
+        if ($productId === null) { //Create new product
+            $product = new Product();
+        } else {
+            $product = Product::find($productId);
+
+            $productTranslations = $product->translations()->get()->keyBy('locale');
+        }
+
         $rules = [
             'price' => 'required|numeric|min:0',
             'compare_price' => 'numeric|min:0',
             'tax_class_id' => 'required|exists:tax_classes,id',
-            'stock' => 'required|integer|min:0',
+            'stock_quantity' => 'required|integer|min:0',
             'images' => 'required|integerArray',
             'category_id' => 'required|exists:categories,id',
-            'thumbnail_id' => 'required|exists:product_images,id',
+            'thumbnail_id' => 'exists:product_images,id',
             'attributes.*' => 'max:255',
         ];
 
         foreach ($languages as $l) {
             $rules["meta.{$l}.title"] = "required|max:255";
-            $rules["meta.{$l}.slug"] = "required|max:255|alpha_dash|unique:product_translations,slug,NULL,id,locale,$l"; //TODO Validate slug
+            $rules["meta.{$l}.slug"] = "required|max:255|alpha_dash|unique:product_translations,slug,{$product->translateOrNew($l)['slug']},slug,locale,$l";
             $rules["meta.{$l}.description"] = "required|max:65535";
             $rules["meta.{$l}.meta_description"] = "required|max:255";
         }
@@ -37,6 +45,9 @@ class CreateOrUpdateProduct
             foreach($value as $v) {
                 if(!is_numeric($v) && !is_int((int)$v)) return false;
             }
+
+            if(count($value) == 0) return false;
+
             return true;
         });
 
@@ -45,17 +56,14 @@ class CreateOrUpdateProduct
         if($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         } else {
-            if ($productId === null) { //Create new product
-                $product = new Product();
-            } else {
-                $product = Product::find($productId);
-            }
-
-            $product->stock_quantity = $request->input('stock');
+            $product->stock_quantity = $request->input('stock_quantity');
             $product->price = $request->input('price');
             $product->compare_price = $request->input('compare_price');
             $product->tax_class_id = $request->input('tax_class_id');
-            $product->thumbnail_id = $request->input('thumbnail_id');
+
+            if($request->input('thumbnail_id') != "") {
+                $product->thumbnail_id = $request->input('thumbnail_id');
+            }
 
             foreach ($languages as $l) {
                 $product->translateOrNew($l)->title = $request->input("meta.{$l}.title");
@@ -66,14 +74,16 @@ class CreateOrUpdateProduct
 
             $product->save();
 
-            $product->categories()->attach($request->input('category_id'));
+            $product->categories()->sync([$request->input('category_id')]);
 
             //TODO Validate if attribute IDs exist
+            $sync = [];
             foreach($request->input('attributes') as $key => $value) {
                 if(trim($value) == "") continue;
-
-                $product->attributes()->attach($key, ['value' => $value]);
+                $sync[$key] = ['value' => $value];
             }
+
+            $product->attributes()->sync($sync);
 
             $product->save();
 

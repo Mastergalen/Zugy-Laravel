@@ -40,8 +40,11 @@ class CatalogueController extends Controller
         $attributes = Attribute::all();
 
         return view('admin.pages.catalogue.create')->with([
+            'product' => new Product(),
             'languages' => $languages,
             'attributes' => $attributes,
+            'translations' => null,
+            'category' => null,
         ]);
     }
 
@@ -78,7 +81,25 @@ class CatalogueController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = \App\Product::with(['translations', 'categories', 'attributes', 'images'])->find($id);
+        $languages = Language::all();
+        $attributes = Attribute::all();
+        $category = $product->categories()->first();
+
+        $translations = $product->translations->keyBy('locale');
+
+        $productAttributes = $product->attributes()->get()->keyBy('id');
+
+        //dd($productAttributes->toArray());
+
+        return view('admin.pages.catalogue.edit')->with([
+            'product' => $product,
+            'languages' => $languages,
+            'attributes' => $attributes,
+            'productAttributes' => $productAttributes,
+            'translations' => $translations,
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -89,7 +110,7 @@ class CatalogueController extends Controller
      */
     public function update(Request $request, CreateOrUpdateProduct $service, $productId)
     {
-        $service->handler($request, $productId);
+        return $service->handler($request, $productId);
     }
 
     /**

@@ -57,7 +57,13 @@
     <div class="row">
         <div class="col-md-6">
             <div class="gallery sp-wrap">
+                @if($thumbnail)
+                    <a href="{!! $thumbnail->url !!}">
+                        <img src="{!! $thumbnail->url !!}" alt="{!! $product->title !!} image">
+                    </a>
+                @endif
                 @forelse($product->images as $image)
+                    <?php if($image->id == $product->thumbnail_id) continue; ?>
                     <a href="{!! $image->url !!}">
                         <img src="{!! $image->url !!}" alt="{!! $product->title !!} image">
                     </a>

@@ -25,7 +25,7 @@ class CreateOrderPaymentsTable extends Migration
             $table->decimal('amount', 10, 2);
             $table->char('currency', 3);
             $table->string('method', 32);
-            $table->json('metadata');
+            $table->text('metadata');
             $table->dateTime('paid')->nullable();
 
             $table->string('billing_name', 64);

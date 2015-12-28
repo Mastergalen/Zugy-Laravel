@@ -15,6 +15,7 @@ class CreateAttributeTranslationsTable extends Migration
         Schema::create('attribute_translations', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
+            $table->increments('id');
             $table->integer('attribute_id')->unsigned();
             $table->foreign('attribute_id')
                 ->references('id')->on('attributes')
@@ -22,7 +23,7 @@ class CreateAttributeTranslationsTable extends Migration
 
             $table->string('locale')->index();
 
-            $table->primary(['attribute_id', 'locale']);
+            $table->unique(['attribute_id', 'locale']);
 
             $table->string('name', 32);
             $table->string('unit', 32)->nullable();

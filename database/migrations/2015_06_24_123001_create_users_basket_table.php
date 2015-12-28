@@ -18,12 +18,12 @@ class CreateUsersBasketTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
                 ->references('id')->on('users')
-                ->onDelete('cascade');
+                ->onDelete('no action');
 
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')
                 ->references('id')->on('products')
-                ->onDelete('cascade');
+                ->onDelete('no action');
 
             $table->primary(['user_id', 'product_id']);
 
@@ -32,7 +32,7 @@ class CreateUsersBasketTable extends Migration
 
             $table->integer('quantity')->unsigned();
 
-            $table->json('options')->nullable();
+            $table->text('options')->nullable();
 
             $table->timestamps();
         });

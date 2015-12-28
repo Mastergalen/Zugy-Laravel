@@ -15,6 +15,7 @@ class CreateProductsTranslationsTable extends Migration
         Schema::create('product_translations', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
+            $table->increments('id');
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')
                 ->references('id')->on('products')
@@ -25,7 +26,7 @@ class CreateProductsTranslationsTable extends Migration
             $table->string('slug', 255);
             $table->unique(['locale', 'slug']);
 
-            $table->primary(['product_id', 'locale']);
+            $table->unique(['product_id', 'locale']);
 
             $table->string('title', 255);
             $table->text('description');

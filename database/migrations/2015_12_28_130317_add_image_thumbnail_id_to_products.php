@@ -16,7 +16,7 @@ class AddImageThumbnailIdToProducts extends Migration
             $table->integer('thumbnail_id')->after('tax_class_id')->unsigned()->nullable();
             $table->foreign('thumbnail_id')
                 ->references('id')->on('product_images')
-                ->onDelete('no action');
+                ->onDelete('restrict');
         });
     }
 

@@ -69,14 +69,10 @@ class DbProductRepository extends DbRepository implements ProductRepository
      */
     public function getBySlug($slug)
     {
-        $language_id = Language::getLanguageId();
-
-        $productId = ProductTranslation::where('slug', '=', $slug)
-            ->where('locale', '=', LaravelLocalization::getCurrentLocale())->first()->product_id;
-
-        $product = $this->model->find($productId);
-
-        $product->load(['images', 'attributes']);
+        $product = $this->model->with(['images', 'attributes'])->whereHas('translations', function($query) use ($slug) {
+           $query->where('locale', '=', LaravelLocalization::getCurrentLocale())
+                 ->where('slug', '=', $slug);
+        })->first();
 
         return $product;
     }

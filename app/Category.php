@@ -70,18 +70,21 @@ class Category extends Model
     static public function printSelect() {
         $tree = Category::buildTree();
 
-        function printTree($tree, $r = 0, $p = null) {
+        function printTree($tree, $r = 0, $p = null, $list = []) {
             foreach ($tree as $i => $t) {
                 $dash = ($t['parent_id'] == 0) ? '' : str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;", $r) .' ';
-                printf("\t<option value='%d'>%s%s</option>\n", $t['id'], $dash, $t['name']);
+                $list[$t['id']] =  $dash . $t['name'];
+                //printf("\t<option value='%d'>%s%s</option>\n", $t['id'], $dash, $t['name']);
                 if ($t['parent_id'] == $p) {
                     // reset $r
                     $r = 0;
                 }
                 if (isset($t['children'])) {
-                    printTree($t['children'], ++$r, $t['parent_id']);
+                    return printTree($t['children'], ++$r, $t['parent_id'], $list);
                 }
             }
+
+            return $list;
         }
 
         return printTree($tree);
