@@ -70,23 +70,26 @@ class Category extends Model
     static public function printSelect() {
         $tree = Category::buildTree();
 
-        function printTree($tree, $r = 0, $p = null, $list = []) {
-            foreach ($tree as $i => $t) {
-                $dash = ($t['parent_id'] == 0) ? '' : str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;", $r) .' ';
-                $list[$t['id']] =  $dash . $t['name'];
-                //printf("\t<option value='%d'>%s%s</option>\n", $t['id'], $dash, $t['name']);
-                if ($t['parent_id'] == $p) {
-                    // reset $r
-                    $r = 0;
-                }
-                if (isset($t['children'])) {
-                    return printTree($t['children'], ++$r, $t['parent_id'], $list);
+        function printTree($tree, $depth = 0, $list = []) {
+            foreach($tree as $t) {
+                $dash = ($t['parent_id'] == 0) ? '' : str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;", $depth) .' ';
+                $list[] =  [$t['id'], $dash . $t['name']];
+
+                if(isset($t['children'])) {
+                    $list = array_merge($list, printTree($t['children'], $depth + 1));
                 }
             }
-
             return $list;
         }
 
-        return printTree($tree);
+        $result = printTree($tree);
+
+        $array = [];
+
+        foreach($result as $v) {
+            $array[$v[0]] = $v[1];
+        }
+
+        return $array;
     }
 }
