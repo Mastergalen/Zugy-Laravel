@@ -39,7 +39,7 @@ class ProductController extends Controller
 
         if($product === null) abort(404, 'That product does not exist');
 
-        $thumbnail = $product->images->where('id', $product->thumbnail_id)->first();
+        $thumbnail = $product->images()->where('id', $product->thumbnail_id)->first();
 
         return view('pages.product.product-show')->with(['product' => $product, 'thumbnail' => $thumbnail]);
     }

@@ -94,16 +94,17 @@ class Product extends Model
     {
         $category_id = $this->categories()->first()->id;
 
-        $tree = Category::with('translations')->get();
+        $categories = Category::with('translations')->get()->keyBy('id');
 
-        $node = $tree->where('id', $category_id)->first();
+        $node = $categories[$category_id];
 
         $parent_id = $node->parent_id;
 
         $breadcrumbs = [];
+
         while($parent_id !== null) {
             array_unshift($breadcrumbs, ['name' => $node->name, 'slug' => $node->slug]);
-            $node = $tree->where('id', $parent_id)->first();
+            $node = $categories[$parent_id];
             $parent_id = $node->parent_id;
         }
 
