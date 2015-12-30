@@ -49,7 +49,16 @@
                                 <a href="{!! $p->getUrl() !!}"><img src="{!! $p->cover() !!}" class="img-responsive"
                                                                     alt=""></a>
                                 <h4><a href="{!! $p->getUrl() !!}">{!! $p->title !!}</a></h4>
-                                <div class="price"><a href="{!! $p->getUrl() !!}">{!! $p->price !!}&euro;</a></div>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="price"><a href="{!! $p->getUrl() !!}">{!! $p->price !!}&euro;</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <button class="btn btn-primary btn-sm pull-right btn-add-cart" data-product-id="{!! $p->id !!}"><i class="fa fa-cart-arrow-down"></i></button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -77,4 +86,22 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script>
+$('.btn-add-cart').click(function() {
+    $(this).prop('disabled', true);
+    var productId = $(this).data('product-id');
+
+    var $img = $(this).closest('.panel-body').find('img').eq(0);
+
+    cart.addToCartAnimation($img);
+    cart.add(productId, 1);
+
+    console.log("Adding:", productId);
+    $(this).prop('disabled', false);
+});
+</script>
 @endsection

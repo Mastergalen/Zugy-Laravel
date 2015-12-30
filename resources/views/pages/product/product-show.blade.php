@@ -90,7 +90,6 @@
                 <h3>Select quantity</h3>
                 <fieldset id="quantity-selector"
                           data-product-id="{!! $product->id !!}"
-                          data-product-name="{{$product->title}}"
                           data-price="{{$product->price}}"
                           data-thumbnail="{{$product->cover()}}"
                           data-url="{{$product->getUrl()}}"
@@ -255,47 +254,14 @@
                     return;
                 }
 
-                var item = {
-                    'id': $quantitySelector.data('product-id'),
-                    name: $quantitySelector.data('product-name'),
-                    'quantity': quantity,
-                    price: $quantitySelector.data('price'),
-                    thumbnail: $quantitySelector.data('thumbnail'),
-                    url: $quantitySelector.data('url')
-                }
-
                 hideErrors();
 
-                var $cart = $('.navbar .cart-icon:visible').eq(0);
                 var $imgToDrag = $('.gallery .sp-large a img').eq(0);
 
-                if($imgToDrag) {
-                    var $imgClone = $imgToDrag.clone().offset({
-                        top: $(this).offset().top,
-                        left: $(this).offset().left
-                    }).css({
-                        'opacity': '0.5',
-                        'position': 'absolute',
-                        'height': '150px',
-                        'width': '150px',
-                        'z-index': '100'
-                    }).appendTo($('body')).animate({
-                        'top': $cart.offset().top + 10,
-                        'left': $cart.offset().left + 10,
-                        'width': 75,
-                        'height': 75
-                    }, 1000, 'easeInOutExpo');
-
-                    $imgClone.animate({
-                        'width': 0,
-                        'height': 0
-                    }, function () {
-                        $(this).detach()
-                    });
-                }
+                cart.addToCartAnimation($imgToDrag);
 
                 //TODO Prevent adding more than in stock and show error message
-                cart.add(item);
+                cart.add($quantitySelector.data('product-id'), quantity);
 
                 $button.prop('disabled', false);
             });

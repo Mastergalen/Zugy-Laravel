@@ -37,18 +37,17 @@ class CartController extends Controller
     {
         $this->validate($request, [
             'id' => 'required|exists:products',
-            'name' => 'required|max:255|min:1',
             'qty' => 'required|integer|min:0',
             'options' => 'array',
         ]);
 
-        $price = Product::find($request->input('id'))->price;
+        $product = Product::find($request->input('id'));
 
         $cartItem = [
             'id' => $request->input('id'),
-            'name' => $request->input('name'),
+            'name' => $product->title,
             'qty' => $request->input('qty'),
-            'price' => $price,
+            'price' => $product->price,
         ];
 
         //Search for product ID, if exists, update quantity
