@@ -8,7 +8,7 @@ class CartServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app['cart'] = $this->app->share(function($app)
+        $this->app['zugyCart'] = $this->app->share(function($app)
         {
             $session = $app['session'];
             $events = $app['events'];

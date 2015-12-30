@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Product;
-use Gloudemans\Shoppingcart\Facades\Cart;
+use Gloudemans\Shoppingcart\Exceptions\ShoppingcartInvalidRowIDException;
+use Illuminate\Http\Response;
+use Zugy\Facades\Cart;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,12 +20,6 @@ class CartController extends Controller
      */
     public function index()
     {
-        if(Cart::count(false) === 0 && !auth()->guest()) { //Check if cart stored in database
-            foreach(auth()->user()->basket() as $row) {
-                Cart::associate('Product', 'App')->add($row->product_id, $row->name, $row->quantity, $row->price, $row->options);
-            }
-        }
-
         return Cart::content();
     }
 
@@ -36,38 +32,70 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'id' => 'required|exists:products',
+            'id' => 'required|integer|exists:products',
             'qty' => 'required|integer|min:0',
             'options' => 'array',
         ]);
 
+        $qty = (int) $request->input('qty');
+
+        \Log::debug("Adding item to cart", ['productId' =>$request->input('id'),  'qty' => $qty]);
+
         $product = Product::find($request->input('id'));
 
         $cartItem = [
-            'id' => $request->input('id'),
+            'id' => (int) $request->input('id'),
             'name' => $product->title,
-            'qty' => $request->input('qty'),
+            'qty' => (int) $request->input('qty'),
             'price' => $product->price,
         ];
 
+        \Log::debug("Current cart has " . Cart::count() . " items");
+        \Log::debug(Cart::content());
+
         //Search for product ID, if exists, update quantity
         if($request->has('options')) {
-            $searchResult = Cart::search(['id' => $request->input('id'), 'options' => $request->input('options')]);
+            $searchResult = Cart::search(['id' => (int) $request->input('id'), 'options' => $request->input('options')]);
             $cartItem['options'] = $request->input('options');
         } else {
-            $searchResult = Cart::search(['id' => $request->input('id')]);
+            \Log::debug('Searching for cart with item ID: ' . $request->input('id'));
+            $searchResult = Cart::search(['id' => (int) $request->input('id')]);
+            \Log::debug("Found " . count($searchResult) . " results");
+            \Log::debug($searchResult);
         }
 
         if($searchResult === false) {
+            if ($qty > $product->stock_quantity) {
+                return response()->json([
+                    'status' => 'failure', 'message' => "Unable to add to cart. We only have {$product->stock_quantity} left in stock."
+                ], 422); //Unprocessable entity
+            }
+
+            \Log::debug('Adding new item to cart: ' . $cartItem['id']);
+
             Cart::associate('Product', 'App')->add($cartItem);
         } else {
             $rowId = $searchResult[0];
 
-            $oldQuantity = Cart::get($rowId)->qty;
-            Cart::update($rowId, ['qty' => $oldQuantity + $request->input('qty')]);
+            $totalQuantity = (int) Cart::get($rowId)->qty + $qty;
+
+            if($totalQuantity > $product->stock_quantity) {
+                return response()->json([
+                    'status' => 'failure', 'message' => "Unable to add to cart. We only have {$product->stock_quantity} left in stock."
+                ], 422); //Unprocessable Entity
+            }
+
+            \Log::debug("Updating item in cart", ['rowId' => $rowId, 'oldQty' => Cart::get($rowId)->qty, 'newQty' => $totalQuantity]);
+
+            \Log::debug("Session", ['session' => $request->session()->get('cart.main')]);
+            Cart::update($rowId, (int) $totalQuantity);
+
+            $cart = $request->session()->get('cart.main');
+            \Log::debug("Session", ['session' => $request->session()->get('cart.main')]);
+            $request->session()->put('cart.main', $cart);
         }
 
-        return response()->json(['status' => 'success']);
+        return response()->json(['status' => 'success', 'cart' => Cart::content()]);
     }
 
     /**
@@ -91,7 +119,11 @@ class CartController extends Controller
         if($request->has('qty')) $update['qty'] = (int) $request->input('qty');
         if($request->has('options')) $update['options'] =  $request->input('options');
 
-        Cart::update($rowId, $update);
+        try {
+            Cart::update($rowId, $update);
+        } catch(ShoppingcartInvalidRowIDException $e) {
+            return response()->json(['status' => 'failure', 'message' => 'The row ID was invalid'], 400);
+        }
 
         return response()->json(['status' => 'success', 'cart' => Cart::content()]);
     }
@@ -99,13 +131,25 @@ class CartController extends Controller
     /**
      * Remove an item from the cart.
      *
-     * @param  int  $id
+     * @param  int  $rowId
      * @return Response
      */
     public function destroy($rowId)
     {
-        Cart::remove($rowId);
+        try {
+            Cart::remove($rowId);
+        } catch(ShoppingcartInvalidRowIDException $e) {
+            return response()->json(['status' => 'failure', 'message' => 'The row ID was invalid'], 400);
+        }
+
 
         return response()->json(['status' => 'success']);
+    }
+
+    public function test()
+    {
+        Cart::update('027c91341fd5cf4d2579b49c4b6a90da', 4);
+
+        return response()->json(["please" => 'help me']);
     }
 }

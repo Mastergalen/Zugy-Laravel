@@ -2,6 +2,7 @@
     var apiEndpoint = '/api/v1/cart';
 
     cart.add = function (productId, quantity) {
+        console.log("Adding to cart");
         $.ajax({
             type: 'POST',
             url: apiEndpoint,
@@ -12,12 +13,7 @@
                 'id': productId,
                 'qty': quantity
             },
-            success: function() {
-                $.pjax.reload('#mini-cart-container').done(function() {
-                    var subtotal = $('#cart-subtotal').text();
-                    $('.cart-subtotal').text(subtotal);
-                });
-            },
+            success: updateMiniCart,
             error: function(xhr, status, error) {
                 var err = eval("(" + xhr.responseText + ")");
                 alert(err.message);
@@ -35,8 +31,7 @@
             data: {
                 'qty': quantity
             },
-            async: false,
-                error: function(xhr, status, error) {
+            error: function(xhr, status, error) {
                 var err = eval("(" + xhr.responseText + ")");
                 alert(err.message);
             }
@@ -44,13 +39,14 @@
     };
 
     cart.delete = function(rowId) {
+        console.log("Deleting", rowId);
         $.ajax({
             type: 'DELETE',
             url: apiEndpoint + '/' + rowId,
             headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         },
-        async: false,
+            success: updateMiniCart,
             error: function(xhr, status, error) {
                 var err = eval("(" + xhr.responseText + ")");
                 alert(err.message);
@@ -86,4 +82,11 @@
             });
         }
     };
+
+    function updateMiniCart() {
+        $.pjax.reload('#mini-cart-container', {timeout: 1500}).done(function() {
+            var subtotal = $('#cart-subtotal').text();
+            $('.cart-subtotal').text(subtotal);
+        });
+    }
 }( window.cart = window.cart || {}, jQuery ));

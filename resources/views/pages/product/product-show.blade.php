@@ -78,7 +78,7 @@
             <h1>{{$product->title}}</h1>
             <div class="product-price">
                 <span class="price-sales">{{$product->price}}&#8364;</span>
-                @if(isset($product->compare_price))
+                @if(isset($product->compare_price) && $product->compare_price != 0)
                     <span class="price-standard">{{$product->compare_price}}&#8364;</span>
                 @endif
             </div>

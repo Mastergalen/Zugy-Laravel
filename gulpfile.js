@@ -21,10 +21,10 @@ elixir(function(mix) {
         /*
         * Vendor
         */
-        'vendor/mustache/mustache.js',
         'vendor/pjax/jquery.pjax.js',
 
         'search.js',
         'cart.js',
+        'events.js',
     ], 'public/dist/js/app.js')
 });

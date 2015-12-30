@@ -2,20 +2,21 @@
 
 namespace App\Listeners;
 
-use Gloudemans\Shoppingcart\Facades\Cart;
+use Zugy\Facades\Cart;
 use Illuminate\Support\Facades\Request;
 
 class CartEventsListener
 {
     public function onAddCart($id, $name, $quantity, $price, $options  = null) {
         if(auth()->check() && Request::ajax()) {
-            auth()->user()->basket()->create([
-                'product_id' => $id,
+            $row = auth()->user()->basket()->firstOrNew(['product_id' => $id]);
+
+            $row->fill([
                 'quantity' => $quantity,
                 'price' => $price,
                 'name' => $name,
                 'options' => $options
-            ]);
+            ])->save();
         }
     }
 
@@ -27,6 +28,8 @@ class CartEventsListener
             $row->price = $item->price;
             $row->quantity = $item->qty;
             $row->options = $item->options;
+
+            \Log::debug('Updating basket in DB', ['productId' => $item->id, 'quantity' => $item->qty]);
 
             $row->save();
         }

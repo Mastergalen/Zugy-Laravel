@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Gloudemans\Shoppingcart\Facades\Cart;
+use Zugy\Facades\Cart;
 use Illuminate\Contracts\Auth\Guard;
 
 class Checkout

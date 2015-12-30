@@ -1,3 +1,4 @@
+<!-- _mini-cart.blade -->
 <div id="mini-cart-container" class="mega-dropdown-menu mini-cart">
     @if(Cart::count(false) === 0)
         <div class="mini-cart-product row" id="empty-cart-row" style="text-align: center; padding-bottom: 17px">
@@ -7,7 +8,6 @@
     <!-- TODO Get cart buttons to work -->
 
     @foreach(Cart::content() as $row)
-        <?php $row->product->cover() ?>
         <div class="mini-cart-product row">
             <div class="col-md-offset-3 col-md-6 col-xs-12">
                 <div class="row">
@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-md-1 col-xs-1 miniCartQuantity">x{!! $row->qty !!}</div>
                     <div class="col-md-2 col-xs-2 miniCartSubtotal"><span>{{ money_format("%i", $row->subtotal) }}&euro;</span></div>
-                    <div class="col-md-1 col-xs-1 delete"><a> <i class="fa fa-remove"></i> </a></div>
+                    <div class="col-md-1 col-xs-1 delete"><button type="button" class="btn btn-danger btn-xs" data-row-id="{!! $row->rowid !!}"> <i class="fa fa-remove"></i> </button></div>
                 </div>
             </div>
         </div>
@@ -40,7 +40,4 @@
         <a class="btn btn-sm btn-primary btn-checkout" href="{!! localize_url('routes.checkout.landing') !!}" @if(Cart::count(false) === 0)disabled="disabled" @endif> CHECKOUT </a>
     </div>
 </div>
-
-<!-- _mini-cart.blade -->
-
 <!-- \ _mini-cart.blade -->

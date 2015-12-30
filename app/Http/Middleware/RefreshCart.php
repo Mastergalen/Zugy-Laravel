@@ -5,8 +5,7 @@ namespace App\Http\Middleware;
 use App\Basket;
 use Closure;
 use Gloudemans\Shoppingcart\Exceptions\ShoppingcartInvalidItemException;
-use Gloudemans\Shoppingcart\Exceptions\ShoppingcartInvalidPriceException;
-use Gloudemans\Shoppingcart\Facades\Cart;
+use Zugy\Facades\Cart;
 
 class RefreshCart
 {
@@ -19,7 +18,7 @@ class RefreshCart
      */
     public function handle($request, Closure $next)
     {
-        if(!auth()->guest()) {
+        if(auth()->check()) {
             if (Cart::count(false) == 0) $this->refreshCart();
         }
 

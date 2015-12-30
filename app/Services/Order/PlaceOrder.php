@@ -10,7 +10,7 @@ use App\Order;
 use App\OrderItem;
 
 use Carbon\Carbon;
-use Gloudemans\Shoppingcart\Facades\Cart;
+use Zugy\Facades\Cart;
 
 use Zugy\Facades\Checkout;
 use Zugy\Facades\PaymentGateway;
