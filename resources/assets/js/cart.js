@@ -16,7 +16,7 @@
             success: updateMiniCart,
             error: function(xhr, status, error) {
                 var err = eval("(" + xhr.responseText + ")");
-                alert(err.message);
+                swal(err.message, null, "error");
             }
         });
     };

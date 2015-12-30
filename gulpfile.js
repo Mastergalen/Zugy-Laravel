@@ -22,6 +22,7 @@ elixir(function(mix) {
         * Vendor
         */
         'vendor/pjax/jquery.pjax.js',
+        'vendor/sweetalert/sweetalert-dev.js',
 
         'search.js',
         'cart.js',

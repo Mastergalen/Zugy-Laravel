@@ -145,11 +145,4 @@ class CartController extends Controller
 
         return response()->json(['status' => 'success']);
     }
-
-    public function test()
-    {
-        Cart::update('027c91341fd5cf4d2579b49c4b6a90da', 4);
-
-        return response()->json(["please" => 'help me']);
-    }
 }
