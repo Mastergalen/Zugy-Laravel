@@ -45,26 +45,28 @@ class Category extends Model
     static public function printList() {
         $list = Category::buildTree();
 
-        function toUL(array $array)
+
+
+        return self::toUL($list);
+    }
+
+    static private function toUL(array $array)
+    {
+        $html = '<ul class="list-group">' . PHP_EOL;
+
+        foreach ($array as $value)
         {
-            $html = '<ul class="list-group">' . PHP_EOL;
-
-            foreach ($array as $value)
+            $html .= '<li class="list-group-item"><a href="' . localize_url('routes.shop.category', ['slug' => $value['slug']]) . '">' . $value['name'];
+            if (!empty($value['children']))
             {
-                $html .= '<li class="list-group-item"><a href="' . localize_url('routes.shop.category', ['slug' => $value['slug']]) . '">' . $value['name'];
-                if (!empty($value['children']))
-                {
-                    $html .= toUL($value['children']);
-                }
-                $html .= '</a></li>' . PHP_EOL;
+                $html .= self::toUL($value['children']);
             }
-
-            $html .= '</ul>' . PHP_EOL;
-
-            return $html;
+            $html .= '</a></li>' . PHP_EOL;
         }
 
-        return toUL($list);
+        $html .= '</ul>' . PHP_EOL;
+
+        return $html;
     }
 
     static public function printSelect() {

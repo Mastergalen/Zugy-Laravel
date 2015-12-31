@@ -2,36 +2,77 @@
 
 namespace App;
 
+use AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use Zugy\Searchable\SearchableTrait;
 
 class Product extends Model
 {
     use Translatable;
-    use SearchableTrait;
+    use AlgoliaEloquentTrait;
 
     protected $table = 'products';
+
+    public static $perEnvironment = true; // Index name will be 'products_{\App::environment()}';
+
+    public $algoliaSettings = [
+        'attributesToIndex' => [
+            'translations_en',
+            'translations_it',
+            'categories',
+            'stock_quantity',
+            'price',
+            'weight',
+        ],
+        'customRanking' => [
+
+        ],
+    ];
+
+    public function getAlgoliaRecord()
+    {
+        /**
+         * Load the categories relation so that it's available
+         *  in the laravel toArray method
+         */
+        $fields = [
+            'stock_quantity' => $this->stock_quantity,
+            'price' => (float) $this->price,
+            'weight' => (float) $this->weight,
+            'categories' => $this->categories,
+        ];
+
+        $fields['categories'] = [];
+        foreach($this->categories as $c) {
+            $fields['categories'][] = $c->id;
+        }
+
+        foreach($this->translations as $translation) {
+            $fields['translation_' . $translation->locale] = [
+                'title' => $translation->title,
+                'slug' => $translation->slug,
+                'description' => $translation->meta_description,
+                'meta_description' => $translation->meta_description
+            ];
+        }
+
+        return $fields;
+    }
+
+    public function getFinalIndexName(Model $model, $indexName)
+    {
+        $environment = \App::environment();
+        if($environment == "testing") $environment = 'local';
+
+        $env_suffix = property_exists($model, 'perEnvironment') && $model::$perEnvironment === true ? '_'. $environment() : '';
+
+        return $indexName.$env_suffix;
+    }
 
     public $translatedAttributes = ['slug', 'title', 'description', 'meta_description'];
 
     protected $fillable = ['slug', 'title', 'description', 'meta_description'];
-
-    /**
-     * Searchable rules
-     *
-     * @var array
-     */
-    protected $searchable = [
-        'columns' => [
-            'product_translations.title' => 10,
-            'product_translations.description' => 5,
-        ],
-        'joins' => [
-            'product_translations' => ['products.id', 'product_translations.product_id']
-        ]
-    ];
 
     protected $with = ['tax_class'];
 

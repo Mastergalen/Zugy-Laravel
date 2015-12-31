@@ -79,7 +79,16 @@ class DbProductRepository extends DbRepository implements ProductRepository
 
     public function search($query)
     {
-        return $this->model->search($query)->get();
+        $algoliaResults = \App\Product::search($query, [
+            'restrictSearchableAttributes' => ['translation_' . \Localization::getCurrentLocale()],
+        ]);
+
+        $productIds = [];
+        foreach($algoliaResults['hits'] as $hit) {
+            $productIds[] = $hit['objectID'];
+        }
+
+        return $this->model->find($productIds);
     }
 
 

@@ -27,9 +27,21 @@ class EnvTest extends TestCase
 
     public function testPaypal()
     {
-        $this->assertTrue(env('PAYPAL_TESTMODE') == 'true');
+        if(env('APP_ENV') == 'production') {
+            $this->assertTrue(env('PAYPAL_TESTMODE') == 'false');
+        } else {
+            $this->assertTrue(env('PAYPAL_TESTMODE') == 'true');
+        }
+
         $this->assertTrue(env('PAYPAL_USERNAME') !== null);
         $this->assertTrue(env('PAYPAL_PASSWORD') !== null);
         $this->assertTrue(env('PAYPAL_SIGNATURE') !== null);
+    }
+
+    public function testAlgolia()
+    {
+        $this->assertTrue(env('ALGOLIA_ID') !== null);
+        $this->assertTrue(env('ALGOLIA_SEARCH_KEY') !== null);
+        $this->assertTrue(env('ALGOLIA_KEY') !== null);
     }
 }

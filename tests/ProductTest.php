@@ -9,4 +9,9 @@ class ProductTest extends TestCase
 
         //$this->visit('it/prodotto/absolut-vodka')->see('Absolut Vodka');
     }
+
+    public function testAlcoholCategoryShow()
+    {
+        $this->visit('shop/category/alcohol')->see('Alcohol');
+    }
 }

@@ -6,7 +6,7 @@
     @section('title', 'Shop for Alcohol')
 @endif
 
-@section('meta_description', '') <!-- TODO Add meta description for category page-->
+<!-- TODO Add meta description for category page-->
 
 @extends('layouts.default')
 
