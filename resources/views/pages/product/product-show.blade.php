@@ -107,10 +107,13 @@
                 <button class="btn btn-success btn-lg" type="button" id="btn-add-cart"><i class="fa fa-cart-plus"></i> Add to cart</button>
             @endif
             <div class="stock">
-                @if($product->stock_quantity >= 5)
+                @if($product->stock_quantity >= 10)
                     <i class="fa fa fa-check-circle-o" style="color: #4CC94A;"></i> In Stock <small>Delivery within an hour</small>
                 @elseif($product->stock_quantity > 0)
-                    <i class="fa fa fa-check-circle-o" style="color: #4CC94A;"></i> In Stock <small>(only {{$product->stock_quantity}} left) Delivery within an hour</small>
+                    <div class="alert alert-warning">
+                        Only {{$product->stock_quantity}} left in stock.
+                    </div>
+                    <i class="fa fa fa-check-circle-o" style="color: #4CC94A;"></i> In Stock <small>Delivery within an hour</small>
                 @else
                     <div class="alert alert-danger">
                         <i class="fa fa fa-times-circle"></i> Out of stock

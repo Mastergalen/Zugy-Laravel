@@ -37,6 +37,10 @@ class Checkout
         return $content;
     }
 
+    public function forgetShippingAddress() {
+        $this->session->forget($this->sessionKey . 'address.shipping');
+    }
+
     public function getBillingAddress() {
         $content = ($this->session->has($this->sessionKey . '.address.billing')) ? $this->session->get($this->sessionKey . '.address.billing') : null;
 
@@ -45,6 +49,10 @@ class Checkout
         }
 
         return $content;
+    }
+
+    public function forgetBillingAddress() {
+        $this->session->forget($this->sessionKey . 'address.billing');
     }
 
     public function getPaymentMethod() {

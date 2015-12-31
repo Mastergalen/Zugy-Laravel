@@ -26,6 +26,7 @@ elixir(function(mix) {
 
         'search.js',
         'cart.js',
+        'address.js',
         'events.js',
     ], 'public/dist/js/app.js')
 });

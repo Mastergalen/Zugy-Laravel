@@ -18,31 +18,37 @@
     @endif
 
     @if(count($addresses) > 0)
-        <form action="{!! request()->url() !!}" method="POST">
-            {!! Form::token() !!}
-            <legend>Choose a delivery address</legend>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        Choose a delivery address
-                    </div>
-                </div>
-                <div class="panel-body">
-                    @foreach($addresses as $a)
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name=delivery[addressId]" value="{!! $a->id !!}">
-                                <b>{{$a->name}}</b> {{$a->line_1}}@if(isset($a->line_2)), {{$a->line_2}}@endif, {{$a->city}}, {{$a->postcode}}
-                                <b><a href="#" class="btn-edit-address" data-address='{{$a}}'>Edit</a></b>
-                            </label>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="panel-footer">
-                    <button class="btn btn-primary">Use this address</button>
+        <legend>Choose a delivery address</legend>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    Choose a delivery address
                 </div>
             </div>
-        </form>
+            <div class="panel-body">
+                <div class="row">
+                    @foreach($addresses as $a)
+                        <form action="{!! request()->url() !!}" method="POST">
+                            {!! Form::token() !!}
+                            <div class="col-md-3">
+                                <input type="hidden" name=delivery[addressId]" value="{!! $a->id !!}">
+                                <address>
+                                    <b>{{$a->name}}</b> <b class="pull-right"><a href="#" class="btn-edit-address" data-address='{{$a}}'>Edit</a></b> <br/>
+                                    {{$a->line_1}} <br/>
+                                    @if(isset($a->line_2) && $a->line_2 != "") {{$a->line_2}} <br/>@endif
+                                    {{$a->city}}, {{$a->postcode}} <br/>
+                                    {{$a->country->name}} <br/>
+                                    <i class="fa fa-phone"></i> {{$a->phone}}<br/>
+                                    @if($a->delivery_instructions != "")<i>Delivery instructions:</i> {{$a->delivery_instructions}}@endif
+                                </address>
+
+                                <button class="btn btn-primary btn-block"><i class="fa fa-truck"></i> Deliver to this address</button>
+                            </div>
+                        </form>
+                    @endforeach
+                </div>
+            </div>
+        </div>
 
         <div class="panel panel-default">
             <div class="panel-body">
@@ -94,8 +100,10 @@
             /*
              * Edit address modal
              */
+
+            var $modal = $('#edit-address-modal');
+
             $('.btn-edit-address').click(function() {
-                var $modal = $('#edit-address-modal');
                 var data = $(this).data('address');
                 $modal.modal();
 
@@ -105,31 +113,50 @@
                 $modal.find('input[name=line_2]').val(data.line_2);
                 $modal.find('input[name=postcode]').val(data.postcode);
                 $modal.find('input[name=city]').val(data.city);
-                $modal.find('input[name=delivery_instructions]').val(data.delivery_instructions);
+                $modal.find('textarea[name=delivery_instructions]').val(data.delivery_instructions);
                 $modal.find('input[name=phone]').val(data.phone);
-
             });
 
-            $('#edit-address-modal').find('form').submit(function (e) {
+            /*
+             * Delete address button
+             */
+            $modal.find('.btn-delete').click(function() {
+               swal({
+                   title: 'Are you sure you want to remove this address?',
+                   showCancelButton: true,
+                   type: 'warning',
+               }, function() {
+                   var addressId = $modal.find('input[name=addressId]').val();
+
+                   console.log("Deleting", addressId);
+
+                   address.delete(addressId).success(function() {
+                       swal({
+                           title: 'Address deleted',
+                           timer: 1000,
+                           type: 'success',
+                       });
+                       $.pjax.reload('#container', {timeout: 1500});
+                   });
+               });
+            });
+
+            $modal.find('form').submit(function (e) {
                 e.preventDefault();
 
+                var $btn = $(this).find("input[type=submit]:focus" );
+                $btn.prop('disabled', true);
+
                 var addressId = $(this).find('input[name=addressId]').val();
+                var addressForm = $(this).serializeArray();
+                addressForm.default = true;
 
-                console.log($(this).serialize());
-
-                $.ajax({
-                    url: "{!! action('API\AddressController@index') !!}/" + addressId,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                    },
-                    type: 'PUT',
-                    data: $(this).serialize(),
-                    success: function() {
-                        $(this).modal('hide');
-                        alert("Updated address successfully"); //TODO Use awesome alerts
-                    }
+                address.update(addressId, addressForm).done(function() {
+                    $btn.prop('disabled', false);
+                }).success(function() {
+                    $modal.modal('hide');
+                    $.pjax.reload('#container', {timeout: 1500});
                 });
-
             });
 
             $('#address-form').formValidation({

@@ -15,6 +15,10 @@ class Address extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function country() {
+        return $this->belongsTo('App\Country');
+    }
+
     public function scopeBilling($query) {
         return $query->where('isBillingPrimary', '=', 1)->first();
     }

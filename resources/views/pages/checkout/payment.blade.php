@@ -77,7 +77,7 @@
             </div>
             <div id="card" class="panel-collapse collapse in" role="tabpanel">
                 <div class="panel-body">
-                    @if(count($cards) > 0)
+                    @if(isset($cards) > 0)
                         <form action="{!! request()->url() !!}" class="card-select" method="POST">
                             {!! Form::token() !!}
                             <input type="hidden" name="method" value="stripe">
@@ -112,7 +112,7 @@
                     @endif
 
                     <!-- Credit Card form -->
-                    <div class="row" id="add-card" @if(count($cards) > 0) style="display:none" @endif>
+                    <div class="row" id="add-card" @if(isset($cards) > 0) style="display:none" @endif>
                         <div class="col-md-offset-4 col-md-4">
                             <form action="{!! request()->url() !!}" method="POST" id="stripe-form" class="form">
                                 {!! Form::token() !!}
@@ -139,7 +139,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-xs-7 col-md-7">
+                                    <div class="col-xs-6">
                                         <div class="form-group">
                                             <label>CVC</label>
                                             <input type="tel" size="4" class="form-control" placeholder="CVC"
@@ -147,7 +147,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-5 col-md-5 pull-right">
+                                    <div class="col-xs-6 pull-right">
                                         <div class="form-group">
                                             <label>Expiration (MM/YY)</label>
                                             <input type="tel" size="2" id="card-exp" class="form-control" placeholder="MM / YY"

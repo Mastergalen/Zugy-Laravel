@@ -2,21 +2,20 @@
 
 namespace App\Policies;
 
-
 use App\Product;
 use App\User;
 
-class ProductPolicy
+class ProductPolicy extends BasePolicy
 {
     protected $writeAccessGroupIds = [1,2]; //Super Admins, Admins
 
     public function create(User $user, Product $product)
     {
-        return in_array($user->group_id, $this->writeAccessGroupIds);
+        return $this->hasWriteAccess($user);
     }
 
     public function update(User $user, Product $product)
     {
-        return in_array($user->group_id, $this->writeAccessGroupIds);
+        return $this->hasWriteAccess($user);
     }
 }

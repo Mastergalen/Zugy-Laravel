@@ -61,7 +61,9 @@ class CheckoutController extends Controller
     public function postCheckoutAddress(Request $request, CreateOrUpdateAddress $handler) {
         if($request->has('delivery.addressId')) {
             $delivery = Address::find($request->input('delivery.addressId'));
-            $billing = $delivery;
+
+            Checkout::setShippingAddress($delivery);
+            return redirect(localize_url('routes.checkout.payment'));
         } else {
             $delivery = $handler->delivery($request->input('delivery'));
 

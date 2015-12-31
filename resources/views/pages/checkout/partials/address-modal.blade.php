@@ -56,7 +56,8 @@
                     </div>
                 </div>
                 <div class="form-footer">
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button class="btn btn-danger btn-sm btn-delete" type="button">Remove address</button>
+                    <button type="submit" class="btn btn-primary pull-right">Save changes</button>
                 </div>
             </form>
         </div>

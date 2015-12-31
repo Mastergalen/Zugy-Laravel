@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-	<div class="container" style="padding-top: 60px">
+	<div id="container" class="container" style="padding-top: 60px">
         @include('includes.notifications')
 		@yield('content')
 	</div>
