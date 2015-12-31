@@ -13,8 +13,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('pages.home');
+Route::group([
+    'prefix' => Localization::setLocale(),
+    'middleware' => ['localeSessionRedirect', 'localizationRedirect' ]
+], function() {
+    Route::get('/', function () {
+        return view('pages.home');
+    });
 });
 
 Route::group([
@@ -58,6 +63,18 @@ function() {
 
     /* Cart */
     Route::get(Localization::transRoute('routes.cart'), ['uses' => 'PageController@getCart']);
+
+    Route::get(Localization::transRoute('routes.about-us'), function () {
+        return view('pages.about-us');
+    });
+
+    Route::get(Localization::transRoute('routes.contact'), function () {
+        return view('pages.contact');
+    });
+
+    Route::get(Localization::transRoute('routes.team'), function () {
+        return view('pages.team');
+    });
 
     Route::get(Localization::transRoute('routes.terms-and-conditions'), function() {
         return view('pages.terms-and-conditions');

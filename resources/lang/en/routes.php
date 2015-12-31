@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'about-us' => 'about-us',
     'account' => [
         'index' => 'your-account',
         'orders' => 'your-account/orders',
@@ -15,6 +16,7 @@ return [
         'confirmation'  => 'checkout/confirmation',
         'gatewayReturn' => 'checkout/gatewayReturn',
     ],
+    'contact' => 'contact',
     'order' => [
         'show' => 'order/{id}',
     ],
@@ -25,5 +27,6 @@ return [
         'index' => 'shop',
         'category' => 'shop/category/{slug}',
     ],
+    'team' => 'team',
     'terms-and-conditions' => 'terms-and-conditions',
 ];

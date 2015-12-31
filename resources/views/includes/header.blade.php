@@ -26,7 +26,7 @@
 
         <nav class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+                <li><a href="/"><i class="fa fa-home"></i> {!! trans('pages.home.title') !!}</a></li>
                 <li class="dropdown mega-dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Shop<b class="caret"></b></a>
 
@@ -34,14 +34,16 @@
                         @include('includes.mega-dropdown')
                     </ul>
                 </li>
+                <li><a href="{!! localize_url('routes.about-us') !!}">{!! trans('pages.about-us.title') !!}</a></li>
+                <li><a href="{!! localize_url('routes.contact') !!}">{!! trans('pages.contact.title') !!}</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <div class="search-box">
-                    <div class="input-group">
-                        <button class="btn btn-nobg getFullSearch" type="button"> <i class="fa fa-search"> </i> </button>
-                    </div>
-                </div>
+                <li>
+                    <p class="navbar-btn">
+                        <button class="btn getFullSearch" type="button"> <i class="fa fa-search"> </i> </button>
+                    </p>
+                </li>
                 <li class="hidden-xs cart-icon">
                     <a href="#" data-toggle="collapse" data-target=".navbar-cart">
                         <i class="fa fa-shopping-cart"></i>
@@ -66,6 +68,15 @@
                     <li>
                         <a href="{!! route('login') !!}"><i class="fa fa-sign-in"></i> Sign in</a>
                     </li>
+                    @foreach(Localization::getSupportedLocales() as $localeCode => $properties)
+                        @if($localeCode == 'en') <?php $flagCode = 'gb' ?>
+                        @else
+                            <?php $flagCode = $localeCode ?>
+                        @endif
+                        <li class="language-selector">
+                            <a href="{{Localization::getLocalizedURL($localeCode) }}"><span class="f32"><i class="flag {{$flagCode}}"></i></span></a>
+                        </li>
+                    @endforeach
                 @endif
             </ul>
         </nav><!--/.nav-collapse -->

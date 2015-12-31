@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'about-us' => 'riguardo-a-noi',
     'account' => [
         'index' => 'conto',
         'orders' => 'conto/ordini',
@@ -15,6 +16,7 @@ return [
         'confirmation' => 'cassa/conferma',
         'gatewayReturn' => 'cassa/gatewayReturn',
     ],
+    'contact' => 'contatto',
     'order' => [
         'show' => 'ordini/{id}',
     ],
@@ -25,5 +27,6 @@ return [
         'index' => 'negozio',
         'category' => 'negozio/categoria/{slug}',
     ],
+    'team' => 'team',
     'terms-and-conditions' => 'termini-e-condizioni',
 ];
