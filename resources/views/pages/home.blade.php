@@ -19,12 +19,12 @@
                     <div>
                         @include('includes.notifications')
                         <img src="/img/zugy-logo-dark.png" alt="Zugy Dark Logo"/>
-                        <h4>Your favorite beer, wine, spirits delivered to your doorstep</h4>
+                        <h4>{!! trans('pages.home.tagline') !!}</h4>
 
-                        <form action="/en/shop/category/alcohol" method="GET">
-                            {!! Form::token() !!}
+                        <form id="postcode-form">
                             <div class="input-group">
-                                <input class="form-control" type="text" name="postcode" placeholder="Enter your postcode" autocomplete="off"/>
+                                <input class="form-control" type="text" name="postcode"
+                                       placeholder="Enter your postcode" id="postcode-input" autocomplete="off"/>
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" type="submit">Shop now</button>
                                 </span>
@@ -40,18 +40,18 @@
         <div class="row marketing">
             <div class="col-md-4">
                 <i class="fa fa-map-marker"></i>
-                <h4>Set your address</h4>
-                <p>Select from a wide range of alcholic drinks to be delivered to your door step.</p>
+                <h4>{!! trans('pages.home.marketing.address.title') !!}</h4>
+                <p>{!! trans('pages.home.marketing.address.desc') !!}</p>
             </div>
             <div class="col-md-4">
                 <i class="fa fa-clock-o"></i>
-                <h4>Order in minutes</h4>
-                <p>Add what you want to your basket, pay at the checkout and you're done.</p>
+                <h4>{!! trans('pages.home.marketing.time.title') !!}</h4>
+                <p>{!! trans('pages.home.marketing.time.desc') !!}</p>
             </div>
             <div class="col-md-4">
                 <i class="fa fa-truck"></i>
-                <h4>Delivery to your door</h4>
-                <p>We'll start preparing your order right away, and deliver it to your doorstep. Simply present your photo ID to our friendly drivers and enjoy!</p>
+                <h4>{!! trans('pages.home.marketing.delivery.title') !!}</h4>
+                <p>{!! trans('pages.home.marketing.delivery.desc') !!}</p>
             </div>
         </div>
     </div>
@@ -59,12 +59,24 @@
     <hr/>
 
     <div class="locations">
-        <h4>Currently Serving Milan Exclusively</h4>
+        <h4>{!! trans('pages.home.exclusive') !!}</h4>
 
-        <p>With many plans to expand</p>
+        <p>{!! trans('pages.home.expansion') !!}</p>
 
         <div class="parallax">
-            <span>MILAN</span>
+            <span>{!! trans('pages.home.milan') !!}</span>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script>
+$('#postcode-form').submit(function(e) {
+    e.preventDefault();
+
+    var zipCode = $('#postcode-input').val();
+
+    postcode.check(zipCode);
+});
+</script>
 @endsection

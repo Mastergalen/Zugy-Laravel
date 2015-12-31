@@ -24,9 +24,11 @@ elixir(function(mix) {
         'vendor/pjax/jquery.pjax.js',
         'vendor/sweetalert/sweetalert-dev.js',
 
+        'setup.js',
         'search.js',
         'cart.js',
         'address.js',
         'events.js',
+        'postcode.js',
     ], 'public/dist/js/app.js')
 });

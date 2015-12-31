@@ -5,9 +5,6 @@
         return $.ajax({
             type: 'PATCH',
             url: apiEndpoint + '/' + addressId,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            },
             data: address,
             success: function(data) {
                 swal(data.message, null, "success");
@@ -23,9 +20,6 @@
         return $.ajax({
             type: 'DELETE',
             url: apiEndpoint + '/' + addressId,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            },
             error: function(xhr, status, error) {
                 var err = eval("(" + xhr.responseText + ")");
                 alert(err.message);

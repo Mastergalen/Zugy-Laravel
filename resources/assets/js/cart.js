@@ -6,9 +6,6 @@
         $.ajax({
             type: 'POST',
             url: apiEndpoint,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            },
             data: {
                 'id': productId,
                 'qty': quantity
@@ -25,9 +22,6 @@
         $.ajax({
             type: 'PATCH',
             url: apiEndpoint + '/' + rowId,
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            },
             data: {
                 'qty': quantity
             },
@@ -43,9 +37,6 @@
         $.ajax({
             type: 'DELETE',
             url: apiEndpoint + '/' + rowId,
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        },
             success: updateMiniCart,
             error: function(xhr, status, error) {
                 var err = eval("(" + xhr.responseText + ")");

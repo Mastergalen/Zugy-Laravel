@@ -97,6 +97,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::group(['prefix' => 'v1'], function () {
         //No auth required
         Route::resource('cart', 'API\CartController');
+        Route::get('postcode/check/{postcode}', ['uses' => 'API\PostcodeController@checkPostcode']);
 
         //Auth required
         Route::group(['middleware' => 'auth'], function () {
