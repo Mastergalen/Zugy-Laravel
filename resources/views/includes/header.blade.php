@@ -59,6 +59,10 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="{!! localize_url('routes.account.settings') !!}"><i class="fa fa-user"></i> My account <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                            @if(auth()->user()->isAdmin)
+                                <li><a href="/admin"><i class="fa fa-dashboard"></i> Admin Dashboard</a></li>
+                                <li class="divider"></li>
+                            @endif
                             <li><a href="{!! localize_url('routes.account.index') !!}"><i class="fa fa-user"></i> Your account</a></li>
                             <li><a href="{!! localize_url('routes.account.settings') !!}"><i class="fa fa-cog"></i> Account settings</a></li>
                             <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> Sign out</a></li>

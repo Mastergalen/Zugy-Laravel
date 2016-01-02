@@ -51,6 +51,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     protected $hidden = ['password', 'remember_token'];
 
+    protected $adminGroupIds = [1, 2, 3];
+
     /**
      * Get the user settings.
      *
@@ -109,5 +111,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function getLanguageCodeAttribute()
     {
         return strtolower(Language::find(auth()->user()->settings()->language)->pluck('code'));
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return in_array($this->attributes['group_id'], $this->adminGroupIds);
     }
 }
