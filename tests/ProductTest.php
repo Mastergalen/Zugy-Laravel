@@ -4,7 +4,7 @@ class ProductTest extends TestCase
 {
     public function testProductShow()
     {
-        $this->visit('product/absolut-vodka')
+        $this->visit('en/product/absolut-vodka')
              ->see('Absolut Vodka');
 
         //$this->visit('it/prodotto/absolut-vodka')->see('Absolut Vodka');
@@ -12,6 +12,6 @@ class ProductTest extends TestCase
 
     public function testAlcoholCategoryShow()
     {
-        $this->visit('shop/category/alcohol')->see('Alcohol');
+        $this->visit('en/shop/category/alcohol')->see('Alcohol');
     }
 }

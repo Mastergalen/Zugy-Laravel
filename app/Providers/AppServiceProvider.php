@@ -33,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
             return new AuthenticateUser();
         });
 
+        $this->app->bind('\AlgoliaSearch\Laravel\ModelHelper', 'Zugy\AlgoliaEloquentTrait\ZugyModelHelper');
+
         $this->app->bind('Zugy\Repos\Order\OrderRepository', 'Zugy\Repos\Order\DbOrderRepository');
         $this->app->bind('Zugy\Repos\Category\CategoryRepository', 'Zugy\Repos\Category\DbCategoryRepository');
         $this->app->bind('Zugy\Repos\Product\ProductRepository', 'Zugy\Repos\Product\DbProductRepository');

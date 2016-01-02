@@ -6,6 +6,7 @@ class SearchTest extends TestCase
 {
     use WithoutMiddleware;
 
+    /*
     public function createApplication()
     {
         if(env('APP_ENV') == "testing") {
@@ -18,10 +19,11 @@ class SearchTest extends TestCase
 
         return $app;
     }
+    */
 
     public function testVodkaSearch()
     {
 
-        $this->visit('search/vodka')->see('vodka');
+        $this->visit('en/search/vodka')->see('vodka');
     }
 }

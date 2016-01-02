@@ -2,7 +2,6 @@
 
 namespace App;
 
-use AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -10,7 +9,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 class Product extends Model
 {
     use Translatable;
-    use AlgoliaEloquentTrait;
+    use \AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
 
     protected $table = 'products';
 

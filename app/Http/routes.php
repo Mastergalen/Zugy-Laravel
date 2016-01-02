@@ -14,7 +14,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group([
-    'prefix' => Localization::setLocale(),
+    'prefix' => (env('APP_ENV') === 'testing' ? 'en' : Localization::setLocale()),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect' ]
 ], function() {
     Route::get('/', function () {
@@ -23,7 +23,7 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => Localization::setLocale(),
+    'prefix' => (env('APP_ENV') === 'testing' ? 'en' : Localization::setLocale()),
     'middleware' => [ 'localize' ] // Route translate middleware
 ],
 function() {
