@@ -76,7 +76,7 @@
         <div class="form-footer">
             <div class="pull-left"> <a class="btn btn-footer" href="{!! localize_url('routes.shop.index') !!}"> <i class="fa fa-arrow-left"></i> &nbsp; Back to Shop </a> </div>
             <div class="pull-right">
-                <button class="btn btn-primary btn-footer" type="submit"><i class="fa fa-plus"></i> Add new address</button>
+                <button class="btn btn-primary" type="submit"><i class="fa fa-plus"></i> Add new address</button>
             </div>
         </div>
     {!! Form::close() !!}

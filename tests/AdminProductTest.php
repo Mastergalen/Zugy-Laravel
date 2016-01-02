@@ -5,11 +5,15 @@ class AdminProductTest extends TestCase
 
     public function testIndexProductView()
     {
-        $this->visit('admin/catalogue');
+        $admin = factory(App\User::class, 'admin')->make();
+
+        $this->actingAs($admin)->visit('admin/catalogue')->see('Catalogue');
     }
 
     public function testAddProductView()
     {
-        $this->visit('admin/catalogue/create');
+        $admin = factory(App\User::class, 'admin')->make();
+
+        $this->actingAs($admin)->visit('admin/catalogue/create')->see('Add a product');
     }
 }

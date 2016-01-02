@@ -11,7 +11,11 @@
             },
             error: function(xhr, status, error) {
                 var err = eval("(" + xhr.responseText + ")");
-                alert(err.message);
+                swal({
+                    title: err.message,
+                    type: 'error',
+                    text: JSON.stringify(err.errors, null, "\t"),
+                });
             }
         });
     };

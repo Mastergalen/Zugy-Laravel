@@ -52,6 +52,10 @@ class Handler extends ExceptionHandler
 
         if ($e instanceof \Illuminate\Session\TokenMismatchException)
         {
+            if($request->ajax()) {
+                return response()->json(['status' => 'error', 'message' => 'CSRF token expired. Please try again.'], 400);
+            }
+
             return redirect()
                 ->back()
                 ->withInput($request->except('password'))

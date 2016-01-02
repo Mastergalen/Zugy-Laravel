@@ -67,11 +67,15 @@ class CheckoutController extends Controller
         } else {
             $delivery = $handler->delivery($request->input('delivery'));
 
-            if(! $delivery instanceof Address) return $delivery;
+            if(! $delivery instanceof Address) {
+                return redirect()->back()->withErrors($delivery)->withInput();
+            }
 
             if(!$request->has('delivery.billing_same')) {
                 $billing = $handler->billing($request->input('billing'));
-                if(! $billing instanceof Address) return $billing;
+                if(! $billing instanceof Address) {
+                    return redirect()->back()->withErrors($billing)->withInput();
+                }
             } else {
                 $billing = $delivery;
             }

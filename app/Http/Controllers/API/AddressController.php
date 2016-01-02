@@ -13,6 +13,11 @@ use Zugy\Facades\Checkout;
 
 class AddressController extends Controller
 {
+    public function index()
+    {
+        return auth()->user()->addresses()->get();
+    }
+
     public function show($id)
     {
         $address = Address::findOrFail($id);
@@ -32,7 +37,11 @@ class AddressController extends Controller
             abort(403);
         }
 
-        $addressService->delivery($request->all(), $address);
+        $result = $addressService->delivery($request->all(), $address);
+
+        if( ! $result instanceof Address) {
+            return response()->json(['status' => 'error', 'message' => 'The address was invalid', 'errors' => $result->errors()], 422);
+        }
 
         return ['status' => 'success', 'message' => 'Updated address successfully'];
     }

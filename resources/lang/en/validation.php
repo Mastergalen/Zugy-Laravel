@@ -86,6 +86,8 @@ return [
     |
     */
 
+    'delivery_postcode' => 'We do not deliver to your postcode. Sorry!',
+
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',

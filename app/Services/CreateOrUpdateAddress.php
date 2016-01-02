@@ -30,7 +30,9 @@ class CreateOrUpdateAddress
         $validator = Validator::make($deliveryInput, $this->rules);
 
         if($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            \Log::debug('Address validation failed', ['errors' => $validator->errors()]);
+
+            return $validator;
         }
 
         if($address == null) {
@@ -63,7 +65,7 @@ class CreateOrUpdateAddress
         $validator = Validator::make($billingInput, $this->rules);
 
         if($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            return $validator;
         }
 
         $address = auth()->user()->addresses()->create($billingInput);
