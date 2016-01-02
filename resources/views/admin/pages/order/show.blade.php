@@ -117,11 +117,12 @@
 @endsection
 
 @section('scripts')
-    <script>
-        $('#btn-update-status-form').submit(function(e) {
+<script>
+    $(document).on('ready pjax:success', function() {
+        $('#btn-update-status-form').submit(function (e) {
             e.preventDefault();
 
-            var $btn = $(this).find("input[type=submit]:focus" );
+            var $btn = $(this).find("input[type=submit]:focus");
 
             $btn.prop('disabled', true);
 
@@ -132,13 +133,15 @@
             swal({
                 title: 'Mark this order as ' + statusText + '?',
                 type: 'warning',
-                showCancelButton: true
-            }, function() {
+                showCancelButton: true,
+                showLoaderOnConfirm: true
+            }, function () {
                 order.updateStatus(orderId, status);
             });
 
 
             $btn.prop('disabled', false);
         });
-    </script>
+    });
+</script>
 @endsection

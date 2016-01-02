@@ -4,18 +4,17 @@
     @parent
     <tr>
         <td class="content-block">
-            <h2>Thank you for using {!! config('site.name') !!}.</h2>
+            <h2>Your order was cancelled.</h2>
         </td>
     </tr>
     <tr>
         <td class="content-block">
-            <p>You've successfully placed an order.</p>
-            <p>We will email you again when your order is out for delivery or you can track the status of your order by clicking the button below.</p>
+            <p>If you have any questions regarding this cancellation you can reply to this email or call us at {!! config('site.phone') !!}.</p>
         </td>
     </tr>
     <tr>
         <td class="content-block aligncenter">
-            <a href="{!! localize_url('routes.order.show', ['id' => $order->id])  !!}" class="btn-primary">Track order</a>
+            <a href="{!! localize_url('routes.order.show', ['id' => $order->id])  !!}" class="btn-primary">Track order</a> <!-- TODO Add tracking order link -->
         </td>
     </tr>
     <tr>
@@ -26,7 +25,6 @@
     </tr>
     <tr>
         <td class="content-block">
-            <p>Here is your receipt.</p>
             @include('emails.order.partials._order-list', ['order' => $order])
         </td>
     </tr>

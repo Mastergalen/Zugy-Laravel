@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-3">
                 <h3>{!! trans('footer.support') !!}</h3>
-                <h4><i class="fa fa-phone"></i> (+39) 344-281-6494</h4>
+                <h4><i class="fa fa-phone"></i> {!! config('site.phone') !!}</h4>
                 <h4><a href="mailto:{!! config('site.email.support') !!}"><i
                                 class="fa fa-envelope"></i> {!! config('site.email.support') !!}</a></h4>
             </div>

@@ -8,15 +8,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendOrderConfirmationMail
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
 
     /**
      * Handle the event.

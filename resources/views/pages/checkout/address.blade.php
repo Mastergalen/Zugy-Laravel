@@ -88,7 +88,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/formValidation.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/framework/bootstrap.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).on('ready pjax:success', function() {
             $('#billing-same').click(function () {
                 $('#billing-address').toggle('slow');
             });

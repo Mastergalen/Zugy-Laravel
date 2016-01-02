@@ -17,6 +17,9 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\SendOrderConfirmationMail',
             'App\Listeners\NotifyDriversOfOrder',
         ],
+        'App\Events\OrderStatusChanged' => [
+            'App\Listeners\SendOrderStatusMail',
+        ]
     ];
 
     protected $subscribe = [

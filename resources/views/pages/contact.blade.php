@@ -11,7 +11,7 @@
             {!! trans('pages.contact.address') !!}
         </address>
         <p>{!! trans('pages.contact.customer-service') !!}</p>
-        <p><tel>(+39) 344-281-6494</tel></p>
+        <p><tel>{!! config('site.phone') !!}</tel></p>
         <p>{!! trans('pages.contact.email.general') !!} <a href="mailto:{!! config('site.email.support') !!}">{!! config('site.email.support') !!}</a></p>
         <p>{!! trans('pages.contact.email.investors') !!} <a href="mailto:management@myzugy.com">management@myzugy.com</a></p>
 @endsection

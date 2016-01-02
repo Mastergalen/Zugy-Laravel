@@ -4,13 +4,14 @@
     @parent
     <tr>
         <td class="content-block">
-            <h2>Thank you for using {!! config('site.name') !!}.</h2>
+            <h2>Your order is out for delivery!</h2>
         </td>
     </tr>
     <tr>
         <td class="content-block">
-            <p>You've successfully placed an order.</p>
-            <p>We will email you again when your order is out for delivery or you can track the status of your order by clicking the button below.</p>
+            <p>Our driver is now on his way to you!</p>
+            <p>If anything goes wrong or we have trouble finding you, we will call you on your phone at <b>{{ $order->delivery_phone }}</b></p>
+            <p>You can track the current status of your order by clicking the button below.</p>
         </td>
     </tr>
     <tr>
@@ -26,7 +27,6 @@
     </tr>
     <tr>
         <td class="content-block">
-            <p>Here is your receipt.</p>
             @include('emails.order.partials._order-list', ['order' => $order])
         </td>
     </tr>

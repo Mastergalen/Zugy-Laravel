@@ -4,12 +4,8 @@
     @parent
     <tr>
         <td class="content-block">
-            Click here to reset your password:
-        </td>
-    </tr>
-    <tr>
-        <td class="content-block">
-            {{ action('Auth\PasswordController@getReset', ['token' => $token]) }}
+            <p>Click here to reset your password:</p>
+            <p>{{ action('Auth\PasswordController@getReset', ['token' => $token]) }}</p>
         </td>
     </tr>
 @endsection
