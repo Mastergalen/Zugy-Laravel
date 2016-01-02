@@ -17,7 +17,7 @@ class CreateOrUpdateAddress
         'name' => 'required|string|max:64',
         'line_1' => 'required|string|max:64',
         'line_2' => 'string|max:64',
-        'postcode' => 'required|max:10', //TODO Validate ZIP in delivery radius
+        'postcode' => 'required|max:5|deliveryPostcode', //TODO Validate ZIP in delivery radius
         'city' => 'required|max:32',
         'country' => 'required|size:3|exists:countries,iso_3166_3', //TODO validate is Italy
     ];

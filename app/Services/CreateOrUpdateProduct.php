@@ -40,17 +40,6 @@ class CreateOrUpdateProduct
             $rules["meta.{$l}.meta_description"] = "required|max:255";
         }
 
-        Validator::extend('integerArray', function($attribute, $value, $parameters)
-        {
-            foreach($value as $v) {
-                if(!is_numeric($v) && !is_int((int)$v)) return false;
-            }
-
-            if(count($value) == 0) return false;
-
-            return true;
-        });
-
         $validator = Validator::make($request->all(), $rules);
 
         if($validator->fails()) {

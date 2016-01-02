@@ -193,10 +193,18 @@
                             notEmpty: {},
                             stringLength: {
                                 min: 2,
-                                max: 10,
+                                max: 10
                             },
                             zipCode: {
                                 country: 'IT'
+                            },
+                            remote: {
+                                type: 'GET',
+                                url: function(validator) {
+                                    console.log(validator);
+                                    return "{!! action('API\PostcodeController@checkPostcode', ['postcode' => '']) !!}/" + $('input[name="delivery[postcode]"]').val()
+                                },
+                                validKey: 'delivery'
                             }
                         }
                     },

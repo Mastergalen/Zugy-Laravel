@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Zugy\Validators\PostcodeValidator;
 
 class PostcodeController extends Controller
 {
@@ -19,7 +20,7 @@ class PostcodeController extends Controller
 
         $postcode = (int) $postcode;
 
-        if($postcode >= 20121 && $postcode <= 20162) {
+        if(PostcodeValidator::isInDeliveryRange($postcode)) {
             return [
                 'status' => 'success',
                 'delivery' => true,
@@ -27,7 +28,8 @@ class PostcodeController extends Controller
                 'message' => 'We deliver to you!',
             ];
         } else {
-            return ['status' => 'success',
+            return [
+                'status' => 'success',
                 'delivery' => false,
                 'message' => 'We currently do not deliver to your area. Sorry!',
                 'description' => 'You can still browse our store, however.',
