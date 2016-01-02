@@ -16,6 +16,8 @@ class Payment extends Model
 {
     protected $table = 'order_payments';
 
+    protected $fillable = ['status'];
+
     protected $casts = [
         'metadata' => 'json',
     ];

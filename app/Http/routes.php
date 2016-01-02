@@ -115,6 +115,7 @@ Route::group(['prefix' => 'api'], function () {
         //Auth required
         Route::group(['middleware' => 'auth'], function () {
             Route::resource('address', 'API\AddressController');
+            Route::resource('order', 'API\OrderController');
         });
     });
 });
@@ -131,9 +132,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 });
 
 Route::get('test', function() {
-    \Mail::send('auth.emails.password', ['token' => 'tok3en'], function($message) {
-        $message->from(config('site.email.support'), config('site.name'));
-        $message->to('g6260@msn.com', 'Galen Han')->subject('Password reset');
-    });
-
 });

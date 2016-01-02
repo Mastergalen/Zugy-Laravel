@@ -6,3 +6,5 @@ $.ajaxSetup({
         xhr.setRequestHeader('X-CSRF-TOKEN', $('meta[name="_token"]').attr('content'));
     }
 });
+
+$.pjax.defaults.timeout = 1500;

@@ -24,11 +24,16 @@ elixir(function(mix) {
         'vendor/pjax/jquery.pjax.js',
         'vendor/sweetalert/sweetalert-dev.js',
 
-        'setup.js',
+        'setup.js', //Sets CSRF token
         'search.js',
         'cart.js',
+        'order.js',
         'address.js',
         'events.js',
-        'postcode.js',
-    ], 'public/dist/js/app.js')
+        'postcode.js'
+    ], 'public/dist/js/app.js');
+
+    mix.scripts([
+        'vendor/adminLTE/adminLTE.js'
+    ], 'public/dist/js/admin.js');
 });

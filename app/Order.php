@@ -4,19 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Order
- *
- * Order Status:
- * 0 | New order
- * 1 | Being processed
- * 2 | Out for delivery
- * 3 | Delivered
- * 4 | Cancelled
- *
- * @package App
- */
-
 class Order extends Model
 {
     protected $table = 'orders';
@@ -26,6 +13,14 @@ class Order extends Model
     protected $appends = ['total'];
 
     protected $dates = ['order_placed'];
+
+    protected $statuses = [
+        0 => 'New order',
+        1 => 'Being processed',
+        2 => 'Out for delivery',
+        3 => 'Delivered',
+        4 => 'Cancelled',
+    ];
 
     public function user()
     {

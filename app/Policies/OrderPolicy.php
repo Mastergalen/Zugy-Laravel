@@ -11,4 +11,8 @@ class OrderPolicy extends BasePolicy
     {
         return $user->id === $order->user_id || $this->isAdmin($user);
     }
+
+    public function adminUpdate(User $user, Order $order) {
+        return $this->isAdmin($user);
+    }
 }

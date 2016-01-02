@@ -19,14 +19,14 @@
             <div class="box box-default">
                 <div class="box-body">
                     <h3>Order actions</h3>
-                    {!! Form::open() !!}
+                    <form id="btn-update-status-form">
                         <div class="form-group">
-                            {!! Form::select('action', [null => "Actions", 'processing' => 'Processing', 'completed' => 'Completed', 'cancel' => 'Cancel Order'], Input::old('action'), ['class' => 'form-control']) !!}
+                            <label for="">Mark as...</label>
+                            {!! Form::hidden('id', $order->id) !!}
+                            {!! Form::select('order_status', [null => "Actions", '1' => 'Processing', '2' => 'Out for delivery', '3' => 'Delivered', '4' => 'Cancelled'], null, ['class' => 'form-control']) !!}
                         </div>
                         <button type="submit" class="btn btn-primary pull-right">Update order</button>
-                        <!-- TODO Make updating order status work-->
-                    {!! Form::close() !!}
-
+                    </form>
                 </div>
             </div>
         </div>
@@ -114,4 +114,31 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $('#btn-update-status-form').submit(function(e) {
+            e.preventDefault();
+
+            var $btn = $(this).find("input[type=submit]:focus" );
+
+            $btn.prop('disabled', true);
+
+            var orderId = $(this).find('input[name="id"]').val();
+            var status = $(this).find('select[name="order_status"]').val();
+            var statusText = $(this).find('select[name="order_status"] option:selected').text();
+
+            swal({
+                title: 'Mark this order as ' + statusText + '?',
+                type: 'warning',
+                showCancelButton: true
+            }, function() {
+                order.updateStatus(orderId, status);
+            });
+
+
+            $btn.prop('disabled', false);
+        });
+    </script>
 @endsection

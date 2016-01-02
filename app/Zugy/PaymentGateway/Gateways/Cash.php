@@ -24,7 +24,7 @@ class Cash extends AbstractGateway
     {
         $payment = new Payment();
 
-        $payment->status = 0; //Mark as unpaid
+        $payment->status = 3; //Mark as "Payment on Delivery"
 
         $payment->amount = $amount;
         $payment->currency = 'EUR';
