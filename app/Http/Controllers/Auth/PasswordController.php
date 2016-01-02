@@ -29,4 +29,9 @@ class PasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    public function redirectPath()
+    {
+        return localize_url('routes.account.index');
+    }
 }

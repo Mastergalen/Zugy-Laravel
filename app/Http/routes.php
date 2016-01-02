@@ -85,11 +85,24 @@ function() {
 });
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::get('login', ['as' => 'login', 'uses' => 'Auth\AuthController@login']);
+    Route::get('login', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
     Route::get('login/facebook', 'Auth\AuthController@facebookLogin');
     Route::get('login/google', 'Auth\AuthController@googleLogin');
 
+    Route::post('login', ['uses' => 'Auth\AuthController@postLogin']);
+
+    Route::get('register', ['uses' => 'Auth\AuthController@getRegister']);
+    Route::post('register', ['uses' => 'Auth\AuthController@postRegister']);
+
     Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
+
+    /*
+     * Password reset
+     */
+    Route::get('password/email', ['uses' => 'Auth\PasswordController@getEmail']);
+    Route::post('password/email', ['uses' => 'Auth\PasswordController@postEmail']);
+    Route::get('password/reset/{token}', ['uses' => 'Auth\PasswordController@getReset']);
+    Route::post('password/reset', ['uses' => 'Auth\PasswordController@postReset']);
 });
 
 /* API */
@@ -118,4 +131,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 });
 
 Route::get('test', function() {
+    \Mail::send('auth.emails.password', ['token' => 'tok3en'], function($message) {
+        $message->from(config('site.email.support'), config('site.name'));
+        $message->to('g6260@msn.com', 'Galen Han')->subject('Password reset');
+    });
+
 });

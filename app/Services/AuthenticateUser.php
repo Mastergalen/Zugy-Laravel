@@ -53,9 +53,9 @@ class AuthenticateUser
                 'user_id' => $user->id
             ]);
 
-            auth()->loginUsingId($user->id ,true);
+            auth()->loginUsingId($user->id, true);
         } else {
-            auth()->loginUsingId($oauth_authorisation->user_id ,true);
+            auth()->loginUsingId($oauth_authorisation->user_id, true);
         }
 
         return redirect()->intended(localize_url('routes.shop.index'))->with('success', 'Logged in');

@@ -34,6 +34,11 @@ class AuthController extends Controller
         $this->middleware('guest', ['except' => 'getLogout']);
     }
 
+    public function redirectPath()
+    {
+        return localize_url('routes.shop.index');
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -64,7 +69,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function login(Request $request) {
+    public function getLogin(Request $request) {
         return view('auth.login');
     }
 
@@ -79,5 +84,13 @@ class AuthController extends Controller
     public function getLogout() {
         auth()->logout();
         return redirect('/');
+    }
+
+    /**
+     * Called after user has logged in successfully
+     */
+    public function authenticated()
+    {
+        return redirect()->intended($this->redirectPath())->with(['success' => 'Logged in.']);
     }
 }
