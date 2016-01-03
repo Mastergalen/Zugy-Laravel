@@ -147,6 +147,7 @@ return [
         Fedeisas\LaravelMailCssInliner\LaravelMailCssInlinerServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         AlgoliaSearch\Laravel\AlgoliaServiceProvider::class,
+        Regulus\ActivityLog\ActivityLogServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -165,6 +166,7 @@ return [
         Zugy\Checkout\CheckoutServiceProvider::class,
         Zugy\PaymentGateway\PaymentGatewayServiceProvider::class,
         Zugy\Helpers\Maps\MapsServiceProvider::class,
+        Zugy\ActivityLogParser\ActivityLogParserServiceProvider::class,
 
     ],
 
@@ -181,6 +183,7 @@ return [
 
     'aliases' => [
 
+        'Activity'         => Regulus\ActivityLog\Models\Activity::class,
         'App'              => Illuminate\Support\Facades\App::class,
         'Artisan'          => Illuminate\Support\Facades\Artisan::class,
         'Auth'             => Illuminate\Support\Facades\Auth::class,
@@ -225,6 +228,7 @@ return [
         'Countries'        => Webpatser\Countries\CountriesFacade::class,
         'Localization'     => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
 
+        'ActivityLogParser'=> Zugy\Facades\ActivityLogParser::class,
         'Cart'             => Zugy\Facades\Cart::class,
         'Checkout'         => Zugy\Facades\Checkout::class,
         'PaymentGateway'   => Zugy\Facades\PaymentGateway::class,

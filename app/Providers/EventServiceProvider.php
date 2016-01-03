@@ -19,6 +19,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\OrderStatusChanged' => [
             'App\Listeners\SendOrderStatusMail',
+            'App\Listeners\LogOrderStatus',
         ]
     ];
 

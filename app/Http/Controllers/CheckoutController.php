@@ -188,7 +188,8 @@ class CheckoutController extends Controller
 
         if(!$result instanceof Order) return $result;
 
-        return view('pages.checkout.confirmation')->with(['order' => $result]);
+        return redirect(localize_url('routes.order.show', ['id' => $result->id]))
+            ->withSuccess('Your order has been placed. We will notify via email you when your order is out for delivery.');
     }
 
     /**

@@ -17,6 +17,12 @@ class SendOrderConfirmationMail
      */
     public function handle(OrderWasPlaced $event)
     {
+        \Activity::log([
+            'contentId'   => $event->order->id,
+            'contentType' => 'Order',
+            'action'      => 'create',
+        ]);
+
         \Mail::send('emails.order-confirmation', ['order' => $event->order], function($m) use($event) {
             $m->from(config('site.email.support'), config('site.name'));
             $m->to($event->order->email)->subject("Your Zugy order confirmation and receipt [#{$event->order->id}]");

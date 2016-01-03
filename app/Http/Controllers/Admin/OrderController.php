@@ -55,7 +55,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = $this->orderRepository->find($id);
+        $order = $this->orderRepository->with('activity')->find($id);
 
         return view('admin.pages.order.show')->with(compact('order'));
     }

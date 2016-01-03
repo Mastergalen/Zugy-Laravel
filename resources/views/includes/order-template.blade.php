@@ -30,7 +30,7 @@
                 <input type="hidden" name="_method" value="PATCH">
                 <input type="hidden" name="action" value="cancel">
                 {!! Form::token() !!}
-                <button class="btn btn-danger btn-block btn-sm"><i class="fa fa-remove"></i> Cancel order</button><!--FIXME Cancel order and refund-->
+                <!-- <button class="btn btn-danger btn-block btn-sm"><i class="fa fa-remove"></i> Cancel order</button> --><!--FIXME Cancel order and refund-->
             </form>
         @endif
     </div>

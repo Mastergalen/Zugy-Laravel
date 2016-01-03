@@ -112,6 +112,30 @@
                     @include('includes.order-summary',  ['total' => $order->total, 'shipping' => $order->shipping_fee, 'grandTotal' => $order->grandTotal])
                 </div>
             </div>
+
+            <div class="box box-default">
+                <div class="box-header">
+                    <h3>Order History</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <thead>
+                        <th>Time</th>
+                        <th>User</th>
+                        <th>Description</th>
+                        </thead>
+                        <tbody>
+                        @foreach(ActivityLogParser::order($order->activity) as $a)
+                            <tr>
+                                <td>{{$a['timestamp']->toDayDateTimeString() }}</td>
+                                <td>{{ $a['user']->name }}</td>
+                                <td>{!! $a['description'] !!}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

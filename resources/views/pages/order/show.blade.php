@@ -16,6 +16,8 @@
         @include('includes.status.order-status', ['status' => $order->order_status])
     </p>
 
+    @include('includes._order-timeline', ['activity' => $order->activity])
+
     @can('show', $order)
         @include('includes.order-template')
     @else
@@ -35,6 +37,8 @@
                 placement: 'bottom',
                 content: $('#vat-popover-template').html()
             })
+
+            $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 @endsection

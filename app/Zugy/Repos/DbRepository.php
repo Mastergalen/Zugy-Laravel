@@ -15,4 +15,8 @@ abstract class DbRepository
     public function paginate($perPage) {
         return $this->model->paginate($perPage);
     }
+
+    public function with($model) {
+        return $this->model->with($model);
+    }
 }

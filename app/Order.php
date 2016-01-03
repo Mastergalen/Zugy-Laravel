@@ -37,6 +37,11 @@ class Order extends Model
         return $this->hasOne('App\Payment');
     }
 
+    public function activity()
+    {
+        return $this->hasMany('App\ActivityLog', 'content_id')->where('content_type', '=', 'Order');
+    }
+
     public function getVatAttribute()
     {
         $totalVat = 0;
@@ -72,5 +77,10 @@ class Order extends Model
 
     public function scopeUnprocessed($query) {
         return $query->where('order_status', '=', 0);
+    }
+
+    public function getActivityDescriptionForEvent($eventName)
+    {
+        return $eventName;
     }
 }
