@@ -1,3 +1,4 @@
+@if($address)
 <address>
     <b>{{$address->name}}</b>
     @if(isset($edit))
@@ -11,3 +12,6 @@
     <i class="fa fa-phone"></i> {{$address->phone}}<br/>
     @if($address->delivery_instructions != "")<i>Delivery instructions:</i> {{$address->delivery_instructions}}@endif
 </address>
+@else
+    <p>No address set</p>
+@endif

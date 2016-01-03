@@ -28,7 +28,7 @@
         </section>
     </aside>
 
-    <div class="content-wrapper">
+    <div class="content-wrapper" id="container">
         <section class="content-header">
             @yield('header')
             <ol class="breadcrumb">
@@ -38,7 +38,7 @@
                 @yield('breadcrumb')
             </ol>
         </section>
-        <section class="content" id="container">
+        <section class="content">
             @include('includes.notifications')
             @yield('content')
         </section>

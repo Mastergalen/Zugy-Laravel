@@ -19,4 +19,11 @@ class DbOrderRepository extends DbRepository implements OrderRepository
     {
         $this->model = $model;
     }
+
+    public function incomplete()
+    {
+        return $this->model->incomplete();
+    }
+
+
 }

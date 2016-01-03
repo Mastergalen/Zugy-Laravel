@@ -13,7 +13,7 @@ class OrderController extends Controller
     /**
      * @var OrderRepository
      */
-    private $orderRepository;
+    protected $orderRepository;
 
     /**
      * OrderController constructor.
@@ -29,9 +29,13 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders = $this->orderRepository->orderBy('order_placed', 'desc')->paginate(30);
+        if($request->has('filter')) {
+            $orders = $this->orderRepository->incomplete()->orderBy('order_placed', 'asc')->paginate(30);
+        } else {
+            $orders = $this->orderRepository->orderBy('order_placed', 'desc')->paginate(30);
+        }
 
         return view('admin.pages.order.index')->with(compact('orders'));
     }
@@ -55,7 +59,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = $this->orderRepository->with('activity')->find($id);
+        $order = $this->orderRepository->with('activity')->findOrFail($id);
 
         return view('admin.pages.order.show')->with(compact('order'));
     }

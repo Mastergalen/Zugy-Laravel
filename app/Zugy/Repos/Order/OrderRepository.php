@@ -3,7 +3,9 @@
 namespace Zugy\Repos\Order;
 
 interface OrderRepository {
-    //public function getVat();
-    //public function getTotal();
-    //public function getGrandTotal();
+    /**
+     * Fetch incomplete orders
+     * @return mixed
+     */
+    public function incomplete();
 }

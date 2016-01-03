@@ -122,9 +122,7 @@ Route::group(['prefix' => 'api'], function () {
 
 //TODO Change middleware to admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
-    Route::get('', [function() {
-        return view('admin.pages.dash');
-    }]);
+    Route::get('', ['uses' => 'Admin\DashboardController@getDashboard']);
 
     Route::resource('catalogue', 'Admin\CatalogueController');
     Route::resource('customer', 'Admin\CustomerController');

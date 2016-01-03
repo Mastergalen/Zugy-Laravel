@@ -16,11 +16,11 @@ class DbProductRepository extends DbRepository implements ProductRepository
     /**
      * @var CategoryRepository
      */
-    private $categoryRepo;
+    protected $categoryRepo;
     /**
      * @var Product
      */
-    private $model;
+    protected $model;
 
     /**
      * DbProductRepository constructor.

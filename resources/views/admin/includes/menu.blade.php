@@ -8,7 +8,7 @@
     <a href="{!! action('Admin\OrderController@index') !!}">
         <i class="fa fa-file-text"></i>
         <span>Orders</span>
-        <?php $orderUnprocessedCount = \App\Order::unprocessed()->count() ?>
+        <?php $orderUnprocessedCount = \App\Order::incomplete()->count() ?>
 
         @if($orderUnprocessedCount === 0)
             <span class="label label-success pull-right">{!! $orderUnprocessedCount !!}</span>
@@ -18,10 +18,14 @@
     </a>
 </li>
 <li>
-    <a href="/admin/catalogue"><i class="fa fa-book"></i> <span>Catalogue</span> </a>
+    <a href="{!! action('Admin\CatalogueController@index') !!}"><i class="fa fa-book"></i> <span>Catalogue</span> </a>
 </li>
 <li>
-    <a href="/admin/customers"><i class="fa fa-users"></i> <span>Customers</span> </a>
+    <a href="{!! action('Admin\CustomerController@index') !!}"><i class="fa fa-users"></i> <span>Customers</span> </a>
+</li>
+
+<li>
+    <a href="{!! localize_url('routes.shop.index') !!}" target="_blank"><i class="fa fa-external-link"></i> <span>Shop</span></a>
 </li>
 
 <li>

@@ -46,6 +46,9 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Orders</th>
+                    <th>Total spent</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -54,12 +57,13 @@
                     <tr>
                         <td>{{ $c['id'] }}</td>
                         <td><a href="{!! action('Admin\CustomerController@show', $c->id) !!}">{{ $c->name }}</a></td>
+                        <td>{!! $c->orders->count() !!}</td>
+                        <td>{!! money_format("%i", $c->orders->sum('grand_total')) !!}&euro;</td>
                         <td class="text-right">
                             <div class="btn-group">
-                                <a href="{!! action('Admin\CustomerController@show', $c->id) !!}" class="btn btn-default btn-xs">View</a>
+                                <a href="{!! action('Admin\CustomerController@show', $c->id) !!}" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> View</a>
                             </div>
                         </td>
-
                     </tr>
                 @endforeach
 

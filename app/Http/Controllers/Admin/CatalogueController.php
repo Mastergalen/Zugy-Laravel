@@ -10,18 +10,38 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Gate;
+use Zugy\Repos\Product\ProductRepository;
 
 class CatalogueController extends Controller
 {
+    protected $productRepo;
+
+    /**
+     * CatalogueController constructor.
+     * @param $productRepo ProductRepository
+     */
+    public function __construct(ProductRepository $productRepo)
+    {
+        $this->productRepo = $productRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('translations')->paginate(30);
+        if($request->has('product_name')) {
+            $products = $this->productRepo->search($request->input('product_name'));
+
+            $products = new LengthAwarePaginator($products, $products->count(), 30);
+        } else {
+            $products = Product::with('translations')->paginate(30);
+        }
+
         return view('admin.pages.catalogue.index')->with(['products' => $products]);
     }
 

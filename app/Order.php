@@ -79,6 +79,10 @@ class Order extends Model
         return $query->where('order_status', '=', 0);
     }
 
+    public function scopeIncomplete($query) {
+        return $query->whereIn('order_status', [0, 1, 2]);
+    }
+
     public function getActivityDescriptionForEvent($eventName)
     {
         return $eventName;
