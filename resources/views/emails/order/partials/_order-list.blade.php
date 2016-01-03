@@ -24,7 +24,7 @@
                 </tr>
                 <tr class="total">
                     <td colspan="3">Total paid</td>
-                    <td>{!! $order->total + $order->shipping_fee !!}&euro;</td>
+                    <td>{!! money_format("%i", $order->total + $order->shipping_fee) !!}&euro;</td>
                 </tr>
             </table>
         </td>

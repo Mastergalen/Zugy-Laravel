@@ -31,7 +31,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = $this->orderRepository->paginate(30);
+        $orders = $this->orderRepository->orderBy('order_placed', 'desc')->paginate(30);
 
         return view('admin.pages.order.index')->with(compact('orders'));
     }

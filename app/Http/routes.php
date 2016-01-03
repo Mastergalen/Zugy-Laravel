@@ -126,8 +126,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
         return view('admin.pages.dash');
     }]);
 
-    Route::resource('order', 'Admin\OrderController');
     Route::resource('catalogue', 'Admin\CatalogueController');
+    Route::resource('customer', 'Admin\CustomerController');
+    Route::resource('order', 'Admin\OrderController');
     Route::post('image/upload', 'Admin\ImageController@upload');
 });
 

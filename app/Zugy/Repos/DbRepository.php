@@ -19,4 +19,9 @@ abstract class DbRepository
     public function with($model) {
         return $this->model->with($model);
     }
+
+    public function orderBy($table, $direction)
+    {
+        return $this->model->orderBy($table, $direction);
+    }
 }

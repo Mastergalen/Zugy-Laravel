@@ -32,16 +32,7 @@
                             {!! Form::token() !!}
                             <div class="col-md-3">
                                 <input type="hidden" name=delivery[addressId]" value="{!! $a->id !!}">
-                                <address>
-                                    <b>{{$a->name}}</b> <b class="pull-right"><a href="#" class="btn-edit-address" data-address='{{$a}}'>Edit</a></b> <br/>
-                                    {{$a->line_1}} <br/>
-                                    @if(isset($a->line_2) && $a->line_2 != "") {{$a->line_2}} <br/>@endif
-                                    {{$a->city}}, {{$a->postcode}} <br/>
-                                    {{$a->country->name}} <br/>
-                                    <i class="fa fa-phone"></i> {{$a->phone}}<br/>
-                                    @if($a->delivery_instructions != "")<i>Delivery instructions:</i> {{$a->delivery_instructions}}@endif
-                                </address>
-
+                                @include('includes._address', ['address' => $a, 'edit' => true])
                                 <button class="btn btn-primary btn-block"><i class="fa fa-truck"></i> Deliver to this address</button>
                             </div>
                         </form>

@@ -32,7 +32,8 @@ class OrderController extends Controller
         }
 
         if($request->input('order_status') == 3) {//Set status to delivered, update payment to "paid"
-            $order->payment()->update(['status' => 1]);
+            $order->payment()->update(['status' => 1, 'paid' => \Carbon::now()]);
+            $order->order_completed = \Carbon::now();
         }
 
         $order->order_status = $request->input('order_status');

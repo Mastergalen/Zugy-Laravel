@@ -42,6 +42,13 @@
                                 <dd>{{ $order->order_placed }}</dd>
                                 <dd>{{ $order->order_placed->diffForHumans() }}</dd>
 
+                                <dt>Placed by:</dt>
+                                <dd>
+                                    <a href="{!! action('Admin\CustomerController@show', ['id' => $order->user->id]) !!}">
+                                        {{ $order->user->name }}
+                                    </a>
+                                </dd>
+
                                 @if($order->payment->paid)
                                     <dt>Paid:</dt>
                                     <dd>{{ $order->payment->paid }}</dd>

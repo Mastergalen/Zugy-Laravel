@@ -4,6 +4,7 @@ namespace Zugy\Checkout;
 
 use App\Address;
 use App\PaymentMethod;
+use App\User;
 
 class Checkout
 {
@@ -27,7 +28,11 @@ class Checkout
         $this->session->put($this->sessionKey . '.payment', $paymentMethod);
     }
 
-    public function getShippingAddress() {
+    public function getShippingAddress(User $user = null) {
+        if($user !== null) {
+            return  $user->addresses()->where('isShippingPrimary', '=', 1)->first();
+        }
+
         $content = ($this->session->has($this->sessionKey . '.address.shipping')) ? $this->session->get($this->sessionKey . '.address.shipping') : null;
 
         if($content === null && auth()->check()) {
@@ -41,7 +46,11 @@ class Checkout
         $this->session->forget($this->sessionKey . 'address.shipping');
     }
 
-    public function getBillingAddress() {
+    public function getBillingAddress(User $user = null) {
+        if($user !== null) {
+            return  $user->addresses()->where('isBillingPrimary', '=', 1)->first();
+        }
+
         $content = ($this->session->has($this->sessionKey . '.address.billing')) ? $this->session->get($this->sessionKey . '.address.billing') : null;
 
         if($content === null && auth()->check()) {
