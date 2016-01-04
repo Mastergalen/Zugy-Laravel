@@ -6,21 +6,21 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="page-header">
-            <h1>Create a new account</h1>
+            <h1>{!! trans('auth.register.title') !!}</h1>
         </div>
         <div class="login">
-            <p>You can use Facebook and Google to create an account faster!</p>
+            <p>{!! trans('auth.register.social-tip') !!}</p>
             @include('includes._login-social')
         </div>
         <hr>
         <div class="panel panel-default">
-            <div class="panel-heading">Create a new account</div>
+            <div class="panel-heading">{!! trans('auth.register.title') !!}</div>
             <div class="panel-body">
                 <form class="form-horizontal" role="form" method="POST" action="{{ action('Auth\AuthController@postRegister') }}">
                     {!! csrf_field() !!}
 
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                        <label class="col-md-4 control-label">Name</label>
+                        <label class="col-md-4 control-label">{!! trans('checkout.address.form.name') !!}</label>
 
                         <div class="col-md-6">
                             <input type="text" class="form-control" name="name" value="{{ old('name') }}">
@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                        <label class="col-md-4 control-label">E-Mail Address</label>
+                        <label class="col-md-4 control-label">{!! trans('auth.form.email.label') !!}</label>
 
                         <div class="col-md-6">
                             <input type="email" class="form-control" name="email" value="{{ old('email') }}">
@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                        <label class="col-md-4 control-label">Password</label>
+                        <label class="col-md-4 control-label">{!! trans('auth.form.password.label') !!}</label>
 
                         <div class="col-md-6">
                             <input type="password" class="form-control" name="password">
@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                        <label class="col-md-4 control-label">Confirm Password</label>
+                        <label class="col-md-4 control-label">{!! trans('auth.form.confirm-password.label') !!}</label>
 
                         <div class="col-md-6">
                             <input type="password" class="form-control" name="password_confirmation">
@@ -78,10 +78,14 @@
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <p class="help-text">
-                               By registering you agree to the <a href="{!! localize_url('routes.terms-and-conditions') !!}">{!! trans('pages.terms-and-conditions') !!}</a>
+                                {!! trans('checkout.review.accept', [
+                                    'siteName' => config('site.name'),
+                                    'privacyPolicyUrl' => localize_url('routes.privacy-policy'),
+                                    'termsAndConditionsUrl' => localize_url('routes.terms-and-conditions'),
+                                ]) !!}
                             </p>
                             <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-user"></i> Register
+                                <i class="fa fa-user"></i> {!! trans('auth.register.button') !!}
                             </button>
                         </div>
                     </div>

@@ -102,7 +102,7 @@ class CheckoutController extends Controller
         }
 
         if(Checkout::getShippingAddress() === null) {
-            return redirect(localize_url('routes.checkout.address'))->with('info', 'Please enter your address');
+            return redirect(localize_url('routes.checkout.address'))->with('info', trans('checkout.address.prompt'));
         }
 
         return view('pages.checkout.payment')->with(compact('cards'));
@@ -120,11 +120,11 @@ class CheckoutController extends Controller
         try {
             $result = $paymentHandler->setMethod($request);
         } catch(\Stripe\Error\InvalidRequest $e) {
-            return redirect()->back()->withErrors(['An internal error occurred. Please try again']);
+            return redirect()->back()->withErrors([trans('errors.unknown')]);
         } catch(\Stripe\Error\Card $e) {
             return redirect()->back()->withErrors([$e->getMessage()])->withInput();
         } catch(Exception $e) {
-            return redirect()->back()->withErrors(['An unknown error occurred: ' . $e->getMessage()])->withInput();
+            return redirect()->back()->withErrors([trans('errors.unknown') . $e->getMessage()])->withInput();
         }
 
         if($result !== true) return $result;
@@ -146,11 +146,11 @@ class CheckoutController extends Controller
         $paymentMethod = Checkout::getPaymentMethod();
 
         if($shippingAddress === null) {
-            return redirect(localize_url('routes.checkout.address'))->with('info', 'Please enter your address');
+            return redirect(localize_url('routes.checkout.address'))->with('info', trans('checkout.address.prompt'));
         }
 
         if($paymentMethod === null) {
-            return redirect(localize_url('routes.checkout.payment'))->with('info', 'Please select a payment method');
+            return redirect(localize_url('routes.checkout.payment'))->with('info', trans('checkout.payment.form.title'));
         }
 
         $cart = Cart::content();
@@ -176,11 +176,11 @@ class CheckoutController extends Controller
         } catch(\Stripe\Error\Card $e) { //Card was rejected
             return redirect(localize_url('routes.checkout.review'))->withErrors([
                 $e->getMessage(),
-                'Try using another payment method. <a href="' . localize_url('routes.checkout.address') . '?change">Change</a>'
+                trans('checkout.payment.form.error.different', ['paymentUrl' => localize_url('routes.checkout.payment')])
             ]);
         } catch(PaymentFailedException $e) {
             return redirect(localize_url('routes.checkout.review'))
-                ->withErrors(['There was an error processing your payment. Try again or use use another payment method. <a href="' . localize_url('routes.checkout.address') . '?change">Change</a>']);
+                ->withErrors([trans('checkout.payment.form.error.different', ['paymentUrl' => localize_url('routes.checkout.payment')])]);
         }/* catch(\Exception $e) {
             //FIXME Log this error and alert developer
             return redirect()->back()->withErrors(['Uh oh! An unknown error occurred while placing your order.']);
@@ -189,7 +189,7 @@ class CheckoutController extends Controller
         if(!$result instanceof Order) return $result;
 
         return redirect(localize_url('routes.order.show', ['id' => $result->id]))
-            ->withSuccess('Your order has been placed. We will notify via email you when your order is out for delivery.');
+            ->withSuccess(trans('checkout.order.success'));
     }
 
     /**

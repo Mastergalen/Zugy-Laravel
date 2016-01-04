@@ -37,7 +37,7 @@ class ProductController extends Controller
     {
         $product = $this->productRepo->getBySlug($slug);
 
-        if($product === null) abort(404, 'That product does not exist');
+        if($product === null) abort(404, trans('product.404'));
 
         $thumbnail = $product->images()->where('id', $product->thumbnail_id)->first();
 

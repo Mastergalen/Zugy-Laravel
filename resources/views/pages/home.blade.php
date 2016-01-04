@@ -24,9 +24,9 @@
                         <form id="postcode-form">
                             <div class="input-group">
                                 <input class="form-control" type="text" name="postcode"
-                                       placeholder="Enter your postcode" id="postcode-input" autocomplete="off"/>
+                                       placeholder="{!! trans('forms.prompts.postcode') !!}" id="postcode-input" autocomplete="off"/>
                                 <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="submit">Shop now</button>
+                                    <button class="btn btn-primary" type="submit">{!! trans('buttons.shop-now') !!}</button>
                                 </span>
                             </div>
                         </form>

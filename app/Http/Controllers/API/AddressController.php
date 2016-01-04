@@ -40,10 +40,10 @@ class AddressController extends Controller
         $result = $addressService->delivery($request->all(), $address);
 
         if( ! $result instanceof Address) {
-            return response()->json(['status' => 'error', 'message' => 'The address was invalid', 'errors' => $result->errors()], 422);
+            return response()->json(['status' => 'error', 'message' => trans('address.api.error.invalid'), 'errors' => $result->errors()], 422);
         }
 
-        return ['status' => 'success', 'message' => 'Updated address successfully'];
+        return ['status' => 'success', 'message' => trans('address.api.update.success')];
     }
 
     public function destroy($id)
@@ -51,7 +51,7 @@ class AddressController extends Controller
         try {
             $address = Address::findOrFail($id);
         } catch(ModelNotFoundException $e) {
-            return response()->json(['status' => 'failure', 'message' => 'Address does not exist'], 404);
+            return response()->json(['status' => 'failure', 'message' => trans('address.api.error.404')], 404);
         }
 
         //Unset session addresses
@@ -60,6 +60,6 @@ class AddressController extends Controller
 
         $address->delete();
 
-        return ['status' => 'success', 'message' => 'Address removed successfully'];
+        return ['status' => 'success', 'message' => trans('address.api.destroy.success')];
     }
 }

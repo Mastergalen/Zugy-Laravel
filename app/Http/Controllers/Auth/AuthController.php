@@ -91,6 +91,6 @@ class AuthController extends Controller
      */
     public function authenticated()
     {
-        return redirect()->intended($this->redirectPath())->with(['success' => 'Logged in.']);
+        return redirect()->intended($this->redirectPath())->with(['success' => trans('auth.login.success')]);
     }
 }

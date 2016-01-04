@@ -36,4 +36,10 @@ elixir(function(mix) {
     mix.scripts([
         'vendor/adminLTE/adminLTE.js'
     ], 'public/dist/js/admin.js');
+
+    mix.scripts([
+        'vendor/formvalidation/formValidation.min.js',
+        'vendor/formvalidation/bootstrap.js',
+        'vendor/formvalidation/language/it_IT.js',
+    ], 'public/dist/js/formvalidation.js')
 });

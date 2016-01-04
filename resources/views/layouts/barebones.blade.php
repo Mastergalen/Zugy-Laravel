@@ -2,7 +2,7 @@
 $siteName = Config::get('site.siteName');
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{!! app()->getLocale() !!}">
     <head>
         @include('includes.head')
     </head>

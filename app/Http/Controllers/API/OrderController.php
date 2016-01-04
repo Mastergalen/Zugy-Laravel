@@ -28,7 +28,7 @@ class OrderController extends Controller
         }
 
         if($order->order_status == $request->input('order_status')) {
-            return response()->json(['status' => 'error', 'message' => 'Order already set to this status'], 422);
+            return response()->json(['status' => 'error', 'message' => trans('order.api.error.status-same')], 422);
         }
 
         if($request->input('order_status') == 3) {//Set status to delivered, update payment to "paid"
@@ -42,6 +42,6 @@ class OrderController extends Controller
 
         \Event::fire(new OrderStatusChanged($order));
 
-        return ['status' => 'success', 'message' => 'Order updated'];
+        return ['status' => 'success', 'message' => trans('order.api.update.success')];
     }
 }

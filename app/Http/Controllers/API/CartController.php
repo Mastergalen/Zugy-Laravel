@@ -50,28 +50,20 @@ class CartController extends Controller
             'price' => $product->price,
         ];
 
-        \Log::debug("Current cart has " . Cart::count() . " items");
-        \Log::debug(Cart::content());
-
         //Search for product ID, if exists, update quantity
         if($request->has('options')) {
             $searchResult = Cart::search(['id' => (int) $request->input('id'), 'options' => $request->input('options')]);
             $cartItem['options'] = $request->input('options');
         } else {
-            \Log::debug('Searching for cart with item ID: ' . $request->input('id'));
             $searchResult = Cart::search(['id' => (int) $request->input('id')]);
-            \Log::debug("Found " . count($searchResult) . " results");
-            \Log::debug($searchResult);
         }
 
         if($searchResult === false) {
             if ($qty > $product->stock_quantity) {
                 return response()->json([
-                    'status' => 'failure', 'message' => "Unable to add to cart. We only have {$product->stock_quantity} left in stock."
+                    'status' => 'failure', 'message' => trans('product.out-of-stock', ['quantity' => $product->stock_quantity])
                 ], 422); //Unprocessable entity
             }
-
-            \Log::debug('Adding new item to cart: ' . $cartItem['id']);
 
             Cart::associate('Product', 'App')->add($cartItem);
         } else {
@@ -81,17 +73,14 @@ class CartController extends Controller
 
             if($totalQuantity > $product->stock_quantity) {
                 return response()->json([
-                    'status' => 'failure', 'message' => "Unable to add to cart. We only have {$product->stock_quantity} left in stock."
+                    'status' => 'failure', 'message' => trans('product.out-of-stock', ['quantity' => $product->stock_quantity])
                 ], 422); //Unprocessable Entity
             }
 
-            \Log::debug("Updating item in cart", ['rowId' => $rowId, 'oldQty' => Cart::get($rowId)->qty, 'newQty' => $totalQuantity]);
-
-            \Log::debug("Session", ['session' => $request->session()->get('cart.main')]);
             Cart::update($rowId, (int) $totalQuantity);
 
             $cart = $request->session()->get('cart.main');
-            \Log::debug("Session", ['session' => $request->session()->get('cart.main')]);
+
             $request->session()->put('cart.main', $cart);
         }
 

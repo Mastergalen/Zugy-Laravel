@@ -9,6 +9,12 @@
 <meta name="_token" content="{{ csrf_token() }}" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+@if(app()->getLocale() == 'en')
+  <meta name="og:locale" content="en_GB">
+@elseif(app()->getLocale() == 'it')
+  <meta name="og:locale" content="it_IT">
+@endif
+
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="/dist/assets/css/app.css" rel="stylesheet">

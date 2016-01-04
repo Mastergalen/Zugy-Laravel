@@ -18,7 +18,7 @@
 
 @section('content')
     <div class="page-header">
-        <h1>Review order</h1>
+        <h1>{!! trans('checkout.review.title') !!}</h1>
     </div>
     @include('pages.checkout.partials.order-step', ['active' => 'review'])
     @include('pages.checkout.partials.age-warning')
@@ -37,45 +37,37 @@
         <div class="col-lg-9 col-md-9 col-sm-7">
             <div class="row">
                 <div class="col-md-3">
-                    <h4><span class="step-number">1</span>Delivery Address</h4>
+                    <h4><span class="step-number">1</span>{!! trans('checkout.address.form.delivery') !!}</h4>
                 </div>
                 <div class="col-md-9">
                     <div class="pull-left">
-                        <address>
-                            {{$shippingAddress->name}}<br>
-                            {{$shippingAddress->line_1}}<br>
-                            @if($shippingAddress->line_2 != ""){{$shippingAddress->line_2}}<br>@endif
-                            {{$shippingAddress->city}}, {{$shippingAddress->postcode}}<br>
-                            <i class="fa fa-phone"></i> {{$shippingAddress->phone}}<br>
-                            @if($shippingAddress->delivery_instructions != "")Delivery instructions: {{$shippingAddress->delivery_instructions}}<br>@endif
-                        </address>
+                        @include('includes._address', ['address' => $shippingAddress])
                     </div>
                     <div class="pull-right">
-                        <a class="btn btn-default btn-sm" href="{!! localize_url('routes.checkout.address') !!}?change">Change</a>
+                        <a class="btn btn-default btn-sm" href="{!! localize_url('routes.checkout.address') !!}?change">{!! trans('buttons.change') !!}</a>
                     </div>
                 </div>
             </div>
             <hr/>
             <div class="row">
                 <div class="col-md-3">
-                    <h4><span class="step-number">2</span>Payment Method</h4>
+                    <h4><span class="step-number">2</span>{!! trans('checkout.payment.title') !!}</h4>
                 </div>
                 <div class="col-md-9">
                     <div class="pull-left">
                         @include('includes.payment-method', ['payment' => $payment])
                     </div>
                     <div class="pull-right">
-                        <a class="btn btn-default btn-sm" href="{!! localize_url('routes.checkout.payment') !!}?change">Change</a>
+                        <a class="btn btn-default btn-sm" href="{!! localize_url('routes.checkout.payment') !!}?change">{!! trans('buttons.change') !!}</a>
                     </div>
                 </div>
             </div>
             <hr/>
             <div class="row">
                 <div class="col-md-3">
-                    <h4><span class="step-number">3</span>Review items</h4>
+                    <h4><span class="step-number">3</span>{!! trans('checkout.review.items') !!}</h4>
                 </div>
                 <div class="col-md-9">
-                    <h4>Estimated delivery: Between 1-2 hours</h4>
                     @include('pages.checkout.partials.review-items')
                 </div>
             </div>
@@ -87,15 +79,20 @@
                 {!! Form::token() !!}
                 <button class="btn btn-block btn-lg btn-success" type="submit">
                     @if($payment['method'] == 'paypal')
-                        <i class="fa fa-check-square"></i> Pay with PayPal
+                        <i class="fa fa-check-square"></i> {!! trans('checkout.payment.form.pay-with', ['name' => 'PayPal']) !!}
                     @else
-                        <i class="fa fa-check-square"></i> Place order
+                        <i class="fa fa-check-square"></i> {!! trans('checkout.review.place-order') !!}
                     @endif
                 </button>
 
             </form>
-            <small>By placing your order you agree to {!! config('site.name') !!}'s <a href="{!! localize_url('routes.privacy-policy') !!}">Privacy Policy</a> and
-                <a href="{!! localize_url('routes.terms-and-conditions') !!}">Terms and Conditions</a>.</small><!--TODO Fix links-->
+            <small>
+                {!! trans('checkout.review.accept', [
+                    'siteName' => config('site.name'),
+                    'privacyPolicyUrl' => localize_url('routes.privacy-policy'),
+                    'termsAndConditionsUrl' => localize_url('routes.terms-and-conditions'),
+                ]) !!}
+            </small>
 
         </div>
         </div>

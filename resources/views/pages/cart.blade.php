@@ -10,21 +10,21 @@
 @section('content')
     <!-- TODO Show estimated delivery -->
     <div class="page-header">
-        <h1><i class="fa fa-shopping-cart"></i> Shopping Cart</h1>
+        <h1><i class="fa fa-shopping-cart"></i> {!! trans('cart.shopping-cart') !!}</h1>
     </div>
     @if(Cart::shipping() != 0)
-        <div class="alert alert-info">Order more than 20&euro; worth and get <b>free shipping</b>!</div>
+        <div class="alert alert-info">{!! trans('cart.free-shipping-reminder') !!}</div>
     @endif
 
     <div class="row">
         <div class="col-lg-9 col-md-9 col-sm-7">
             <table class="table table-responsive" id="cart-table">
                 <thead>
-                    <th>Product</th>
-                    <th>Details</th>
+                    <th>{!! trans('product.product') !!}</th>
+                    <th>{!! trans('product.tabs.details') !!}</th>
                     <th></th>
-                    <th>Qty</th>
-                    <th>Total</th>
+                    <th>{!! trans('product.quantity') !!}</th>
+                    <th>{!! trans('checkout.total') !!}</th>
                 </thead>
                 <tbody>
                     @foreach(Cart::content() as $row)
@@ -47,17 +47,17 @@
                     @endforeach
                     <tr id="empty-cart-msg" @if(Cart::count(false) !== 0)style="display:none"@endif>
                         <td colspan="5">
-                            <p>You don't have anything in your cart yet. Visit the <a href="{!! action('ShopController@index') !!}">shop</a> to start filling it up!</p>
+                            <p>{!! trans('cart.empty-cart-msg', ['storeUrl' => action('ShopController@index')]) !!}</p>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="form-footer">
                 <div class="pull-left">
-                    <a class="btn btn-footer" href="{!! action('ShopController@index') !!}"><i class="fa fa-arrow-left"></i> Continue shopping</a>
+                    <a class="btn btn-footer" href="{!! action('ShopController@index') !!}"><i class="fa fa-arrow-left"></i> {!! trans('buttons.continue-shopping') !!}</a>
                 </div>
                 <div class="pull-right">
-                    <button class="btn btn-footer" id="btn-update-cart"><i class="fa fa-repeat"></i> Update cart</button>
+                    <button class="btn btn-footer" id="btn-update-cart"><i class="fa fa-repeat"></i> {!! trans('buttons.update-cart') !!}</button>
                 </div>
             </div>
         </div>
@@ -65,26 +65,28 @@
             <div class="box" style="margin-bottom: 10px">
                 <table id="order-summary" class="table">
                     <tr>
-                        <td>Items</td>
+                        <td>{!! trans('checkout.items') !!}</td>
                         <td class="price">{!! money_format("%i", Cart::total()) !!}&euro;</td>
                     </tr>
                     <tr>
-                        <td>Shipping</td>
+                        <td>{!! trans('checkout.shipping') !!}</td>
                         <td class="price">
                             @if(Cart::shipping() == 0)
-                                <span style="color: #8BB418;">Free shipping</span>
+                                <span style="color: #8BB418;">{!! trans('shipping.free') !!}</span>
                             @else
                                 {!! money_format("%i", Cart::shipping()) !!}&euro;
                             @endif
                         </td>
                     </tr>
                     <tr class="total">
-                        <td>Total</td>
+                        <td>{!! trans('checkout.total') !!}</td>
                         <td class="price">{!! money_format("%i", Cart::grandTotal()) !!}&euro;</td>
                     </tr>
                 </table>
             </div>
-            <a href="{!! Localization::getURLFromRouteNameTranslated(Localization::getCurrentLocale(), 'routes.checkout.landing') !!}" class="btn btn-block btn-lg btn-success" @if(Cart::count(false) === 0)disabled @endif>Proceed to checkout <i class="fa fa-arrow-right"></i></a>
+            <a href="{!! localize_url('routes.checkout.landing') !!}" class="btn btn-block btn-lg btn-success" @if(Cart::count(false) === 0)disabled @endif>
+                {!! trans('buttons.proceed-to-checkout') !!} <i class="fa fa-arrow-right"></i>
+            </a>
         </div>
     </div>
 @endsection

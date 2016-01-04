@@ -47,8 +47,8 @@
 
 @section('content')
     <ul class="breadcrumb hidden-xs">
-        <li><a href="/">Home</a></li>
-        <li><a href="/shop">Shop</a></li>
+        <li><a href="/">{!! trans('pages.home.title') !!}</a></li>
+        <li><a href="/shop">{!! trans('pages.shop.title') !!}</a></li>
         @foreach($product->breadcrumbs as $b)
             <li><a href="{!! localize_url('routes.shop.category', ['slug' => $b['slug']]) !!}">{{ $b['name'] }}</a></li>
         @endforeach
@@ -87,7 +87,7 @@
             </div>
             <hr/>
             @if($product->stock_quantity > 0)
-                <h3>Select quantity</h3>
+                <h3>{!! trans('forms.prompts.select-quantity') !!}</h3>
                 <fieldset id="quantity-selector"
                           data-product-id="{!! $product->id !!}"
                           data-price="{{$product->price}}"
@@ -95,7 +95,7 @@
                           data-url="{{$product->getUrl()}}"
                         >
                     <div class="form-group">
-                        <span class="help-block" style="display: none;">Please select how many you want!</span>
+                        <span class="help-block" style="display: none;">{!! trans('forms.prompts.select-how-many') !!}</span>
                         <?php $i = 1 ?>
                         @while($i <= 9 && $i <= $product->stock_quantity)
                             <input type="radio" name="quantity" value="{!! $i !!}" id="number-{!! $i !!}">
@@ -104,19 +104,19 @@
                         @endwhile
                     </div>
                 </fieldset>
-                <button class="btn btn-success btn-lg" type="button" id="btn-add-cart"><i class="fa fa-cart-plus"></i> Add to cart</button>
+                <button class="btn btn-success btn-lg" type="button" id="btn-add-cart"><i class="fa fa-cart-plus"></i> {!! trans('buttons.add-cart') !!}</button>
             @endif
             <div class="stock">
                 @if($product->stock_quantity >= 10)
-                    <i class="fa fa fa-check-circle-o" style="color: #4CC94A;"></i> In Stock <small>Delivery within an hour</small>
+                    <i class="fa fa fa-check-circle-o" style="color: #4CC94A;"></i> {!! trans('product.in-stock') !!} <small>{!! trans('shipping.hour-delivery') !!}</small>
                 @elseif($product->stock_quantity > 0)
                     <div class="alert alert-warning">
-                        Only {{$product->stock_quantity}} left in stock.
+                        {!! trans('product.stock-warning', ['count' => $product->stock_quantity]) !!}
                     </div>
-                    <i class="fa fa fa-check-circle-o" style="color: #4CC94A;"></i> In Stock <small>Delivery within an hour</small>
+                    <i class="fa fa fa-check-circle-o" style="color: #4CC94A;"></i> {!! trans('product.in-stock') !!} <small>{!! trans('shipping.hour-delivery') !!}</small>
                 @else
                     <div class="alert alert-danger">
-                        <i class="fa fa fa-times-circle"></i> Out of stock
+                        <i class="fa fa fa-times-circle"></i> {!! trans('product.out-of-stock') !!}
                     </div>
                 @endif
             </div>
@@ -125,16 +125,16 @@
 
             <ul class="nav nav-tabs" role="tablist">
                 <li class="active">
-                    <a href="#details" data-toggle="tab">Details</a>
+                    <a href="#details" data-toggle="tab">{!! trans('product.tabs.details') !!}</a>
                 </li>
-                <li><a href="#shipping" data-toggle="tab">Shipping</a></li>
+                <li><a href="#shipping" data-toggle="tab">{!! trans('checkout.shipping') !!}</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="details">
                     <table class="table table-bordered table-striped">
                         @if($product->weight != 0)
                             <tr>
-                                <td>Item weight</td>
+                                <td>{!! trans('product.item-weight') !!}</td>
                                 <td>{{$product->weight}} kg</td>
                             </tr>
                         @endif
@@ -149,19 +149,14 @@
                 <div class="tab-pane" id="shipping">
                     <table class="table table-bordered">
                         <thead>
-                        <th>Shipping method</th>
-                        <th>Shipping time</th>
-                        <th>Cost</th>
+                        <th>{!! trans('shipping.shipping-method') !!}</th>
+                        <th>{!! trans('shipping.time') !!}</th>
+                        <th>{!! trans('shipping.cost') !!}</th>
                         </thead>
                         <tr>
-                            <td>Standard</td>
-                            <td>24 hours</td>
-                            <td>9.50&#8364;</td>
-                        </tr>
-                        <tr>
-                            <td>Express</td>
-                            <td>1 hour</td>
-                            <td>15.90&#8364;</td>
+                            <td>{!! trans('shipping.standard') !!}</td>
+                            <td>{!! trans_choice('shipping.hour', 1) !!}</td>
+                            <td>{!! trans('shipping.free-shipping') !!}</td>
                         </tr>
                     </table>
                 </div>
@@ -169,70 +164,8 @@
         </div>
     </div>
     <hr/>
-    <div class="row recommendations">
-        <h2>You may also like</h2>
-        <div class="products owl-carousel">
-            <div class="item">
-                <a class="image" href="#">
-                    <img src="http://www.lcbo.com/content/dam/lcbo/products/110056.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg" alt=""/>
-                </a>
-                <div class="description">
-                    <a href="#"><h4>Absolut Vodka</h4></a>
-                    <span class="price">14.20&#8364;</span>
-                </div>
-            </div>
 
-            <div class="item">
-                <a class="image" href="#">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/W%C3%B3dka_Wyborowa.jpg" alt=""/>
-                </a>
-                <div class="description">
-                    <a href="#"><h4>Wyborowa</h4></a>
-                    <span class="price">10.00&#8364;</span>
-                </div>
-            </div>
-
-            <div class="item">
-                <a class="image" href="#">
-                    <img src="http://distinctdrinks.co.uk/wp-content/uploads/2015/02/eristoffvodka.jpg" alt=""/>
-                </a>
-                <div class="description">
-                    <a href="#"><h4>Eristoff</h4></a>
-                    <span class="price">12.20&#8364;</span>
-                </div>
-            </div>
-
-            <div class="item">
-                <a class="image" href="#">
-                    <img src="http://www.lcbo.com/content/dam/lcbo/products/110056.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg" alt=""/>
-                </a>
-                <div class="description">
-                    <a href="#"><h4>Absolut Vodka</h4></a>
-                    <span class="price">14.20&#8364;</span>
-                </div>
-            </div>
-
-            <div class="item">
-                <a class="image" href="#">
-                    <img src="http://www.lcbo.com/content/dam/lcbo/products/110056.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg" alt=""/>
-                </a>
-                <div class="description">
-                    <a href="#"><h4>Absolut Vodka</h4></a>
-                    <span class="price">14.20&#8364;</span>
-                </div>
-            </div>
-
-            <div class="item">
-                <a class="image" href="#">
-                    <img src="http://www.lcbo.com/content/dam/lcbo/products/110056.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg" alt=""/>
-                </a>
-                <div class="description">
-                    <a href="#"><h4>Absolut Vodka</h4></a>
-                    <span class="price">14.20&#8364;</span>
-                </div>
-            </div>
-        </div>
-    </div>
+    {{-- @include('pages.product.partials.recommendations') --}} <!--TODO Add product recommendations -->
 @stop
 
 @section('scripts')
@@ -263,7 +196,6 @@
 
                 cart.addToCartAnimation($imgToDrag);
 
-                //TODO Prevent adding more than in stock and show error message
                 cart.add($quantitySelector.data('product-id'), quantity);
 
                 $button.prop('disabled', false);

@@ -15,7 +15,7 @@ class PostcodeController extends Controller
         ]);
 
         if($validator->fails()) {
-            return response()->json(['status' => 'failure', 'message' => 'The postcode was invalid', 'errors' => $validator->getMessageBag()], 400);
+            return response()->json(['status' => 'failure', 'message' => trans('postcode.api.error.postcode.invalid'), 'errors' => $validator->getMessageBag()], 400);
         }
 
         $postcode = (int) $postcode;
@@ -25,16 +25,16 @@ class PostcodeController extends Controller
                 'status' => 'success',
                 'delivery' => true,
                 'storeUrl' => localize_url('routes.shop.index'),
-                'message' => 'We deliver to you!',
+                'message' => trans('postcode.check.success'),
             ];
         } else {
             return [
                 'status' => 'success',
                 'delivery' => false,
-                'message' => 'We currently do not deliver to your area. Sorry!',
-                'description' => 'You can still browse our store, however.',
+                'message' => trans('postcode.check.error.title'),
+                'description' => trans('postcode.check.error.desc'),
                 'storeUrl' => localize_url('routes.shop.index'),
-                'confirmButtonText' => "Browse the store",
+                'confirmButtonText' => trans('postcode.browse-store'),
             ];
         }
     }

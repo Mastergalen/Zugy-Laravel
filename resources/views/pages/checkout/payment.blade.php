@@ -40,7 +40,7 @@
 
 @section('content')
     <div class="page-header">
-        <h1>Select payment method</h1>
+        <h1>{!! trans('checkout.payment.form.title') !!}</h1>
     </div>
     @include('pages.checkout.partials.order-step', ['active' => 'payment'])
     @if (count($errors) > 0)
@@ -60,7 +60,7 @@
                 <div class="row display-tr panel-title">
                     <a role="button" class="display-td" data-toggle="collapse" data-parent="#payment-methods" href="#card">
                         <h4 class="panel-title">
-                            <i class="fa fa-credit-card"></i> Card
+                            <i class="fa fa-credit-card"></i> {!! trans('checkout.payment.form.card') !!}
                         </h4>
                     </a>
                     <div class="payment-method-img display-td">
@@ -93,10 +93,10 @@
                                                             <input type="radio" name="cardId" value="{!! $c->id !!}">
                                                         </div>
                                                         <div class="col-xs-6">
-                                                            <p><b>{!! $c->brand !!}</b> ending in {!! $c->last4 !!}</p>
+                                                            <p>{!! trans('checkout.payment.form.card.show', ['brand' => $c->brand, 'last4' => $c->last4]) !!}</p>
                                                         </div>
                                                         <div class="col-xs-4">
-                                                            <p class="pull-right">Expires {!! $c->exp_month !!}/{!! $c->exp_year !!}</p>
+                                                            <p class="pull-right">{!! trans('checkout.payment.form.card.expires') !!} {!! $c->exp_month !!}/{!! $c->exp_year !!}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -104,8 +104,8 @@
                                         @endforeach
                                     </div>
                                     <hr>
-                                    <button class="btn btn-primary" type="submit">Use this card</button>
-                                    <button class="btn btn-default pull-right" type="button" id="btn-add-card"><i class="fa fa-plus"></i> Add a new card</button>
+                                    <button class="btn btn-primary" type="submit">{!! trans('checkout.payment.form.card.button') !!}</button>
+                                    <button class="btn btn-default pull-right" type="button" id="btn-add-card"><i class="fa fa-plus"></i> {!! trans('checkout.payment.form.card.new') !!}</button>
                                 </div>
                             </div>
                         </form>
@@ -149,7 +149,7 @@
 
                                     <div class="col-xs-6 pull-right">
                                         <div class="form-group">
-                                            <label>Expiration (MM/YY)</label>
+                                            <label>{!! trans('checkout.payment.form.expiration') !!} (MM/YY)</label>
                                             <input type="tel" size="2" id="card-exp" class="form-control" placeholder="MM / YY"
                                                    data-stripe="exp-month"/>
                                         </div>
@@ -159,12 +159,12 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label for="default">
-                                            <input type="checkbox" name="defaultPayment" value="true" checked> Set this as the default payment method
+                                            <input type="checkbox" name="defaultPayment" value="true" checked> {!! trans('checkout.payment.form.default') !!}
                                         </label>
                                     </div>
                                 </div>
 
-                                <button class="btn btn-primary btn-lg btn-block" type="submit">Use credit card</button>
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">{!! trans('checkout.payment.form.card.button') !!}</button>
                             </form>
                         </div>
                     </div>
@@ -188,11 +188,10 @@
                             <form action="{!! request()->url() !!}" method="POST">
                                 {!! Form::token() !!}
                                 <input type="hidden" name="method" value="paypal">
-                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay with PayPal</button>
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">{!! trans('checkout.payment.form.pay-with', ['name' => 'PayPal']) !!}</button>
                                 <div class="checkbox">
                                     <label for="">
-                                        <input type="checkbox" name="defaultPayment" value="true" checked> Use this as
-                                        default
+                                        <input type="checkbox" name="defaultPayment" value="true" checked> {!! trans('checkout.payment.form.default') !!}
                                     </label>
                                 </div>
                             </form>
@@ -206,7 +205,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a role="button" data-toggle="collapse" data-parent="#payment-methods" href="#cash">
-                        <i class="fa fa-money"></i> Cash
+                        <i class="fa fa-money"></i> {!! trans('checkout.payment.form.cash') !!}
                     </a>
                 </h4>
             </div>
@@ -214,15 +213,14 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-offset-2 col-md-8">
-                            <p>Pay with cash on delivery</p>
+                            <p>{!! trans('checkout.payment.form.cash.desc') !!}</p>
                             <form action="{!! request()->url() !!}" method="POST">
                                 {!! Form::token() !!}
                                 <input type="hidden" name="method" value="cash">
-                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay with cash</button>
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">{!! trans('checkout.payment.form.pay-with', ['name' => trans('checkout.payment.form.cash')]) !!}</button>
                                 <div class="checkbox">
                                     <label for="">
-                                        <input type="checkbox" name="defaultPayment" value="true" checked> Use this as
-                                        default
+                                        <input type="checkbox" name="defaultPayment" value="true" checked> {!! trans('checkout.payment.form.default') !!}
                                     </label>
                                 </div>
                             </form>

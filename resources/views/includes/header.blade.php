@@ -9,7 +9,7 @@
 
             <button type="button" class="navbar-toggle cart-icon" data-toggle="collapse" data-target=".navbar-cart">
                 <i class="fa fa-shopping-cart"></i>
-                <span class="cart-respons">Cart (<span class="cart-subtotal">{!! money_format("%i", Cart::total()) !!}</span>&#8364;)</span>
+                <span class="cart-respons">{!! trans('menu.cart') !!} (<span class="cart-subtotal">{!! money_format("%i", Cart::total()) !!}</span>&#8364;)</span>
             </button>
 
             <div class="search-box visible-xs">
@@ -47,7 +47,7 @@
                 <li class="hidden-xs cart-icon">
                     <a href="#" data-toggle="collapse" data-target=".navbar-cart">
                         <i class="fa fa-shopping-cart"></i>
-                        <span class="cart-respons">Cart (<span class="cart-subtotal">{!! money_format("%i", Cart::total()) !!}</span>&#8364;)</span>
+                        <span class="cart-respons">{!! trans('menu.cart') !!} (<span class="cart-subtotal">{!! money_format("%i", Cart::total()) !!}</span>&#8364;)</span>
                         <b class="caret"></b>
                     </a>
                 </li>
@@ -63,14 +63,14 @@
                                 <li><a href="/admin"><i class="fa fa-dashboard"></i> Admin Dashboard</a></li>
                                 <li class="divider"></li>
                             @endif
-                            <li><a href="{!! localize_url('routes.account.index') !!}"><i class="fa fa-user"></i> Your account</a></li>
-                            <li><a href="{!! localize_url('routes.account.settings') !!}"><i class="fa fa-cog"></i> Account settings</a></li>
-                            <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> Sign out</a></li>
+                            <li><a href="{!! localize_url('routes.account.index') !!}"><i class="fa fa-user"></i> {!! trans('menu.your-account') !!}</a></li>
+                            <li><a href="{!! localize_url('routes.account.settings') !!}"><i class="fa fa-cog"></i> {!! trans('menu.account-settings') !!}</a></li>
+                            <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> {!! trans('menu.sign-out') !!}</a></li>
                         </ul>
                     </li>
                 @else
                     <li>
-                        <a href="{!! route('login') !!}"><i class="fa fa-sign-in"></i> Sign in</a>
+                        <a href="{!! route('login') !!}"><i class="fa fa-sign-in"></i> {!! trans('menu.sign-in') !!}</a>
                     </li>
                     @foreach(Localization::getSupportedLocales() as $localeCode => $properties)
                         @if($localeCode == 'en') <?php $flagCode = 'gb' ?>

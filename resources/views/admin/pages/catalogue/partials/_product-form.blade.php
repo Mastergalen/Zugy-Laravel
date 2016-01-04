@@ -189,6 +189,7 @@
         $(document).ready(function() {
             var $form = $('#create-product-form');
             $form.formValidation({
+                locale: $('meta[name="og:locale"]').attr('content'),
                 framework: 'bootstrap',
                 excluded: [':disabled'],
                 fields: {

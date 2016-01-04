@@ -33,7 +33,7 @@
             @if(isset($category))
                 {{ $category->name }}
             @elseif(isset($query))
-                <i class="fa fa-search"></i> Search results for {{ $query }}
+                <i class="fa fa-search"></i> {!! trans('product.search-results', ['query' => $query]) !!}
             @endif
         </h1>
         <div class="pull-right">{{ trans_choice('product.count', $products->count(), ['count' => $products->count()]) }}</div>
@@ -66,11 +66,11 @@
                     <div class="col-md-12">
                         @if(isset($query))
                             <div class="alert alert-info">
-                                No results matching the query <b>"{{$query}}"</b>
+                                {!! trans('product.search.empty', ['query' => $query]) !!}
                             </div>
                         @else
                             <div class="alert alert-info">
-                                No products in this category
+                                {!! trans('product.category.empty') !!}
                             </div>
                         @endif
                     </div>
@@ -79,7 +79,7 @@
         </div>
         <div class="col-md-3 col-md-pull-9">
             <div class="panel panel-default">
-                <div class="panel-heading">Categories</div>
+                <div class="panel-heading">{!! trans('product.category.title') !!}</div>
                 <div class="category-list">
                     {!! \App\Category::printList()!!}
                 </div>

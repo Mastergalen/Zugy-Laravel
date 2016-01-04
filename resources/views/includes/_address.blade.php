@@ -2,7 +2,9 @@
 <address>
     <b>{{$address->name}}</b>
     @if(isset($edit))
-        <b class="pull-right"><a href="#" class="btn-edit-address" data-address='{{$address}}'>Edit</a></b>
+        <b class="pull-right">
+            <a href="#" class="btn-edit-address" data-address='{{$address}}'>{!! trans('buttons.edit') !!}</a>
+        </b>
     @endif
     <br/>
     {{$address->line_1}} <br/>
@@ -13,5 +15,5 @@
     @if($address->delivery_instructions != "")<i>Delivery instructions:</i> {{$address->delivery_instructions}}@endif
 </address>
 @else
-    <p>No address set</p>
+    <p>{!! trans('address.empty') !!}</p>
 @endif

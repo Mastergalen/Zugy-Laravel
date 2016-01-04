@@ -18,11 +18,11 @@
     @endif
 
     @if(count($addresses) > 0)
-        <legend>Choose a delivery address</legend>
+        <legend>{!! trans('checkout.address.choose-delivery') !!}</legend>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="panel-title">
-                    Choose a delivery address
+                    {!! trans('checkout.address.choose-delivery') !!}
                 </div>
             </div>
             <div class="panel-body">
@@ -33,7 +33,7 @@
                             <div class="col-md-3">
                                 <input type="hidden" name=delivery[addressId]" value="{!! $a->id !!}">
                                 @include('includes._address', ['address' => $a, 'edit' => true])
-                                <button class="btn btn-primary btn-block"><i class="fa fa-truck"></i> Deliver to this address</button>
+                                <button class="btn btn-primary btn-block"><i class="fa fa-truck"></i> {!! trans('checkout.address.select-delivery') !!}</button>
                             </div>
                         </form>
                     @endforeach
@@ -43,41 +43,44 @@
 
         <div class="panel panel-default">
             <div class="panel-body">
-                <p><a href="#" id="btn-add-address">Deliver to a new address <i class="fa fa-caret-right"></i></a></p>
+                <p><a href="#" id="btn-add-address">{!! trans('checkout.address.deliver-new') !!} <i class="fa fa-caret-right"></i></a></p>
 
-                <p><span class="small">Add a new delivery address to your address book.</span></p>
+                <p><span class="small">{!! trans('checkout.address.deliver-new-desc') !!}</span></p>
             </div>
         </div>
     @endif
 
     <form action="{!! request()->url() !!}" method="POST" id="address-form" @if(count($addresses) > 0)style="display: none"@endif>
         {!! Form::token() !!}
-        <legend>Delivery Address</legend>
+        <legend>{!! trans('checkout.address.form.delivery') !!}</legend>
         @include('pages.checkout.partials.address-form', ['type' => 'delivery'])
 
-        <legend>Billing Address</legend>
+        <legend>{!! trans('checkout.address.form.billing') !!}</legend>
         <div class="form-group">
             <div class="checkbox">
                 <label for="billing-same">
-                    <input type="checkbox" name="delivery[billing_same]" id="billing-same" checked> Same as delivery address
+                    <input type="checkbox" name="delivery[billing_same]" id="billing-same" checked> {!! trans('checkout.address.form.same') !!}
                 </label>
             </div>
         </div>
         @include('pages.checkout.partials.address-form', ['type' => 'billing'])
         <div class="form-footer">
-            <div class="pull-left"> <a class="btn btn-footer" href="{!! localize_url('routes.shop.index') !!}"> <i class="fa fa-arrow-left"></i> &nbsp; Back to Shop </a> </div>
+            <div class="pull-left">
+                <a class="btn btn-footer" href="{!! localize_url('routes.shop.index') !!}">
+                    <i class="fa fa-arrow-left"></i> &nbsp; {!! trans('buttons.back-to-shop') !!}
+                </a>
+            </div>
             <div class="pull-right">
-                <button class="btn btn-primary" type="submit"><i class="fa fa-plus"></i> Add new address</button>
+                <button class="btn btn-primary" type="submit"><i class="fa fa-plus"></i> {!! trans('buttons.add-new-address') !!}</button>
             </div>
         </div>
-    {!! Form::close() !!}
+    </form>
 
     @include('pages.checkout.partials.address-modal')
 @endsection
 
 @section('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/formValidation.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/framework/bootstrap.js"></script>
+    <script src="/dist/js/formvalidation.js"></script>
     <script>
         $(document).on('ready pjax:success', function() {
             $('#billing-same').click(function () {
@@ -151,6 +154,7 @@
             });
 
             $('#address-form').formValidation({
+                locale: $('meta[name="og:locale"]').attr('content'),
                 framework: 'bootstrap',
                 fields: {
                     'name': {
@@ -231,7 +235,7 @@
                                 max:10
                             }
                         }
-                    },
+                    }
                 }
             });
         });
