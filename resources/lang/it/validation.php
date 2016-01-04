@@ -21,12 +21,10 @@ return [
     'alpha_num'            => ':attribute può contenere solo lettere e numeri.',
     'array'                => ':attribute deve essere un array.',
     'before'               => ':attribute deve essere una data precedente al :date.',
-    'between'              => [
-        'numeric' => ':attribute deve trovarsi tra :min - :max.',
-        'file'    => ':attribute deve trovarsi tra :min - :max kilobytes.',
-        'string'  => ':attribute deve trovarsi tra :min - :max caratteri.',
-        'array'   => ':attribute deve avere tra :min - :max elementi.',
-    ],
+    'between.numeric' => ':attribute deve trovarsi tra :min - :max.',
+    'between.file'    => ':attribute deve trovarsi tra :min - :max kilobytes.',
+    'between.string'  => ':attribute deve trovarsi tra :min - :max caratteri.',
+    'between.array'   => ':attribute deve avere tra :min - :max elementi.',
     'boolean'              => 'Il campo :attribute deve essere vero o falso.',
     'confirmed'            => 'Il campo di conferma per :attribute non coincide.',
     'date'                 => ':attribute non è una data valida.',
@@ -42,19 +40,15 @@ return [
     'integer'              => ':attribute deve essere un numero intero.',
     'ip'                   => ':attribute deve essere un indirizzo IP valido.',
     'json'                 => ':attribute deve essere una stringa JSON valida.',
-    'max'                  => [
-        'numeric' => ':attribute non può essere superiore a :max.',
-        'file'    => ':attribute non può essere superiore a :max kilobytes.',
-        'string'  => ':attribute non può contenere più di :max caratteri.',
-        'array'   => ':attribute non può avere più di :max elementi.',
-    ],
+    'max.numeric' => ':attribute non può essere superiore a :max.',
+    'max.file'    => ':attribute non può essere superiore a :max kilobytes.',
+    'max.string'  => ':attribute non può contenere più di :max caratteri.',
+    'max.array'   => ':attribute non può avere più di :max elementi.',
     'mimes'                => ':attribute deve essere del tipo: :values.',
-    'min'                  => [
-        'numeric' => ':attribute deve essere almeno :min.',
-        'file'    => ':attribute deve essere almeno di :min kilobytes.',
-        'string'  => ':attribute deve contenere almeno :min caratteri.',
-        'array'   => ':attribute deve avere almeno :min elementi.',
-    ],
+    'min.numeric' => ':attribute deve essere almeno :min.',
+    'min.file'    => ':attribute deve essere almeno di :min kilobytes.',
+    'min.string'  => ':attribute deve contenere almeno :min caratteri.',
+    'min.array'   => ':attribute deve avere almeno :min elementi.',
     'not_in'               => 'Il valore selezionato per :attribute non è valido.',
     'numeric'              => ':attribute deve essere un numero.',
     'regex'                => 'Il formato del campo :attribute non è valido.',
@@ -66,47 +60,13 @@ return [
     'required_without'     => 'Il campo :attribute è richiesto quando :values non è presente.',
     'required_without_all' => 'Il campo :attribute è richiesto quando nessuno di :values è presente.',
     'same'                 => ':attribute e :other devono coincidere.',
-    'size'                 => [
-        'numeric' => ':attribute deve essere :size.',
-        'file'    => ':attribute deve essere :size kilobytes.',
-        'string'  => ':attribute deve contenere :size caratteri.',
-        'array'   => ':attribute deve contenere :size elementi.',
-    ],
+    'size.numeric' => ':attribute deve essere :size.',
+    'size.file'    => ':attribute deve essere :size kilobytes.',
+    'size.string'  => ':attribute deve contenere :size caratteri.',
+    'size.array'   => ':attribute deve contenere :size elementi.',
     'string'               => ':attribute deve essere una stringa.',
     'timezone'             => ':attribute deve essere una zona valida.',
     'unique'               => ':attribute è stato già utilizzato.',
     'url'                  => 'Il formato del campo :attribute non è valido.',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
-    | specify a specific custom language line for a given attribute rule.
-    |
-    */
-
-    'custom'               => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Attributes
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used to swap attribute place-holders
-    | with something more reader friendly such as E-Mail Address instead
-    | of "email". This simply helps us make messages a little cleaner.
-    |
-    */
-
-    'attributes' => [
-        //
-    ],
 
 ];
