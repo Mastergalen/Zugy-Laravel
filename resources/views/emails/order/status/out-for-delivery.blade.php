@@ -4,25 +4,25 @@
     @parent
     <tr>
         <td class="content-block">
-            <h2>Your order is out for delivery!</h2>
+            <h2>{!! trans('order.email.delivery.subject', ['id' => $order->id]) !!}</h2>
         </td>
     </tr>
     <tr>
         <td class="content-block">
-            <p>Our driver is now on his way to you!</p>
-            <p>If anything goes wrong or we have trouble finding you, we will call you on your phone at <b>{{ $order->delivery_phone }}</b></p>
-            <p>You can track the current status of your order by clicking the button below.</p>
+            <p>{!! trans('order.email.delivery.driver') !!}</p>
+            <p>{!! trans('order.email.delivery.trouble', ['phone' => $order->delivery_phone]) !!}</p>
+            <p>{!! trans('order.email.track.description') !!}</p>
         </td>
     </tr>
     <tr>
         <td class="content-block aligncenter">
-            <a href="{!! localize_url('routes.order.show', ['id' => $order->id])  !!}" class="btn-primary">Track order</a>
+            <a href="{!! localize_url('routes.order.show', ['id' => $order->id])  !!}" class="btn-primary">{!! trans('order.email.track') !!}</a>
         </td>
     </tr>
     <tr>
         <td>
-            <b>Order number:</b> {!! $order->id !!}<br>
-            <b>Order date:</b> {!! $order->order_placed !!}
+            <b>{!! trans('order.number') !!}:</b> {!! $order->id !!}<br>
+            <b>{!! trans('order.date') !!}:</b> {!! $order->order_placed !!}
         </td>
     </tr>
     <tr>

@@ -17,4 +17,8 @@ return [
 
     'reset.title' => 'Reset Password',
     'reset.button' => 'Send Password Reset Link',
+    'reset.email.subject' => 'Your Password Reset Link',
+    'reset.email.click' => 'Click here to reset your password:',
+
+    'cookies-consent' => 'This website uses cookies to ensure you get the best experience on our website',
 ];

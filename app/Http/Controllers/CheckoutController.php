@@ -181,10 +181,10 @@ class CheckoutController extends Controller
         } catch(PaymentFailedException $e) {
             return redirect(localize_url('routes.checkout.review'))
                 ->withErrors([trans('checkout.payment.form.error.different', ['paymentUrl' => localize_url('routes.checkout.payment')])]);
-        }/* catch(\Exception $e) {
-            //FIXME Log this error and alert developer
-            return redirect()->back()->withErrors(['Uh oh! An unknown error occurred while placing your order.']);
-        } */
+        } catch(\Exception $e) {
+            \Log::alert($e->getMessage());
+            return redirect()->back()->withErrors([trans('errors.unknown')]);
+        }
 
         if(!$result instanceof Order) return $result;
 

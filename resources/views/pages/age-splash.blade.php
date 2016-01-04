@@ -1,5 +1,5 @@
 <?php $noindex = true; ?>
-@section('title', 'Please confirm your age')
+@section('title', trans('ageSplash.prompt'))
 
 @extends('layouts.barebones')
 
@@ -162,16 +162,16 @@
 
                 <div class="inner cover">
                     <h1 class="cover-heading"><img src="/img/zugy-navbar-logo.png" alt="Zugy Logo"></h1>
-                    <p class="lead">Please verify your age to enter.</p>
+                    <p class="lead">{!! trans('ageSplash.prompt') !!}</p>
                     <p class="lead">
-                        <a href="#" class="btn btn-lg btn-default" data-toggle="modal" data-target="#denial-modal">Under 18</a>
-                        <a href="#" class="btn btn-lg btn-default" id="btn-over-18">Over 18</a>
+                        <a href="#" class="btn btn-lg btn-default" data-toggle="modal" data-target="#denial-modal">{!! trans('ageSplash.under', ['age' => '18']) !!}</a>
+                        <a href="#" class="btn btn-lg btn-default" id="btn-over-18">{!! trans('ageSplash.over', ['age' => '18']) !!}</a>
                     </p>
                 </div>
 
                 <div class="mastfoot">
                     <div class="inner">
-                        <p>&copy; {!! config('site.name') !!} {!! date("Y") !!}. All rights reserved.</p>
+                        <p>&copy; {!! config('site.name') !!} {!! date("Y") !!}. {!! trans('footer.rights-reserved') !!}</p>
                     </div>
                 </div>
 
@@ -184,11 +184,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Over 18s only, sorry!</h4>
+                    <h4 class="modal-title">{!! trans('ageSplash.sorry.title') !!}</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Sorry, we only sell alcohol and deliver within an hour to those who are over the age of 18 only.</p>
-                    <p>We will, however, be there with you to celebrate your 18th B-Day!</p>
+                    <p>{!! trans('ageSplash.sorry.desc') !!}</p>
+                    <p>{!! trans('ageSplash.sorry.party') !!}</p>
                 </div>
             </div>
         </div>

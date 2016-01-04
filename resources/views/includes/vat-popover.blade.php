@@ -1,15 +1,15 @@
 <div id="vat-popover-template" style="display:none">
     <table class="table">
         <tr>
-            <td>Total before VAT</td>
+            <td>{!! trans('order.total-before-vat') !!}</td>
             <td class="price">{!! money_format("%i", $grandTotal - $vat)  !!}&euro;</td>
         </tr>
         <tr>
-            <td>VAT</td>
+            <td>{!! trans('order.vat') !!}</td>
             <td class="price">{!! money_format("%i", $vat) !!}&euro;</td>
         </tr>
         <tr class="total">
-            <td>Order Total</td>
+            <td>{!! trans('checkout.total') !!}</td>
             <td class="price">{!! money_format("%i", $grandTotal) !!}&euro;</td>
         </tr>
     </table>

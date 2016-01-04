@@ -4,23 +4,23 @@
     @parent
     <tr>
         <td class="content-block">
-            <h2>Your order was cancelled.</h2>
+            <h2>{!! trans('order.email.cancelled.subject', ['id' => $order->id]) !!}</h2>
         </td>
     </tr>
     <tr>
         <td class="content-block">
-            <p>If you have any questions regarding this cancellation you can reply to this email or call us at {!! config('site.phone') !!}.</p>
+            <p>{!! trans('order.email.cancelled.questions', ['phone' => config('site.phone')]) !!}</p>
         </td>
     </tr>
     <tr>
         <td class="content-block aligncenter">
-            <a href="{!! localize_url('routes.order.show', ['id' => $order->id])  !!}" class="btn-primary">Track order</a> <!-- TODO Add tracking order link -->
+            <a href="{!! localize_url('routes.order.show', ['id' => $order->id])  !!}" class="btn-primary">{!! trans('order.email.track') !!}</a>
         </td>
     </tr>
     <tr>
         <td>
-            <b>Order number:</b> {!! $order->id !!}<br>
-            <b>Order date:</b> {!! $order->order_placed !!}
+            <b>{!! trans('order.number') !!}:</b> {!! $order->id !!}<br>
+            <b>{!! trans('order.date') !!}:</b> {!! $order->order_placed !!}
         </td>
     </tr>
     <tr>

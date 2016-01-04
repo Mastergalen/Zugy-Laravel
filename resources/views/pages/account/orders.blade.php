@@ -4,12 +4,12 @@
 
 @section('content')
     <ul class="breadcrumb">
-        <li><a href="{!! localize_url('routes.account.index') !!}">Your Account</a></li>
-        <li class="active">Your orders</li>
+        <li><a href="{!! localize_url('routes.account.index') !!}">{!! trans('your-account.title') !!}</a></li>
+        <li class="active">{!! trans('your-account.orders') !!}</li>
     </ul>
 
     <div class="page-header">
-        <h1>Your orders</h1>
+        <h1>{!! trans('your-account.orders') !!}</h1>
     </div>
 
     @foreach($orders as $o)
@@ -17,13 +17,13 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-md-2">
-                        <p>Order placed: <br>{{$o->order_placed->toFormattedDateString()}}</p>
+                        <p>{!! trans('order.date') !!}: <br>{{$o->order_placed->toFormattedDateString()}}</p>
                     </div>
                     <div class="col-md-2">
-                        <p>Order total: <br>{{$o->total}}&euro;</p>
+                        <p>{!! trans('checkout.total') !!}: <br>{{$o->total}}&euro;</p>
                     </div>
                     <div class="col-md-2">
-                        <p>Dispatch to: <br>{{$o->delivery_name}}</p></div>
+                        <p>{!! trans('your-account.orders.dispatch-to') !!}: <br>{{$o->delivery_name}}</p></div>
                     </div>
             </div>
             <div class="panel-body">
@@ -33,8 +33,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="btn-block">
-                            <a href="{!! localize_url('routes.order.show', ['id' => $o->id]) !!}" class="btn btn-primary btn-block">Track order</a>
-                            <a href="#" class="btn btn-danger btn-xs btn-block">Cancel order</a>
+                            <a href="{!! localize_url('routes.order.show', ['id' => $o->id]) !!}" class="btn btn-primary btn-block">{!! trans('order.email.track') !!}</a>
                         </div>
                     </div>
                 </div>

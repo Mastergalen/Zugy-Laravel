@@ -1,14 +1,14 @@
 @extends('admin.layouts.default')
 
-@section('title', 'Orders')
+@section('title', trans('admin.orders.title'))
 
 @section('header')
-    <h1><i class="fa fa-book"></i> Orders</h1>
+    <h1><i class="fa fa-book"></i> {!! trans('admin.orders.title') !!}</h1>
 @endsection
 
 @section('breadcrumb')
     <li class="active">
-        <strong>Orders</strong>
+        <strong>{!! trans('admin.orders.title') !!}</strong>
     </li>
 @endsection
 
@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <input type="text" name="order-id" id="order-id" value=""
-                                                     placeholder="Order ID"
+                                                     placeholder="{!! trans('admin.orders.form.id.label') !!}"
                                                      class="form-control">
                         <span class="input-group-btn">
                             <button class="btn btn-default"><i class="fa fa-eye"></i></button>
@@ -28,13 +28,13 @@
                 </div>
                 <a href="{!! action('Admin\OrderController@index', ['filter' => 'incomplete']) !!}"
                         class="btn btn-primary">
-                    <i class="fa fa-filter"></i> Filter incomplete
+                    <i class="fa fa-filter"></i> {!! trans('admin.orders.filter.incomplete') !!}
                 </a>
             </form>
             <hr>
             @if(request()->has('filter'))
                 <div class="alert alert-info">
-                    Currently showing incomplete orders only.
+                    {!! trans('admin.order.filters.incomplete.info') !!}
                 </div>
             @endif
         </div>

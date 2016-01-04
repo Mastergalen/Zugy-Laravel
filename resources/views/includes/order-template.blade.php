@@ -13,6 +13,7 @@
     <div class="col-md-3">
         <h4>Payment method</h4>
         @include('includes.payment-method', ['payment' => $order->payment->getFormatted()])
+        @include('includes.status.payment-status', ['status' => $order->payment->status])
     </div>
     <div class="col-md-3">
         <h4>Billing address</h4>

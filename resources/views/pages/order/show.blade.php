@@ -8,11 +8,11 @@
 
 @section('content')
     <div class="page-header">
-        <h1><i class="fa fa-shopping-cart"></i> Order [#{!! $order->id !!}] details</h1>
+        <h1><i class="fa fa-shopping-cart"></i> {!! trans('order.details') !!} [#{!! $order->id !!}]</h1>
     </div>
-    <p>Ordered on {!! $order->order_placed->toFormattedDateString() !!}</p>
+    <p>{!! trans('order.date') !!}: {!! $order->order_placed->toFormattedDateString() !!}</p>
 
-    <p>Order status: <!--TODO more pretty tracking -->
+    <p>{!! trans('forms.status') !!}:
         @include('includes.status.order-status', ['status' => $order->order_status])
     </p>
 
@@ -22,7 +22,7 @@
         @include('includes.order-template')
     @else
         @if(auth()->guest())
-            <div class="well"><a href="{!! route('login') !!}">Sign in</a> to view more information on your order.</div>
+            <div class="well">{!! trans('order.sign-in', ['loginUrl' => route('login', ['intended' => request()->url()])]) !!}</div>
         @endif
     @endcan
 

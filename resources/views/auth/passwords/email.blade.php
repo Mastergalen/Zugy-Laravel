@@ -1,4 +1,4 @@
-@section('title', 'Reset password')
+@section('title', trans('auth.reset.title'))
 
 @extends('layouts.default')
 

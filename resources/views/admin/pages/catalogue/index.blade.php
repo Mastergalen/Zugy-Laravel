@@ -19,15 +19,15 @@
                 <div class="col-sm-4">
                     <form action="" method="GET">
                         <div class="form-group">
-                            <label class="control-label" for="product_name">Product Name</label>
+                            <label class="control-label" for="product_name">{!! trans('product.form.name.label') !!}</label>
                             <div class="input-group">
                                 <input type="text" id="product_name" name="product_name" value=""
-                                       placeholder="Product Name"
+                                       placeholder="{!! trans('product.form.name.label') !!}"
                                        class="form-control">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default"><i class="fa fa-search"></i>
-                                                    </button>
-                                                </span>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default"><i class="fa fa-search"></i>
+                                    </button>
+                                </span>
                             </div>
                         </div>
                     </form>
@@ -35,14 +35,14 @@
                 <div class="col-sm-2">
                     <a href="{!! action('Admin\CatalogueController@create') !!}" class="btn btn-primary"
                        style="margin-top: 23px">
-                        <i class="fa fa-plus"></i> Add a product
+                        <i class="fa fa-plus"></i> {!! trans('product.form.add.label') !!}
                     </a>
                 </div>
             </div>
 
             @if(request()->has('product_name'))
                 <div class="alert alert-info">
-                    Searching for <b>{{ request('product_name') }}</b>. {{ count($products) }} result(s) found.
+                    {!! trans('product.filter.search', ['name' => request('product_name'), 'count' => count($products)]) !!}
                 </div>
             @endif
         </div>
@@ -51,12 +51,12 @@
             <table class="table table-stripped">
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Status</th>
-                    <th>Action</th>
+                    <th>#</th>
+                    <th>{!! trans('product.form.name.label') !!}</th>
+                    <th>{!! trans('product.price') !!}</th>
+                    <th>{!! trans('product.stock') !!}</th>
+                    <th>{!! trans('forms.status') !!}</th>
+                    <th>{!! trans('forms.action') !!}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -70,8 +70,8 @@
                         <td>{{ $p['status'] }}</td>
                         <td class="text-right">
                             <div class="btn-group">
-                                <a href="{!! $p->getUrl() !!}" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> View</a>
-                                <a href="{!! action('Admin\CatalogueController@edit', $p->id) !!}" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i> Edit</a>
+                                <a href="{!! $p->getUrl() !!}" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> {!! trans('buttons.view') !!}</a>
+                                <a href="{!! action('Admin\CatalogueController@edit', $p->id) !!}" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i> {!! trans('buttons.edit') !!}</a>
                             </div>
                         </td>
 

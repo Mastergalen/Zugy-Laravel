@@ -3,10 +3,10 @@
         <td>
             <table class="invoice-items" cellpadding="0" cellspacing="0">
                 <thead>
-                <th>Item</th>
-                <th>Qty</th>
-                <th>Price</th>
-                <th>Total</th>
+                <th>{!! trans('product.product') !!}</th>
+                <th>{!! trans('product.quantity') !!}</th>
+                <th>{!! trans('product.price') !!}</th>
+                <th>{!! trans('checkout.total') !!}</th>
                 </thead>
                 @foreach($order->items as $i)
                     <tr>
@@ -17,13 +17,13 @@
                     </tr>
                 @endforeach
                 <tr>
-                    <td>Shipping</td>
+                    <td>{!! trans('checkout.shipping') !!}</td>
                     <td></td>
                     <td></td>
                     <td>{!! money_format("%i", $order->shipping_fee) !!}&euro;</td>
                 </tr>
                 <tr class="total">
-                    <td colspan="3">Total paid</td>
+                    <td colspan="3">{!! trans('order.email.confirmation.paid') !!}</td>
                     <td>{!! money_format("%i", $order->total + $order->shipping_fee) !!}&euro;</td>
                 </tr>
             </table>

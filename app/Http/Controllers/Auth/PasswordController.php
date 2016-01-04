@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 
 class PasswordController extends Controller
 {
@@ -33,5 +34,15 @@ class PasswordController extends Controller
     public function redirectPath()
     {
         return localize_url('routes.account.index');
+    }
+
+    public function getEmailSubject()
+    {
+        return trans('auth.reset.email.subject');
+    }
+
+    public function getReset(Request $request, $token = null)
+    {
+        return $this->showResetForm($request, $token);
     }
 }

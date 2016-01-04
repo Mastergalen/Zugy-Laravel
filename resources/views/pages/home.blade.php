@@ -1,4 +1,6 @@
-@section('title', 'Zugy - Alcohol Delivery on-demand for Milan')
+@section('title', trans('pages.home.meta-title'))
+
+@section('meta_description', trans('pages.home.meta_description'))
 
 @extends('layouts.master')
 

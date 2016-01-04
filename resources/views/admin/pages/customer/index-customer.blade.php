@@ -1,14 +1,14 @@
 @extends('admin.layouts.default')
 
-@section('title', 'Customer')
+@section('title', trans('admin.customers.title'))
 
 @section('header')
-    <h1><i class="fa fa-users"></i> Customers</h1>
+    <h1><i class="fa fa-users"></i> {!! trans('admin.customers.title') !!}</h1>
 @endsection
 
 @section('breadcrumb')
     <li class="active">
-        <strong>Customers</strong>
+        <strong>{!! trans('admin.customers.title') !!}</strong>
     </li>
 @endsection
 
@@ -19,9 +19,9 @@
                 <div class="col-sm-4">
                     <form action="" method="GET">
                         <div class="form-group">
-                            <label class="control-label" for="product_name">Customer Name</label>
+                            <label class="control-label" for="product_name">{!! trans('admin.customers.name.label') !!}</label>
                             <div class="input-group">
-                                <input type="text" name="name" placeholder="Customer Name" class="form-control">
+                                <input type="text" name="name" placeholder="{!! trans('admin.customers.name.label') !!}" class="form-control">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default">
                                         <i class="fa fa-search"></i>
@@ -44,11 +44,11 @@
             <table class="table table-stripped">
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Orders</th>
-                    <th>Total spent</th>
-                    <th>Action</th>
+                    <th>#</th>
+                    <th>{!! trans('admin.customers.name.label') !!}</th>
+                    <th>{!! trans('admin.orders.title') !!}</th>
+                    <th>{!! trans('admin.customers.total') !!}</th>
+                    <th>{!! trans('forms.action') !!}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -61,7 +61,7 @@
                         <td>{!! money_format("%i", $c->orders->sum('grand_total')) !!}&euro;</td>
                         <td class="text-right">
                             <div class="btn-group">
-                                <a href="{!! action('Admin\CustomerController@show', $c->id) !!}" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> View</a>
+                                <a href="{!! action('Admin\CustomerController@show', $c->id) !!}" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> {!! trans('buttons.view') !!}</a>
                             </div>
                         </td>
                     </tr>

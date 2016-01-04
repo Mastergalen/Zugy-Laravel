@@ -12,4 +12,12 @@ return [
     'add-new-address' => 'Add new address',
     'change' => 'Change',
     'login' => 'Login',
+    'more-info' => 'More info',
+    'got-it' => 'Got it!',
+    'toggle-navigation' => 'Toggle navigation',
+    'view' => 'View',
+    'mark-as' => 'Mark as...',
+    'update' => 'Update',
+    'show-google-maps' => 'Show on Google Maps',
+    'save' => 'Save',
 ];

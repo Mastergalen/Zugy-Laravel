@@ -82,27 +82,28 @@ function() {
     Route::get(Localization::transRoute('routes.privacy-policy'), function() {
         return view('pages.privacy-policy');
     });
+
+    Route::group(['prefix' => 'auth'], function () {
+        Route::get('login', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
+        Route::post('login', ['uses' => 'Auth\AuthController@postLogin']);
+
+        Route::get('register', ['uses' => 'Auth\AuthController@getRegister']);
+        Route::post('register', ['uses' => 'Auth\AuthController@postRegister']);
+
+        /*
+         * Password reset
+         */
+        Route::get('password/email', ['uses' => 'Auth\PasswordController@getEmail']);
+        Route::post('password/email', ['uses' => 'Auth\PasswordController@postEmail']);
+        Route::get('password/reset/{token}', ['uses' => 'Auth\PasswordController@getReset']);
+        Route::post('password/reset', ['uses' => 'Auth\PasswordController@postReset']);
+    });
 });
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::get('login', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
     Route::get('login/facebook', 'Auth\AuthController@facebookLogin');
     Route::get('login/google', 'Auth\AuthController@googleLogin');
-
-    Route::post('login', ['uses' => 'Auth\AuthController@postLogin']);
-
-    Route::get('register', ['uses' => 'Auth\AuthController@getRegister']);
-    Route::post('register', ['uses' => 'Auth\AuthController@postRegister']);
-
     Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
-
-    /*
-     * Password reset
-     */
-    Route::get('password/email', ['uses' => 'Auth\PasswordController@getEmail']);
-    Route::post('password/email', ['uses' => 'Auth\PasswordController@postEmail']);
-    Route::get('password/reset/{token}', ['uses' => 'Auth\PasswordController@getReset']);
-    Route::post('password/reset', ['uses' => 'Auth\PasswordController@postReset']);
 });
 
 /* API */
@@ -120,7 +121,6 @@ Route::group(['prefix' => 'api'], function () {
     });
 });
 
-//TODO Change middleware to admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('', ['uses' => 'Admin\DashboardController@getDashboard']);
 

@@ -70,6 +70,10 @@ class AuthController extends Controller
     }
 
     public function getLogin(Request $request) {
+        if($request->has('intended')) {
+            session()->put('url.intended', $request->input('intended'));
+        }
+
         return view('auth.login');
     }
 

@@ -9,16 +9,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class SendOrderStatusMail
 {
     /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Handle the event.
      *
      * @param  OrderStatusChanged $event
@@ -29,11 +19,11 @@ class SendOrderStatusMail
         switch($event->order->order_status) {
             case 2: //Out for delivery
                 $view = 'emails.order.status.out-for-delivery';
-                $subject = "Your Zugy order [#{$event->order->id}] is out for delivery";
+                $subject = trans('order.email.delivery.subject', ['id' => $event->order->id]);
                 break;
             case 4: //Cancelled
                 $view = 'emails.order.status.cancelled';
-                $subject = "Your Zugy order [#{$event->order->id}] was cancelled";
+                $subject = trans('order.email.delivery.subject', ['id' => $event->order->id]);
                 break;
             default:
                 return;

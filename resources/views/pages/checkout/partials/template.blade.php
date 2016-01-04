@@ -1,4 +1,4 @@
 <?php $noindex = true; ?>
-@section('title', 'Checkout')
+@section('title', trans('checkout.title'))
 
 @extends('layouts.default')

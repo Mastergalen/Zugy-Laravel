@@ -67,7 +67,7 @@
 
             <div class="box box-default">
                 <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-image"></i> Upload images</h3>
+                    <h3 class="box-title"><i class="fa fa-image"></i> {!! trans('admin.upload-images') !!}</h3>
 
                     <div class="box-tools pull-right">
                         <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -93,11 +93,11 @@
 
             <div class="box box-default">
                 <div class="box-body">
-                    <legend><i class="fa fa-dollar"></i> Pricing</legend>
+                    <legend><i class="fa fa-dollar"></i> {!! trans('admin.pricing') !!}</legend>
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="price">Price (incl. tax)</label>
+                                <label for="price">{!! trans('product.price') !!} ({!! trans('admin.incl-tax') !!})</label>
 
                                 <div class="input-group">
                                     <span class="input-group-addon">&euro;</span>
@@ -107,7 +107,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="compare_price">Compare at price</label>
+                                <label for="compare_price">{!! trans('admin.compare-price.label') !!}</label>
 
                                 <div class="input-group">
                                     <span class="input-group-addon">&euro;</span>
@@ -118,19 +118,19 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="tax_class_id">Tax class</label>
+                        <label for="tax_class_id">{!! trans('admin.tax_class') !!}</label>
                         {!! Form::select('tax_class_id', $TaxClass::pluck('title', 'id'), null, ['class' => 'form-control']) !!}
                     </div>
 
                     <legend><i class="fa fa-archive"></i> Inventory</legend>
                     <div class="form-group">
-                        <label for="stock">Set stock quantity</label>
+                        <label for="stock">{!! trans('product.stock') !!}</label>
                         {!! Form::text('stock_quantity', Input::old('stock_quantity'), ['class' => 'form-control', 'type' => 'number', 'step' => 1, 'min' => '0', 'required' => 'required']) !!}
                     </div>
 
-                    <legend>Attributes</legend>
+                    <legend>{!! trans('admin.attributes.legend') !!}</legend>
                     <div class="form-horizontal" id="attributes-container">
-                        <p class="help-text">Give the product attributes like volume, alcohol content, etc.</p>
+                        <p class="help-text">{!! trans('admin.attributes.desc') !!}</p>
                         @foreach($attributes as $a)
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">{{ $a['name'] }}</label>
@@ -153,15 +153,15 @@
         <div class="col-lg-4">
             <div class="box box-default">
                 <div class="box-header">
-                    <h5>Organisation</h5>
+                    <h5>{!! trans('admin.organisation') !!}</h5>
                 </div>
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="category">Product category</label>
+                        <label for="category">{!! trans('product.category.title') !!}</label>
                         {!! Form::select('category_id', $Category->printSelect(), Input::old('category_id', $category['id']), ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Save product</button>
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {!! trans('buttons.save') !!}</button>
                     </div>
                 </div>
             </div>

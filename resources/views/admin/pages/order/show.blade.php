@@ -1,15 +1,15 @@
 @extends('admin.layouts.default')
 
-@section('title', "Order [#{$order->id}]" )
+@section('title', trans('admin.orders.show.title') . " [#{$order->id}]" )
 
 @section('header')
-    <h1><i class="fa fa-book"></i> Order [#{{$order->id}}]</h1>
+    <h1><i class="fa fa-book"></i> {!! trans('admin.orders.show.title') !!} [#{{$order->id}}]</h1>
 @endsection
 
 @section('breadcrumb')
-    <li><a href="{!! action('Admin\OrderController@index') !!}">Orders</a></li>
+    <li><a href="{!! action('Admin\OrderController@index') !!}">{!! trans('admin.orders.title') !!}</a></li>
     <li class="active">
-        <strong>Order [#{{$order->id}}]</strong>
+        <strong>{!! trans('admin.orders.show.title') !!} [#{{$order->id}}]</strong>
     </li>
 @endsection
 
@@ -18,14 +18,20 @@
         <div class="col-md-3 col-md-push-9">
             <div class="box box-default">
                 <div class="box-body">
-                    <h3>Order actions</h3>
+                    <h3>{!! trans('forms.action') !!}</h3>
                     <form id="btn-update-status-form">
                         <div class="form-group">
-                            <label for="">Mark as...</label>
+                            <label for="">{!! trans('buttons.mark-as') !!}</label>
                             {!! Form::hidden('id', $order->id) !!}
-                            {!! Form::select('order_status', [null => "Actions", '1' => 'Processing', '2' => 'Out for delivery', '3' => 'Delivered', '4' => 'Cancelled'], null, ['class' => 'form-control']) !!}
+                            {!! Form::select('order_status', [
+                                null => trans('forms.action'),
+                                '1' => trans('order.status.1'),
+                                '2' => trans('order.status.2'),
+                                '3' => trans('order.status.3'),
+                                '4' => trans('order.status.4')
+                            ], null, ['class' => 'form-control']) !!}
                         </div>
-                        <button type="submit" class="btn btn-primary pull-right">Update order</button>
+                        <button type="submit" class="btn btn-primary pull-right">{!! trans('buttons.update') !!}</button>
                     </form>
                 </div>
             </div>
@@ -36,13 +42,13 @@
                     @include('includes.status.order-status', ['status' => $order->order_status, 'type' => 'callout'])
                     <div class="row">
                         <div class="col-md-4">
-                            <h4>Order details</h4>
+                            <h4>{!! trans('admin.details') !!}</h4>
                             <dl>
-                                <dt>Order placed:</dt>
+                                <dt>{!! trans('order.date') !!}</dt>
                                 <dd>{{ $order->order_placed }}</dd>
                                 <dd>{{ $order->order_placed->diffForHumans() }}</dd>
 
-                                <dt>Placed by:</dt>
+                                <dt>{!! trans('admin.orders.placed-by') !!}:</dt>
                                 <dd>
                                     <a href="{!! action('Admin\CustomerController@show', ['id' => $order->user->id]) !!}">
                                         {{ $order->user->name }}
@@ -50,30 +56,30 @@
                                 </dd>
 
                                 @if($order->payment->paid)
-                                    <dt>Paid:</dt>
+                                    <dt>{!! trans('admin.orders.paid') !!}:</dt>
                                     <dd>{{ $order->payment->paid }}</dd>
                                 @endif
 
                                 @if($order->order_completed)
-                                    <dt>Order completed:</dt>
+                                    <dt>{!! trans('order.completed') !!}:</dt>
                                     <dd>{{ $order->order_completed }}</dd>
                                 @endif
                             </dl>
                         </div>
                         <div class="col-md-4">
-                            <h4>Delivery address</h4>
+                            <h4>{!! trans('checkout.address.form.delivery') !!}</h4>
                             <address>
                                 {{ $order->delivery_name }}<br>
                                 {{ $order->delivery_line_1 }}<br>
                                 @if($order->delivery_line_2 != ""){{$order->delivery_line_2}}<br>@endif
                                 {{$order->delivery_city}}, {{$order->delivery_postcode}}<br>
                                 <i class="fa fa-phone"></i> {{$order->delivery_phone}}<br>
-                                @if($order->delivery_instructions != "")Delivery instructions: {{$order->delivery_instructions}}<br>@endif
+                                @if($order->delivery_instructions != ""){!! trans('checkout.address.form.instructions') !!}: {{$order->delivery_instructions}}<br>@endif
                             </address>
-                            <p><a href="{!! Maps::getGoogleMapsUrl($order->delivery_line_1, $order->delivery_line_2, $order->delivery_city, $order->delivery_postcode) !!}" class="btn btn-primary" target="_blank"><i class="fa fa-map-marker"></i> Show on Google Maps</a></p>
+                            <p><a href="{!! Maps::getGoogleMapsUrl($order->delivery_line_1, $order->delivery_line_2, $order->delivery_city, $order->delivery_postcode) !!}" class="btn btn-primary" target="_blank"><i class="fa fa-map-marker"></i> {!! trans('buttons.show-google-maps') !!}</a></p>
                         </div>
                         <div class="col-md-4">
-                            <h4>Payment method</h4>
+                            <h4>{!! trans('checkout.payment.title') !!}</h4>
                             @include('includes.payment-method', ['payment' => $order->payment->getFormatted()])
                             @include('includes.status.payment-status', ['status' => $order->payment->status])
 
@@ -88,7 +94,7 @@
 
                     <hr>
 
-                    <h2>Items</h2>
+                    <h2>{!! trans('checkout.items') !!}</h2>
                     @foreach($order->items as $item)
                         <div class="panel panel-default">
                             <div class="panel-body">
@@ -106,7 +112,7 @@
 
                                             <div class="price">{{ money_format("%i", $item->price) }}&euro;</div>
 
-                                            <p><b>Quantity: </b>{!! $item->quantity !!}</p>
+                                            <p><b>{!! trans('product.quantity') !!}: </b>{!! $item->quantity !!}</p>
                                         </div>
                                     </div>
 
@@ -115,21 +121,21 @@
                         </div>
                     @endforeach
 
-                    <h4>Order summary</h4>
+                    <h4>{!! trans('order.summary') !!}</h4>
                     @include('includes.order-summary',  ['total' => $order->total, 'shipping' => $order->shipping_fee, 'grandTotal' => $order->grandTotal])
                 </div>
             </div>
 
             <div class="box box-default">
                 <div class="box-header">
-                    <h3>Order History</h3>
+                    <h3>{!! trans('order.history') !!}</h3>
                 </div>
                 <div class="box-body no-padding">
                     <table class="table">
                         <thead>
-                        <th>Time</th>
-                        <th>User</th>
-                        <th>Description</th>
+                        <th>{!! trans('admin.time') !!}</th>
+                        <th>{!! trans('admin.user') !!}</th>
+                        <th>{!! trans('admin.description') !!}</th>
                         </thead>
                         <tbody>
                         @foreach(ActivityLogParser::order($order->activity) as $a)
@@ -162,7 +168,7 @@
             var statusText = $(this).find('select[name="order_status"] option:selected').text();
 
             swal({
-                title: 'Mark this order as ' + statusText + '?',
+                title: '{!! trans('buttons.mark-as') !!} ' + statusText + '?',
                 type: 'warning',
                 showCancelButton: true,
                 showLoaderOnConfirm: true

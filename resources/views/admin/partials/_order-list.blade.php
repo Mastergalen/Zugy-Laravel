@@ -2,10 +2,10 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Order Placed</th>
-            <th>Total</th>
-            <th>Status</th>
-            <th>Action</th>
+            <th>{!! trans('order.date') !!}</th>
+            <th>{!! trans('checkout.total') !!}</th>
+            <th>{!! trans('forms.status') !!}</th>
+            <th>{!! trans('forms.action') !!}</th>
         </tr>
     </thead>
     <tbody>
@@ -17,7 +17,7 @@
                 <td>@include('includes.status.order-status', ['status' => $o['order_status']])</td>
                 <td class="text-right">
                     <div class="btn-group">
-                        <a href="{!! action('Admin\OrderController@show', $o->id) !!}" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> View</a>
+                        <a href="{!! action('Admin\OrderController@show', $o->id) !!}" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> {!! trans('buttons.view') !!}</a>
                     </div>
                 </td>
             </tr>

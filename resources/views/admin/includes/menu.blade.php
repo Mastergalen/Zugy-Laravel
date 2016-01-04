@@ -1,13 +1,13 @@
 <li>
     <a href="/admin">
         <i class="fa fa-dashboard"></i>
-        <span>Dashboard</span>
+        <span>{!! trans('admin.dashboard.title') !!}</span>
     </a>
 </li>
 <li>
     <a href="{!! action('Admin\OrderController@index') !!}">
         <i class="fa fa-file-text"></i>
-        <span>Orders</span>
+        <span>{!! trans('admin.orders.title') !!}</span>
         <?php $orderUnprocessedCount = \App\Order::incomplete()->count() ?>
 
         @if($orderUnprocessedCount === 0)
@@ -18,23 +18,23 @@
     </a>
 </li>
 <li>
-    <a href="{!! action('Admin\CatalogueController@index') !!}"><i class="fa fa-book"></i> <span>Catalogue</span> </a>
+    <a href="{!! action('Admin\CatalogueController@index') !!}"><i class="fa fa-book"></i> <span>{!! trans('admin.catalogue.title') !!}</span> </a>
 </li>
 <li>
-    <a href="{!! action('Admin\CustomerController@index') !!}"><i class="fa fa-users"></i> <span>Customers</span> </a>
+    <a href="{!! action('Admin\CustomerController@index') !!}"><i class="fa fa-users"></i> <span>{!! trans('admin.customers.title') !!}</span> </a>
 </li>
 
 <li>
-    <a href="{!! localize_url('routes.shop.index') !!}" target="_blank"><i class="fa fa-external-link"></i> <span>Shop</span></a>
+    <a href="{!! localize_url('routes.shop.index') !!}" target="_blank"><i class="fa fa-external-link"></i> <span>{!! trans('menu.shop') !!}</span></a>
 </li>
 
 <li>
     <a href="#">
         <i class="fa fa-cog"></i>
-        <span>Settings</span>
+        <span>{!! trans('menu.admin.settings') !!}</span>
         <i class="fa fa-angle-left pull-right"></i>
     </a>
     <ul class="treeview-menu">
-        <li><a href="/admin/settings/tax"><i class="fa">%</i> Tax</a></li>
+        <li><a href="/admin/settings/tax"><i class="fa">%</i> {!! trans('menu.admin.settings.tax') !!}</a></li>
     </ul>
 </li>

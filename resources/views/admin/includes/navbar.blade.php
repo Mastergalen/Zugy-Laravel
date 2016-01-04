@@ -1,5 +1,5 @@
 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-    <span class="sr-only">Toggle navigation</span>
+    <span class="sr-only">{!! trans('buttons.toggle-navigation') !!}</span>
 </a>
 
 <div class="navbar-custom-menu">
@@ -19,7 +19,7 @@
                 <!-- Menu Footer-->
                 <li class="user-footer">
                     <div style="text-align: center">
-                        <a href="{{ route('logout')  }}" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i> Sign out</a>
+                        <a href="{{ route('logout')  }}" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i> {!! trans('menu.sign-out') !!}</a>
                     </div>
                 </li>
             </ul>

@@ -1,4 +1,4 @@
-@section('title', 'Select payment method')
+@section('title', trans('checkout.payment.form.title'))
 @extends('pages.checkout.partials.template')
 
 @section('css')
@@ -331,9 +331,23 @@
         function stripeResponseHandler(status, response) {
             var $form = $('#stripe-form');
 
+            var errorMessages = {
+                invalid_number:       "{!! trans('stripe.invalid_number') !!}",
+                invalid_expiry_month: "{!! trans('stripe.invalid_expiry_month') !!}",
+                invalid_expiry_year:  "{!! trans('stripe.invalid_expiry_year') !!}",
+                invalid_cvc:          "{!! trans('stripe.invalid_cvc') !!}",
+                incorrect_number:     "{!! trans('stripe.incorrect_number') !!}",
+                expired_card:         "{!! trans('stripe.expired_card') !!}",
+                incorrect_cvc:        "{!! trans('stripe.incorrect_cvc') !!}",
+                incorrect_zip:        "{!! trans('stripe.incorrect_zip') !!}",
+                card_declined:        "{!! trans('stripe.card_declined') !!}",
+                missing:              "{!! trans('stripe.missing') !!}",
+                processing_error:     "{!! trans('stripe.processing_error') !!}"
+            };
+
             if (response.error) {
                 // Show the errors on the form
-                $form.find('.payment-errors').text(response.error.message);
+                $form.find('.payment-errors').text(errorMessages[response.error.code]);
                 $form.find('button').prop('disabled', false);
             } else {
                 // response contains id and card, which contains additional card details

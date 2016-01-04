@@ -8,4 +8,8 @@ return [
     'your-account' => 'Your account',
     'account-settings' => 'Account settings',
     'cart' => 'Cart',
+    'shop' => 'Shop',
+
+    'admin.settings' => 'Settings',
+    'admin.settings.tax' => 'Tax',
 ];

@@ -14,13 +14,13 @@
                 <div class="inner">
                     <h3>{{ $orders->incomplete()->count() }}</h3>
 
-                    <p>Incomplete Orders</p>
+                    <p>{!! trans('admin.incomplete-orders') !!}</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-shopping-cart"></i>
                 </div>
                 <a href="{!! action('Admin\OrderController@index', ['filter' => 'incomplete']) !!}" class="small-box-footer">
-                    More info <i class="fa fa-arrow-circle-right"></i>
+                    {!! trans('buttons.more-info') !!} <i class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div>
@@ -31,7 +31,7 @@
                 <div class="inner">
                     <h3>{{ money_format("%i", $revenueYesterday) }}&euro;</h3>
 
-                    <p>Revenue yesterday</p>
+                    <p>{!! trans('admin.revenue-yesterday') !!}</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-dollar"></i>

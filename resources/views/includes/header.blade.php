@@ -28,7 +28,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="/"><i class="fa fa-home"></i> {!! trans('pages.home.title') !!}</a></li>
                 <li class="dropdown mega-dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Shop<b class="caret"></b></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> {!! trans('menu.shop') !!}<b class="caret"></b></a>
 
                     <ul class="dropdown-menu mega-dropdown-menu row" role="menu">
                         @include('includes.mega-dropdown')
@@ -52,15 +52,11 @@
                     </a>
                 </li>
                 @if (!auth()->guest())
-                    @if(Auth::user()->group_id === 1) {{-- If in admin goup --}}
-                        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                    @endif
-
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="{!! localize_url('routes.account.settings') !!}"><i class="fa fa-user"></i> My account <b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="{!! localize_url('routes.account.settings') !!}"><i class="fa fa-user"></i> {!! trans('menu.my-account') !!} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             @if(auth()->user()->isAdmin)
-                                <li><a href="/admin"><i class="fa fa-dashboard"></i> Admin Dashboard</a></li>
+                                <li><a href="/admin"><i class="fa fa-dashboard"></i> {!! trans('menu.admin-dashboard') !!}</a></li>
                                 <li class="divider"></li>
                             @endif
                             <li><a href="{!! localize_url('routes.account.index') !!}"><i class="fa fa-user"></i> {!! trans('menu.your-account') !!}</a></li>
@@ -105,5 +101,5 @@
 </div><!--/Navigation Bar-->
 
 <div class="container">
-    <noscript><div class="alert" id="javascriptWarning">You need to enable Javascript in order to properly experience the site.</div></noscript>
+    <noscript><div class="alert" id="javascriptWarning">You need to enable Javascript in order to use this site.</div></noscript>
 </div>

@@ -15,7 +15,7 @@
 
                         <div class="price">{{ money_format("%i", $item->price) }}&euro;</div>
 
-                        <p><b>Quantity: </b>{!! $item->quantity !!}</p>
+                        <p><b>{!! trans('product.quantity') !!}: </b>{!! $item->quantity !!}</p>
                     </div>
                 </div>
 

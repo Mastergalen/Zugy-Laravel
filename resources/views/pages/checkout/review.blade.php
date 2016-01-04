@@ -1,4 +1,4 @@
-@section('title', 'Review order')
+@section('title', trans('checkout.review.title'))
 @extends('pages.checkout.partials.template')
 
 @section('css')
