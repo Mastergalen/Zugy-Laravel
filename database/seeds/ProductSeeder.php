@@ -33,7 +33,7 @@ class ProductSeeder extends Seeder
         $product->attributes()->attach(2, ['value' => 40.0]); //% Vol
 
         $img = Storage::disk('public')->get('img/demo/products/absolut-vodka/absolut-vodka.jpeg');
-        Storage::disk('uploads')->put('demo/absolut-vodka/absolut-vodka.jpeg', $img);
+        Storage::disk(env('FILE_DISC'))->put('demo/absolut-vodka/absolut-vodka.jpeg', $img);
 
         $product->images()->create([
            'location' => 'demo/absolut-vodka/absolut-vodka.jpeg'
@@ -68,7 +68,7 @@ class ProductSeeder extends Seeder
         $product->attributes()->attach(2, ['value' => 37.5]); //% Vol
 
         $img = Storage::disk('public')->get('img/demo/products/bacardi/bacardi.jpg');
-        Storage::disk('uploads')->put('demo/bacardi/bacardi.jpg', $img);
+        Storage::disk(env('FILE_DISC'))->put('demo/bacardi/bacardi.jpg', $img);
 
         $product->images()->create([
             'location' => 'demo/bacardi/bacardi.jpg'
@@ -103,7 +103,7 @@ class ProductSeeder extends Seeder
         $product->attributes()->attach(2, ['value' => 40.0]); //% Vol
 
         $img = Storage::disk('public')->get('img/demo/products/havana/havana.jpg');
-        Storage::disk('uploads')->put('demo/havana/havana.jpg', $img);
+        Storage::disk(env('FILE_DISC'))->put('demo/havana/havana.jpg', $img);
 
         $product->images()->create([
             'location' => 'demo/havana/havana.jpg'
@@ -138,7 +138,7 @@ class ProductSeeder extends Seeder
         $product->attributes()->attach(2, ['value' => 5]); //% Vol
 
         $img = Storage::disk('public')->get('img/demo/products/heineken/heineken.jpg');
-        Storage::disk('uploads')->put('demo/heineken/heineken.jpg', $img);
+        Storage::disk(env('FILE_DISC'))->put('demo/heineken/heineken.jpg', $img);
 
         $product->images()->create([
             'location' => 'demo/heineken/heineken.jpg'
@@ -173,7 +173,7 @@ class ProductSeeder extends Seeder
         $product->attributes()->attach(2, ['value' => 5.1]); //% Vol
 
         $img = Storage::disk('public')->get('img/demo/products/peroni/peroni.jpg');
-        Storage::disk('uploads')->put('demo/peroni/peroni.jpg', $img);
+        Storage::disk(env('FILE_DISC'))->put('demo/peroni/peroni.jpg', $img);
 
         $product->images()->create([
             'location' => 'demo/peroni/peroni.jpg'
@@ -208,7 +208,7 @@ class ProductSeeder extends Seeder
         $product->attributes()->attach(2, ['value' => 40.0]); //% Vol
 
         $img = Storage::disk('public')->get('img/demo/products/sauza-tequila/sauza-tequila.jpg');
-        Storage::disk('uploads')->put('demo/sauza-tequila/sauza-tequila.jpg', $img);
+        Storage::disk(env('FILE_DISC'))->put('demo/sauza-tequila/sauza-tequila.jpg', $img);
 
         $product->images()->create([
             'location' => 'demo/sauza-tequila/sauza-tequila.jpg'
@@ -243,7 +243,7 @@ class ProductSeeder extends Seeder
         $product->attributes()->attach(2, ['value' => 12]); //% Vol
 
         $img = Storage::disk('public')->get('img/demo/products/veuve-clicquot/veuve-clicquot.jpg');
-        Storage::disk('uploads')->put('demo/veuve-clicquot/veuve-clicquot.jpg', $img);
+        Storage::disk(env('FILE_DISC'))->put('demo/veuve-clicquot/veuve-clicquot.jpg', $img);
 
         $product->images()->create([
             'location' => 'demo/veuve-clicquot/veuve-clicquot.jpg'
@@ -278,7 +278,7 @@ class ProductSeeder extends Seeder
         $product->attributes()->attach(2, ['value' => 12]); //% Vol
 
         $img = Storage::disk('public')->get('img/demo/products/moet-chandon-imperial/moet-chandon-imperial.jpg');
-        Storage::disk('uploads')->put('demo/moet-chandon-imperial/moet-chandon-imperial.jpg', $img);
+        Storage::disk(env('FILE_DISC'))->put('demo/moet-chandon-imperial/moet-chandon-imperial.jpg', $img);
 
         $product->images()->create([
             'location' => 'demo/moet-chandon-imperial/moet-chandon-imperial.jpg'
