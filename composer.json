@@ -21,7 +21,8 @@
         "spatie/laravel-pjax": "^1.1",
         "omnipay/paypal": "~2.0",
         "algolia/algoliasearch-laravel": "^1.0",
-        "regulus/activity-log": "^0.5.4"
+        "regulus/activity-log": "^0.5.4",
+        "jenssegers/rollbar": "^1.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

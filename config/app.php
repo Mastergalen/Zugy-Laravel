@@ -148,6 +148,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         AlgoliaSearch\Laravel\AlgoliaServiceProvider::class,
         Regulus\ActivityLog\ActivityLogServiceProvider::class,
+        Jenssegers\Rollbar\RollbarServiceProvider::class,
 
         /*
          * Application Service Providers...

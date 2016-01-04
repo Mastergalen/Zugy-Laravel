@@ -44,4 +44,9 @@ class EnvTest extends TestCase
         $this->assertTrue(env('ALGOLIA_SEARCH_KEY') !== null);
         $this->assertTrue(env('ALGOLIA_KEY') !== null);
     }
+
+    public function testRollbar()
+    {
+        $this->assertTrue(env('ROLLBAR_ACCESS_TOKEN') !== null);
+    }
 }

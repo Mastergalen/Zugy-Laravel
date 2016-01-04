@@ -46,4 +46,9 @@ return [
         'redirect' => env('APP_URL') . '/auth/login/facebook',
     ],
 
+    'rollbar' => array(
+        'access_token' => env('ROLLBAR_ACCESS_TOKEN'),
+        'level' => 'error',
+    ),
+
 ];

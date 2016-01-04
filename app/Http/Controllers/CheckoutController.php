@@ -182,7 +182,7 @@ class CheckoutController extends Controller
             return redirect(localize_url('routes.checkout.review'))
                 ->withErrors([trans('checkout.payment.form.error.different', ['paymentUrl' => localize_url('routes.checkout.payment')])]);
         } catch(\Exception $e) {
-            \Log::alert($e->getMessage());
+            \Log::alert($e);
             return redirect()->back()->withErrors([trans('errors.unknown')]);
         }
 
