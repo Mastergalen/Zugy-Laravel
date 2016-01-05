@@ -49,4 +49,16 @@ class EnvTest extends TestCase
     {
         $this->assertTrue(env('ROLLBAR_ACCESS_TOKEN') !== null);
     }
+
+    public function testAWS()
+    {
+        $this->assertTrue(env('FILE_DISC') !== null);
+
+        if(env('FILE_DISC') == 's3') {
+            $this->assertTrue(env('AWS_KEY') !== null);
+            $this->assertTrue(env('AWS_SECRET') !== null);
+            $this->assertTrue(env('AWS_REGION') !== null);
+            $this->assertTrue(env('AWS_BUCKET') !== null);
+        }
+    }
 }
