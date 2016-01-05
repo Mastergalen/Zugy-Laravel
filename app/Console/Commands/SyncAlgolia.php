@@ -61,6 +61,8 @@ class SyncAlgolia extends Command
             $bar->advance();
         }
 
+        $model::setSettings(); //Push index settings
+
         $bar->finish();
     }
 }

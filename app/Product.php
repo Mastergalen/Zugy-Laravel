@@ -17,8 +17,8 @@ class Product extends Model
 
     public $algoliaSettings = [
         'attributesToIndex' => [
-            'translations_en',
-            'translations_it',
+            'translation_en',
+            'translation_it',
             'categories',
             'stock_quantity',
             'price',
