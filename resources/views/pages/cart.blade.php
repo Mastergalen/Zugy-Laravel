@@ -57,7 +57,7 @@
                     <a class="btn btn-footer" href="{!! action('ShopController@index') !!}"><i class="fa fa-arrow-left"></i> {!! trans('buttons.continue-shopping') !!}</a>
                 </div>
                 <div class="pull-right">
-                    <button class="btn btn-footer" id="btn-update-cart"><i class="fa fa-repeat"></i> {!! trans('buttons.update-cart') !!}</button>
+                    <button class="btn btn-footer" id="btn-update-cart" type="button"><i class="fa fa-repeat"></i> {!! trans('buttons.update-cart') !!}</button>
                 </div>
             </div>
         </div>
@@ -118,23 +118,26 @@
 
             /* Update cart */
             $('#btn-update-cart').click(function() {
+                var items = [];
+
                 $('#cart-table .cart-row').each(function() {
-                    var rowId = $(this).data('row-id');
+                    var rowId = $(this).data('row-id')
                     var quantity = $(this).find('.quantity input').val();
 
-                    console.log(rowId);
-                    console.log(quantity);
-
                     if(quantity == 0) {
-                        console.log('Deleting ' +  rowId);
                         $(this).find('delete').trigger('click');
                         return;
                     }
 
-                    cart.update(rowId, quantity);
+                    items.push({
+                       rowId: rowId,
+                       'qty': quantity
+                    });
                 });
 
-                window.location.reload();
+                cart.update(items).done(function() {
+                    window.location.reload();
+                });
             });
         });
     </script>

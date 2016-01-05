@@ -18,8 +18,8 @@ class RefreshCart
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->check()) {
-            if (Cart::count(false) == 0) $this->refreshCart();
+        if(auth()->check() && Cart::count(false) == 0) {
+            $this->refreshCart();
         }
 
         return $next($request);

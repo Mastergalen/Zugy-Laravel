@@ -111,7 +111,10 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'api'], function () {
     Route::group(['prefix' => 'v1'], function () {
         //No auth required
-        Route::resource('cart', 'API\CartController');
+        Route::patch('cart', 'API\CartController@bulkUpdate');
+        Route::resource('cart', 'API\CartController', ['except' => [
+            'update'
+        ]]);
         Route::get('postcode/check/{postcode}', ['uses' => 'API\PostcodeController@checkPostcode']);
 
         //Auth required

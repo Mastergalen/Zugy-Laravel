@@ -88,32 +88,49 @@ class CartController extends Controller
     }
 
     /**
-     * Update an item in the cart
+     * Update multiple items in the cart
      *
      * @param  Request  $request
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $rowId)
+    public function bulkUpdate(Request $request)
     {
         $this->validate($request, [
-            'name' => 'max:255',
-            'qty' => 'integer|min:0',
-            'options' => 'array',
+            'items.*.rowId' => 'required',
+            'items.*.name' => 'max:255',
+            'items.*.qty' => 'integer|min:0',
+            'items.*.options' => 'array',
         ]);
 
-        $update = [];
+        foreach($request->input('items') as $item) {
+            $update = [];
 
-        if($request->has('name')) $update['name'] =  $request->input('name');
-        if($request->has('qty')) $update['qty'] = (int) $request->input('qty');
-        if($request->has('options')) $update['options'] =  $request->input('options');
+            if(isset($item['name'])) $update['name'] =  $item['name'];
+            if(isset($item['qty'])) {
+                $update['qty'] = (int) $item['qty'];
 
-        try {
-            Cart::update($rowId, $update);
-        } catch(ShoppingcartInvalidRowIDException $e) {
-            return response()->json(['status' => 'failure', 'message' => 'The row ID was invalid'], 400);
+                //Check stock
+                $stock_quantity = Cart::get($item['rowId'])->product->stock_quantity;
+
+                if($update['qty'] > $stock_quantity) {
+                    return response()->json([
+                        'status' => 'failure',
+                        'message' => trans('product.out-of-stock') . ": " . Cart::get($item['rowId'])->product->title,
+                        'description' => trans('product.stock-warning', ['count' => $stock_quantity])
+                    ], 422); //Unprocessable Entity
+                }
+            }
+            if(isset($item['options'])) $update['options'] =  $item['options'];
+
+            \Log::debug('Updating cart', ['parameters' => $update]);
+
+            try {
+                Cart::update($item['rowId'], $update);
+            } catch(ShoppingcartInvalidRowIDException $e) {
+                return response()->json(['status' => 'failure', 'message' => 'The row ID was invalid'], 400);
+            }
         }
-
         return response()->json(['status' => 'success', 'cart' => Cart::content()]);
     }
 

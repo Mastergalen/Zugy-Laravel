@@ -18,16 +18,26 @@
         });
     };
 
-    cart.update = function(rowId, quantity) {
-        $.ajax({
+    /**
+     * Update an array of items in cart
+     * @param rowId
+     * @param quantity
+     * @returns {*}
+     */
+    cart.update = function(items) {
+        return $.ajax({
             type: 'PATCH',
-            url: apiEndpoint + '/' + rowId,
+            url: apiEndpoint,
             data: {
-                'qty': quantity
+                items: items
             },
             error: function(xhr, status, error) {
                 var err = eval("(" + xhr.responseText + ")");
-                alert(err.message);
+                swal({
+                    type: 'error',
+                    title: err.message,
+                    text: err.description,
+                });
             }
         });
     };
