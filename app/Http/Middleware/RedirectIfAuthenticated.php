@@ -35,7 +35,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next)
     {
         if ($this->auth->check()) {
-            return redirect(localize_url('routes.shop.index'));
+            return redirect(localize_url('routes.shop.index'))->withInfo(trans('auth.already-logged-in'));
         }
 
         return $next($request);

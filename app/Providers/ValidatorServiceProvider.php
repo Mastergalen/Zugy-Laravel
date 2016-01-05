@@ -29,6 +29,16 @@ class ValidatorServiceProvider extends ServiceProvider
         {
             return \Zugy\Validators\PostcodeValidator::isInDeliveryRange($value);
         });
+
+        Validator::extend('correct_password', function($attribute, $value, $parameters)
+        {
+            return auth()->attempt(['id' => auth()->user()->id, 'password' => $value]);
+        });
+
+        Validator::replacer('correct_password', function($message, $attribute, $rule, $parameters)
+        {
+            return trans('auth.form.current_password.error');
+        });
     }
 
     /**

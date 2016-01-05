@@ -12,7 +12,7 @@
         </div>
         <div class="panel-body">
             <p>{!! trans('your-account.orders.desc') !!}</p>
-            <a href="{!! localize_url('routes.account.orders') !!}" class="btn btn-primary">Your Orders</a>
+            <a href="{!! localize_url('routes.account.orders') !!}" class="btn btn-primary">{!! trans('your-account.orders') !!}</a>
         </div>
     </div>
     <div class="panel panel-default">
@@ -28,7 +28,7 @@
             <h4 class="panel-title"><i class="fa fa-cog"></i> {!! trans('your-account.settings.title') !!}</h4>
         </div>
         <div class="panel-body">
-            <p><a href="#">{!! trans('your-account.settings.email') !!}</a></p>
+            <p><a href="{!! localize_url('routes.account.settings') !!}">{!! trans('your-account.settings.email') !!}</a></p>
         </div>
     </div>
 @endsection

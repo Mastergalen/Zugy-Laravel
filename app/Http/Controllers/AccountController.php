@@ -16,4 +16,9 @@ class AccountController extends Controller
 
         return view('pages.account.orders')->with(['orders' => $orders]);
     }
+
+    public function getSettings()
+    {
+        return view('pages.account.settings');
+    }
 }

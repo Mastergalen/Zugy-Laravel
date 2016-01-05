@@ -28,7 +28,9 @@ class PasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest', ['except' =>
+            'postPasswordChange'
+        ]);
     }
 
     public function redirectPath()
@@ -44,5 +46,25 @@ class PasswordController extends Controller
     public function getReset(Request $request, $token = null)
     {
         return $this->showResetForm($request, $token);
+    }
+
+    public function postPasswordChange(Request $request)
+    {
+        $validator = \Validator::make($request->all(), [
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $validator->sometimes('current_password', 'required|correct_password', function($input) {
+            return(auth()->user()->password !== null);
+        });
+
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        auth()->user()->password = bcrypt($request->input('password'));
+        auth()->user()->save();
+
+        return redirect(localize_url('routes.account.settings'))->withSuccess(trans('auth.form.password.change.success'));
     }
 }

@@ -97,6 +97,7 @@ function() {
         Route::post('password/email', ['uses' => 'Auth\PasswordController@postEmail']);
         Route::get('password/reset/{token}', ['uses' => 'Auth\PasswordController@getReset']);
         Route::post('password/reset', ['uses' => 'Auth\PasswordController@postReset']);
+        Route::post('password/change', ['uses' => 'Auth\PasswordController@postPasswordChange']);
     });
 });
 
@@ -131,4 +132,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 });
 
 Route::get('test', function() {
+    dd(auth()->user()->password);
 });
