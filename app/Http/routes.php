@@ -132,5 +132,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 });
 
 Route::get('test', function() {
-    dd(auth()->user()->password);
 });
