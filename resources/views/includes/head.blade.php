@@ -52,13 +52,17 @@
     "dismiss":"{!! trans('buttons.got-it') !!}",
     "learnMore":"{!! trans('buttons.more-info') !!}",
     "link":"{!! localize_url('routes.privacy-policy') !!}",
-    "theme":"dark-bottom"
+    "theme":"dark-top"
   };
 </script>
 
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
-<!-- End Cookie Consent plugin -->
+@if(!isset($ageSplash))
+  <!-- Cookie consent plugin -->
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
 
+  <!-- Crisp Live Chat -->
+  <script type="text/javascript">CRISP_WEBSITE_ID = "-K4rvQmW22wetbVM5Z-_";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+@endif
 
 <link href="//cloud.github.com/downloads/lafeber/world-flags-sprite/flags32.css" rel="stylesheet" />
 
