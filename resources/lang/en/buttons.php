@@ -20,4 +20,5 @@ return [
     'update' => 'Update',
     'show-google-maps' => 'Show on Google Maps',
     'save' => 'Save',
+    'return-home' => 'Return to the homepage',
 ];

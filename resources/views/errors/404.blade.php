@@ -1,4 +1,9 @@
-@extends('errors.default')
+@extends('layouts.default')
 
-@section('title', '404 - Page not found')
-@section('description', 'We were unable to find the page you were looking for')
+@section('title', '404 - ' . trans('errors.404.message'))
+
+@section('content')
+<h1>404 - {!! trans('errors.404.message') !!}</h1>
+<p>{!! trans('errors.404.description') !!}</p>
+<a href="/" class="btn btn-primary"><i class="fa fa-home"></i> {!! trans('buttons.return-home') !!}</a>
+@endsection

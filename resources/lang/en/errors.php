@@ -13,4 +13,6 @@ return [
     'stripe.card_declined' =>        "The card was declined.",
     'stripe.missing' =>              "There is no card on a customer that is being charged.",
     'stripe.processing_error' =>     "An error occurred while processing the card.",
+    '404.message' => 'Page not found',
+    '404.description' => 'We were unable to find the page you were looking for, sorry!',
 ];
