@@ -22,8 +22,7 @@ class Handler extends ExceptionHandler
         HttpException::class,
         ModelNotFoundException::class,
         ValidationException::class,
-        \Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class,
-        \Symfony\Component\Console\Exception\CommandNotFoundException,
+        \Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class
     ];
 
     /**
@@ -32,7 +31,6 @@ class Handler extends ExceptionHandler
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
      * @param  \Exception  $e
-     * @return void
      */
     public function report(Exception $e)
     {
@@ -40,7 +38,7 @@ class Handler extends ExceptionHandler
             \Log::error($e);
         }
 
-        return parent::report($e);
+        parent::report($e);
     }
 
     /**
