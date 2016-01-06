@@ -21,7 +21,7 @@
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    {!! Form::text('email', Input::old('email'), ['class' => 'form-control', 'placeholder' => trans('auth.form.email.label')]) !!}
+                                    {!! Form::text('email', Input::old('email'), ['class' => 'form-control', 'tabindex' => 1, 'placeholder' => trans('auth.form.email.label')]) !!}
                                 </div>
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -33,7 +33,7 @@
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                    <input type="password" class="form-control" name="password" placeholder="{!! trans('auth.form.password.label') !!}">
+                                    <input type="password" class="form-control" name="password" tabindex="2" placeholder="{!! trans('auth.form.password.label') !!}">
                                 </div>
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -43,7 +43,7 @@
                             </div>
 
                             <div class="form-group">
-                                <button class="btn btn-lg btn-primary btn-block" type="submit">{!! trans('buttons.login') !!}</button>
+                                <button class="btn btn-lg btn-primary btn-block" tabindex="3" type="submit">{!! trans('buttons.login') !!}</button>
                             </div>
                         </div>
                     </div>
