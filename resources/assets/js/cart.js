@@ -2,8 +2,7 @@
     var apiEndpoint = '/api/v1/cart';
 
     cart.add = function (productId, quantity) {
-        console.log("Adding to cart");
-        $.ajax({
+        return $.ajax({
             type: 'POST',
             url: apiEndpoint,
             data: {
@@ -20,9 +19,8 @@
 
     /**
      * Update an array of items in cart
-     * @param rowId
-     * @param quantity
      * @returns {*}
+     * @param items
      */
     cart.update = function(items) {
         return $.ajax({

@@ -98,10 +98,10 @@ $('.btn-add-cart').click(function() {
     var $img = $(this).closest('.panel-body').find('img').eq(0);
 
     cart.addToCartAnimation($img);
-    cart.add(productId, 1);
 
-    console.log("Adding:", productId);
-    $(this).prop('disabled', false);
+    cart.add(productId, 1).done(function() {
+        $(this).prop('disabled', false);
+    });
 });
 </script>
 @endsection
