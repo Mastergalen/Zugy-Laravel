@@ -20,6 +20,7 @@ return [
     'form.password.change.success' => 'Your password has been changed',
 
     'register.title' => 'Create a new account',
+    'register.advantages' => 'Create an account for fast checkout and easy access to order history.',
     'register.social-tip' => 'You can use Facebook and Google to create an account faster!',
     'register.button' => 'Register',
 
