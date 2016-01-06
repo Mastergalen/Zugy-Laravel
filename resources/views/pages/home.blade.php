@@ -1,3 +1,4 @@
+<?php $page['homepage'] = true; ?>
 @section('title', trans('pages.home.meta-title'))
 
 @section('meta_description', trans('pages.home.meta_description'))

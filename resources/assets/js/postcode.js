@@ -5,10 +5,12 @@
      * Check if postcode is in delivery range
      * @param zipCode
      */
-    postcode.check = function(zipCode) {
+    postcode.check = function(zipCode, redirect) {
         if(zipCode == "") {
             zipCode = 0;
         }
+
+        if(typeof redirect == 'undefined') redirect = true;
 
         $.ajax({
             type: 'GET',
@@ -21,7 +23,10 @@
                         type: "success",
                         showConfirmButton: false,
                     }, function() {
-                        window.location.href = data.storeUrl;
+                        if(redirect == true) {
+                            window.location.href = data.storeUrl;
+                        }
+                        swal.close();
                     })
                 } else {
                     swal({
@@ -29,9 +34,12 @@
                         text: data.description,
                         type: "warning",
                         showCancelButton: true,
-                        confirmButtonText: data.confirmButtonText,
+                        confirmButtonText: data.confirmButtonText
                     }, function() {
-                        window.location.href = data.storeUrl;
+                        if(redirect == true) {
+                            window.location.href = data.storeUrl;
+                        }
+                        swal.close();
                     });
                 }
 

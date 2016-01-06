@@ -56,7 +56,7 @@
   };
 </script>
 
-@if(!isset($ageSplash))
+@if(!isset($page['ageSplash']))
   <!-- Cookie consent plugin -->
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
 

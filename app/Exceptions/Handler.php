@@ -22,7 +22,8 @@ class Handler extends ExceptionHandler
         HttpException::class,
         ModelNotFoundException::class,
         ValidationException::class,
-        \Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class
+        \Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class,
+        \Symfony\Component\Console\Exception\CommandNotFoundException,
     ];
 
     /**

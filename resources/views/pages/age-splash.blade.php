@@ -1,5 +1,4 @@
-<?php $noindex = true; ?>
-<?php $ageSplash = true; ?>
+<?php $page['ageSplash'] = true; ?>
 @section('title', trans('ageSplash.prompt'))
 
 @extends('layouts.barebones')

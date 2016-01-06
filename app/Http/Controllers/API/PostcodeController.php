@@ -21,21 +21,24 @@ class PostcodeController extends Controller
         $postcode = (int) $postcode;
 
         if(PostcodeValidator::isInDeliveryRange($postcode)) {
-            return [
+            $response = response()->json([
                 'status' => 'success',
                 'delivery' => true,
                 'storeUrl' => localize_url('routes.shop.index'),
                 'message' => trans('postcode.check.success'),
-            ];
+            ]);
+
         } else {
-            return [
+            $response = response()->json([
                 'status' => 'success',
                 'delivery' => false,
                 'message' => trans('postcode.check.error.title'),
                 'description' => trans('postcode.check.error.desc'),
                 'storeUrl' => localize_url('routes.shop.index'),
                 'confirmButtonText' => trans('postcode.browse-store'),
-            ];
+            ]);
         }
+
+        return $response->withCookie(cookie()->forever('postcode', $postcode,  $path = null, $domain = null, $secure = false, $httpOnly = false));
     }
 }
