@@ -101,7 +101,7 @@ $('.btn-add-cart').click(function() {
 
     cart.add(productId, 1).done(function() {
         $(this).prop('disabled', false);
-    });
+    }.bind(this));
 });
 </script>
 @endsection
