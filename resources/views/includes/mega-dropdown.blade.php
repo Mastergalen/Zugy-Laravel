@@ -28,5 +28,5 @@
     </ul>
 </li>
 <li class="col-md-6">
-    <img src="http://placehold.it/350x150" alt=""/>
+    <img src="https://placehold.it/350x150" alt=""/>
 </li>
