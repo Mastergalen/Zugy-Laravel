@@ -2,18 +2,23 @@
 
 class AdminProductTest extends TestCase
 {
+    protected $admin;
+
+    public function setUp()
+    {
+        parent::setUp();
+        
+        $this->admin = factory(App\User::class, 'admin')->make();
+    }
+
 
     public function testIndexProductView()
     {
-        $admin = factory(App\User::class, 'admin')->make();
-
-        $this->actingAs($admin)->visit('admin/catalogue')->see('Catalogue');
+        $this->actingAs($this->admin)->visit('admin/catalogue')->see('Catalogue');
     }
 
     public function testAddProductView()
     {
-        $admin = factory(App\User::class, 'admin')->make();
-
-        $this->actingAs($admin)->visit('admin/catalogue/create')->see('Add a product');
+        $this->actingAs($this->admin)->visit('admin/catalogue/create')->see('Add a product');
     }
 }
