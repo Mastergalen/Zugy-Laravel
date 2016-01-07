@@ -24,8 +24,8 @@
             <div class="col-md-3">
                 <h3>{!! trans('footer.my-account') !!}</h3>
                 <ul>
-                    <li><a href="#">{!! trans('footer.my-account') !!}</a></li>
-                    <li><a href="#">{!! trans('footer.my-orders') !!}</a></li>
+                    <li><a href="{!! localize_url('routes.account.index') !!}">{!! trans('footer.my-account') !!}</a></li>
+                    <li><a href="{!! localize_url('routes.account.orders') !!}">{!! trans('footer.my-orders') !!}</a></li>
                     <li>
                         @foreach(Localization::getSupportedLocales() as $localeCode => $properties)
                             @if($localeCode == 'en') <?php $flagCode = 'gb' ?>

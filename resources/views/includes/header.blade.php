@@ -59,7 +59,7 @@
                                 <li><a href="/admin"><i class="fa fa-dashboard"></i> {!! trans('menu.admin-dashboard') !!}</a></li>
                                 <li class="divider"></li>
                             @endif
-                            <li><a href="{!! localize_url('routes.account.index') !!}"><i class="fa fa-user"></i> {!! trans('menu.your-account') !!}</a></li>
+                            <li><a href="{!! localize_url('routes.account.index') !!}"><i class="fa fa-user"></i> {!! trans('menu.my-account') !!}</a></li>
                             <li><a href="{!! localize_url('routes.account.settings') !!}"><i class="fa fa-cog"></i> {!! trans('menu.account-settings') !!}</a></li>
                             <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> {!! trans('menu.sign-out') !!}</a></li>
                         </ul>
