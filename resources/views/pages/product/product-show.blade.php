@@ -187,6 +187,7 @@
 
                 if(typeof quantity === 'undefined') {
                     $quantitySelector.find('.form-group').addClass('has-error').end().find('.help-block').show();
+                    $button.prop('disabled', false);
                     return;
                 }
 
