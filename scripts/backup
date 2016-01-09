@@ -1,0 +1,5 @@
+cd ../
+
+php artisan backup:run --only-db
+
+php artisan backup:clean
