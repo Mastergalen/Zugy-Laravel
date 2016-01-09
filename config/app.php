@@ -149,6 +149,7 @@ return [
         AlgoliaSearch\Laravel\AlgoliaServiceProvider::class,
         Regulus\ActivityLog\ActivityLogServiceProvider::class,
         Jenssegers\Rollbar\RollbarServiceProvider::class,
+        Spatie\Backup\BackupServiceProvider::class,
 
         /*
          * Application Service Providers...

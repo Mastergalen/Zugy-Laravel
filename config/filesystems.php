@@ -85,6 +85,14 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
+        's3-backup' => [
+            'driver' => 's3',
+            'key'    => env('AWS_KEY'),
+            'secret' => env('AWS_SECRET'),
+            'region' => env('AWS_REGION'),
+            'bucket' => env('AWS_BACKUP_BUCKET'),
+        ],
+
         'rackspace' => [
             'driver'    => 'rackspace',
             'username'  => 'your-username',

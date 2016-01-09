@@ -7,7 +7,7 @@ class AdminProductTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        
+
         $this->admin = factory(App\User::class, 'admin')->make();
     }
 
