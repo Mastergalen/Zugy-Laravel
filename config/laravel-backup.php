@@ -53,7 +53,7 @@ return [
          * timestamp as the filename. With these options You can
          * specify a prefix and a suffix for the filename.
          */
-        'prefix' => env('APP_ENV'),
+        'prefix' => env('APP_ENV') . "_",
         'suffix' => '',
     ],
 
