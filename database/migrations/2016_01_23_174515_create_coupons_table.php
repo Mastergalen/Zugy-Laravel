@@ -16,7 +16,7 @@ class CreateCouponsTable extends Migration
             $table->increments('id');
             $table->string('code', 255)->unique();
             $table->dateTime('starts')->nullable();
-            $table->dateTime('expires')->nullabe();
+            $table->dateTime('expires')->nullable();
             $table->decimal('minimumTotal', 10, 2)->unsigned()->nullable();
             $table->integer('percentageDiscount')->unsigned()->nullable();
             $table->decimal('flatDiscount', 10, 2)->unsigned()->nullable();

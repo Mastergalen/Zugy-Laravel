@@ -9,4 +9,6 @@ $.ajaxSetup({
 
 $.pjax.defaults.timeout = 1500;
 
-$('[data-toggle="popover"]').popover();
+$(document).on('ready pjax:success', function() {
+    $('[data-toggle="popover"]').popover();
+});

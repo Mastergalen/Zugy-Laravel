@@ -77,7 +77,8 @@
                         <div class="col-md-12">
                             @if(isset($coupon) && $coupon !== null)
                                 <div class="alert alert-success">
-                                    {!! trans('coupon.using', ['code' => $coupon->code]) !!}
+                                    <p>{!! trans('coupon.using', ['code' => $coupon->code]) !!}</p>
+                                    <p>{!! $coupon->description !!}</p>
                                 </div>
                             @endif
                             <div class="form-group">
