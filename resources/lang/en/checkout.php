@@ -47,6 +47,9 @@ return [
 
     'review.title' => 'Review order',
     'review.age-warning' => 'We only sell alcohol to people <b>older than the age of 18</b>, even though the legal drinking age is 16 in Italy. Our drivers will ask you for your photo ID to verify your age at delivery.',
+    'review.coupon' => 'Coupon',
+    'review.coupon.desc' => 'Enter a coupon code if you have one',
+    'review.coupon.placeholder' => 'Enter code',
     'review.items' => 'Review items',
     'review.place-order' => 'Place order',
     'review.accept' => 'By placing your order you agree to :siteName\'s <a href=":privacyPolicyUrl">Privacy Policy</a> and <a href=":termsAndConditionsUrl">Terms and Conditions</a>.',

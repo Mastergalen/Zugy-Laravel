@@ -4,6 +4,7 @@ namespace Zugy\Cart;
 
 use Gloudemans\Shoppingcart\Cart as BaseCart;
 use App\Product;
+use Zugy\Facades\Checkout;
 
 class Cart extends BaseCart
 {
@@ -25,17 +26,50 @@ class Cart extends BaseCart
     }
 
     public function grandTotal() {
-        return $this->shipping() + $this->total();
+        $grandTotal = $this->shipping() + $this->total() - $this->couponDeduction();
+
+        if($grandTotal < 0) {
+            throw new \RuntimeException("Total cannot be negative");
+        }
+
+        return $grandTotal;
+    }
+
+    public function couponDeduction()
+    {
+        $coupon = Checkout::getCoupon();
+
+        if($coupon === null) {
+            return 0;
+        }
+
+        if($coupon->percentageDiscount != null) {
+            return round($this->total() * ($coupon->percentageDiscount / 100), 2);
+        }
+
+        if($coupon->flatDiscount != null) {
+            if($coupon->flatDiscount > $this->total()) {
+                return $this->total();
+            }
+
+            return $coupon->flatDiscount;
+        }
+
+        throw new \RuntimeException("Coupon type not set");
     }
 
     /**
      * Calculate VAT, including shipping fees
-     * @return float|int
+     * @return float
      */
     public function vat() {
         return $this->vatItems() + $this->vatShipping();
     }
 
+    /**
+     * Sum up VAT for items in cart
+     * @return float
+     */
     public function vatItems()
     {
         $totalVAT = 0;
@@ -53,7 +87,17 @@ class Cart extends BaseCart
 
         foreach($products as $p) {
             $net = $cartProducts[$p->id]['subtotal'] / ((100 + $p->tax_class->tax_rate) / 100);
-            $totalVAT += round($cartProducts[$p->id]['subtotal'] - $net, 2);
+            $vat = $cartProducts[$p->id]['subtotal'] - $net;
+            $totalVAT += round($vat, 2);
+        }
+
+        $coupon = Checkout::getCoupon();
+
+        if($coupon != null && $coupon->percentageDiscount != null) {
+            $totalVAT = round($totalVAT * ($coupon->percentageDiscount / 100), 2);
+        } elseif($coupon != null && $coupon->flatDiscount != null) {
+            $overallPercentageVat = $totalVAT / $this->total();
+            $totalVAT = round(($this->total() - $this->couponDeduction()) * $overallPercentageVat, 2);
         }
 
         return $totalVAT;

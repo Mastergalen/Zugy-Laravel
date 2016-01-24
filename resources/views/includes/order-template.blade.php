@@ -24,7 +24,7 @@
     </div>
     <div class="col-md-3">
         <h4>Order summary</h4>
-        @include('includes.order-summary',  ['total' => $order->total, 'shipping' => $order->shipping_fee, 'grandTotal' => $order->grandTotal])
+        @include('includes.order-summary',  ['total' => $order->total, 'shipping' => $order->shipping_fee, 'grandTotal' => $order->grandTotal, 'couponDeduction' => $order->coupon_deduction])
         {{-- ORDER ACTIONS --}}
         @if(auth()->check())
             <form action="{!! request()->url() !!}">

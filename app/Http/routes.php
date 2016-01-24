@@ -121,6 +121,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::group(['middleware' => 'auth'], function () {
             Route::resource('address', 'API\AddressController');
             Route::resource('order', 'API\OrderController');
+            Route::post('coupon/apply', 'API\CouponController@apply');
         });
     });
 });

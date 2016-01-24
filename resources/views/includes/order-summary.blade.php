@@ -14,10 +14,20 @@
                 @endif
             </td>
         </tr>
+        @if($couponDeduction != 0)
+            <tr>
+                <td>{!! trans('checkout.review.coupon') !!}</td>
+                <td class="price">
+                    -{!! money_format("%i", $couponDeduction) !!}&euro;
+                </td>
+            </tr>
+        @endif
         <tr class="total">
             <td>{!! trans('checkout.total') !!}</td>
             <td class="price">{!! money_format("%i", $grandTotal) !!}&euro;</td>
         </tr>
-        <tr><td colspan="2" style="border: 0">{!! trans('order.include-vat') !!} <a role="button" id="vat-expand">{!! trans('order.vat') !!}</a></td></tr>
+        @if(!isset($hideVat))
+            <tr><td colspan="2" style="border: 0">{!! trans('order.include-vat') !!} <a role="button" id="vat-expand">{!! trans('order.vat') !!}</a></td></tr>
+        @endif
     </table>
 </div>

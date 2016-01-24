@@ -72,7 +72,7 @@ class Order extends Model
 
     public function getGrandTotalAttribute()
     {
-        return $this->getTotalAttribute() + $this->attributes['shipping_fee'];
+        return $this->getTotalAttribute() + $this->attributes['shipping_fee'] - $this->attributes['coupon_deduction'];
     }
 
     public function scopeUnprocessed($query) {

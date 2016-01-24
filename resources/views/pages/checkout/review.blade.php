@@ -54,18 +54,51 @@
                     <h4><span class="step-number">2</span>{!! trans('checkout.payment.title') !!}</h4>
                 </div>
                 <div class="col-md-9">
-                    <div class="pull-left">
-                        @include('includes.payment-method', ['payment' => $payment])
-                    </div>
-                    <div class="pull-right">
-                        <a class="btn btn-default btn-sm" href="{!! localize_url('routes.checkout.payment') !!}?change">{!! trans('buttons.change') !!}</a>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-left">
+                                @include('includes.payment-method', ['payment' => $payment])
+                            </div>
+                            <div class="pull-right">
+                                <a class="btn btn-default btn-sm"
+                                   href="{!! localize_url('routes.checkout.payment') !!}?change">{!! trans('buttons.change') !!}</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <hr/>
             <div class="row">
                 <div class="col-md-3">
-                    <h4><span class="step-number">3</span>{!! trans('checkout.review.items') !!}</h4>
+                    <h4><span class="step-number">3</span>{!! trans('checkout.review.coupon') !!}</h4>
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @if(isset($coupon) && $coupon !== null)
+                                <div class="alert alert-success">
+                                    {!! trans('coupon.using', ['code' => $coupon->code]) !!}
+                                </div>
+                            @endif
+                            <div class="form-group">
+                                <label>{!! trans('checkout.review.coupon.desc') !!}</label>
+                                <form id="form-coupon">
+                                    <div class="input-group">
+                                        {!! Form::text('coupon', Input::old('coupon'), ['class' => 'form-control', 'placeholder' => trans('checkout.review.coupon.placeholder')]) !!}
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-default">{!! trans('buttons.apply') !!}</button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-md-3">
+                    <h4><span class="step-number">4</span>{!! trans('checkout.review.items') !!}</h4>
                 </div>
                 <div class="col-md-9">
                     @include('pages.checkout.partials.review-items')
@@ -74,7 +107,12 @@
         </div>
         <hr class="visible-xs"/>
         <div class="col-lg-3 col-md-3 col-sm-5">
-            @include('includes.order-summary',  ['total' => Cart::total(), 'shipping' => Cart::shipping(), 'grandTotal' => Cart::grandTotal()])
+            @include('includes.order-summary',  [
+                'total' => Cart::total(),
+                'shipping' => Cart::shipping(),
+                'grandTotal' => Cart::grandTotal(),
+                'couponDeduction' => Cart::couponDeduction()
+            ])
             <form action="{!! localize_url('routes.checkout.review') !!}" method="POST">
                 {!! Form::token() !!}
                 <button class="btn btn-block btn-lg btn-success" type="submit">
@@ -95,7 +133,6 @@
             </small>
 
         </div>
-        </div>
     </div>
 
     @include('includes.vat-popover', ['vat' => Cart::vat(), 'grandTotal' => Cart::grandTotal()])
@@ -104,13 +141,38 @@
 
 @section('scripts')
     <script>
-        $(function() {
+        $(document).on('ready pjax:success', function(){
             $('#vat-expand').popover({
                 html: true,
                 title: 'VAT Summary',
                 placement: 'bottom',
                 content: $('#vat-popover-template').html()
-            })
+            });
+
+            $('#form-coupon').submit(function(e) {
+                e.preventDefault();
+
+                var code = $(this).find('input[name="coupon"]').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/v1/coupon/apply',
+                    data: {
+                        coupon: code
+                    },
+                    success: function(data) {
+                        $.pjax.reload('#container');
+                    },
+                    error: function(xhr, status, error) {
+                        var err = eval("(" + xhr.responseText + ")");
+                        swal({
+                            title: err.message,
+                            type: 'error'
+                        });
+                    }
+                });
+
+            });
         });
     </script>
 @endsection

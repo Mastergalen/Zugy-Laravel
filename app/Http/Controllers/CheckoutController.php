@@ -139,8 +139,6 @@ class CheckoutController extends Controller
      */
     public function getCheckoutReview()
     {
-        //TODO Check if items in cart are in stock
-
         //Fetch delivery address information
         $shippingAddress = Checkout::getShippingAddress();
         $paymentMethod = Checkout::getPaymentMethod();
@@ -162,10 +160,11 @@ class CheckoutController extends Controller
             'cart' => $cart,
             'shippingAddress' => $shippingAddress,
             'payment' => $payment,
+            'coupon' => Checkout::getCoupon()
         ]);
     }
 
-    public function postCheckoutReview(PlaceOrder $service)
+    public function postCheckoutReview(Request $request, PlaceOrder $service)
     {
         $user = auth()->user();
 

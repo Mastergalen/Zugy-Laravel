@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use Zugy\Facades\Cart;
 use Illuminate\Support\Facades\Request;
+use Zugy\Facades\Checkout;
 
 class CartEventsListener
 {
@@ -17,6 +18,8 @@ class CartEventsListener
                 'name' => $name,
                 'options' => $options
             ])->save();
+
+            $this->forgetCoupon();
         }
     }
 
@@ -32,6 +35,8 @@ class CartEventsListener
             \Log::debug('Updating basket in DB', ['productId' => $item->id, 'quantity' => $item->qty]);
 
             $row->save();
+
+            $this->forgetCoupon();
         }
     }
 
@@ -41,12 +46,16 @@ class CartEventsListener
 
             auth()->user()->basket()->where('product_id', '=', $item->id)->delete();
         }
+
+        $this->forgetCoupon();
     }
 
     public function onDestroyCart() {
         if(auth()->check()) {
             auth()->user()->basket()->delete();
         }
+
+        $this->forgetCoupon();
     }
 
     /**
@@ -80,6 +89,11 @@ class CartEventsListener
             \Log::debug('Adding missing product to cart', ['name' => $p->name]);
             Cart::associate('Product', 'App')->add($p->product_id, $p->name, $p->quantity, $p->price, $p->options);
         }
+    }
+
+    private function forgetCoupon()
+    {
+        Checkout::forgetCoupon();
     }
 
     public function subscribe($events) {

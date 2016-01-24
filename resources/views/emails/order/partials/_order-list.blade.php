@@ -22,9 +22,17 @@
                     <td></td>
                     <td>{!! money_format("%i", $order->shipping_fee) !!}&euro;</td>
                 </tr>
+                @if($order->coupon_deduction != null)
+                    <tr>
+                        <td>{!! trans('checkout.review.coupon') !!}</td>
+                        <td></td>
+                        <td></td>
+                        <td>-{!! money_format("%i", $order->coupon_deduction) !!}&euro;</td>
+                    </tr>
+                @endif
                 <tr class="total">
                     <td colspan="3">{!! trans('order.email.confirmation.paid') !!}</td>
-                    <td>{!! money_format("%i", $order->total + $order->shipping_fee) !!}&euro;</td>
+                    <td>{!! money_format("%i", $order->total + $order->shipping_fee - $order->coupon_deduction) !!}&euro;</td>
                 </tr>
             </table>
         </td>

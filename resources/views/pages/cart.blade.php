@@ -62,28 +62,13 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-5">
-            <div class="box" style="margin-bottom: 10px">
-                <table id="order-summary" class="table">
-                    <tr>
-                        <td>{!! trans('checkout.items') !!}</td>
-                        <td class="price">{!! money_format("%i", Cart::total()) !!}&euro;</td>
-                    </tr>
-                    <tr>
-                        <td>{!! trans('checkout.shipping') !!}</td>
-                        <td class="price">
-                            @if(Cart::shipping() == 0)
-                                <span style="color: #8BB418;">{!! trans('shipping.free') !!}</span>
-                            @else
-                                {!! money_format("%i", Cart::shipping()) !!}&euro;
-                            @endif
-                        </td>
-                    </tr>
-                    <tr class="total">
-                        <td>{!! trans('checkout.total') !!}</td>
-                        <td class="price">{!! money_format("%i", Cart::grandTotal()) !!}&euro;</td>
-                    </tr>
-                </table>
-            </div>
+            @include('includes.order-summary',  [
+                'total' => Cart::total(),
+                'shipping' => Cart::shipping(),
+                'grandTotal' => Cart::grandTotal(),
+                'couponDeduction' => Cart::couponDeduction(),
+                'hideVat' => true
+            ])
             <a href="{!! localize_url('routes.checkout.landing') !!}" class="btn btn-block btn-lg btn-success" @if(Cart::count(false) === 0)disabled @endif>
                 {!! trans('buttons.proceed-to-checkout') !!} <i class="fa fa-arrow-right"></i>
             </a>

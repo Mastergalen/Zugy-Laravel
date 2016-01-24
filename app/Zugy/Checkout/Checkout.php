@@ -3,8 +3,15 @@
 namespace Zugy\Checkout;
 
 use App\Address;
+use App\Coupon;
+use App\Exceptions\Coupons\CouponExpiredException;
+use App\Exceptions\Coupons\CouponNotStartedException;
+use App\Exceptions\Coupons\CouponOrderMinimumException;
+use App\Exceptions\Coupons\CouponUsedException;
 use App\PaymentMethod;
 use App\User;
+use Carbon\Carbon;
+use Zugy\Facades\Cart;
 
 class Checkout
 {
@@ -72,6 +79,52 @@ class Checkout
         }
 
         return $content;
+    }
+
+    public function setCoupon(Coupon $coupon)
+    {
+        self::validateCoupon($coupon);
+
+        $this->session->put($this->sessionKey . '.coupon', $coupon);
+    }
+
+    public function hasCoupon()
+    {
+        return $this->session->has($this->sessionKey . '.coupon');
+    }
+
+    public function validateCoupon(Coupon $coupon) {
+        //Check coupon has started
+        if($coupon->starts != null && Carbon::now() < $coupon->starts) {
+            throw new CouponNotStartedException();
+        }
+
+        //Check coupon is still valid
+        if($coupon->expires != null && Carbon::now() > $coupon->expires) {
+            throw new CouponExpiredException();
+        }
+
+        //Check uses
+        if($coupon->max_uses != null && $coupon->uses >= $coupon->max_uses) {
+            throw new CouponUsedException();
+        }
+
+        //Check minimum order total
+        if($coupon->minimumTotal != null && Cart::total() < $coupon->minimumTotal) {
+            throw new CouponOrderMinimumException();
+        }
+
+        return true;
+    }
+
+    public function getCoupon()
+    {
+        return ($this->session->has($this->sessionKey . '.coupon')) ? $this->session->get($this->sessionKey . '.coupon') : null;
+    }
+
+    public function forgetCoupon()
+    {
+        $this->session->forget($this->sessionKey . '.coupon');
     }
 
     public function forget() {

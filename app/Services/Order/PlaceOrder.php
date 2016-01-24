@@ -2,6 +2,7 @@
 
 namespace App\Services\Order;
 
+use Log;
 use App\Events\OrderWasPlaced;
 use App\Payment;
 use App\Product;
@@ -39,6 +40,13 @@ class PlaceOrder
         }
 
         $this->checkStock();
+
+        $coupon = Checkout::getCoupon();
+
+        if($coupon != null) {
+            //Validate coupon
+            Checkout::validateCoupon($coupon);
+        }
 
         $payment = $this->processPayment();
 
@@ -85,6 +93,7 @@ class PlaceOrder
     }
 
     public function processPayment() {
+        Log::debug("Charging customer", ['total' => Cart::grandTotal()]);
         $payment = PaymentGateway::set($this->paymentMethod)->charge(Cart::grandTotal());
 
         return $payment;
@@ -108,6 +117,14 @@ class PlaceOrder
         $order->delivery_instructions   = $this->deliveryAddress->delivery_instructions;
 
         $order->shipping_fee            = Cart::shipping();
+
+        $coupon = Checkout::getCoupon();
+
+        if($coupon != null) {
+            $order->coupon_id        = $coupon->id;
+            $order->coupon_deduction = Cart::couponDeduction();
+        }
+
         $order->currency                = 'EUR';
 
         $order = $this->user->orders()->save($order);
@@ -140,6 +157,9 @@ class PlaceOrder
         }
 
         $order->items()->saveMany($items);
+
+        //Increment coupon uses
+        $coupon->increment('uses');
 
         return $order;
     }
