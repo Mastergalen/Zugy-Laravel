@@ -24,14 +24,20 @@
     </div>
     <div class="col-md-3">
         <h4>Order summary</h4>
-        @include('includes.order-summary',  ['total' => $order->total, 'shipping' => $order->shipping_fee, 'grandTotal' => $order->grandTotal, 'couponDeduction' => $order->coupon_deduction])
+        @include('includes.order-summary',  [
+            'total' => $order->total,
+            'shipping' => $order->shipping_fee,
+            'grandTotal' => $order->grandTotal,
+            'couponDeduction' => $order->coupon_deduction,
+            'coupon' => $order->coupon
+        ])
         {{-- ORDER ACTIONS --}}
         @if(auth()->check())
             <form action="{!! request()->url() !!}">
                 <input type="hidden" name="_method" value="PATCH">
                 <input type="hidden" name="action" value="cancel">
                 {!! Form::token() !!}
-                <!-- <button class="btn btn-danger btn-block btn-sm"><i class="fa fa-remove"></i> Cancel order</button> --><!--FIXME Cancel order and refund-->
+                {{--  <button class="btn btn-danger btn-block btn-sm"><i class="fa fa-remove"></i> Cancel order</button> FIXME Cancel order and refund --}}
             </form>
         @endif
     </div>

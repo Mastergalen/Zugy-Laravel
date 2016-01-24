@@ -8,3 +8,5 @@ $.ajaxSetup({
 });
 
 $.pjax.defaults.timeout = 1500;
+
+$('[data-toggle="popover"]').popover();

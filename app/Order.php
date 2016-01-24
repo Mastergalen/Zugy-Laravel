@@ -8,7 +8,7 @@ class Order extends Model
 {
     protected $table = 'orders';
 
-    protected $with = ['items'];
+    protected $with = ['items', 'coupon'];
 
     protected $appends = ['total'];
 
@@ -35,6 +35,11 @@ class Order extends Model
     public function payment()
     {
         return $this->hasOne('App\Payment');
+    }
+
+    public function coupon()
+    {
+        return $this->belongsTo('App\Coupon');
     }
 
     public function activity()

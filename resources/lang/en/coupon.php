@@ -6,5 +6,7 @@ return [
     'expired' => 'This coupon expired on :date',
     'notActive' => 'This coupon becomes active at :date',
     'minimum' => 'You order total needs to be at least :min Euro to use this coupon',
-    'using' => 'Using coupon code <b>:code</b>'
+    'using' => 'Using coupon code <b>:code</b>',
+    'flatDiscountDescription' => '-:amount&euro; off order',
+    'percentageDiscountDescription' => ':percentage% off'
 ];

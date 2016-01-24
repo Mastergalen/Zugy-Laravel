@@ -122,7 +122,19 @@
                     @endforeach
 
                     <h4>{!! trans('order.summary') !!}</h4>
-                    @include('includes.order-summary',  ['total' => $order->total, 'shipping' => $order->shipping_fee, 'grandTotal' => $order->grandTotal])
+                    @include('includes.order-summary',  [
+                        'total' => $order->total,
+                        'shipping' => $order->shipping_fee,
+                        'grandTotal' => $order->grandTotal,
+                        'couponDeduction' => $order->coupon_deduction,
+                    ])
+
+                    @if(isset($order->coupon))
+                        <div class="alert alert-info">
+                            <p>{!! trans('coupon.using', ['code' => $order->coupon->code]) !!}</p>
+                            <p>{!! $order->coupon->description !!}</p>
+                        </div>
+                    @endif
                 </div>
             </div>
 

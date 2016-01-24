@@ -54,5 +54,5 @@ return [
     'review.place-order' => 'Place order',
     'review.accept' => 'By placing your order you agree to :siteName\'s <a href=":privacyPolicyUrl">Privacy Policy</a> and <a href=":termsAndConditionsUrl">Terms and Conditions</a>.',
     'order' => 'Order',
-    'order.success' => 'Your order has been placed. We will notify via email you when your order is out for delivery.'
+    'order.success' => 'Your order has been placed. We will notify you via email when your order is out for delivery.'
 ];

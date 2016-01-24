@@ -16,7 +16,15 @@
         </tr>
         @if($couponDeduction != 0)
             <tr>
-                <td>{!! trans('checkout.review.coupon') !!}</td>
+                <td>
+                    @if(isset($coupon))
+                    <a data-toggle="popover" title="{!! trans('checkout.review.coupon') !!}: {!! $coupon->code !!}" data-content="{!! $coupon->description !!}">
+                        {!! trans('checkout.review.coupon') !!}
+                    </a>
+                    @else
+                        {!! trans('checkout.review.coupon') !!}
+                    @endif
+                </td>
                 <td class="price">
                     -{!! money_format("%i", $couponDeduction) !!}&euro;
                 </td>
