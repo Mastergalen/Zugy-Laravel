@@ -6,37 +6,18 @@
     @section('title', 'Shop for Alcohol')
 @endif
 
-<!-- TODO Add meta description for category page-->
-
 @extends('layouts.default')
 
-@section('css')
-    <style>
-        .category-list>.list-group .list-group-item:first-child {border-top-right-radius: 0;border-top-left-radius: 0;}
-        .category-list>.list-group .list-group-item {border-width: 1px 0;}
-        .category-list>.list-group {margin-bottom: 0;}
-        .category-list .list-group-item {border-radius:0;}
-
-        .category-list .list-group .list-group {margin: 0;margin-top: 10px;}
-        .category-list .list-group-item li.list-group-item {margin: 0 -15px;border-top: 1px solid #ddd !important;border-bottom: 0;padding-left: 30px;}
-        .category-list .list-group-item li.list-group-item:last-child {padding-bottom: 0;}
-
-        .category-list div.list-group div.list-group{margin: 0;}
-        .category-list div.list-group .list-group a.list-group-item {border-top: 1px solid #ddd !important;border-bottom: 0;padding-left: 30px;}
-        .category-list .list-group-item li.list-group-item {border-top: 1px solid #DDD !important;}
-    </style>
-@endsection
-
 @section('content')
-    <div class="page-header">
-        <h1 style="display: inline">
+    <div class="page-header product-list">
+        <h1>
             @if(isset($category))
                 {{ $category->name }}
             @elseif(isset($query))
                 <i class="fa fa-search"></i> {!! trans('product.search-results', ['query' => $query]) !!}
             @endif
         </h1>
-        <div class="pull-right">{{ trans_choice('product.count', $products->count(), ['count' => $products->count()]) }}</div>
+        <p>{{ trans_choice('product.count', $products->count(), ['count' => $products->count()]) }}</p>
     </div>
     <div class="row">
         <div class="col-md-9 col-md-push-3">
