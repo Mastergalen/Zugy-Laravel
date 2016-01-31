@@ -13,6 +13,11 @@ class Category extends Model
 
     public $translatedAttributes = ['name', 'slug', 'meta_description'];
 
+    protected $casts = [
+        'id' => 'integer',
+        'parent_id' => 'integer',
+    ];
+
     public function products() {
         return $this->belongsToMany('App\Product', 'products_to_categories');
     }
