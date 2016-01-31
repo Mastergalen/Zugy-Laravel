@@ -49,7 +49,7 @@ class DbProductRepository extends DbRepository implements ProductRepository
         $products = $this->model->with('translations')
             ->whereIn('id', $orderedProductIds)
             ->orderByRaw("FIELD(id, $orderedProductIdsStr)")
-            ->get();
+            ->paginate(15);
 
         return $products;
     }
@@ -83,7 +83,7 @@ class DbProductRepository extends DbRepository implements ProductRepository
         $products = $this->model->with('translations')
                                 ->whereIn('id', $orderedProductIds)
                                 ->orderByRaw("FIELD(id, $orderedProductIdsStr)")
-                                ->get();
+                                ->paginate(15);
 
         return $products;
     }
@@ -114,7 +114,7 @@ class DbProductRepository extends DbRepository implements ProductRepository
             $productIds[] = $hit['objectID'];
         }
 
-        return $this->model->find($productIds);
+        return $this->model->whereIn('id', $productIds)->paginate(15);
     }
 
     /**

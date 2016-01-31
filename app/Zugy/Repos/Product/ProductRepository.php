@@ -10,8 +10,8 @@ namespace Zugy\Repos\Product;
 
 interface ProductRepository
 {
-    public function all();
-    public function category($category_slug);
+    public function all($sort = 'sales', $direction = 'desc');
+    public function category($category_slug, $sort = 'sales', $direction = 'desc');
     public function getBySlug($slug);
     public function search($query);
 }

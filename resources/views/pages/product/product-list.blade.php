@@ -36,42 +36,44 @@
 
             <hr>
 
-            <div class="row product-list" id="product-list">
-                <!-- FIXME Add pagination -->
-                @forelse($products as $p)
-                    <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-12">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <a href="{!! $p->getUrl() !!}">
-                                    <img src="{!! $p->cover() !!}" class="img-responsive" alt="{!! $p->title !!}">
-                                </a>
-                                <h4><a href="{!! $p->getUrl() !!}">{!! $p->title !!}</a></h4>
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <div class="price"><a href="{!! $p->getUrl() !!}">{!! $p->price !!}&euro;</a>
+            <div id="product-list">
+                <div class="row product-list">
+                    @forelse($products as $p)
+                        <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <a href="{!! $p->getUrl() !!}">
+                                        <img src="{!! $p->cover() !!}" class="img-responsive" alt="{!! $p->title !!}">
+                                    </a>
+                                    <h4><a href="{!! $p->getUrl() !!}">{!! $p->title !!}</a></h4>
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <div class="price"><a href="{!! $p->getUrl() !!}">{!! $p->price !!}&euro;</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <button class="btn btn-primary btn-sm pull-right btn-add-cart" data-product-id="{!! $p->id !!}"><i class="fa fa-cart-arrow-down"></i></button>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
-                                        <button class="btn btn-primary btn-sm pull-right btn-add-cart" data-product-id="{!! $p->id !!}"><i class="fa fa-cart-arrow-down"></i></button>
-                                    </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @empty
-                    <div class="col-md-12">
-                        @if(isset($query))
-                            <div class="alert alert-info">
-                                {!! trans('product.search.empty', ['query' => $query]) !!}
-                            </div>
-                        @else
-                            <div class="alert alert-info">
-                                {!! trans('product.category.empty') !!}
-                            </div>
-                        @endif
-                    </div>
-                @endforelse
+                    @empty
+                        <div class="col-md-12">
+                            @if(isset($query))
+                                <div class="alert alert-info">
+                                    {!! trans('product.search.empty', ['query' => $query]) !!}
+                                </div>
+                            @else
+                                <div class="alert alert-info">
+                                    {!! trans('product.category.empty') !!}
+                                </div>
+                            @endif
+                        </div>
+                    @endforelse
+                </div>
+                {!! $products->appends(['sort' => request('sort'), 'direction' => request('direction')])->links() !!}
             </div>
         </div>
         <div class="col-md-3 col-md-pull-9">
@@ -89,6 +91,9 @@
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script>
 $(document).on('ready pjax:success', function() {
+    //Bind pjax to pagination buttons
+    $(document).pjax('.pagination a', '#product-list');
+
     $('.btn-add-cart').unbind('click').click(function() {
         $(this).prop('disabled', true);
         var productId = $(this).data('product-id');
@@ -115,6 +120,12 @@ $(document).on('ready pjax:success', function() {
             case 'price-low':
                 query = {'sort': 'price', 'direction': 'asc'};
                 break;
+        }
+
+        var $_GET = getQueryParams(document.location.search);
+
+        if(typeof $_GET.page != 'undefined') {
+            query.page = $_GET.page;
         }
 
         var url = [location.protocol, '//', location.host, location.pathname].join('') + "?" + $.param(query);

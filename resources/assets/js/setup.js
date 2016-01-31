@@ -7,8 +7,29 @@ $.ajaxSetup({
     }
 });
 
-$.pjax.defaults.timeout = 1500;
+//Pjax default timeout increase
+$.pjax.defaults.timeout = 4000;
 
 $(document).on('ready pjax:success', function() {
     $('[data-toggle="popover"]').popover();
 });
+
+/**
+ * Fetch GET variables from URL
+ * @param qs
+ * @returns {{}}
+ */
+function getQueryParams(qs) {
+    qs = qs.split("+").join(" ");
+    var params = {},
+        tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
+
+    while (tokens = re.exec(qs)) {
+        params[decodeURIComponent(tokens[1])]
+            = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
+}
+
