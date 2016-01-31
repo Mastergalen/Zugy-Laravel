@@ -67,6 +67,6 @@ class Handler extends ExceptionHandler
                 ->withErrors(['Validation Token was expired. Please try again']);
         }
 
-        return parent::render($request, $e);
+        return view('errors.500');
     }
 }

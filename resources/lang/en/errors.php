@@ -15,4 +15,6 @@ return [
     'stripe.processing_error' =>     "An error occurred while processing the card.",
     '404.message' => 'Page not found',
     '404.description' => 'We were unable to find the page you were looking for, sorry!',
+    '500.message' => 'An internal error occurred',
+    '500.description' => 'An error occurred, this error has been reported to us and we will fix it as soon as we can - sorry!',
 ];
