@@ -35,17 +35,41 @@ class ShopController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = $this->productRepo->all();
+        if($request->has('sort')) {
+            $sort = $request->input('sort');
+        } else {
+            $sort = 'sales';
+        }
+
+        if($request->has('direction')) {
+            $direction = $request->input('direction');
+        } else {
+            $direction = 'desc';
+        }
+
+        $products = $this->productRepo->all($sort, $direction);
 
         return view('pages.product.product-list')->with(compact('products', 'category'));
     }
 
-    public function category($category_slug) {
+    public function category(Request $request, $category_slug) {
+        if($request->has('sort')) {
+            $sort = $request->input('sort');
+        } else {
+            $sort = 'sales';
+        }
+
+        if($request->has('direction')) {
+            $direction = $request->input('direction');
+        } else {
+            $direction = 'desc';
+        }
+
         $category = $this->categoryRepo->getBySlug($category_slug);
 
-        $products = $this->productRepo->category($category_slug);
+        $products = $this->productRepo->category($category_slug, $sort, $direction);
 
         return view('pages.product.product-list')->with(compact('products', 'category'));
     }

@@ -13,7 +13,11 @@ class Category extends Model
 
     public $translatedAttributes = ['name', 'slug', 'meta_description'];
 
-    static public function buildTree() { //TODO Hide categories with no children
+    public function products() {
+        return $this->belongsToMany('App\Product', 'products_to_categories');
+    }
+
+    static public function buildTree() {
         $refs = [];
         $list = [];
 
@@ -26,11 +30,23 @@ class Category extends Model
             $ref['parent_id']  = $row->parent_id;
             $ref['name'] = $row->name;
             $ref['slug'] = $row->slug;
+            $ref['product_count'] = $row->products()->count();
 
             if($row->parent_id == null) {
                 $list[$row->id] = & $ref;
             } else {
                 $refs[$row->parent_id]['children'][$row->id] = & $ref;
+
+                //Update parent product count
+                $parent = & $refs[$row->parent_id];
+                while(1) {
+                    $parent['product_count'] += $ref['product_count'];
+
+                    if($parent['parent_id'] == null) break;
+                    $parent = & $refs[$parent['parent_id']];
+                }
+
+                //FIXME If parent is added afterwards, it needs to sum up its existing children
             }
         }
 
@@ -45,8 +61,6 @@ class Category extends Model
     static public function printList() {
         $list = Category::buildTree();
 
-
-
         return self::toUL($list);
     }
 
@@ -56,7 +70,9 @@ class Category extends Model
 
         foreach ($array as $value)
         {
-            $html .= '<li class="list-group-item"><a href="' . localize_url('routes.shop.category', ['slug' => $value['slug']]) . '">' . $value['name'];
+            if($value['product_count'] == 0) continue; //Skip empty categories
+
+            $html .= '<li class="list-group-item"><a href="' . localize_url('routes.shop.category', ['slug' => $value['slug']]) . '">' . "{$value['name']} ({$value['product_count']})";
             if (!empty($value['children']))
             {
                 $html .= self::toUL($value['children']);

@@ -7,6 +7,7 @@ use App\Language;
 use App\Product;
 use App\ProductDescription;
 use App\ProductTranslation;
+use Illuminate\Support\Facades\DB;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Zugy\Repos\Category\CategoryRepository;
 use Zugy\Repos\DbRepository;
@@ -34,30 +35,55 @@ class DbProductRepository extends DbRepository implements ProductRepository
 
     /**
      * Fetch all products
+     * @param string $sort
+     * @param string $direction
+     * @return
      */
-    public function all()
+    public function all($sort = 'sales', $direction = 'desc')
     {
-        return $this->model->all();
+        $query = $this->productQueryBuilder()->orderBy($sort, $direction);
+
+        $orderedProductIds = collect($query->get())->pluck('id');
+
+        $orderedProductIdsStr = $orderedProductIds->implode(',');
+        $products = $this->model->with('translations')
+            ->whereIn('id', $orderedProductIds)
+            ->orderByRaw("FIELD(id, $orderedProductIdsStr)")
+            ->get();
+
+        return $products;
     }
 
     /**
      * Fetch all products for a category slug
+     * @param $category_slug
+     * @param string $sort
+     * @param string $direction
+     * @return
      */
-    public function category($category_slug)
+    public function category($category_slug, $sort = 'sales', $direction = 'desc')
     {
         $category = $this->categoryRepo->getBySlug($category_slug);
 
         $categoryIds = $this->categoryRepo->children($category->id);
 
         $productIds = collect(
-            \DB::table('products_to_categories')
+            DB::table('products_to_categories')
                 ->whereIn('category_id', $categoryIds)
                 ->get()
             )->unique('product_id')->pluck('product_id');
 
-        $products = $this->model->findMany($productIds);
+        $query = $this->productQueryBuilder()
+                    ->orderBy($sort, $direction)
+                    ->whereIn('products.id', $productIds); // Category filter;
 
-        $products->load('translations');
+        $orderedProductIds = collect($query->get())->pluck('id');
+
+        $orderedProductIdsStr = $orderedProductIds->implode(',');
+        $products = $this->model->with('translations')
+                                ->whereIn('id', $orderedProductIds)
+                                ->orderByRaw("FIELD(id, $orderedProductIdsStr)")
+                                ->get();
 
         return $products;
     }
@@ -91,5 +117,19 @@ class DbProductRepository extends DbRepository implements ProductRepository
         return $this->model->find($productIds);
     }
 
-
+    /**
+     * Build joined table so that sales for product can be calculated
+     * @return mixed
+     */
+    private function productQueryBuilder() {
+         return DB::table('products')
+            ->leftJoin('order_items', 'products.id', '=', 'order_items.product_id')
+            ->leftJoin('orders', 'orders.id', '=', 'order_items.order_id')
+            ->selectRaw('products.*, sum(order_items.quantity) as sales')
+            ->groupBy('products.id')
+            ->where(function($query) {
+                $query->where('orders.order_status', '!=', 4) //Ignore cancelled orders
+                ->orWhereNull('orders.order_status');
+            });
+    }
 }

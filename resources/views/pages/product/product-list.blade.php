@@ -21,14 +21,30 @@
     </div>
     <div class="row">
         <div class="col-md-9 col-md-push-3">
-            <div class="row product-list">
+
+            <div class="row">
+                <div class="col-md-offset-8 col-md-4">
+                    <div class="pull-right">
+                        <select id="product-sort" class="form-control">
+                            <option value="sales" @if(request('sort') == 'sales' && request('direction') == 'asc') selected @endif>Most popular</option>
+                            <option value="price-high" @if(request('sort') == 'price' && request('direction') == 'desc') selected @endif>Highest price</option>
+                            <option value="price-low" @if(request('sort') == 'price' && request('direction') == 'asc') selected @endif>Lowest price</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row product-list" id="product-list">
                 <!-- FIXME Add pagination -->
                 @forelse($products as $p)
                     <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-body">
-                                <a href="{!! $p->getUrl() !!}"><img src="{!! $p->cover() !!}" class="img-responsive"
-                                                                    alt=""></a>
+                                <a href="{!! $p->getUrl() !!}">
+                                    <img src="{!! $p->cover() !!}" class="img-responsive" alt="{!! $p->title !!}">
+                                </a>
                                 <h4><a href="{!! $p->getUrl() !!}">{!! $p->title !!}</a></h4>
                                 <div class="row">
                                     <div class="col-xs-6">
@@ -72,17 +88,39 @@
 @section('scripts')
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script>
-$('.btn-add-cart').click(function() {
-    $(this).prop('disabled', true);
-    var productId = $(this).data('product-id');
+$(document).on('ready pjax:success', function() {
+    $('.btn-add-cart').unbind('click').click(function() {
+        $(this).prop('disabled', true);
+        var productId = $(this).data('product-id');
 
-    var $img = $(this).closest('.panel-body').find('img').eq(0);
+        var $img = $(this).closest('.panel-body').find('img').eq(0);
 
-    cart.addToCartAnimation($img);
+        cart.addToCartAnimation($img);
 
-    cart.add(productId, 1).done(function() {
-        $(this).prop('disabled', false);
-    }.bind(this));
+        cart.add(productId, 1).done(function() {
+            $(this).prop('disabled', false);
+        }.bind(this));
+    });
+
+    $('#product-sort').unbind('change').change(function() {
+        var query;
+        console.log($(this).val());
+        switch($(this).val()) {
+            case 'sales':
+                query = {'sort': 'sales', 'direction': 'desc'};
+                break;
+            case 'price-high':
+                query = {'sort': 'price', 'direction': 'desc'};
+                break;
+            case 'price-low':
+                query = {'sort': 'price', 'direction': 'asc'};
+                break;
+        }
+
+        var url = [location.protocol, '//', location.host, location.pathname].join('') + "?" + $.param(query);
+
+        $.pjax({url: url, container: '#product-list'});
+    });
 });
 </script>
 @endsection

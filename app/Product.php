@@ -4,6 +4,7 @@ namespace App;
 
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class Product extends Model
@@ -151,5 +152,19 @@ class Product extends Model
         array_unshift($breadcrumbs, ['name' => $node->name, 'slug' => $node->slug]);
 
         return $breadcrumbs;
+    }
+
+    /**
+     * Calculate how many times product has been sold
+     * @return mixed
+     */
+    public function getSalesAttribute()
+    {
+        return DB::table('order_items')
+                   ->join('orders', 'order_items.order_id', '=', 'orders.id')
+                   ->select('order_items.*', 'orders.order_status')
+                   ->where('product_id', '=', $this->attributes['id'])
+                   ->where('orders.order_status', '!=', 4) //Ignore cancelled orders
+                   ->sum('order_items.quantity');
     }
 }
