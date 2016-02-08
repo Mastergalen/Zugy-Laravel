@@ -3,6 +3,7 @@
         <tr>
             <th>ID</th>
             <th>{!! trans('order.date') !!}</th>
+            <th>{!! trans('checkout.review.delivery-time') !!}</th>
             <th>{!! trans('checkout.total') !!}</th>
             <th>{!! trans('forms.status') !!}</th>
             <th>{!! trans('forms.action') !!}</th>
@@ -13,6 +14,7 @@
             <tr>
                 <td>#{{ $o['id'] }}</td>
                 <td>{{ $o->order_placed }}</td>
+                <td>@include('includes._order-delivery_time', ['delivery_time' => $o->delivery_time])</td>
                 <td>{{ money_format("%i", $o->grandTotal) }}&euro;</td>
                 <td>@include('includes.status.order-status', ['status' => $o['order_status']])</td>
                 <td class="text-right">

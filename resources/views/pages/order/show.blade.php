@@ -16,6 +16,11 @@
         @include('includes.status.order-status', ['status' => $order->order_status])
     </p>
 
+    <p>
+        {!! trans('checkout.review.delivery-time') !!}:
+        @include('includes._order-delivery_time', ['delivery_time' => $order->delivery_time])
+    </p>
+
     @include('includes._order-timeline', ['activity' => $order->activity])
 
     @can('show', $order)

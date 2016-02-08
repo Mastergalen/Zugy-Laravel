@@ -34,7 +34,7 @@
             <hr>
             @if(request()->has('filter'))
                 <div class="alert alert-info">
-                    {!! trans('admin.order.filters.incomplete.info') !!}
+                    {!! trans('admin.orders.filter.incomplete.info') !!}
                 </div>
             @endif
         </div>

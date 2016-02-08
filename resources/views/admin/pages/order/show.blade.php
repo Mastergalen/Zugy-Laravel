@@ -65,6 +65,11 @@
                                     <dd>{{ $order->order_completed }}</dd>
                                 @endif
                             </dl>
+
+                            <div class="alert alert-info">
+                                {!! trans('checkout.review.delivery-time') !!}:
+                                @include('includes._order-delivery_time', ['delivery_time' => $order->delivery_time])
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <h4>{!! trans('checkout.address.form.delivery') !!}</h4>

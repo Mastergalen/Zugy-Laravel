@@ -32,7 +32,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         if($request->has('filter')) {
-            $orders = $this->orderRepository->incomplete()->orderBy('order_placed', 'asc')->paginate(30);
+            $orders = $this->orderRepository->incomplete()->orderBy('delivery_time', 'asc')->orderBy('order_placed', 'asc')->paginate(30);
         } else {
             $orders = $this->orderRepository->orderBy('order_placed', 'desc')->paginate(30);
         }
