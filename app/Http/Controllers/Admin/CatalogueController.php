@@ -36,8 +36,6 @@ class CatalogueController extends Controller
     {
         if($request->has('product_name')) {
             $products = $this->productRepo->search($request->input('product_name'));
-
-            $products = new LengthAwarePaginator($products, $products->count(), 30);
         } else {
             $products = Product::with('translations')->paginate(30);
         }
