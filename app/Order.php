@@ -12,7 +12,7 @@ class Order extends Model
 
     protected $appends = ['total'];
 
-    protected $dates = ['order_placed', 'order_completed'];
+    protected $dates = ['order_placed', 'order_completed', 'delivery_time'];
 
     protected $statuses = [
         0 => 'New order',

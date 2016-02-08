@@ -53,6 +53,11 @@ return [
     'review.items' => 'Review items',
     'review.place-order' => 'Place order',
     'review.accept' => 'By placing your order you agree to :siteName\'s <a href=":privacyPolicyUrl">Privacy Policy</a> and <a href=":termsAndConditionsUrl">Terms and Conditions</a>.',
+    'review.delivery-time' => 'Delivery time',
+    'review.delivery-time.label' => 'When do you want your order to be delivered?',
+    'review.delivery-time.asap' => 'As soon as possible',
+    'review.delivery-time.slot' => 'Choose a delivery slot',
+    'review.delivery-time.error.late' => 'It\'s too late to choose this delivery time. Please select a later time',
     'order' => 'Order',
     'order.success' => 'Your order has been placed. We will notify you via email when your order is out for delivery.'
 ];

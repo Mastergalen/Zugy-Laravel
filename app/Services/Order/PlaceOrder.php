@@ -2,6 +2,7 @@
 
 namespace App\Services\Order;
 
+use Illuminate\Support\Facades\Validator;
 use Log;
 use App\Events\OrderWasPlaced;
 use App\Payment;
@@ -30,7 +31,7 @@ class PlaceOrder
     public function handler(User $user) {
         $this->user = $user;
 
-        $this->deliveryAddress = Checkout::getShippingAddress(); //TODO Validate that delivery address is in delivery zone
+        $this->deliveryAddress = Checkout::getShippingAddress();
         $this->billingAddress = Checkout::getBillingAddress();
         $this->paymentMethod = Checkout::getPaymentMethod();
 
@@ -40,6 +41,33 @@ class PlaceOrder
         }
 
         $this->checkStock();
+
+        $validator = Validator::make(request()->all(), [
+
+        ]);
+
+        $validator->sometimes('delivery_date', 'required|date', function($input) {
+            return $input->delivery_date != 'asap';
+        });
+
+        $validator->sometimes('delivery_time', 'required', function($input) {
+            return $input->delivery_date != 'asap';
+        });
+
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        //Validate delivery time
+        if(request('delivery_date') != 'asap') {
+            $delivery_time = Carbon::parse(request('delivery_date') . " " . request('delivery_time'));
+
+            $cutoff_time = Carbon::now()->addMinutes(30);
+
+            if($delivery_time->lt($cutoff_time)) {
+                return redirect()->back()->withErrors(['delivery_date' => trans('checkout.review.delivery-time.error.late')]);
+            }
+        }
 
         $coupon = Checkout::getCoupon();
 
@@ -53,8 +81,6 @@ class PlaceOrder
         if(!$payment instanceof Payment) return $payment; //E.g. for PayPal, return redirect to gateway processor
 
         $order = $this->saveOrderToDB($payment);
-
-        //TODO Alert drivers
 
         //Empty checkout session settings
         Checkout::forget();
@@ -127,6 +153,13 @@ class PlaceOrder
 
         $order->currency                = 'EUR';
 
+        //Delivery time
+        if(request('delivery_date') == 'asap') {
+            $order->delivery_time = null;
+        } else {
+            $order->delivery_time = Carbon::parse(request('delivery_date') . " " . request('delivery_time'));
+        }
+
         $order = $this->user->orders()->save($order);
 
         //Add payment to DB, save billing address in same table
@@ -159,7 +192,9 @@ class PlaceOrder
         $order->items()->saveMany($items);
 
         //Increment coupon uses
-        $coupon->increment('uses');
+        if($coupon != null) {
+            $coupon->increment('uses');
+        }
 
         return $order;
     }
