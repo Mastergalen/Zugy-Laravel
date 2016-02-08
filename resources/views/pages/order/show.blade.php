@@ -41,7 +41,7 @@
                 title: 'VAT Summary',
                 placement: 'bottom',
                 content: $('#vat-popover-template').html()
-            })
+            });
 
             $('[data-toggle="tooltip"]').tooltip();
         });

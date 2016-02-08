@@ -130,6 +130,6 @@ class DbProductRepository extends DbRepository implements ProductRepository
             ->where(function($query) {
                 $query->where('orders.order_status', '!=', 4) //Ignore cancelled orders
                 ->orWhereNull('orders.order_status');
-            });
+            })->where('products.stock_quantity', '>', 0); //Hide items that are out of stock
     }
 }

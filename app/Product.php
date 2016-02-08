@@ -167,4 +167,12 @@ class Product extends Model
                    ->where('orders.order_status', '!=', 4) //Ignore cancelled orders
                    ->sum('order_items.quantity');
     }
+
+    /**
+     * Only include products that are in stock
+     * @param $query
+     */
+    public function scopeInStock($query) {
+        return $query->where('stock_quantity', '>', 0);
+    }
 }

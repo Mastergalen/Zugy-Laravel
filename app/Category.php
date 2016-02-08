@@ -35,7 +35,7 @@ class Category extends Model
             $ref['parent_id']  = $row->parent_id;
             $ref['name'] = $row->name;
             $ref['slug'] = $row->slug;
-            $ref['product_count'] = $row->products()->count();
+            $ref['product_count'] = $row->products()->inStock()->count();
 
             if($row->parent_id == null) {
                 $list[$row->id] = & $ref;
