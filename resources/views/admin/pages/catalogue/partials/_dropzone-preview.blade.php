@@ -2,6 +2,7 @@
     <div class="dz-image">
         <img data-dz-thumbnail="" alt="" src="{!! $image->getUrlAttribute() !!}">
     </div>
+    <div class="dz-custom-delete">&times;</div>
     <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress="" style="width: 100%;"></span></div>
     <div class="dz-error-message"><span data-dz-errormessage=""></span></div>
     <div class="dz-success-mark">

@@ -21,5 +21,8 @@ return [
     'show-google-maps' => 'Show on Google Maps',
     'save' => 'Save',
     'return-home' => 'Return to the homepage',
-    'apply' => 'Apply'
+    'apply' => 'Apply',
+    'cancel' => 'Cancel',
+    'delete' => 'Delete',
+    'success' => 'Success'
 ];

@@ -171,159 +171,196 @@
 @endsection
 
 @section('scripts')
-    <script src="/plugins/summernote/summernote.min.js"></script>
-    <script src="/plugins/dropzone/dropzone.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/formValidation.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/framework/bootstrap.js"></script>
-    <script>
-        function slugify(text)
-        {
-            return text.toString().toLowerCase()
-                    .replace(/\s+/g, '-')           // Replace spaces with -
-                    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-                    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-                    .replace(/^-+/, '')             // Trim - from start of text
-                    .replace(/-+$/, '');            // Trim - from end of text
-        }
 
-        $(document).ready(function() {
-            var $form = $('#create-product-form');
-            $form.formValidation({
-                locale: $('meta[name="og:locale"]').attr('content'),
-                framework: 'bootstrap',
-                excluded: [':disabled'],
-                fields: {
-                    price: {
-                        validators: {
-                            notEmpty: {},
-                            numeric: {
-                                message: 'The price must be a number'
-                            },
-                            greaterThan: {
-                                value: 0
-                            }
-                        }
+<script src="/plugins/summernote/summernote.min.js"></script>
+<script src="/plugins/dropzone/dropzone.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/formValidation.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.1/js/framework/bootstrap.js"></script>
+<script>
+function slugify(text)
+{
+    return text.toString().toLowerCase()
+            .replace(/\s+/g, '-')           // Replace spaces with -
+            .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+            .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+            .replace(/^-+/, '')             // Trim - from start of text
+            .replace(/-+$/, '');            // Trim - from end of text
+}
+
+$(document).ready(function() {
+    var $form = $('#create-product-form');
+    $form.formValidation({
+        locale: $('meta[name="og:locale"]').attr('content'),
+        framework: 'bootstrap',
+        excluded: [':disabled'],
+        fields: {
+            price: {
+                validators: {
+                    notEmpty: {},
+                    numeric: {
+                        message: 'The price must be a number'
                     },
-                    'compare_price': {
-                        validators: {
-                            numeric: {
-                                message: 'The price must be a number'
-                            },
-                            greaterThan: {
-                                value: 0
-                            }
-                        }
-                    },
-                    'images[]': {
-                        excluded: false,
-                        err: '#images-error',
-                        validators: {
-                            choice: {
-                                min: 1,
-                                message: 'You need to add at least 1 image'
-                            },
-                        }
-                    },
-                }
-            });
-
-            /*
-             * Generate slug
-             */
-            $('input[name$="[title]"]').keyup(function() {
-                var slug = slugify($(this).val());
-
-                var $slug = $(this).parent().next().find('input[name$="[slug]"]')
-
-                $slug.val(slug);
-
-                var slugName = $slug.attr('name');
-
-                $form.formValidation('revalidateField', slugName);
-            });
-
-            /* Init Editor */
-            $('.summernote').summernote({
-                toolbar: [
-                    ['style', ['style', 'bold', 'italic', 'underline', 'clear']],
-                    ['font', ['strikethrough', 'superscript', 'subscript']],
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['height', ['height']],
-                    ['insert', ['link', 'hr', 'table']],
-                    ['misc', ['fullscreen', 'codeview']],
-                    ['help', ['help']]
-                ],
-                onInit: function() {
-                    $(this).nextAll('input').val($(this).code());
-                },
-                onKeyup: function(e) {
-                    $(this).nextAll('input').val($(this).code());
-                },
-            });
-
-            Dropzone.autoDiscover = false;
-            var $myDropzone = $('#my-dropzone').dropzone({
-                url: "{!! action('Admin\ImageController@upload') !!}",
-                parallelUploads: 20,
-                maxFiles: 20,
-                clickable: true,
-                acceptedFiles: ".jpeg,.jpg,.png,.gif",
-                error: function(file, msg) {
-                    console.error(msg);
-                },
-                success: function(file, resp) {
-                    console.log("Image upload successful");
-                    console.log(resp);
-
-                    $checkbox = $('<input type="checkbox" name="images[]" value="' + resp.id + '" style="display:none; " checked/>');
-                    $dropzone = $('#my-dropzone').after($checkbox);
-
-                    //Add ID to DOM
-                    file.previewElement.setAttribute('data-image-id', resp.id);
-
-                    //Update thumbnail if first image
-                    $thumbnailInput = $('input[name=thumbnail_id]');
-                    if($thumbnailInput.val() == '') {
-                        $thumbnailInput.val(resp.id);
-
-                        $(file.previewElement).addClass('selected');
+                    greaterThan: {
+                        value: 0
                     }
-
-                    $parent = $dropzone.parent();
-
-                    $options = $parent.find('[name="images[]"]');
-
-                    $form.formValidation('addField', $options)
-                            .formValidation('revalidateField', 'images[]');
-                },
-
-                init: function() {
-                    this.on("sending", function(file, xhr, formData) {
-                        formData.append("_token", $("input[name='_token']").val());
-                    });
-
-                    this.on("removedfile", function(file) {
-                        console.log(file);
-                    });
                 }
+            },
+            'compare_price': {
+                validators: {
+                    numeric: {
+                        message: 'The price must be a number'
+                    },
+                    greaterThan: {
+                        value: 0
+                    }
+                }
+            },
+            'images[]': {
+                excluded: false,
+                err: '#images-error',
+                validators: {
+                    choice: {
+                        min: 1,
+                        message: 'You need to add at least 1 image'
+                    }
+                }
+            }
+        }
+    });
+
+    /*
+     * Generate slug
+     */
+    $('input[name$="[title]"]').keyup(function() {
+        var slug = slugify($(this).val());
+
+        var $slug = $(this).parent().next().find('input[name$="[slug]"]');
+
+        $slug.val(slug);
+
+        var slugName = $slug.attr('name');
+
+        $form.formValidation('revalidateField', slugName);
+    });
+
+    /* Init Editor */
+    $('.summernote').summernote({
+        toolbar: [
+            ['style', ['style', 'bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['insert', ['link', 'hr', 'table']],
+            ['misc', ['fullscreen', 'codeview']],
+            ['help', ['help']]
+        ],
+        onInit: function() {
+            $(this).nextAll('input').val($(this).code());
+        },
+        onKeyup: function(e) {
+            $(this).nextAll('input').val($(this).code());
+        }
+    });
+
+    Dropzone.autoDiscover = false;
+    var $myDropzone = $('#my-dropzone').dropzone({
+        url: "{!! action('Admin\ImageController@upload') !!}",
+        parallelUploads: 20,
+        maxFiles: 20,
+        clickable: true,
+        acceptedFiles: ".jpeg,.jpg,.png,.gif",
+        error: function(file, msg) {
+            console.error(msg);
+        },
+        success: function(file, resp) {
+            console.log("Image upload successful");
+            console.log(resp);
+
+            $checkbox = $('<input type="checkbox" name="images[]" value="' + resp.id + '" style="display:none; " checked/>');
+            $dropzone = $('#my-dropzone').after($checkbox);
+
+            //Add ID to DOM
+            file.previewElement.setAttribute('data-image-id', resp.id);
+
+            //Update thumbnail if first image
+            $thumbnailInput = $('input[name=thumbnail_id]');
+            if($thumbnailInput.val() == '') {
+                $thumbnailInput.val(resp.id);
+
+                $(file.previewElement).addClass('selected');
+            }
+
+            $parent = $dropzone.parent();
+
+            $options = $parent.find('[name="images[]"]');
+
+            $form.formValidation('addField', $options)
+                    .formValidation('revalidateField', 'images[]');
+        },
+
+        init: function() {
+            this.on("sending", function(file, xhr, formData) {
+                formData.append("_token", $("input[name='_token']").val());
             });
 
-            $myDropzone.on('click', '.dz-preview', function() {
-                $myDropzone.find('.dz-preview').removeClass('selected');
-
-                $(this).addClass('selected');
-
-                var imageId = $(this).data('image-id');
-                $('input[name=thumbnail_id]').val(imageId);
+            this.on("removedfile", function(file) {
+                console.log(file);
             });
+        }
+    });
 
-            $myDropzone.tooltip({
-                selector: '.dz-preview',
-                title: 'Set this as thumbnail'
-            });
+    $myDropzone.on('click', '.dz-preview', function() {
+        $myDropzone.find('.dz-preview').removeClass('selected');
 
+        $(this).addClass('selected');
+
+        var imageId = $(this).data('image-id');
+        $('input[name=thumbnail_id]').val(imageId);
+    });
+
+    $myDropzone.tooltip({
+        selector: '.dz-preview',
+        title: 'Set this as thumbnail'
+    });
+
+    $myDropzone.on('click', '.dz-custom-delete', function() {
+        var imageId = $(this).parent().data('image-id');
+
+        console.log($(this));
+        console.log("Deleting Image id: " + imageId);
+
+        swal({
+            title: "{!! trans('admin.catalogue.image.delete.confirmation') !!}",
+            type: "warning",
+            confirmButtonText: "{!! trans('buttons.delete') !!}",
+            showCancelButton: true,
+            cancelButtonText: "{!! trans('buttons.cancel') !!}",
+            closeOnConfirm: false
+        }, function(confirm) {
+            if(confirm) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "{!! action('Admin\ImageController@destroy', ['id' => '']) !!}/" + imageId,
+                    success: function() {
+                        swal({
+                            title: "{!! trans('buttons.success') !!}!",
+                            timer: 1000,
+                            type: "success",
+                            showConfirmButton: false
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        var err = eval("(" + xhr.responseText + ")");
+                        swal(err.message, "", "error");
+                    }
+                });
+            }
         });
-    </script>
+    });
+
+});
+</script>
+
 @endsection

@@ -108,8 +108,6 @@ class CatalogueController extends Controller
 
         $productAttributes = $product->attributes()->get()->keyBy('id');
 
-        //dd($productAttributes->toArray());
-
         return view('admin.pages.catalogue.edit')->with([
             'product' => $product,
             'languages' => $languages,

@@ -23,6 +23,7 @@ return [
 
     'dashboard.title' => 'Dashboard',
     'catalogue.title' => 'Catalogue',
+    'catalogue.image.delete.confirmation' => 'Are you sure you want to delete this image?',
     'customers.title' => 'Customers',
     'customers.singular' => 'Customer',
     'customers.name.label' => 'Customer Name',

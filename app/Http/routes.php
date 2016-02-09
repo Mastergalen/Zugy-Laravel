@@ -133,6 +133,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::resource('customer', 'Admin\CustomerController');
     Route::resource('order', 'Admin\OrderController');
     Route::post('image/upload', 'Admin\ImageController@upload');
+    Route::delete('image/{id}', 'Admin\ImageController@destroy');
 });
 
 Route::get('test', function() {

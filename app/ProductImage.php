@@ -14,6 +14,9 @@ class ProductImage extends Model
         } else {
             return url('uploads/' . $this->attributes['location']);
         }
+    }
 
+    public function product() {
+        return $this->belongsTo('App\Product');
     }
 }
