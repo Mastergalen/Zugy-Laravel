@@ -169,6 +169,9 @@
 @stop
 
 @section('scripts')
+    @if(auth()->guest())
+        @include('includes._postcode-check')
+    @endif
     <script src="/js/smoothproducts.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>

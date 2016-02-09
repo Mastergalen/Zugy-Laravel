@@ -88,6 +88,9 @@
 @endsection
 
 @section('scripts')
+@if(auth()->guest())
+    @include('includes._postcode-check')
+@endif
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script>
 $(document).on('ready pjax:success', function() {
