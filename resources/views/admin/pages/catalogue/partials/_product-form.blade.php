@@ -322,14 +322,11 @@ $(document).ready(function() {
 
     $myDropzone.tooltip({
         selector: '.dz-preview',
-        title: 'Set this as thumbnail'
+        title: '{!! trans('admin.catalogue.image.thumbnail') !!}'
     });
 
     $myDropzone.on('click', '.dz-custom-delete', function() {
         var imageId = $(this).parent().data('image-id');
-
-        console.log($(this));
-        console.log("Deleting Image id: " + imageId);
 
         swal({
             title: "{!! trans('admin.catalogue.image.delete.confirmation') !!}",
