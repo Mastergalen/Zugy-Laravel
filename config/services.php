@@ -15,24 +15,14 @@ return [
     */
 
     'mailgun' => [
-        'domain' => '',
-        'secret' => '',
-    ],
-
-    'mandrill' => [
-        'secret' => env('MANDRILL_SECRET'),
+        'domain' => env('MAILGUN_DOMAIN'),
+        'secret' => env('MAILGUN_SECRET'),
     ],
 
     'ses' => [
         'key'    => '',
         'secret' => '',
         'region' => 'us-east-1',
-    ],
-
-    'stripe' => [
-        'model'  => App\User::class,
-        'key'    => '',
-        'secret' => '',
     ],
 
     'google' => [
