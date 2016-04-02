@@ -15,6 +15,10 @@ class CategoriesSeeder extends Seeder
             ['id' => 8, 'parent_id' => 3],
             ['id' => 9, 'parent_id' => 3],
             ['id' => 10, 'parent_id' => 1],
+            ['id' => 11, 'parent_id' => 3],
+            ['id' => 12, 'parent_id' => null], //Mixers
+            ['id' => 13, 'parent_id' => 12], //Soda
+            ['id' => 14, 'parent_id' => 12], //Juice
         ]);
 
         DB::table('category_translations')->insert([
@@ -50,6 +54,15 @@ class CategoriesSeeder extends Seeder
 
             ['category_id' => 11, 'locale' => 'en',  'name' => 'Gin', 'slug' => 'gin'],
             ['category_id' => 11, 'locale' => 'it',  'name' => 'Gin', 'slug' => 'gin'],
+
+            ['category_id' => 12, 'locale' => 'en',  'name' => 'Mixers', 'slug' => 'mixers'],
+            ['category_id' => 12, 'locale' => 'it',  'name' => 'Mixers', 'slug' => 'mixers'],
+
+            ['category_id' => 13, 'locale' => 'en',  'name' => 'Soda', 'slug' => 'soda'],
+            ['category_id' => 13, 'locale' => 'it',  'name' => 'Soda', 'slug' => 'soda'],
+
+            ['category_id' => 14, 'locale' => 'en',  'name' => 'Juice', 'slug' => 'juice'],
+            ['category_id' => 14, 'locale' => 'it',  'name' => 'Succo', 'slug' => 'succo'],
         ]);
     }
 }
