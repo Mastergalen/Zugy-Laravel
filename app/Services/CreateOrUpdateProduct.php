@@ -76,7 +76,12 @@ class CreateOrUpdateProduct
 
             $product->save();
 
-            ProductImage::whereIn('id', $request->input('images'))->update(['product_id' => $product->id]);
+            //Ensure that thumbnail ID gets updated with product ID
+            $productImages = $request->input('images');
+            if(!in_array((int) $request->input('thumbnail_id'), $productImages)) {
+                $productImages[] = (int) $request->input('thumbnail_id');
+            }
+            ProductImage::whereIn('id', $productImages)->update(['product_id' => $product->id]);
         }
 
         return redirect()->action('Admin\CatalogueController@index')->with('success', 'Product added successfully');
