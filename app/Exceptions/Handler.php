@@ -7,7 +7,7 @@ use Laravel\Socialite\Two\InvalidStateException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Illuminate\Foundation\Validation\ValidationException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -39,6 +39,14 @@ class Handler extends ExceptionHandler
             \Log::error($e);
         }
 
+        if ($e instanceof ModelNotFoundException) {
+            return response()->view('errors.404', [], 404);
+        }
+
+        if (app()->environment() == 'production') {
+            return response()->view('errors.500', [], 500);
+        }
+
         parent::report($e);
     }
 
@@ -67,6 +75,6 @@ class Handler extends ExceptionHandler
                 ->withErrors(['Validation Token was expired. Please try again']);
         }
 
-        return view('errors.500');
+        return parent::render($request, $e);
     }
 }
