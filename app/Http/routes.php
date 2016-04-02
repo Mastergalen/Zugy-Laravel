@@ -126,7 +126,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['api']], function () {
     });
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'web']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth', 'admin']], function () {
     Route::get('', ['uses' => 'Admin\DashboardController@getDashboard']);
 
     Route::resource('catalogue', 'Admin\CatalogueController');
