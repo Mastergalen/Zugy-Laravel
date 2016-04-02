@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([
     'prefix' => (env('APP_ENV') === 'testing' ? 'en' : Localization::setLocale()),
-    'middleware' => ['localeSessionRedirect', 'localizationRedirect' ]
+    'middleware' => ['web', 'localeSessionRedirect', 'localizationRedirect' ]
 ], function() {
     Route::get('/', function () {
         return view('pages.home');
@@ -24,7 +24,7 @@ Route::group([
 
 Route::group([
     'prefix' => (env('APP_ENV') === 'testing' ? 'en' : Localization::setLocale()),
-    'middleware' => [ 'localize' ] // Route translate middleware
+    'middleware' => [ 'web', 'localize', ] // Route translate middleware
 ],
 function() {
     /*
@@ -101,14 +101,14 @@ function() {
     });
 });
 
-Route::group(['prefix' => 'auth'], function () {
+Route::group(['prefix' => 'auth', 'middleware' => ['web']], function () {
     Route::get('login/facebook', 'Auth\AuthController@facebookLogin');
     Route::get('login/google', 'Auth\AuthController@googleLogin');
     Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 });
 
 /* API */
-Route::group(['prefix' => 'api'], function () {
+Route::group(['prefix' => 'api', 'middleware' => ['api']], function () {
     Route::group(['prefix' => 'v1'], function () {
         //No auth required
         Route::patch('cart', 'API\CartController@bulkUpdate');
@@ -126,7 +126,7 @@ Route::group(['prefix' => 'api'], function () {
     });
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'web']], function () {
     Route::get('', ['uses' => 'Admin\DashboardController@getDashboard']);
 
     Route::resource('catalogue', 'Admin\CatalogueController');
@@ -136,5 +136,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::delete('image/{id}', 'Admin\ImageController@destroy');
 });
 
-Route::get('test', function() {
+Route::group(['middleware' => ['web']], function () {
+    Route::get('test', function() {
+    });
 });
