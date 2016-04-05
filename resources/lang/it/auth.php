@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'login.title' => 'Accesso o <a href=":registerUrl">crea un account</a>',
+    'login.success' => 'Connesso',
+    'login.or' => 'o',
+    'form.email.label' => 'E-Mail',
+    'form.password.label' => 'Password',
+    'form.confirm-password.label' => 'Conferma password',
+    'form.remember' => 'Ricordami',
+    'form.forgot' => 'Dimenticato password?',
+    'register.title' => 'Creare un nuovo account',
+    'register.social-tip' => 'È possibile utilizzare Facebook e Google per creare un account più veloce!',
+    'register.button' => 'Elenco',
+    'reset.title' => 'Resetta la password',
+    'reset.button' => 'Invia Password Reset link',
+    'reset.email.subject' => 'La vostra Password Reset link',
+    'reset.email.click' => 'Clicca qui per reimpostare la password:',
+    'cookies-consent' => 'Questo sito web utilizza i cookie per essere sicuri di ottenere la migliore esperienza sul nostro sito',
+    'failed' => 'Queste credenziali non corrispondono i nostri dischi.',
+    'throttle' => 'Troppi tentativi di accesso. Riprova in :seconds secondi.',
+    'already-logged-in' => 'Già effettuato il login',
+    'form.password.change' => 'Cambia la password',
+    'form.password_current.label' => 'Password attuale',
+    'form.current_password.error' => 'La password corrente non era corretta',
+    'form.password.change.success' => 'La tua password è stata modificata',
+    'register.advantages' => 'Crea un account per checkout facile e veloce accesso alla cronologia degli ordini.',
+];

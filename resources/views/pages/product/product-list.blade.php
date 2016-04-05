@@ -26,9 +26,9 @@
                 <div class="col-md-offset-8 col-md-4">
                     <div class="pull-right">
                         <select id="product-sort" class="form-control">
-                            <option value="sales" @if(request('sort') == 'sales' && request('direction') == 'asc') selected @endif>Most popular</option>
-                            <option value="price-high" @if(request('sort') == 'price' && request('direction') == 'desc') selected @endif>Highest price</option>
-                            <option value="price-low" @if(request('sort') == 'price' && request('direction') == 'asc') selected @endif>Lowest price</option>
+                            <option value="sales" @if(request('sort') == 'sales' && request('direction') == 'asc') selected @endif>{!! trans('product.sort.popular') !!}</option>
+                            <option value="price-high" @if(request('sort') == 'price' && request('direction') == 'desc') selected @endif>{!! trans('product.sort.price.highest') !!}</option>
+                            <option value="price-low" @if(request('sort') == 'price' && request('direction') == 'asc') selected @endif>{!! trans('product.sort.price.lowest') !!}</option>
                         </select>
                     </div>
                 </div>

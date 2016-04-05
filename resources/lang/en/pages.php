@@ -18,7 +18,6 @@ return [
     'home.meta_description' => 'Zugy is an online liquor store in Milan that delivers within an hour.',
     'home.meta-title' => 'Alcohol Delivery on-demand for Milan',
     'home.tagline' => 'Your favorite beer, wine, spirits delivered to your doorstep',
-    'home.launch' => 'Launching in January 2016',
     'home.marketing.address.title' => 'Set your address',
     'home.marketing.address.desc' => "Select from a wide range of alcholic drinks to be delivered to your door step.",
     'home.marketing.time.title' => 'Order in minutes',

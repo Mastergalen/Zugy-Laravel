@@ -1,5 +1,26 @@
 <?php
 
 return [
-    'count' => '{0} zero prodotti|{1} 1 prodotto|[2, Inf] :count prodotti',
+    'product' => 'Prodotto',
+    'search-results' => 'Risultati della ricerca di <i>:query</i>',
+    'count' => '{0} zero prodotti |{1} 1 prodotto|[2,Inf] :count i prodotti',
+    'stock' => 'Offerta Quantità',
+    'in-stock' => 'Disponibile',
+    'out-of-stock' => 'Non disponibile',
+    'stock-warning' => 'Solo :count disponibili nello store.',
+    'item-weight' => 'Peso dell\'oggetto',
+    'tabs.details' => 'Dettagli',
+    'quantity' => 'Quantità',
+    'price' => 'Prezzo',
+    'edit' => 'Modifica prodotto',
+    'search.empty' => 'Non ci sono risultati che corrispondono alla query <b>":query"</b>',
+    'category.empty' => 'Non ci sono prodotti in questa categoria',
+    'category.title' => 'Categoria',
+    '404' => 'Tale prodotto non esiste',
+    'form.name.label' => 'Nome del prodotto',
+    'form.add.label' => 'Aggiungere un prodotto',
+    'filter.search' => 'Ricerca di <b>:name</b>. :count risultati del conteggio trovati.',
+    'sort.popular' => 'Più popolare',
+    'sort.price.highest' => 'prezzo più alto',
+    'sort.price.lowest' => 'Prezzo più basso',
 ];

@@ -24,5 +24,6 @@ return [
     'apply' => 'Apply',
     'cancel' => 'Cancel',
     'delete' => 'Delete',
-    'success' => 'Success'
+    'success' => 'Success',
+    'search.prompt' => 'start typing and search'
 ];

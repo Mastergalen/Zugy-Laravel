@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            <a href="/">
+            <a href="{!! localize_url('/') !!}">
                 <img src="/img/zugy-navbar-logo.png"
                              style="display:inline; height:35px; float: left; margin: 8px 3px 0 0">
             </a>
@@ -93,7 +93,7 @@
         <a class="pull-right search-close" id="search-close"> <i class=" fa fa-times-circle"> </i> </a>
         <div class="search-input-box pull-right">
             <form id="search-form" method="GET" action="#">
-                <input type="search" data-search-url="{!! localize_url('routes.search', ['query' => '']) !!}" name="q" placeholder="start typing and search" class="search-input">
+                <input type="search" data-search-url="{!! localize_url('routes.search', ['query' => '']) !!}" name="q" placeholder="{!! trans('buttons.search.prompt') !!}" class="search-input">
                 <button class="btn-nobg search-btn" type="submit"> <i class="fa fa-search"> </i> </button>
             </form>
         </div>

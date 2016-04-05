@@ -3,7 +3,7 @@
         <div class="form-group">
             <label for="{!! $type !!}[name]">{!! trans('checkout.address.form.name') !!} <sup>*</sup> </label>
             @if(auth()->check())
-                {!! Form::text($type . "[name]", Input::old($type . "name", auth()->user()->name), ['class' => 'form-control inputName', 'placeholder' => "Full Name", 'data-fv-notempty' => 'true']) !!}
+                {!! Form::text($type . "[name]", Input::old($type . "name", auth()->user()->name), ['class' => 'form-control inputName', 'placeholder' => trans('checkout.address.form.name'), 'data-fv-notempty' => 'true']) !!}
             @else
                 {!! Form::text($type . "[name]", Input::old($type . "name"), ['class' => 'form-control inputName', 'placeholder' => "Full Name", 'data-fv-notempty' => 'true']) !!}
             @endif
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="country">Country <sup>*</sup></label>
+            <label for="country">{!! trans('checkout.address.form.country') !!} <sup>*</sup></label>
             @if($type == 'delivery')
                 <select class="form-control" name="{!! $type !!}[country]" disabled>
                     <option value="ITA">{!! trans('checkout.address.form.country.italy') !!}</option>

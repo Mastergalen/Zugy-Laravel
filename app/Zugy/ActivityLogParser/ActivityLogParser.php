@@ -13,7 +13,7 @@ class ActivityLogParser
             switch($a->action) {
                 case 'status-change':
                     $status = trans('order.status.' . $a->description);
-                    $description = trans('activityLogParser/order.status-changed', ['status' => $status]);
+                    $description = trans('activityLogParser.order.status-changed', ['status' => $status]);
                     $title = $status;
                     $type = $this->getOrderStatusType($a->description);
                     $icon  = $this->getOrderStatusIcon($a->description);
@@ -21,7 +21,7 @@ class ActivityLogParser
 
                 case 'create':
                     $type = '';
-                    $description = trans('activityLogParser/order.create');
+                    $description = trans('order.create');
                     $title = $description;
                     $icon = 'navicon';
                     break;

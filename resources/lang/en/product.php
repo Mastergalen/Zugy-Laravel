@@ -22,4 +22,8 @@ return [
     'form.add.label' => 'Add a product',
 
     'filter.search' => 'Searching for <b>:name</b>. :count result(s) found.',
+
+    'sort.popular' => 'Most popular',
+    'sort.price.highest' => 'Highest price',
+    'sort.price.lowest' => 'Lowest price'
 ];

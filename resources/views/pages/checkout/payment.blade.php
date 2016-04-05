@@ -119,7 +119,7 @@
                                 <input type="hidden" name="method" value="stripe">
                                 <span class="payment-errors text-danger"></span>
                                 <div class="form-group">
-                                    <label>Card Number</label>
+                                    <label>{!! trans('payment.card-number') !!}</label>
                                     <div class="input-group">
                                         <span class="input-group-addon" id="card-brand">
                                             <i class="fa fa-credit-card"></i>
@@ -129,7 +129,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Cardholder Name</label>
+                                    <label>{!! trans('payment.cardholder-name') !!}</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-user"></i>

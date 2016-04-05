@@ -12,7 +12,7 @@
     {{$address->city}}, {{$address->postcode}} <br/>
     {{$address->country->name}} <br/>
     <i class="fa fa-phone"></i> {{$address->phone}}<br/>
-    @if($address->delivery_instructions != "")<i>Delivery instructions:</i> {{$address->delivery_instructions}}@endif
+    @if($address->delivery_instructions != "")<i>{!! trans('checkout.address.form.instructions') !!}:</i> {{$address->delivery_instructions}}@endif
 </address>
 @else
     <p>{!! trans('address.empty') !!}</p>
