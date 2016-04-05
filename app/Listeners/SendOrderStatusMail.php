@@ -29,9 +29,13 @@ class SendOrderStatusMail
                 return;
         }
 
-        \Mail::send($view, ['order' => $event->order], function($m) use($event, $subject) {
-            $m->from(config('site.email.support'), config('site.name'));
-            $m->to($event->order->email)->subject($subject);
-        });
+        try {
+            \Mail::send($view, ['order' => $event->order], function($m) use($event, $subject) {
+                $m->from(config('site.email.support'), config('site.name'));
+                $m->to($event->order->email)->subject($subject);
+            });
+        } catch (\Exception $e) {
+            \Log::critical('Could not send order status email');
+        }
     }
 }

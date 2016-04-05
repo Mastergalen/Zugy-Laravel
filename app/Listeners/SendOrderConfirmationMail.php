@@ -23,9 +23,13 @@ class SendOrderConfirmationMail
             'action'      => 'create',
         ]);
 
-        \Mail::send('emails.order-confirmation', ['order' => $event->order], function($m) use($event) {
-            $m->from(config('site.email.support'), config('site.name'));
-            $m->to($event->order->email)->subject(trans('order.email.confirmation.subject', ['id' => $event->order->id]));
-        });
+        try {
+            \Mail::send('emails.order-confirmation', ['order' => $event->order], function($m) use($event) {
+                $m->from(config('site.email.support'), config('site.name'));
+                $m->to($event->order->email)->subject(trans('order.email.confirmation.subject', ['id' => $event->order->id]));
+            });
+        } catch (\Exception $e) {
+            \Log::critical('Could not send order confirmation email');
+        }
     }
 }
