@@ -14,7 +14,7 @@
                     <meta itemprop="name" content="{{$i->product->title}}"/>
                     <meta itemprop="sku" content="{!! $i->product->id !!}"/>
                     <link itemprop="url" href="{!! $i->product->getUrl() !!}"/>
-                    <link itemprop="image" href="{!! $i->product->images->first()->url !!}"/>
+                    <link itemprop="image" href="{!! $i->product->cover() !!}"/>
                 </div>
                 <meta itemprop="price" content="{!! $i->price !!}"/>
                 <meta itemprop="priceCurrency" content="{!! $order->payment->currency !!}"/>
