@@ -44,4 +44,14 @@ class OrderController extends Controller
 
         return ['status' => 'success', 'message' => trans('order.api.update.success')];
     }
+
+    public function show(Request $request, $orderId) {
+        $order = Order::findOrFail($orderId);
+
+        if(Gate::denies('show', $order)) {
+            abort(403);
+        }
+
+        return $order;
+    }
 }

@@ -7,9 +7,15 @@ use App\User;
 
 class OrderPolicy extends BasePolicy
 {
+    public function before(User $user, $ability) {
+        if($this->isAdmin($user)) {
+            return true;
+        }
+    }
+
     public function show(User $user, Order $order)
     {
-        return $user->id === $order->user_id || $this->isAdmin($user);
+        return $user->id === $order->user_id;
     }
 
     public function adminUpdate(User $user, Order $order) {
