@@ -1,9 +1,9 @@
 @extends('admin.layouts.default')
 
-@section('title', 'Dashboard')
+@section('title', trans('admin.dashboard.title'))
 
 @section('header')
-    <h1><i class="fa fa-dashboard"></i> Dashboard</h1>
+    <h1><i class="fa fa-dashboard"></i> {!! trans('admin.dashboard.title') !!}</h1>
 @endsection
 
 @section('content')

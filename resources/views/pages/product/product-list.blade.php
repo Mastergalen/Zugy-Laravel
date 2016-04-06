@@ -1,9 +1,9 @@
 @if(isset($category))
-    @section('title', 'Shop for ' . $category->name)
+    @section('title', trans('product.title.category', ['category' => $category->name]))
 @elseif(isset($query))
-    @section('title', 'Search results for ' . $query)
+    @section('title', trans('product.title.search', ['query' => $query]))
 @else
-    @section('title', 'Shop for Alcohol')
+    @section('title', trans('product.title.shop'))
 @endif
 
 @extends('layouts.default')

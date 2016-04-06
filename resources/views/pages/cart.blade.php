@@ -1,5 +1,5 @@
 <?php $noindex = true; ?>
-@section('title', 'Cart')
+@section('title', trans('cart.shopping-cart'))
 
 @extends('layouts.default')
 

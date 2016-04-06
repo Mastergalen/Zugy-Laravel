@@ -25,5 +25,9 @@ return [
 
     'sort.popular' => 'Most popular',
     'sort.price.highest' => 'Highest price',
-    'sort.price.lowest' => 'Lowest price'
+    'sort.price.lowest' => 'Lowest price',
+
+    'title.category' => 'Shop for :category',
+    'title.search' => 'Search results for :query',
+    'title.shop' => 'Shop for Alcohol'
 ];

@@ -88,7 +88,7 @@
                             @include('includes.payment-method', ['payment' => $order->payment->getFormatted()])
                             @include('includes.status.payment-status', ['status' => $order->payment->status])
 
-                            <h4>Billing address</h4>
+                            <h4>{!! trans('checkout.address.form.billing') !!}</h4>
                             {{ $order->payment->billing_name }}<br>
                             {{ $order->payment->billing_line_1 }}<br>
                             @if($order->payment->billing_line_2 != ""){{$order->payment->billing_line_2}}<br>@endif
