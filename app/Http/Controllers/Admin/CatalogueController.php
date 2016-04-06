@@ -99,7 +99,7 @@ class CatalogueController extends Controller
      */
     public function edit($id)
     {
-        $product = \App\Product::with(['translations', 'categories', 'attributes', 'images'])->find($id);
+        $product = \App\Product::with(['translations', 'categories', 'attributes', 'images'])->findOrFail($id);
         $languages = Language::all();
         $attributes = Attribute::all();
         $category = $product->categories()->first();

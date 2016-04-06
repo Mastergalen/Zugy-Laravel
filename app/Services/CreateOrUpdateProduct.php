@@ -17,9 +17,7 @@ class CreateOrUpdateProduct
         if ($productId === null) { //Create new product
             $product = new Product();
         } else {
-            $product = Product::find($productId);
-
-            $productTranslations = $product->translations()->get()->keyBy('locale');
+            $product = Product::findOrFail($productId);
         }
 
         $rules = [
@@ -84,6 +82,10 @@ class CreateOrUpdateProduct
             ProductImage::whereIn('id', $productImages)->update(['product_id' => $product->id]);
         }
 
-        return redirect()->action('Admin\CatalogueController@index')->with('success', 'Product added successfully');
+        if($productId != null) {
+            return redirect()->back()->with('success', 'Product updated');
+        } else {
+            return redirect()->action('Admin\CatalogueController@index')->with('success', 'Product added successfully');
+        }
     }
 }
