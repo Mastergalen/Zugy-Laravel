@@ -7,6 +7,7 @@ use App\Language;
 use App\Product;
 use App\ProductDescription;
 use App\ProductTranslation;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Zugy\Repos\Category\CategoryRepository;
@@ -78,6 +79,10 @@ class DbProductRepository extends DbRepository implements ProductRepository
                     ->whereIn('products.id', $productIds); // Category filter;
 
         $orderedProductIds = collect($query->get())->pluck('id');
+
+        if($orderedProductIds->isEmpty()) {
+            return new Paginator([], 15);
+        }
 
         $orderedProductIdsStr = $orderedProductIds->implode(',');
         $products = $this->model->with('translations')

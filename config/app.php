@@ -165,6 +165,7 @@ return [
          * Zugy Service Providers
          */
         Zugy\Cart\CartServiceProvider::class,
+        Zugy\Category\CategoryServiceProvider::class,
         Zugy\Checkout\CheckoutServiceProvider::class,
         Zugy\PaymentGateway\PaymentGatewayServiceProvider::class,
         Zugy\Helpers\Maps\MapsServiceProvider::class,
@@ -232,6 +233,7 @@ return [
 
         'ActivityLogParser'=> Zugy\Facades\ActivityLogParser::class,
         'Cart'             => Zugy\Facades\Cart::class,
+        'Category'         => Zugy\Facades\Category::class,
         'Checkout'         => Zugy\Facades\Checkout::class,
         'PaymentGateway'   => Zugy\Facades\PaymentGateway::class,
         'Maps'             => Zugy\Facades\Maps::class,
