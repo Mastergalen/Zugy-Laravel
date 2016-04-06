@@ -88,4 +88,29 @@
             $('.cart-subtotal').text(subtotal);
         });
     }
+
+    /*
+     * Make mini cart disappear when clicking anywhere else
+     */
+    var $navbarCart = $('#navbar-cart');
+
+    function navbarCartHideClickHandler() {
+        $navbarCart.collapse('hide');
+    }
+
+    $navbarCart.on('show.bs.collapse', function () {
+        $(document).click(navbarCartHideClickHandler);
+        $('.dropdown-toggle').click(navbarCartHideClickHandler);
+
+        $navbarCart.click(function(e) {
+            e.stopPropagation();
+        });
+    });
+
+    $navbarCart.on('hide.bs.collapse', function () {
+        $(document).unbind('click', navbarCartHideClickHandler);
+        $('.dropdown-toggle').unbind('click', navbarCartHideClickHandler);
+    });
+
+
 }( window.cart = window.cart || {}, jQuery ));

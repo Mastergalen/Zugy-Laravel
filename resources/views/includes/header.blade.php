@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <button type="button" class="navbar-toggle cart-icon" data-toggle="collapse" data-target=".navbar-cart">
+            <button type="button" class="navbar-toggle cart-icon" data-toggle="collapse" data-target="#navbar-cart">
                 <i class="fa fa-shopping-cart"></i>
                 <span class="cart-respons">{!! trans('menu.cart') !!} (<span class="cart-subtotal">{!! money_format("%i", Cart::total()) !!}</span>&#8364;)</span>
             </button>
@@ -45,7 +45,7 @@
                     </p>
                 </li>
                 <li class="hidden-xs cart-icon">
-                    <a href="#" data-toggle="collapse" data-target=".navbar-cart">
+                    <a href="#" data-toggle="collapse" data-target="#navbar-cart">
                         <i class="fa fa-shopping-cart"></i>
                         <span class="cart-respons">{!! trans('menu.cart') !!} (<span class="cart-subtotal">{!! money_format("%i", Cart::total()) !!}</span>&#8364;)</span>
                         <b class="caret"></b>
@@ -81,7 +81,7 @@
             </ul>
         </nav><!--/.nav-collapse -->
         <!--Navbar cart-->
-        <div class="navbar-cart collapse" collapse="cartCollapsed">
+        <div id="navbar-cart" class="collapse" collapse="cartCollapsed">
             <div class="mega-dropdown ">
                 @include('includes._mini-cart')
             </div>
