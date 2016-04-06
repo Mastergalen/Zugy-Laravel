@@ -15,6 +15,7 @@
             <a href="{!! localize_url('routes.account.orders') !!}" class="btn btn-primary">{!! trans('your-account.orders') !!}</a>
         </div>
     </div>
+    {{-- TODO Manage payment methods
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">{!! trans('checkout.payment.title') !!}</h4>
@@ -23,6 +24,7 @@
             <p><a href="#">{!! trans('your-account.payment.manage') !!}</a></p>
         </div>
     </div>
+    --}}
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title"><i class="fa fa-cog"></i> {!! trans('your-account.settings.title') !!}</h4>

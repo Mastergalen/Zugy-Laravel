@@ -62,8 +62,8 @@
         <h3>{!! trans('auth.register.title') !!}</h3>
         <p>{!! trans('auth.register.advantages') !!}</p>
         @include('includes._login-social')
-        <a class="btn btn-block btn-primary" href="#" style="margin-top: 10px">
-            <i class="fa fa-envelope"></i> Create account with email
+        <a class="btn btn-block btn-primary" href="{{ action('Auth\AuthController@getRegister') }}" style="margin-top: 10px">
+            <i class="fa fa-envelope"></i> {{ trans('auth.login.create-email') }}
         </a>
     </form>
 </div>

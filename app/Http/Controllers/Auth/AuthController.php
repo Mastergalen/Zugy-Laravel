@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -75,6 +76,28 @@ class AuthController extends Controller
         }
 
         return view('auth.login');
+    }
+
+    /**
+     * POST auth/register
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postRegister(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        Auth::guard($this->getGuard())->login($this->create($request->all()));
+
+        return redirect($this->redirectPath())->withSuccess(trans('auth.register.success'));
     }
 
     public function facebookLogin(AuthenticateUser $authenticateUser, Request $request) {

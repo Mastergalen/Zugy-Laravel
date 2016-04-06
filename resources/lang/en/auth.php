@@ -6,6 +6,7 @@ return [
 
     'already-logged-in' => 'Already logged in',
     'login.title' => 'Login or <a href=":registerUrl"> create an account</a>',
+    'login.create-email' => 'Create account with email',
     'login.success' => 'Logged in',
     'login.or' => 'or',
 
@@ -23,6 +24,7 @@ return [
     'register.advantages' => 'Create an account for fast checkout and easy access to order history.',
     'register.social-tip' => 'You can use Facebook and Google to create an account faster!',
     'register.button' => 'Register',
+    'register.success' => 'Created an account successfully, have fun shopping!',
 
     'reset.title' => 'Reset Password',
     'reset.button' => 'Send Password Reset Link',
