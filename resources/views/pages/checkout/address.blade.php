@@ -80,7 +80,7 @@
 @endsection
 
 @section('scripts')
-    <script src="/dist/js/formvalidation.js"></script>
+    <script src="{{ elixir('dist/js/formvalidation.jss') }}"></script>
     <script>
         $(document).on('ready pjax:success', function() {
             $('#billing-same').click(function () {

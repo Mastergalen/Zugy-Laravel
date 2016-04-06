@@ -41,5 +41,14 @@ elixir(function(mix) {
         'vendor/formvalidation/formValidation.min.js',
         'vendor/formvalidation/bootstrap.js',
         'vendor/formvalidation/language/it_IT.js',
-    ], 'public/dist/js/formvalidation.js')
+    ], 'public/dist/js/formvalidation.js');
+
+
+    mix.version([
+        'dist/assets/css/app.css',
+        'dist/assets/css/admin/admin.css',
+        'dist/js/app.js',
+        'dist/js/admin.js',
+        'dist/js/formvalidation.js'
+    ]);
 });

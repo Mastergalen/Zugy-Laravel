@@ -57,8 +57,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <!-- Custom and plugin javascript -->
-<script src="/dist/js/app.js"></script>
-<script src="/dist/js/admin.js"></script>
+<script src="{{ elixir('dist/js/app.js') }}"></script>
+<script src="{{ elixir('dist/js/admin.js') }}"></script>
 
 @yield('scripts')
 </body>
