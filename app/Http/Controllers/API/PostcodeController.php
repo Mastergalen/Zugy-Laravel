@@ -8,6 +8,11 @@ use Zugy\Validators\PostcodeValidator;
 
 class PostcodeController extends Controller
 {
+    /**
+     * GET api/v1/postcode/{postcode}
+     * @param $postcode
+     * @return mixed
+     */
     public function checkPostcode($postcode)
     {
         $validator = Validator::make(['postcode' => $postcode], [

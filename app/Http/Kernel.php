@@ -32,7 +32,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyAge::class,
         ],
         'api' => [
-            //
+            \App\Http\Middleware\SetLocaleFromSession::class,
         ],
     ];
 
