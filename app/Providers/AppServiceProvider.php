@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use App\Services\AuthenticateUser;
 
@@ -15,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        
     }
 
     /**
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         if($this->app->environment('local')) {
             $this->app->register('Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider');
             $this->app->register('Barryvdh\Debugbar\ServiceProvider');
+            AliasLoader::getInstance()->alias('Debugbar', 'Barryvdh\Debugbar\Facade'); //Register alias
         }
 
         $this->app->bind(AuthenticateUser::class, function() {

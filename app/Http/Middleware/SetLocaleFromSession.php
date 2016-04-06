@@ -27,6 +27,8 @@ class SetLocaleFromSession
             \Localization::setLocale($locale);
         }
 
+        \Carbon::setLocale(\Localization::getCurrentLocale());
+
         return $next($request);
     }
 }

@@ -24,7 +24,7 @@ Route::group([
 
 Route::group([
     'prefix' => (env('APP_ENV') === 'testing' ? 'en' : Localization::setLocale()),
-    'middleware' => [ 'web', 'localize', ] // Route translate middleware
+    'middleware' => [ 'web', 'localize', 'localeSessionRedirect', 'setLocale'] // Route translate middleware
 ],
 function() {
     /*

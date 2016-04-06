@@ -48,6 +48,7 @@ class Kernel extends HttpKernel
         'localize' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
         'localizationRedirect' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
         'localeSessionRedirect' => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
+        'setLocale' =>  \App\Http\Middleware\SetLocaleFromSession::class,
         'checkout' => \App\Http\Middleware\Checkout::class,
         'admin' => \App\Http\Middleware\AdminOnly::class,
     ];
