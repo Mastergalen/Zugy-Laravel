@@ -122,7 +122,8 @@ class CheckoutController extends Controller
         } catch(\Stripe\Error\InvalidRequest $e) {
             return redirect()->back()->withErrors([trans('errors.unknown')]);
         } catch(\Stripe\Error\Card $e) {
-            return redirect()->back()->withErrors([$e->getMessage()])->withInput();
+            $errorMsg = trans('errors.stripe.' . $e->getStripeCode());
+            return redirect()->back()->withErrors([$errorMsg])->withInput();
         } catch(Exception $e) {
             return redirect()->back()->withErrors([trans('errors.unknown') . $e->getMessage()])->withInput();
         }
