@@ -25,7 +25,8 @@
         "jenssegers/rollbar": "^1.4",
         "league/flysystem-aws-s3-v3": "~1.0",
         "spatie/laravel-backup": "^2.9",
-        "greggilbert/recaptcha": "dev-master"
+        "greggilbert/recaptcha": "dev-master",
+        "predis/predis": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

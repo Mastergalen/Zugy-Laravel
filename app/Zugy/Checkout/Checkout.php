@@ -129,7 +129,6 @@ class Checkout
 
 
     public function setDeliveryDate($date) {
-        \Log::debug('Setting delivery date to:', [$date]);
         $this->session->put($this->sessionKey . '.delivery.date', $date);
     }
 

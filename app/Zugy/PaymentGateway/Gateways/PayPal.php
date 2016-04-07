@@ -89,7 +89,7 @@ class PayPal extends AbstractGateway
 
         $response = $this->gateway->purchase($parameters)->send();
 
-        return redirect($response->redirect()); //Redirect to PayPal
+        return redirect($response->getRedirectUrl()); //Redirect to PayPal
     }
 
     public function getFormatted()

@@ -41,7 +41,7 @@ class PlaceOrder
         }
 
         $this->checkStock();
-        
+
         //Load delivery time session if it not set
         if(empty(request('delivery_date')) && empty(request('delivery_time'))) {
             request()->merge(['delivery_date' => Checkout::getDeliveryDate(), 'delivery_time' => Checkout::getDeliveryTime()]);
@@ -77,8 +77,6 @@ class PlaceOrder
         //Set delivery time session variables
         Checkout::setDeliveryDate(request('delivery_date'));
         Checkout::setDeliveryTime(request('delivery_time'));
-
-        session()->save();
 
         $coupon = Checkout::getCoupon();
 
