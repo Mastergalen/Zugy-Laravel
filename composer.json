@@ -24,7 +24,8 @@
         "regulus/activity-log": "^0.5.4",
         "jenssegers/rollbar": "^1.4",
         "league/flysystem-aws-s3-v3": "~1.0",
-        "spatie/laravel-backup": "^2.9"
+        "spatie/laravel-backup": "^2.9",
+        "greggilbert/recaptcha": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

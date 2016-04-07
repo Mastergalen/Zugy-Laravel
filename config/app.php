@@ -150,6 +150,7 @@ return [
         Regulus\ActivityLog\ActivityLogServiceProvider::class,
         Jenssegers\Rollbar\RollbarServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -227,6 +228,7 @@ return [
         'Carbon'           => Carbon\Carbon::class,
         'Form'             => Collective\Html\FormFacade::class,
         'HTML'             => Collective\Html\HTMLFacade::class,
+        'Recaptcha'        => Greggilbert\Recaptcha\Facades\Recaptcha::class,
         'Socialite'        => Laravel\Socialite\Facades\Socialite::class,
         'Countries'        => Webpatser\Countries\CountriesFacade::class,
         'Localization'     => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,

@@ -81,6 +81,7 @@ return [
     */
 
     'delivery_postcode' => 'We do not deliver to your postcode. Sorry!',
+    'recaptcha' => 'Captcha failed, please try again',
 
     /*
     |--------------------------------------------------------------------------
