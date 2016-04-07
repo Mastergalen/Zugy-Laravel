@@ -194,9 +194,9 @@ class CheckoutController extends Controller
     /**
      * Redirect back here from payment gateway e.g. PayPal
      */
-    public function getGatewayReturn(PlaceOrder $service)
+    public function getGatewayReturn(Request $request, PlaceOrder $service)
     {
-        return $this->postCheckoutReview($service);
+        return $this->postCheckoutReview($request, $service);
     }
 
     public function getCheckoutConfirmation(Request $request) {

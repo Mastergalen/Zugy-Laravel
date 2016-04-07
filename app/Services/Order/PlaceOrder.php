@@ -41,21 +41,26 @@ class PlaceOrder
         }
 
         $this->checkStock();
+        
+        //Load delivery time session if it not set
+        if(empty(request('delivery_date')) && empty(request('delivery_time'))) {
+            request()->merge(['delivery_date' => Checkout::getDeliveryDate(), 'delivery_time' => Checkout::getDeliveryTime()]);
+        }
 
         $validator = Validator::make(request()->all(), [
-
+            //Create validator with empty rules
         ]);
 
         $validator->sometimes('delivery_date', 'required|date', function($input) {
-            return $input->delivery_date != 'asap';
+            return $input->delivery_date !== 'asap';
         });
 
         $validator->sometimes('delivery_time', 'required', function($input) {
-            return $input->delivery_date != 'asap';
+            return $input->delivery_date !== 'asap';
         });
 
         if($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            return redirect(localize_url('routes.checkout.review'))->withErrors($validator)->withInput();
         }
 
         //Validate delivery time
@@ -68,6 +73,12 @@ class PlaceOrder
                 return redirect()->back()->withErrors(['delivery_date' => trans('checkout.review.delivery-time.error.late')]);
             }
         }
+
+        //Set delivery time session variables
+        Checkout::setDeliveryDate(request('delivery_date'));
+        Checkout::setDeliveryTime(request('delivery_time'));
+
+        session()->save();
 
         $coupon = Checkout::getCoupon();
 
@@ -119,7 +130,7 @@ class PlaceOrder
     }
 
     public function processPayment() {
-        Log::debug("Charging customer", ['total' => Cart::grandTotal()]);
+        Log::info("Charging customer", ['total' => Cart::grandTotal()]);
         $payment = PaymentGateway::set($this->paymentMethod)->charge(Cart::grandTotal());
 
         return $payment;

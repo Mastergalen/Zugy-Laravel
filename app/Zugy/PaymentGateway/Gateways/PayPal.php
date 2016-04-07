@@ -57,12 +57,15 @@ class PayPal extends AbstractGateway
             'currency'  => 'EUR'
         ];
 
-        if(request('token') !== null) {
+        if(request()->has('token')) {
             $response = $this->gateway->completePurchase($parameters)->send();
 
             $data = $response->getData();
 
-            if($data['ACK'] !== 'Success') throw new PaymentFailedException();
+            if($data['ACK'] !== 'Success') {
+                \Log::warning('Payment failed');
+                throw new PaymentFailedException();
+            }
 
             $payment = new Payment();
 
@@ -78,6 +81,8 @@ class PayPal extends AbstractGateway
             $payment->amount = $data['PAYMENTINFO_0_AMT'];
             $payment->currency = $data['PAYMENTINFO_0_CURRENCYCODE'];
             $payment->method = $this->paymentMethod->method;
+
+            \Log::info('Payment success');
 
             return $payment;
         }

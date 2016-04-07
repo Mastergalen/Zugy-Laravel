@@ -127,6 +127,27 @@ class Checkout
         $this->session->forget($this->sessionKey . '.coupon');
     }
 
+
+    public function setDeliveryDate($date) {
+        \Log::debug('Setting delivery date to:', [$date]);
+        $this->session->put($this->sessionKey . '.delivery.date', $date);
+    }
+
+    public function setDeliveryTime($time) {
+        $this->session->put($this->sessionKey . '.delivery.time', $time);
+    }
+
+    public function getDeliveryDate() {
+        return $this->session->get($this->sessionKey . '.delivery.date');
+    }
+
+    public function getDeliveryTime() {
+        return $this->session->get($this->sessionKey . '.delivery.time');
+    }
+
+    /**
+     * Forget entire shopping cart settings
+     */
     public function forget() {
         $this->session->forget($this->sessionKey);
         \Cart::destroy();
