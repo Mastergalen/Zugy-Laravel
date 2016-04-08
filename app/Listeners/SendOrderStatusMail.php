@@ -23,7 +23,7 @@ class SendOrderStatusMail
                 break;
             case 4: //Cancelled
                 $view = 'emails.order.status.cancelled';
-                $subject = trans('order.email.delivery.subject', ['id' => $event->order->id]);
+                $subject = trans('order.email.cancelled.subject', ['id' => $event->order->id]);
                 break;
             default:
                 return;

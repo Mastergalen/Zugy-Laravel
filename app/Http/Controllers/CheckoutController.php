@@ -174,8 +174,9 @@ class CheckoutController extends Controller
         } catch(OutOfStockException $e) {
             return redirect(localize_url('routes.checkout.review'))->withErrors($e->getErrorMessages());
         } catch(\Stripe\Error\Card $e) { //Card was rejected
+            $stripeErrorMsg = trans('errors.stripe.' . $e->getStripeCode());
             return redirect(localize_url('routes.checkout.review'))->withErrors([
-                $e->getMessage(),
+                $stripeErrorMsg,
                 trans('checkout.payment.form.error.different', ['paymentUrl' => localize_url('routes.checkout.payment')])
             ]);
         } catch(PaymentFailedException $e) {

@@ -7,12 +7,13 @@ return [
     'status.3' => 'Delivered',
     'status.4' => 'Cancelled',
 
-    'number' => 'Order number',
-    'date' => 'Order date',
+    'number'    => 'Order number',
+    'date'      => 'Order date',
+    'create'    => 'Order placed',
     'completed' => 'Order completed',
-    'details' => 'Order details',
-    'summary' => 'Order summary',
-    'history' => 'Order history',
+    'details'   => 'Order details',
+    'summary'   => 'Order summary',
+    'history'   => 'Order history',
 
     'api.update.success' => 'Order updated',
     'api.error.status-same' => 'Order already set to this status',
