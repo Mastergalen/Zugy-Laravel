@@ -171,12 +171,16 @@
     </div>
 
     @if($method === 'PATCH')
-        <div class="box box-danger">
-            <div class="box-header with-border">
-                <h3 class="box-title">{!! trans('forms.danger-zone') !!}</h3>
-            </div>
-            <div class="box-body">
-                <button class="btn btn-sm btn-danger" type="button" id="btn-delete-product"><i class="fa fa-trash"></i> {!! trans('buttons.delete') !!}</button>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{!! trans('forms.danger-zone') !!}</h3>
+                    </div>
+                    <div class="box-body">
+                        <button class="btn btn-sm btn-danger" type="button" id="btn-delete-product"><i class="fa fa-trash"></i> {!! trans('buttons.delete') !!}</button>
+                    </div>
+                </div>
             </div>
         </div>
     @endif
