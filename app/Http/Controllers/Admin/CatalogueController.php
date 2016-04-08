@@ -135,8 +135,24 @@ class CatalogueController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $product = \App\Product::findOrFail($id);
+
+        //Delete images
+        $images = $product->images()->get();
+
+        foreach($images as $i) {
+            $i->delete();
+        }
+
+        //Soft delete product
+        $product->delete($id);
+
+        if($request->ajax()) {
+            return response()->json(['status' => 'success']);
+        } else {
+            return redirect(action('Admin\CatalogueController@index'))->withSuccess(trans('admin.catalogue.product.delete.success'));
+        }
     }
 }

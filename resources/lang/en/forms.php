@@ -9,4 +9,6 @@ return [
     'status' => 'Status',
 
     'error.slug' => 'The slug can only be alphanumeric and use dashes.',
+
+    'danger-zone' => 'Danger Zone',
 ];

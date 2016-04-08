@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use League\Flysystem\FileNotFoundException;
 
 class ProductImage extends Model
 {
@@ -18,5 +20,30 @@ class ProductImage extends Model
 
     public function product() {
         return $this->belongsTo('App\Product');
+    }
+
+    /**
+     * Override parent delete
+     * Updates product references and deletes disk storage
+     * @throws FileNotFoundException
+     */
+    public function delete() {
+        //Update parent product if has thumbnail set to the image to be deleted
+        $products = $this->product()->get();
+
+        foreach($products as $p) {
+            if($p->thumbnail_id == $this->attributes['id']) {
+                $p->thumbnail_id = null;
+                $p->save();
+            }
+        }
+
+        try {
+            Storage::disk(env('FILE_DISC'))->delete($this->attributes['location']);
+        } catch(FileNotFoundException $e) {
+            //Carry on
+        }
+
+        parent::delete();
     }
 }

@@ -4,11 +4,13 @@ namespace App;
 
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class Product extends Model
 {
+    use SoftDeletes;
     use Translatable;
     use \AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
 

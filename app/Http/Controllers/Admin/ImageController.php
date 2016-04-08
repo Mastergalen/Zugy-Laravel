@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use League\Flysystem\FileNotFoundException;
 
 class ImageController extends Controller
 {
@@ -39,27 +38,9 @@ class ImageController extends Controller
 
     public function destroy($id)
     {
-        $image = ProductImage::find($id);
+        $image = ProductImage::findOrFail($id);
 
-        if($image != null)  {
-            //Update parent product if has thumbnail set to the image to be deleted
-            $products = $image->product()->get();
-
-            foreach($products as $p) {
-                if($p->thumbnail_id == $id) {
-                    $p->thumbnail_id = null;
-                    $p->save();
-                }
-            }
-
-            try {
-                Storage::disk(env('FILE_DISC'))->delete($image['location']);
-            } catch(FileNotFoundException $e) {
-                //Carry on
-            }
-
-            $image->delete();
-        }
+        $image->delete();
 
         return response()->json(['status' => 'success', 'id' => $id]);
     }

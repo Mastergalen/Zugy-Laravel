@@ -18,4 +18,4 @@
     </li>
 @endsection
 
-@include('admin.pages.catalogue.partials._product-form', ['method' => 'PATCH', 'action' => ['Admin\CatalogueController@update', $product->id]])
+@include('admin.pages.catalogue.partials._product-form', ['method' => 'PATCH', 'action' => ['Admin\CatalogueController@update', $product->id], 'id' => $product->id])

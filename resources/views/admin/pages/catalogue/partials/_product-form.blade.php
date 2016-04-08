@@ -66,7 +66,7 @@
             </div>
 
             <div class="box box-default">
-                <div class="box-header">
+                <div class="box-header with-border">
                     <h3 class="box-title"><i class="fa fa-image"></i> {!! trans('admin.upload-images') !!}</h3>
 
                     <div class="box-tools pull-right">
@@ -92,8 +92,10 @@
             </div>
 
             <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-dollar"></i> {!! trans('admin.pricing') !!}</h3>
+                </div>
                 <div class="box-body">
-                    <legend><i class="fa fa-dollar"></i> {!! trans('admin.pricing') !!}</legend>
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
@@ -152,8 +154,8 @@
         </div>
         <div class="col-lg-4">
             <div class="box box-default">
-                <div class="box-header">
-                    <h5>{!! trans('admin.organisation') !!}</h5>
+                <div class="box-header with-border">
+                    <h3 class="box-title">{!! trans('admin.organisation') !!}</h3>
                 </div>
                 <div class="box-body">
                     <div class="form-group">
@@ -167,6 +169,17 @@
             </div>
         </div>
     </div>
+
+    @if($method === 'PATCH')
+        <div class="box box-danger">
+            <div class="box-header with-border">
+                <h3 class="box-title">{!! trans('forms.danger-zone') !!}</h3>
+            </div>
+            <div class="box-body">
+                <button class="btn btn-sm btn-danger" type="button" id="btn-delete-product"><i class="fa fa-trash"></i> {!! trans('buttons.delete') !!}</button>
+            </div>
+        </div>
+    @endif
     {!! Form::close() !!}
 @endsection
 
@@ -346,6 +359,41 @@ $(document).ready(function() {
                             timer: 1000,
                             type: "success",
                             showConfirmButton: false
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        var err = eval("(" + xhr.responseText + ")");
+                        swal(err.message, "", "error");
+                    }
+                });
+            }
+        });
+    });
+
+    /*
+     * Delete product button
+     */
+    $('#btn-delete-product').click(function(e) {
+        swal({
+            title: "{!! trans('admin.catalogue.product.delete.confirmation') !!}",
+            type: "warning",
+            confirmButtonText: "{!! trans('buttons.delete') !!}",
+            showCancelButton: true,
+            cancelButtonText: "{!! trans('buttons.cancel') !!}",
+            closeOnConfirm: false
+        }, function(confirm) {
+            if(confirm) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "{!! action('Admin\CatalogueController@destroy', ['id' => $id]) !!}",
+                    success: function() {
+                        swal({
+                            title: "{!! trans('buttons.success') !!}!",
+                            timer: 1000,
+                            type: "success",
+                            showConfirmButton: false
+                        }, function() {
+                            window.location.replace("{!! action('Admin\CatalogueController@index') !!}");
                         });
                     },
                     error: function(xhr, status, error) {

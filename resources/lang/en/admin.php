@@ -22,9 +22,13 @@ return [
     'current_basket' => 'Current items in cart',
 
     'dashboard.title' => 'Dashboard',
+
     'catalogue.title' => 'Catalogue',
     'catalogue.image.thumbnail' => 'Set this as thumbnail',
     'catalogue.image.delete.confirmation' => 'Are you sure you want to delete this image?',
+    'catalogue.product.delete.confirmation' => 'Are you sure you want to delete this product?',
+    'catalogue.product.delete.success' => 'Product deleted',
+
     'customers.title' => 'Customers',
     'customers.singular' => 'Customer',
     'customers.name.label' => 'Customer Name',
