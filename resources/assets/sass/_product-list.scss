@@ -20,7 +20,14 @@
   align-self: flex-end;
 }
 
-.product-list img {
-  height: 230px;
-  margin: auto;
+.product-list {
+  img {
+    height: 230px;
+    margin: auto;
+  }
+
+  h4 {
+    height: 2em;
+    overflow: hidden;
+  }
 }
