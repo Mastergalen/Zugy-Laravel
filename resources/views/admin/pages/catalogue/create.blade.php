@@ -18,4 +18,4 @@
 </li>
 @endsection
 
-@include('admin.pages.catalogue.partials._product-form', ['method' => 'POST', 'action' => 'Admin\CatalogueController@store'])
+@include('admin.pages.catalogue.partials._product-form', ['method' => 'POST', 'action' => 'Admin\CatalogueController@store', 'id' => null])
