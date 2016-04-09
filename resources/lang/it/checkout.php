@@ -51,7 +51,7 @@ return [
     'review.coupon.placeholder' => 'Inserisci il codice',
     'review.items' => 'Rivedere elementi',
     'review.place-order' => 'Invia ordine',
-    'review.accept' => 'Effettuando l\'ordine l\'utente accetta di :siteName\'s <a href=":privacyPolicyUrl">Privacy Policy</a> and <a href=":termsAndConditionsUrl">Terms and Conditions</a>.',
+    'review.accept' => 'Effettuando l\'ordine l\'utente accetta di :siteName\'s <a href=":privacyPolicyUrl">Informativa sulla privacy</a> and <a href=":termsAndConditionsUrl">Termini e condizioni</a>.',
     'review.delivery-time' => 'Tempo di consegna',
     'review.delivery-time.label' => 'Quando volete che il vostro ordine da consegnare?',
     'review.delivery-time.asap' => 'Il prima possibile',

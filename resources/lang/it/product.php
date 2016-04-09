@@ -23,4 +23,7 @@ return [
     'sort.popular' => 'Più popolare',
     'sort.price.highest' => 'prezzo più alto',
     'sort.price.lowest' => 'Prezzo più basso',
+    'title.category' => 'Acquista :category',
+    'title.search' => 'Mostra risultati per :query',
+    'title.shop' => 'Compra alcolici',
 ];

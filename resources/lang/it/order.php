@@ -8,6 +8,7 @@ return [
     'status.4' => 'Anullato',
     'number' => 'Numero ordine',
     'date' => 'Data ordine',
+    'create' => 'Ordine effettuato',
     'completed' => 'Ordine completato',
     'details' => 'Dettagli',
     'summary' => 'Riassunto ordine',
@@ -27,6 +28,5 @@ return [
     'total-before-vat' => 'Totale senza IVA',
     'vat' => 'IVA',
     'include-vat' => 'Ordine totale include',
-    'create' => 'Ordine effettuato',
     'status-changed' => 'Stato modificato in <b>:status</b>',
 ];

@@ -27,6 +27,7 @@ return [
     'in' => ':attribute selezionato non è valido.',
     'integer' => ':attribute deve essere un numero intero.',
     'ip' => ':attribute deve essere un indirizzo IP valido.',
+    'json' => ':attribute deve essere una stringa JSON valida.',
     'max.numeric' => ':attribute non può essere superiore a :max.',
     'max.file' => ':attribute non può essere superiore a :max kilobytes.',
     'max.string' => ':attribute non può contenere più di :max caratteri.',
@@ -40,6 +41,7 @@ return [
     'numeric' => ':attribute deve essere un numero.',
     'regex' => 'Il formato del campo :attribute non è valido.',
     'required' => 'Il campo :attribute è richiesto.',
+    'required_unless' => 'The :attribute field is required unless :other is in :values.',
     'required_if' => 'Il campo :attribute è richiesto quando :other è :value.',
     'required_with' => 'Il campo :attribute è richiesto quando :values è presente.',
     'required_with_all' => 'Il campo :attribute è richiesto quando :values è presente.',
@@ -55,6 +57,5 @@ return [
     'unique' => ':attribute è stato già utilizzato.',
     'url' => 'Il formato del campo :attribute non è valido.',
     'delivery_postcode' => 'Non consegniamo al tuo codice postale. Scusate!',
-    'json' => ':attribute deve essere una stringa JSON valida.',
-    'required_unless' => 'The :attribute field is required unless :other is in :values.',
+    'recaptcha' => 'Mmmm forse hai sbagliato qualcosa, riprova.',
 ];
