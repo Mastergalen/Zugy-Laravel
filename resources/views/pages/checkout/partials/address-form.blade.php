@@ -48,7 +48,7 @@
     <div class="col-xs-12 col-sm-6">
         @if($type == 'delivery')
             <div class="form-group">
-                <label for="InputAdditionalInformation">{!! trans('address.form.instructions') !!}</label>
+                <label for="InputAdditionalInformation">{!! trans('checkout.address.form.instructions') !!}</label>
                 <textarea rows="3" cols="26" name="{!! $type !!}[delivery_instructions]" class="form-control"></textarea>
                 <span class="help-text">{!! trans('checkout.address.form.instructions.desc') !!}</span>
             </div>
