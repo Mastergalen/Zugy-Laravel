@@ -77,10 +77,10 @@ function() {
     });
 
     Route::get(Localization::transRoute('routes.terms-and-conditions'), function() {
-        return view('pages.terms-and-conditions');
+        return view('pages.terms-and-conditions.index');
     });
     Route::get(Localization::transRoute('routes.privacy-policy'), function() {
-        return view('pages.privacy-policy');
+        return view('pages.privacy-policy.index');
     });
 
     Route::group(['prefix' => 'auth'], function () {
