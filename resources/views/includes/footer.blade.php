@@ -34,7 +34,7 @@
                                     <?php $flagCode = $localeCode ?>
                                 @endif
                                 <div class="language-selector" style="display: inline-block">
-                                    <a href="{{ $url  }}"><span class="f32"><i class="flag {{$flagCode}}"></i></span></a>
+                                    <a href="{{ $url  }}" hreflang="{{ $localeCode }}"><span class="f32"><i class="flag {{$flagCode}}"></i></span></a>
                                 </div>
                             @endforeach
                         @else
@@ -44,7 +44,7 @@
                                     <?php $flagCode = $localeCode ?>
                                 @endif
                                 <div class="language-selector" style="display: inline-block">
-                                    <a href="{{Localization::getLocalizedURL($localeCode) }}"><span class="f32"><i class="flag {{$flagCode}}"></i></span></a>
+                                    <a href="{{Localization::getLocalizedURL($localeCode) }}" hreflang="{{ $localeCode }}"><span class="f32"><i class="flag {{$flagCode}}"></i></span></a>
                                 </div>
                             @endforeach
                         @endif
