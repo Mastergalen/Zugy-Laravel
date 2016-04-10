@@ -10,6 +10,7 @@ namespace Zugy\Repos\Category;
 use App\CategoryTranslation;
 use App\Exceptions\NoTranslationException;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Zugy\Repos\DbRepository;
 use App\Category;
 
@@ -54,7 +55,7 @@ class DbCategoryRepository extends DbRepository implements CategoryRepository
             ->where('locale', '=', LaravelLocalization::getCurrentLocale())->first();
 
         if(is_null($category)) {
-            throw new NoTranslationException();
+            throw new NotFoundHttpException();
         }
 
         $category = $this->model->find($category->category_id);

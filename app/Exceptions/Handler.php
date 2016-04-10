@@ -39,14 +39,6 @@ class Handler extends ExceptionHandler
             \Log::error($e);
         }
 
-        if ($e instanceof ModelNotFoundException) {
-            return response()->view('errors.404', [], 404);
-        }
-
-        if (app()->environment() == 'production') {
-            return response()->view('errors.500', [], 500);
-        }
-
         parent::report($e);
     }
 
@@ -73,6 +65,14 @@ class Handler extends ExceptionHandler
                 ->back()
                 ->withInput($request->except('password'))
                 ->withErrors(['Validation Token was expired. Please try again']);
+        }
+
+        if ($e instanceof ModelNotFoundException) {
+            return response()->view('errors.404', [], 404);
+        }
+
+        if (env('APP_DEBUG') == false) {
+            return response()->view('errors.500', [], 500);
         }
 
         return parent::render($request, $e);

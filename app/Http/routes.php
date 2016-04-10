@@ -11,6 +11,7 @@
 |
 */
 
+use App\Exceptions\NoTranslationException;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
