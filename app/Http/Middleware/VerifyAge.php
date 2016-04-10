@@ -19,8 +19,7 @@ class VerifyAge
             return $next($request);
         }
 
-        //Allow search crawlers and AJAX requests
-        if($this->isBot() || $request->ajax() ) {
+        //Allow search crawlers, AJAX requests and Google Page Speed Insights
             return $next($request);
         }
 
