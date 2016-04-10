@@ -27,15 +27,27 @@
                     <li><a href="{!! localize_url('routes.account.index') !!}">{!! trans('footer.my-account') !!}</a></li>
                     <li><a href="{!! localize_url('routes.account.orders') !!}">{!! trans('footer.my-orders') !!}</a></li>
                     <li>
-                        @foreach(Localization::getSupportedLocales() as $localeCode => $properties)
-                            @if($localeCode == 'en') <?php $flagCode = 'gb' ?>
-                            @else
-                                <?php $flagCode = $localeCode ?>
-                            @endif
-                            <div class="language-selector" style="display: inline-block">
-                                <a href="{{Localization::getLocalizedURL($localeCode) }}"><span class="f32"><i class="flag {{$flagCode}}"></i></span></a>
-                            </div>
-                        @endforeach
+                        @if(isset($translations))
+                            @foreach($translations as $localeCode => $url)
+                                @if($localeCode == 'en') <?php $flagCode = 'gb' ?>
+                                @else
+                                    <?php $flagCode = $localeCode ?>
+                                @endif
+                                <div class="language-selector" style="display: inline-block">
+                                    <a href="{{ $url  }}"><span class="f32"><i class="flag {{$flagCode}}"></i></span></a>
+                                </div>
+                            @endforeach
+                        @else
+                            @foreach(Localization::getSupportedLocales() as $localeCode => $properties)
+                                @if($localeCode == 'en') <?php $flagCode = 'gb' ?>
+                                @else
+                                    <?php $flagCode = $localeCode ?>
+                                @endif
+                                <div class="language-selector" style="display: inline-block">
+                                    <a href="{{Localization::getLocalizedURL($localeCode) }}"><span class="f32"><i class="flag {{$flagCode}}"></i></span></a>
+                                </div>
+                            @endforeach
+                        @endif
                     </li>
                 </ul>
             </div>

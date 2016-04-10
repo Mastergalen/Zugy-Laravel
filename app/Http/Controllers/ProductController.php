@@ -2,12 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Language;
-use App\Product;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Zugy\Repos\Product\ProductRepository;
 
 class ProductController extends Controller
@@ -30,7 +25,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  String  $slug
      * @return Response
      */
     public function show($slug)
@@ -41,7 +36,13 @@ class ProductController extends Controller
 
         $thumbnail = $product->images()->where('id', $product->thumbnail_id)->first();
 
-        return view('pages.product.product-show')->with(['product' => $product, 'thumbnail' => $thumbnail]);
+        $translations = $product->translations()->pluck('slug', 'locale');
+
+        foreach($translations as $locale => $slug) {
+            $translations[$locale] = \Localization::getURLFromRouteNameTranslated($locale, 'routes.product', ['slug' => $slug]);
+        }
+
+        return view('pages.product.product-show')->with(['product' => $product, 'thumbnail' => $thumbnail, 'translations' => $translations]);
     }
 
     public function search($query)

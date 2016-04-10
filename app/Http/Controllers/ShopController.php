@@ -69,8 +69,14 @@ class ShopController extends Controller
 
         $category = $this->categoryRepo->getBySlug($category_slug);
 
+        $translations = $category->translations()->pluck('slug', 'locale');
+
+        foreach($translations as $locale => $slug) {
+            $translations[$locale] = \Localization::getURLFromRouteNameTranslated($locale, 'routes.shop.category', ['slug' => $slug]);
+        }
+
         $products = $this->productRepo->category($category_slug, $sort, $direction);
 
-        return view('pages.product.product-list')->with(compact('products', 'category'));
+        return view('pages.product.product-list')->with(compact('products', 'category', 'translations'));
     }
 }
