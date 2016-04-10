@@ -12,12 +12,8 @@
                 <span class="cart-respons">{!! trans('menu.cart') !!} (<span class="cart-subtotal">{!! money_format("%i", Cart::total()) !!}</span>&#8364;)</span>
             </button>
 
-            <div class="search-box visible-xs">
-                <div class="input-group">
-                    <button class="btn btn-nobg getFullSearch" type="button"> <i class="fa fa-search"> </i> </button>
-                </div>
-            </div>
-
+            <button class="btn btn-default navbar-btn visible-xs navbar-toggle getFullSearch" type="button"> <i class="fa fa-search"> </i> </button>
+            
             <a href="{!! localize_url('/') !!}">
                 <img src="/img/zugy-navbar-logo.png"
                              style="display:inline; height:35px; float: left; margin: 8px 3px 0 0">
@@ -41,7 +37,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <p class="navbar-btn">
-                        <button class="btn getFullSearch" type="button"> <i class="fa fa-search"> </i> </button>
+                        <button class="btn btn-default getFullSearch" type="button"> <i class="fa fa-search"> </i> </button>
                     </p>
                 </li>
                 <li class="hidden-xs cart-icon">
