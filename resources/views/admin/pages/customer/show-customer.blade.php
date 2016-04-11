@@ -68,14 +68,60 @@
         </div>
     </div>
 
-    <div class="box box-default">
-        <div class="box-header with-border">
-            <h3 class="box-title">{!! trans('admin.orders.title') !!}</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-list"></i> {!! trans('admin.orders.title') !!}</h3>
+                </div>
+                <div class="box-body no-padding">
+
+                    @include('admin.partials._order-list', ['orders' => $customer->orders()->paginate(30)])
+
+                </div>
+            </div>
         </div>
-        <div class="box-body no-padding">
+        <div class="col-md-6">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-shopping-cart"></i> {!! trans('cart.shopping-cart') !!}</h3>
+                </div>
+                <div class="box-body">
+                    @forelse($customer->basket()->with('product')->get() as $item)
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <div class="cart-product-thumb">
+                                            <a href="{!! $item->product->getUrl() !!}"><img
+                                                        src="{!! $item->product->cover() !!}"
+                                                        alt="{{ $item->product->title }}"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="cart-description">
+                                            <h4><a href="{!! $item->product->getUrl() !!}">{{ $item->product->title }}</a></h4>
 
-            @include('admin.partials._order-list', ['orders' => $customer->orders()->paginate(30)])
+                                            <div class="price">{{ money_format("%i", $item->price) }}&euro;</div>
 
+                                            <p><b>{!! trans('product.quantity') !!}: </b>{!! $item->quantity !!}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <dl>
+                                            <dt>{!! trans('admin.created_at') !!}</dt>
+                                            <dl>{!! $item->created_at !!}</dl>
+                                        </dl>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="alert alert-info">{!! trans('cart.mini-cart-empty') !!}</div>
+                    @endforelse
+                </div>
+            </div>
         </div>
     </div>
 
@@ -91,8 +137,6 @@
                 <dd>{{ $customer->created_at }}</dd>
                 <dt>{!! trans('admin.last_login') !!}</dt>
                 <dd>{{ $customer->last_login }}</dd>
-                <dt>{!! trans('admin.current_basket') !!}</dt>
-                <dd>{{ $customer->basket()->count() }}</dd>
             </dl>
         </div>
     </div>
