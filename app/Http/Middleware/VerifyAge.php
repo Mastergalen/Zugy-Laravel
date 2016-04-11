@@ -20,7 +20,7 @@ class VerifyAge
         }
 
         //Allow search crawlers, AJAX requests and Google Page Speed Insights
-        if($this->isBot() || $request->ajax() || str_contains($request->header('User-Agent'), 'Google Page Speed Insights')) {
+        if(is_bot() || $request->ajax()) {
             return $next($request);
         }
 
@@ -29,15 +29,5 @@ class VerifyAge
         }
 
         return $next($request);
-    }
-
-    private function isBot()
-    {
-        if (isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/bot|crawl|slurp|spider/i', $_SERVER['HTTP_USER_AGENT'])) {
-            return true;
-        }
-        else {
-            return false;
-        }
     }
 }

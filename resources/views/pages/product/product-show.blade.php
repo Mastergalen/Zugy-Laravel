@@ -169,7 +169,7 @@
 @stop
 
 @section('scripts')
-    @if(auth()->guest())
+    @if(auth()->guest() && !is_bot() )
         @include('includes._postcode-check')
     @endif
     <script src="/js/smoothproducts.min.js"></script>
