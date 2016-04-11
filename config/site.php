@@ -3,7 +3,7 @@
 return  [
     "name" => 'Zugy',
     'address' => 'Azalia Naviglio Grande 36, 20141 Milan, Italy',
-    'phone' => '(+39) 344-281-6494',
+    'phone' => '(+39) 320 8908315',
 
     'maxImageSize' => 10000000, //10MB
 
