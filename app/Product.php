@@ -78,30 +78,13 @@ class Product extends Model
 
     protected $with = ['tax_class'];
 
+    /*
+     * Relations
+     */
+
     public function images()
     {
         return $this->hasMany('App\ProductImage');
-    }
-
-    /**
-     * Fetch URL thumbnail for product
-     * @return string
-     */
-    public function cover()
-    {
-        $thumbnailId = $this->thumbnail_id;
-
-        if($thumbnailId !== null) {
-            return $this->images()->find($thumbnailId)->url;
-        }
-
-        $images = $this->images()->get();
-
-        if($images->count() === 0) {
-            return asset('/img/zugy-placeholder-image.png');
-        } else {
-            return $images->first()->url;
-        }
     }
 
     public function tax_class() {
@@ -126,8 +109,44 @@ class Product extends Model
     }
 
     /*
+     * Actions
+     */
+
+    /**
+     * Also delete all basket items containing this product
+     * @throws \Exception
+     */
+    public function delete()
+    {
+        Basket::where('product_id', '=', $this->attributes['id'])->delete();
+
+        parent::delete(); //Soft delete
+    }
+
+    /*
      * Accessors
      */
+
+    /**
+     * Fetch URL thumbnail for product
+     * @return string
+     */
+    public function cover()
+    {
+        $thumbnailId = $this->thumbnail_id;
+
+        if($thumbnailId !== null) {
+            return $this->images()->find($thumbnailId)->url;
+        }
+
+        $images = $this->images()->get();
+
+        if($images->count() === 0) {
+            return asset('/img/zugy-placeholder-image.png');
+        } else {
+            return $images->first()->url;
+        }
+    }
 
     /**
      * Generate array to form breadcrumbs
