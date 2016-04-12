@@ -14,9 +14,10 @@ class EnvTest extends TestCase
         $this->assertTrue(env('STRIPE_PUBLIC') !== null);
     }
 
-    public function testMandrill()
+    public function testMailgun()
     {
-        $this->assertTrue(env('MANDRILL_SECRET') !== null);
+        $this->assertTrue(env('MAILGUN_DOMAIN') !== null);
+        $this->assertTrue(env('MAILGUN_SECRET') !== null);
     }
 
     public function testGoogle()

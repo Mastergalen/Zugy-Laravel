@@ -4,8 +4,10 @@ class ProductTest extends TestCase
 {
     public function testProductShow()
     {
-        $this->visit('en/product/absolut-vodka')
-             ->see('Absolut Vodka');
+        $product = \App\Product::first();
+
+        $this->visit($product->getUrl())
+             ->see($product->title);
 
         //$this->visit('it/prodotto/absolut-vodka')->see('Absolut Vodka');
     }
