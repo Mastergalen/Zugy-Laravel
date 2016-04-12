@@ -86,6 +86,7 @@
         $.pjax.reload('#mini-cart-container', {timeout: 1500}).done(function() {
             var subtotal = $('#cart-subtotal').text();
             $('.cart-subtotal').text(subtotal);
+            $('#mini-cart-container .products').mCustomScrollbar(); //Re-apply custom scroll bar when reloading
         });
     }
 
