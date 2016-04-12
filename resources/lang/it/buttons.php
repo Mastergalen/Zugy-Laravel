@@ -11,6 +11,7 @@ return [
     'edit' => 'Modifica',
     'back-to-shop' => 'Torna al negozio',
     'add-new-address' => 'Aggiungi un nuovo indirizzo',
+    'proceed' => 'Procedi',
     'change' => 'Cambiamento',
     'login' => 'Accesso',
     'more-info' => 'Ulteriori informazioni',

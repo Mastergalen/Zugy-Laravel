@@ -10,6 +10,7 @@ return [
     'edit' => 'Edit',
     'back-to-shop' => 'Back to Shop',
     'add-new-address' => 'Add new address',
+    'proceed' => 'Proceed',
     'change' => 'Change',
     'login' => 'Login',
     'more-info' => 'More info',

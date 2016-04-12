@@ -71,7 +71,7 @@
                 </a>
             </div>
             <div class="pull-right">
-                <button class="btn btn-primary" type="submit"><i class="fa fa-plus"></i> {!! trans('buttons.add-new-address') !!}</button>
+                <button class="btn btn-primary" type="submit"><i class="fa fa-arrow-right"></i> {!! trans('buttons.proceed') !!}</button>
             </div>
         </div>
     </form>
