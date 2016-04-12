@@ -37,3 +37,21 @@
   background: rgba(0,0,0,0.2);
   color: #ffffff;
 }
+
+.mini-cart {
+  .products {
+    max-height: 50vh;
+  }
+
+  @media (min-height: 700px) {
+    .products {
+      max-height: 500px;
+    }
+  }
+
+  @media (max-height: 325px) {
+    .products {
+      max-height: 100px;
+    }
+  }
+}

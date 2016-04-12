@@ -30,10 +30,11 @@ nav .nav>li>a:focus, nav .nav>li>a:hover {
 .navbar-toggle {
   background: rgba(0,0,0,0.2);
   color: #ffffff;
-}
+  margin-right: 10px;
 
-.navbar-toggle .icon-bar {
-  border: solid 2px #fff;
+  .icon-bar {
+    border: solid 2px #fff;
+  }
 }
 
 @media (min-width: 979px) {

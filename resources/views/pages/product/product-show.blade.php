@@ -181,7 +181,7 @@
         $(window).load( function() {
             $('.sp-wrap').smoothproducts();
 
-            $(".products").owlCarousel();
+            $(".recommendations .products").owlCarousel();
 
             $('#btn-add-cart').click(function() {
                 var $button = $(this);

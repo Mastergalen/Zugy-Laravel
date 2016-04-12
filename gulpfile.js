@@ -23,6 +23,7 @@ elixir(function(mix) {
         */
         'vendor/pjax/jquery.pjax.js',
         'vendor/sweetalert/sweetalert-dev.js',
+        'vendor/custom-scroller/jquery.mCustomScrollbar.concat.min.js',
 
         'setup.js', //Sets CSRF token
         'search.js',
