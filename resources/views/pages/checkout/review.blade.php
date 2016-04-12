@@ -73,6 +73,12 @@
                     <h4><span class="step-number">3</span>{!! trans('checkout.review.delivery-time') !!}</h4>
                 </div>
                 <div class="col-md-9">
+                    @if(!DeliveryTime::isOpen(Carbon::now()))
+                        <div class="alert alert-info">
+                            {!! trans('opening-times.closed') !!}
+                            {!! trans('opening-times.asap-closed-explanation') !!}
+                        </div>
+                    @endif
                     @include('pages.checkout.partials._delivery-time-selector', ['days' => 8])
                 </div>
             </div>
@@ -205,6 +211,10 @@
                     $timeSelector.empty();
 
                     for(var i = 0; i < 24; i++) {
+
+                        //Opening times
+                        if(i > 0 && i < 13) continue;
+
                         var $option = $('<option>');
                         var startTime = new Date(0, 0, 0, i, 0, 0);
                         var endTime = new Date(0, 0, 0, i + 1, 0, 0);

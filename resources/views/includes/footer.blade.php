@@ -6,6 +6,8 @@
                 <h4><i class="fa fa-phone"></i> {!! config('site.phone') !!}</h4>
                 <h4><a href="mailto:{!! config('site.email.support') !!}"><i
                                 class="fa fa-envelope"></i> {!! config('site.email.support') !!}</a></h4>
+                <h3 style="padding-top: 0px;">{!! trans('opening-times.title-delivery-time') !!}</h3>
+                <h4>{!! trans('opening-times.when') !!}</h4>
             </div>
             <div class="col-md-2">
                 <h3>{!! trans('footer.information') !!}</h3>

@@ -57,6 +57,7 @@ return [
     'review.delivery-time.asap' => 'Il prima possibile',
     'review.delivery-time.slot' => 'Scegliere uno slot di consegna',
     'review.delivery-time.error.late' => 'È troppo tardi per scegliere questo tempo di consegna. Si prega di selezionare un altro momento',
+    'review.delivery-time.error.closed' => 'Siamo spiacenti ma il servizio è attivo sono dall\'una del pomeriggio all\'una di mattina. Riprova piú tardi ¯\_(ツ)_/¯',
     'order' => 'Ordine',
     'order.success' => 'Il tuo ordine è stato inoltrato. Ti manderemo una notifica via email quando è fuori per la consegna.',
 ];

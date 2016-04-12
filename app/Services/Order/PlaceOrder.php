@@ -12,9 +12,12 @@ use App\Order;
 use App\OrderItem;
 
 use Carbon\Carbon;
+use Zugy\DeliveryTime\Exceptions\ClosedException;
+use Zugy\DeliveryTime\Exceptions\PastDeliveryTimeException;
 use Zugy\Facades\Cart;
 
 use Zugy\Facades\Checkout;
+use Zugy\Facades\DeliveryTime;
 use Zugy\Facades\PaymentGateway;
 
 use App\Exceptions\OutOfStockException;
@@ -67,10 +70,12 @@ class PlaceOrder
         if(request('delivery_date') != 'asap') {
             $delivery_time = Carbon::parse(request('delivery_date') . " " . request('delivery_time'));
 
-            $cutoff_time = Carbon::now()->addMinutes(30);
-
-            if($delivery_time->lt($cutoff_time)) {
+            try {
+                DeliveryTime::isValidDeliiveryTime($delivery_time);
+            } catch (PastDeliveryTimeException $e) {
                 return redirect()->back()->withErrors(['delivery_date' => trans('checkout.review.delivery-time.error.late')]);
+            } catch (ClosedException $e) {
+                return redirect()->back()->withErrors(['delivery_date' => trans('checkout.review.delivery-time.error.closed')]);
             }
         }
 

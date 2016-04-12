@@ -58,6 +58,7 @@ return [
     'review.delivery-time.asap' => 'As soon as possible',
     'review.delivery-time.slot' => 'Choose a delivery slot',
     'review.delivery-time.error.late' => 'It\'s too late to choose this delivery time. Please select a later time',
+    'review.delivery-time.error.closed' => 'We are closed during this delivery time. Please select a different time',
     'order' => 'Order',
     'order.success' => 'Your order has been placed. We will notify you via email when your order is out for delivery.'
 ];

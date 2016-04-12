@@ -121,6 +121,8 @@
                 @endif
             </div>
 
+            @include('includes.delivery-time._closed-warning')
+
             <hr/>
 
             <ul class="nav nav-tabs" role="tablist">

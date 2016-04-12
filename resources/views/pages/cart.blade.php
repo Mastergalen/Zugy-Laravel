@@ -16,6 +16,8 @@
         <div class="alert alert-info">{!! trans('cart.free-shipping-reminder') !!}</div>
     @endif
 
+    @include('includes.delivery-time._closed-warning')
+
     <div class="row">
         <div class="col-lg-9 col-md-9 col-sm-7">
             <table class="table table-responsive" id="cart-table">
