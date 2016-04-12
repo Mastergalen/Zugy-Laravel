@@ -1,6 +1,5 @@
 <?php
 return [
-    'catalogue.product.delete.success' => 'Prodotto cancellato',
     'incomplete-orders' => 'ordini incompleti',
     'revenue-yesterday' => 'entrate ieri',
     'details' => 'Dettagli',
@@ -26,6 +25,7 @@ return [
     'catalogue.image.thumbnail' => 'Impostare questo come miniatura',
     'catalogue.image.delete.confirmation' => 'Sei sicuro di voler eliminare questa immagine?',
     'catalogue.product.delete.confirmation' => 'Sicuro di voler cancellare questo prodotto?',
+    'catalogue.product.delete.success' => 'Prodotto cancellato',
     'customers.title' => 'Clienti',
     'customers.singular' => 'Cliente',
     'customers.name.label' => 'Nome cliente',

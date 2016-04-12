@@ -3,9 +3,9 @@
 return [
     'title' => 'Il tuo account',
     'orders' => 'Ordini',
-    'orders.desc' => 'Vedere, monitorare o annullare un ordine',
-    'orders.dispatch-to' => 'Invio a',
+    'orders.desc' => 'Controlla, rintraccia o cancella un ordine',
+    'orders.dispatch-to' => 'Invia a',
     'payment.manage' => 'Gestisci i tuoi metodi di pagamento',
     'settings.title' => 'Impostazioni',
-    'settings.email' => 'Cambiare l\'indirizzo email o la password',
+    'settings.email' => 'Cambia l\'indirizzo email o la password',
 ];

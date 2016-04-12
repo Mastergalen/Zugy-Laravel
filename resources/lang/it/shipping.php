@@ -7,6 +7,6 @@ return [
     'cost' => 'Costo',
     'standard' => 'Standard',
     'hour' => '{1} 1 ora |[0,Inf] :count ore',
-    'free-shipping' => 'Gratuito se l\'ordine è più di 20&euro;, altrimenti 3&euro;',
+    'free-shipping' => 'Gratis se l\'ordine è superiore ai 20&euro;, altrimenti 3&euro;',
     'free' => 'Spedizione gratuita',
 ];

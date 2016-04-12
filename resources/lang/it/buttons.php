@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'search.prompt' => 'iniziare a digitare e cercare',
+    'search.prompt' => 'digita e cerca',
     'add-cart' => 'Aggiungi nel carrello',
     'shop-now' => 'Acquistare ora',
     'update-cart' => 'Aggiorna carrello',
