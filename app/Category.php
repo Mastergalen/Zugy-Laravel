@@ -60,14 +60,18 @@ class Category extends Model
     }
 
     /**
+     * Print the category menu from cache if available
+     *
      * @return mixed
      *
      * Print nested list of all categories
      */
     static public function printList() {
-        $list = Category::buildTree();
+        return Cache::remember('ui.category-sidebar.lang-' . \Localization::getCurrentLocale(), 5, function() {
+            $list = Category::buildTree();
 
-        return self::toUL($list);
+            return self::toUL($list);
+        });
     }
 
     static private function toUL(array $array)
@@ -117,8 +121,8 @@ class Category extends Model
         return $array;
     }
 
-    static public function getDirectSubCategories(\App\Category $category) {
-        return \App\Category::where('parent_id', '=', $category->id)->get();
+    static public function getDirectSubCategories(self $category) {
+        return self::where('parent_id', '=', $category->id)->get();
     }
 
     /**
@@ -133,11 +137,11 @@ class Category extends Model
      */
     static public function cacheMegaMenu($category_id) {
         $cache = Cache::remember('categories.menu.lang-' . \Localization::getCurrentLocale(), 5, function() {
-            $categories = Category::all();
+            $categories = self::all();
             $return = [];
 
             foreach($categories as $parent) {
-                $children = Category::getDirectSubCategories($parent);
+                $children = self::getDirectSubCategories($parent);
 
                 $children->load('translations');
 
