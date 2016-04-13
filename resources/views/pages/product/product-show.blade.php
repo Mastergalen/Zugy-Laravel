@@ -91,7 +91,7 @@
                 <fieldset id="quantity-selector"
                           data-product-id="{!! $product->id !!}"
                           data-price="{{$product->price}}"
-                          data-thumbnail="{{$product->cover()}}"
+                          data-thumbnail="{{$product->thumbnail_url }}"
                           data-url="{{$product->getUrl()}}"
                         >
                     <div class="form-group">

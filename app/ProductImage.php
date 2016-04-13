@@ -10,6 +10,8 @@ class ProductImage extends Model
 {
     protected $table = 'product_images';
 
+    protected $appends = ['url'];
+
     public function getURLAttribute() {
         if(env('FILE_DISC') == 's3') {
             return "https://s3." . env('AWS_REGION') . ".amazonaws.com/" . env('AWS_BUCKET') . "/" . $this->attributes['location'];

@@ -5,7 +5,7 @@
                 <div class="col-xs-3">
                     <div class="cart-product-thumb">
                         <a href="{!! $item->product->getUrl() !!}"><img
-                                    src="{!! $item->product->cover() !!}"
+                                    src="{!! $item->product->thumbnail_url !!}"
                                     alt="{{ $item->product->title }}"></a>
                     </div>
                 </div>

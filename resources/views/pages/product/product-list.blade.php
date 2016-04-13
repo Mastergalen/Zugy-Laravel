@@ -42,7 +42,7 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <a href="{!! $p->getUrl() !!}">
-                                    <img src="{!! $p->cover() !!}" class="img-responsive" alt="{!! $p->title !!}">
+                                    <img src="{!! $p->thumbnail_url !!}" class="img-responsive" alt="{!! $p->title !!}">
                                 </a>
                                 <h4><a href="{!! $p->getUrl() !!}">{!! $p->title !!}</a></h4>
                                 <div class="row">

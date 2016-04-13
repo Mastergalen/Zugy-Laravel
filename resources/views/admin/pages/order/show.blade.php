@@ -107,7 +107,7 @@
                                     <div class="col-xs-3">
                                         <div class="cart-product-thumb">
                                             <a href="{!! $item->product()->withTrashed()->first()->getUrl() !!}"><img
-                                                        src="{!! $item->product()->withTrashed()->first()->cover() !!}"
+                                                        src="{!! $item->product()->withTrashed()->first()->thumbnail_url !!}"
                                                         alt="{{ $item->product()->withTrashed()->first()->title }}"></a>
                                         </div>
                                     </div>

@@ -85,7 +85,7 @@ class DbProductRepository extends DbRepository implements ProductRepository
         }
 
         $orderedProductIdsStr = $orderedProductIds->implode(',');
-        $products = $this->model->with('translations')
+        $products = $this->model->with(['translations', 'images'])
                                 ->whereIn('id', $orderedProductIds)
                                 ->orderByRaw("FIELD(id, $orderedProductIdsStr)")
                                 ->paginate(15);

@@ -16,6 +16,8 @@ class Product extends Model
 
     protected $table = 'products';
 
+    protected $appends = ['thumbnail_url'];
+
     public static $perEnvironment = true; // Index name will be 'products_{\App::environment()}';
 
     public $algoliaSettings = [
@@ -103,9 +105,17 @@ class Product extends Model
 
     public function getUrl($language_code = null)
     {
+        if(isset($this->attributes['url'])) {
+            return $this->attributes['url'];
+        }
+
         if($language_code === null) $language_code = LaravelLocalization::getCurrentLocale();
 
-        return LaravelLocalization::getURLFromRouteNameTranslated($language_code, 'routes.product', ['slug' => $this->slug]);
+        $url = LaravelLocalization::getURLFromRouteNameTranslated($language_code, 'routes.product', ['slug' => $this->slug]);
+
+        $this->attributes['url'] = $url;
+
+        return $url;
     }
 
     /*
@@ -131,21 +141,28 @@ class Product extends Model
      * Fetch URL thumbnail for product
      * @return string
      */
-    public function cover()
-    {
-        $thumbnailId = $this->thumbnail_id;
+    public function getThumbnailUrlAttribute() {
+        if(isset($this->attributes['thumbnail_url'])) {
+            return $this->attributes['thumbnail_url'];
+        }
+
+        $thumbnailId = $this->attributes['thumbnail_id'];
 
         if($thumbnailId !== null) {
-            return $this->images()->find($thumbnailId)->url;
-        }
-
-        $images = $this->images()->get();
-
-        if($images->count() === 0) {
-            return asset('/img/zugy-placeholder-image.png');
+            $url = $this->images->find($thumbnailId)->url;
         } else {
-            return $images->first()->url;
+            $images = $this->images;
+
+            if($images->count() === 0) {
+                $url =  asset('/img/zugy-placeholder-image.png');
+            } else {
+                $url = $images->first()->url;
+            }
         }
+
+        $this->attributes['thumbnail_url'] = $url;
+
+        return $url;
     }
 
     /**

@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-md-2 col-xs-3 mini-cart-product-thumb">
                             <a href="{!! $product->getUrl() !!}">
-                                <img src="{!! $product->cover() !!}" alt="img">
+                                <img src="{!! $product->thumbnail_url !!}" alt="img">
                             </a>
                         </div>
                         <div class="col-md-5 col-xs-4 miniCartDescription">
