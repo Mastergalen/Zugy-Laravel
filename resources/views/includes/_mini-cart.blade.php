@@ -9,18 +9,17 @@
 
     <div class="products mCustomScrollbar">
         @foreach(Cart::content() as $row)
+            <?php $product = $row->product ?>
             <div class="mini-cart-product row">
                 <div class="col-md-offset-3 col-md-6 col-xs-12">
                     <div class="row">
                         <div class="col-md-2 col-xs-3 mini-cart-product-thumb">
-                            <div>
-                                <a href="{!! $row->product->getUrl() !!}">
-                                    <img src="{!! $row->product->cover() !!}" alt="img">
-                                </a>
-                            </div>
+                            <a href="{!! $product->getUrl() !!}">
+                                <img src="{!! $product->cover() !!}" alt="img">
+                            </a>
                         </div>
                         <div class="col-md-5 col-xs-4 miniCartDescription">
-                            <h4><a href="{!! $row->product->getUrl() !!}">{{ $row->name }}</a></h4>
+                            <h4><a href="{!! $product->getUrl() !!}">{{ $row->name }}</a></h4>
                             <span class="size"></span>
 
                             <div class="price"><span>{{money_format("%i", $row->price)}}&euro;</span></div>

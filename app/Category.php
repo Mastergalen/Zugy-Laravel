@@ -4,6 +4,7 @@ namespace App;
 
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Category extends Model
 {
@@ -114,5 +115,41 @@ class Category extends Model
         }
 
         return $array;
+    }
+
+    static public function getDirectSubCategories(\App\Category $category) {
+        return \App\Category::where('parent_id', '=', $category->id)->get();
+    }
+
+    /**
+     * Cache the categories menu
+     *
+     * 0 => [
+     *     'parent' => []
+     *     'children' => []
+     * ]
+     * @param $category_id int
+     * @return array
+     */
+    static public function cacheMegaMenu($category_id) {
+        $cache = Cache::remember('categories.menu.lang-' . \Localization::getCurrentLocale(), 5, function() {
+            $categories = Category::all();
+            $return = [];
+
+            foreach($categories as $parent) {
+                $children = Category::getDirectSubCategories($parent);
+
+                $children->load('translations');
+
+                $return[$parent->id] = [
+                    'parent' => $parent,
+                    'children' => $children
+                ];
+            }
+
+            return $return;
+        });
+
+        return $cache[$category_id];
     }
 }
