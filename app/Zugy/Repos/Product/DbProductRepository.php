@@ -130,11 +130,13 @@ class DbProductRepository extends DbRepository implements ProductRepository
          return DB::table('products')
             ->leftJoin('order_items', 'products.id', '=', 'order_items.product_id')
             ->leftJoin('orders', 'orders.id', '=', 'order_items.order_id')
-            ->selectRaw('products.*, sum(order_items.quantity) as sales')
+            ->selectRaw('products.*, SUM(
+                CASE WHEN orders.order_status = 4 THEN 
+                    0 
+                ELSE 
+                    order_items.quantity 
+                END) as sales') //Ignore cancelled orders
             ->groupBy('products.id')
-            ->where(function($query) {
-                $query->where('orders.order_status', '!=', 4) //Ignore cancelled orders
-                ->orWhereNull('orders.order_status');
-            })->where('products.stock_quantity', '>', 0); //Hide items that are out of stock
+            ->where('products.stock_quantity', '>', 0); //Hide items that are out of stock
     }
 }
