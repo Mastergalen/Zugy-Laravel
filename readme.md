@@ -1,6 +1,17 @@
 # Zugy
 
-http://zugy.galenhan.com/
+Laravel project for Zugy eCommerce store.
+
+https://myzugy.com
+
+## Features
+* Coupons
+* Delivery Time Notifications
+* Order status tracking
+* Payment methods
+  * Stripe
+  * Paypal
+  * Cash
 
 ## Deployment Checklist
 
