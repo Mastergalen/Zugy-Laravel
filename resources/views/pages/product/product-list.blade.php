@@ -36,7 +36,7 @@
 
             <hr>
 
-            <div class="row product-list">
+            <div id="product-list-container" class="row product-list">
                 @forelse($products as $p)
                     <div class="item col-sm-4 col-lg-4 col-md-4 col-xs-12">
                         <div class="panel panel-default">
@@ -93,7 +93,7 @@
 <script>
 $(document).on('ready pjax:success', function() {
     //Bind pjax to pagination buttons
-    $(document).pjax('.pagination a', '#product-list');
+    $(document).pjax('.pagination a', '#product-list-container');
 
     $('.btn-add-cart').unbind('click').click(function() {
         $(this).prop('disabled', true);
@@ -110,7 +110,6 @@ $(document).on('ready pjax:success', function() {
 
     $('#product-sort').unbind('change').change(function() {
         var query;
-        console.log($(this).val());
         switch($(this).val()) {
             case 'sales':
                 query = {'sort': 'sales', 'direction': 'desc'};
@@ -131,7 +130,7 @@ $(document).on('ready pjax:success', function() {
 
         var url = [location.protocol, '//', location.host, location.pathname].join('') + "?" + $.param(query);
 
-        $.pjax({url: url, container: '#product-list'});
+        $.pjax({url: url, container: '#product-list-container'});
     });
 });
 </script>
