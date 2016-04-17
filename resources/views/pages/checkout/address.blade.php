@@ -17,64 +17,75 @@
         </div>
     @endif
 
-    @if(count($addresses) > 0)
-        <legend>{!! trans('checkout.address.choose-delivery') !!}</legend>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    {!! trans('checkout.address.choose-delivery') !!}
+    <div class="row">
+        <div class="col-lg-9 col-md-9   col-sm-7">
+            @if(count($addresses) > 0)
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            {!! trans('checkout.address.choose-delivery') !!}
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            @foreach($addresses as $a)
+                                <form action="{!! request()->url() !!}" method="POST">
+                                    {!! Form::token() !!}
+                                    <div class="col-md-3">
+                                        <input type="hidden" name=delivery[addressId]" value="{!! $a->id !!}">
+                                        @include('includes._address', ['address' => $a, 'edit' => true])
+                                        <button class="btn btn-primary btn-block"><i class="fa fa-truck"></i> {!! trans('checkout.address.select-delivery') !!}</button>
+                                    </div>
+                                </form>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    @foreach($addresses as $a)
-                        <form action="{!! request()->url() !!}" method="POST">
-                            {!! Form::token() !!}
-                            <div class="col-md-3">
-                                <input type="hidden" name=delivery[addressId]" value="{!! $a->id !!}">
-                                @include('includes._address', ['address' => $a, 'edit' => true])
-                                <button class="btn btn-primary btn-block"><i class="fa fa-truck"></i> {!! trans('checkout.address.select-delivery') !!}</button>
-                            </div>
-                        </form>
-                    @endforeach
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p><a href="#" id="btn-add-address">{!! trans('checkout.address.deliver-new') !!} <i class="fa fa-caret-right"></i></a></p>
+
+                        <p><span class="small">{!! trans('checkout.address.deliver-new-desc') !!}</span></p>
+                    </div>
                 </div>
-            </div>
-        </div>
+            @endif
 
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <p><a href="#" id="btn-add-address">{!! trans('checkout.address.deliver-new') !!} <i class="fa fa-caret-right"></i></a></p>
+            <form action="{!! request()->url() !!}" method="POST" id="address-form" @if(count($addresses) > 0)style="display: none"@endif>
+                {!! Form::token() !!}
+                <legend>{!! trans('checkout.address.form.delivery') !!}</legend>
+                @include('pages.checkout.partials.address-form', ['type' => 'delivery'])
 
-                <p><span class="small">{!! trans('checkout.address.deliver-new-desc') !!}</span></p>
-            </div>
+                <legend>{!! trans('checkout.address.form.billing') !!}</legend>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label for="billing-same">
+                            <input type="checkbox" name="delivery[billing_same]" id="billing-same" checked> {!! trans('checkout.address.form.same') !!}
+                        </label>
+                    </div>
+                </div>
+                @include('pages.checkout.partials.address-form', ['type' => 'billing'])
+                <div class="form-footer">
+                    <div class="pull-left">
+                        <a class="btn btn-footer" href="{!! localize_url('routes.shop.index') !!}">
+                            <i class="fa fa-arrow-left"></i> &nbsp; {!! trans('buttons.back-to-shop') !!}
+                        </a>
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-arrow-right"></i> {!! trans('buttons.proceed') !!}</button>
+                    </div>
+                </div>
+            </form>
         </div>
-    @endif
-
-    <form action="{!! request()->url() !!}" method="POST" id="address-form" @if(count($addresses) > 0)style="display: none"@endif>
-        {!! Form::token() !!}
-        <legend>{!! trans('checkout.address.form.delivery') !!}</legend>
-        @include('pages.checkout.partials.address-form', ['type' => 'delivery'])
-
-        <legend>{!! trans('checkout.address.form.billing') !!}</legend>
-        <div class="form-group">
-            <div class="checkbox">
-                <label for="billing-same">
-                    <input type="checkbox" name="delivery[billing_same]" id="billing-same" checked> {!! trans('checkout.address.form.same') !!}
-                </label>
-            </div>
+        <div class="col-lg-3 col-md-3 col-sm-5">
+            @include('includes.order-summary',  [
+                'total' => Cart::total(),
+                'shipping' => Cart::shipping(),
+                'grandTotal' => Cart::grandTotal(),
+                'couponDeduction' => Cart::couponDeduction()
+            ])
         </div>
-        @include('pages.checkout.partials.address-form', ['type' => 'billing'])
-        <div class="form-footer">
-            <div class="pull-left">
-                <a class="btn btn-footer" href="{!! localize_url('routes.shop.index') !!}">
-                    <i class="fa fa-arrow-left"></i> &nbsp; {!! trans('buttons.back-to-shop') !!}
-                </a>
-            </div>
-            <div class="pull-right">
-                <button class="btn btn-primary" type="submit"><i class="fa fa-arrow-right"></i> {!! trans('buttons.proceed') !!}</button>
-            </div>
-        </div>
-    </form>
+    </div>
 
     @include('pages.checkout.partials.address-modal')
 @endsection
