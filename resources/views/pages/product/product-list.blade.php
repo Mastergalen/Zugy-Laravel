@@ -19,6 +19,11 @@
         </h1>
         <p>{{ trans_choice('product.count', $products->count(), ['count' => $products->count()]) }}</p>
     </div>
+
+    <div class="alert alert-info">
+        {!! trans('checkout.shipping') !!}: {!! trans('shipping.free-shipping') !!}
+    </div>
+    
     <div class="row">
         <div class="col-md-9 col-md-push-3">
 
