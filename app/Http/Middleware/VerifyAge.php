@@ -25,7 +25,7 @@ class VerifyAge
         }
 
         if(!isset($_COOKIE['isOver18']) || $_COOKIE['isOver18'] != "true") {
-            return response()->view('pages.age-splash', [], 449);
+            return response()->view('pages.age-splash', [], 412);
         }
 
         return $next($request);
