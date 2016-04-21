@@ -22,6 +22,7 @@ class CategoriesSeeder extends Seeder
             ['id' => 15, 'parent_id' => 12], //Energy drinks
             ['id' => 16, 'parent_id' => null], //Deals
             ['id' => 17, 'parent_id' => 16], //Packs
+            ['id' => 18, 'parent_id' => 7], //Craft Beer
         ]);
 
         DB::table('category_translations')->insert([
@@ -32,7 +33,7 @@ class CategoriesSeeder extends Seeder
             ['category_id' => 2, 'locale' => 'it',  'name' => 'Cibo', 'slug' => 'cibo'],
 
             ['category_id' => 3, 'locale' => 'en',  'name' => 'Spirits', 'slug' => 'spirits'],
-            ['category_id' => 3, 'locale' => 'it',  'name' => 'Spirits', 'slug' => 'spirits'],
+            ['category_id' => 3, 'locale' => 'it',  'name' => 'Superalcolici', 'slug' => 'superalcolici'],
 
             ['category_id' => 4, 'locale' => 'en',  'name' => 'Wine & champagne', 'slug' => 'wine-and-champagne'],
             ['category_id' => 4, 'locale' => 'it',  'name' => 'Vino e champagne', 'slug' => 'vino-e-champagne'],
@@ -65,7 +66,7 @@ class CategoriesSeeder extends Seeder
             ['category_id' => 13, 'locale' => 'it',  'name' => 'Soda', 'slug' => 'soda'],
 
             ['category_id' => 14, 'locale' => 'en',  'name' => 'Juice', 'slug' => 'juice'],
-            ['category_id' => 14, 'locale' => 'it',  'name' => 'Succo', 'slug' => 'succo'],
+            ['category_id' => 14, 'locale' => 'it',  'name' => 'Succhi', 'slug' => 'succhi'],
 
             ['category_id' => 15, 'locale' => 'en',  'name' => 'Energy Drinks', 'slug' => 'energy-drinks'],
             ['category_id' => 15, 'locale' => 'it',  'name' => 'Bevande energetiche', 'slug' => 'bevande-energetiche'],
@@ -75,6 +76,9 @@ class CategoriesSeeder extends Seeder
 
             ['category_id' => 17, 'locale' => 'en',  'name' => 'Packs', 'slug' => 'packs'],
             ['category_id' => 17, 'locale' => 'it',  'name' => 'Packs', 'slug' => 'packs'],
+
+            ['category_id' => 18, 'locale' => 'en',  'name' => 'Craft Beer', 'slug' => 'craft-beer'],
+            ['category_id' => 18, 'locale' => 'it',  'name' => 'Birra artigianale', 'slug' => 'birra-artigianale'],
         ]);
     }
 }
