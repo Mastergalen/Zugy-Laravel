@@ -2,7 +2,7 @@
 
 return [
     'title-delivery-time' => 'Orari di consegna',
-    'when' => 'Ogni giorno dall\'una di pomeriggio fino all\'una di notte',
+    'when' => 'Ogni giorno dall\'una di pomeriggio fino alle 2 di notte',
     'closed' => 'Al momento non consegnamo.',
     'times' => 'I nostri orari di consegna sono:',
     'delivery-time' => 'Puoi ordinare adesso e selezionare un orario di consegna piú comodo per te, magari stasera  ( ͡ᵔ ͜ʖ ͡ᵔ )',

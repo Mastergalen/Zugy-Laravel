@@ -33,7 +33,7 @@ class DeliveryTime
     public function isOpen(Carbon $time) {
         $hour = $time->hour;
         
-        return ($hour < 1 || $hour >= 13);
+        return ($hour < 2 || $hour >= 13);
     }
 
     /**
