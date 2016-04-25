@@ -31,10 +31,11 @@
     </div>
 </div>
 <hr>
-<div class="row">
-    <h2>{!! trans('pages.about-us.partners') !!}</h2>
-    {!! trans('pages.about-us.partners-desc') !!}
-</div>
+<h2>{!! trans('pages.about-us.mission-statement.title') !!}</h2>
+{!! trans('pages.about-us.mission-statement.desc') !!}
+
+<h2>{!! trans('pages.about-us.partners') !!}</h2>
+{!! trans('pages.about-us.partners-desc') !!}
 @endsection
 
 @section('scripts')

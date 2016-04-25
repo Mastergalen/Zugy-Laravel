@@ -21,9 +21,9 @@
     </div>
 
     <div class="alert alert-info">
-        {!! trans('checkout.shipping') !!}: {!! trans('shipping.free-shipping') !!}
+        <b>{!! trans('checkout.shipping') !!}: {!! trans('shipping.free-shipping') !!}</b>
     </div>
-    
+
     <div class="row">
         <div class="col-md-9 col-md-push-3">
 
