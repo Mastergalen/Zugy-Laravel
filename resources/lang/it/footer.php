@@ -2,7 +2,7 @@
 
 return [
     'email' => 'Email',
-    'information' => 'Informazione',
+    'information' => 'Informazioni',
     'my-account' => 'Il mio account',
     'my-orders' => 'i miei ordini',
     'newsletter-subscribe-btn' => 'Abbonarsi',
