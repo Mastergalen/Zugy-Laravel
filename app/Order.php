@@ -91,6 +91,10 @@ class Order extends Model
         return $query->whereIn('order_status', [0, 1, 2]);
     }
 
+    public function scopeUncancelled($query) {
+        return $query->where('order_status', '!=', 4);
+    }
+
     public function getActivityDescriptionForEvent($eventName)
     {
         return $eventName;

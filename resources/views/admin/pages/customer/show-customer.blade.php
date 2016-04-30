@@ -51,7 +51,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">{!! trans('admin.customers.revenue.lifetime') !!}</span>
-                    <span class="info-box-number">{{ money_format("%i", $customer->orders()->get()->sum('grand_total')) }}&euro;</span>
+                    <span class="info-box-number">{{ money_format("%i", $customer->orders()->uncancelled()->get()->sum('grand_total')) }}&euro;</span>
                 </div>
             </div>
         </div>
