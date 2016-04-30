@@ -2,6 +2,7 @@
 return [
     'incomplete-orders' => 'Incomplete Orders',
     'revenue-yesterday' => 'Revenue yesterday',
+    'revenue-this-month' => 'Revenue this month so far',
     'details' => 'Details',
     'time' => 'Time',
     'user' => 'User',

@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-md-3">
             <!-- small box -->
             <div class="small-box bg-aqua">
                 <div class="inner">
@@ -25,13 +25,28 @@
             </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-md-3">
             <!-- small box -->
             <div class="small-box bg-green">
                 <div class="inner">
                     <h3>{{ money_format("%i", $revenueYesterday) }}&euro;</h3>
 
                     <p>{!! trans('admin.revenue-yesterday') !!}</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-dollar"></i>
+                </div>
+            </div>
+        </div>
+        <!-- ./col -->
+
+        <div class="col-md-3">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>{{ money_format("%i", $revenueThisMonth) }}&euro;</h3>
+
+                    <p>{!! trans('admin.revenue-this-month') !!}</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-dollar"></i>
