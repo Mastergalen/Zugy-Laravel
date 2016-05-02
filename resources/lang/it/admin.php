@@ -2,6 +2,7 @@
 return [
     'incomplete-orders' => 'ordini incompleti',
     'revenue-yesterday' => 'entrate ieri',
+    'revenue-this-month' => 'Ricavi mensili',
     'details' => 'Dettagli',
     'time' => 'Tempo',
     'user' => 'Utente',

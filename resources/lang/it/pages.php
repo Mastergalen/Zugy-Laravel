@@ -8,6 +8,9 @@ return [
     'about-us.partners' => 'Soci',
     'about-us.partners-desc' => '<p>Zugy è orgogliosa di essere partner di <a href="http://securitycourier.it/">Security Courier Express</a> che ti porterà a casa  il tuo ordine.</p>
 <p>Usiamo solo corrieri in bicicletta, garantendo la consegna entro 60 minuti senza emissione di CO2 <i class="fa fa-leaf"></i>.</p>',
+    'about-us.mission-statement.title' => 'Obiettivi',
+    'about-us.mission-statement.desc' => '<p>In Zugy, il nostri obiettivo è e sarà sempre prendere felici I nostri client. Vogliamo regalare ricordi ed emozioni, siano questi una bottiglia per una bella chiacchierata o un party pack per rendere un compleanno il migliore di sempre.</p>
+<p>Non importa se sarà una nottata da urlo o una sera con gli amici, noi speriamo che sceglierete Zugy per rendere la vostra notte indimenticabile.</p>',
     'contact.title' => 'Contatti',
     'contact.address' => 'Zugy Srl. <br>Alzaia Navigli Grande 36<br> Milano, 20141 <br> Italia',
     'contact.customer-service' => 'Di seguito troverete il numero di telefono relativo al servizio clienti. Saremo felici di rispondere alle vostre domande, commenti o dubbi.',
