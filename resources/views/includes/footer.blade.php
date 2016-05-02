@@ -73,7 +73,7 @@
 </div>
 <div class="footer-bottom">
     <div class="container">
-        <p class="pull-left">&copy; {!! config('site.name') !!} {!! date("Y") !!}. {!! trans('footer.rights-reserved') !!}</p>
+        <p class="pull-left">&copy; {!! config('site.name') !!} {!! date("Y") !!}. {!! trans('footer.rights-reserved') !!} {!! trans('footer.tax-code') !!}: 09224160961</p>
         <div class="pull-right payment-method-img">
             <img class="pull-right" src="/img/payment/master_card.png" alt="Master Card">
             <img class="pull-right" src="/img/payment/visa_card.png" alt="Visa">

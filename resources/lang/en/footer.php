@@ -9,4 +9,5 @@ return [
     'rights-reserved' => 'All rights reserved.',
     'stay-in-touch' => 'Stay In Touch',
     'support' => 'Support',
+    'tax-code' => 'Tax Code',
 ];
