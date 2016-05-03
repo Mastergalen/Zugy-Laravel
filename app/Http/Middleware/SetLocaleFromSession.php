@@ -28,6 +28,19 @@ class SetLocaleFromSession
         }
 
         \Carbon::setLocale(\Localization::getCurrentLocale());
+        
+        switch (\Localization::getCurrentLocale()) {
+            case 'it':
+                $success = setlocale(LC_ALL, 'it_IT.utf8');
+                break;
+            case 'en':
+                $success = setlocale(LC_ALL, 'en_GB.utf8');
+                break;
+            default:
+                throw new \Exception("Locale not found");
+        }
+
+        if(!$success) throw new \Exception("Failed setting locale: " . \Localization::getCurrentLocale() . " | Current Locale: " . setlocale(LC_ALL, 0));
 
         return $next($request);
     }

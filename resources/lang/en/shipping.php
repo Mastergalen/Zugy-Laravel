@@ -3,7 +3,7 @@
 return [
     'shipping-method' => 'Shipping method',
     'time' => 'Shipping time',
-    'hour-delivery' => 'Delivery within an hour',
+    'hour-delivery' => 'Delivery within 45 minutes',
     'cost' => 'Cost',
     'standard' => 'Standard',
     'hour' => '{1} 1 hour|[0,Inf] :count hours',

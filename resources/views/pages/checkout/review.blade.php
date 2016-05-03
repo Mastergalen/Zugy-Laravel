@@ -154,6 +154,7 @@
 @endsection
 
 @section('scripts')
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
     <script>
         $(document).on('ready pjax:success', function(){
             $('#vat-expand').popover({
@@ -207,13 +208,27 @@
                     $timeFormGroup.hide('slow');
                 } else {
                     var today = $(this).data('today');
+                    var momentDate = moment(date);
+
+                    console.log("Chosen date:" + date + " Day of week: " + momentDate.isoWeekday());
 
                     $timeSelector.empty();
 
                     for(var i = 0; i < 24; i++) {
 
                         //Opening times
-                        if(i > 0 && i < 13) continue;
+                        switch(momentDate.isoWeekday()) {
+                            // Fri-Sun 1pm-2am
+                            case 6:
+                            case 7: //Sun
+                            case 1: //Monday
+                                if(i > 1 && i < 13) continue;
+                                break;
+                            // Mon-Thu
+                            default:
+                                if(i > 0 && i < 13) continue;
+                                break;
+                        }
 
                         var $option = $('<option>');
                         var startTime = new Date(0, 0, 0, i, 0, 0);

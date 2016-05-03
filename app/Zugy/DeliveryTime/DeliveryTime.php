@@ -32,8 +32,15 @@ class DeliveryTime
      */
     public function isOpen(Carbon $time) {
         $hour = $time->hour;
-        
-        return ($hour < 2 || $hour >= 13);
+
+        switch ($time->dayOfWeek) {
+            case Carbon::SATURDAY:
+            case Carbon::SUNDAY:
+            case Carbon::MONDAY:
+                return ($hour < 2 || $hour >= 13);
+            default:
+                return ($hour < 1 || $hour >= 13);
+        }
     }
 
     /**
