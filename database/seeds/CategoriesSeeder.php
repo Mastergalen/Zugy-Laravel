@@ -14,7 +14,7 @@ class CategoriesSeeder extends Seeder
             ['id' => 7, 'parent_id' => 1],
             ['id' => 8, 'parent_id' => 3],
             ['id' => 9, 'parent_id' => 3],
-            ['id' => 10, 'parent_id' => 1],
+            ['id' => 10, 'parent_id' => 1], // Special
             ['id' => 11, 'parent_id' => 3],
             ['id' => 12, 'parent_id' => null], //Mixers
             ['id' => 13, 'parent_id' => 12], //Soda
@@ -23,6 +23,7 @@ class CategoriesSeeder extends Seeder
             ['id' => 16, 'parent_id' => null], //Deals
             ['id' => 17, 'parent_id' => 16], //Packs
             ['id' => 18, 'parent_id' => 7], //Craft Beer
+            ['id' => 19, 'parent_id' => null], // Other products
         ]);
 
         DB::table('category_translations')->insert([
@@ -53,8 +54,8 @@ class CategoriesSeeder extends Seeder
             ['category_id' => 9, 'locale' => 'en',  'name' => 'Whiskey', 'slug' => 'whiskey'],
             ['category_id' => 9, 'locale' => 'it',  'name' => 'Whisky', 'slug' => 'whisky'],
 
-            ['category_id' => 10, 'locale' => 'en',  'name' => 'Special', 'slug' => 'special'],
-            ['category_id' => 10, 'locale' => 'it',  'name' => 'Speciale', 'slug' => 'speciale'],
+            ['category_id' => 10, 'locale' => 'en',  'name' => 'Other Spirits', 'slug' => 'other-spirits'],
+            ['category_id' => 10, 'locale' => 'it',  'name' => 'Altri liquori', 'slug' => 'altri-liquori'],
 
             ['category_id' => 11, 'locale' => 'en',  'name' => 'Gin', 'slug' => 'gin'],
             ['category_id' => 11, 'locale' => 'it',  'name' => 'Gin', 'slug' => 'gin'],
@@ -79,6 +80,9 @@ class CategoriesSeeder extends Seeder
 
             ['category_id' => 18, 'locale' => 'en',  'name' => 'Craft Beer', 'slug' => 'craft-beer'],
             ['category_id' => 18, 'locale' => 'it',  'name' => 'Birra artigianale', 'slug' => 'birra-artigianale'],
+
+            ['category_id' => 19, 'locale' => 'en',  'name' => 'Other products', 'slug' => 'other-products'],
+            ['category_id' => 19, 'locale' => 'it',  'name' => 'Altri prodotti', 'slug' => 'alti-prodotti'],
         ]);
     }
 }
