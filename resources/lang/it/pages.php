@@ -22,7 +22,7 @@ return [
     'home.meta-title' => 'Consegna di alcol a richiesta su Milano',
     'home.tagline' => 'La tua birra, vino e liquore preferiti, consegnati direttamente a casa tua.',
     'home.marketing.address.title' => 'Imposta l\'indirizzo',
-    'home.marketing.address.desc' => 'Seleziona da una vasta gamma di bevande alcoliche che possono essere consegnate a casa tua',
+    'home.marketing.address.desc' => 'Inserisci il codice postale dove desideri ricevere l\'ordine',
     'home.marketing.time.title' => 'Ordina in pochi minuti',
     'home.marketing.time.desc' => 'Aggiungi ció che desideri al tuo carrello, paga alla cassa ed é fatto.',
     'home.marketing.delivery.title' => 'Consegna a domicilio',
