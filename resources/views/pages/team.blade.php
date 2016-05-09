@@ -27,7 +27,7 @@
     </div>
     <hr>
     <div class="row">
-        <div class="col-md-3 member">
+        <div class="col-md-4 member">
             <div class="avatar">
                 <img src="/img/avatars/matthias.jpg" alt="">
             </div>
@@ -35,15 +35,7 @@
             <div class="position">{!!  trans('team.bios.matthias.position') !!}</div>
             {!!  trans('team.bios.matthias.text') !!}
         </div>
-        <div class="col-md-3 member">
-            <div class="avatar">
-                <img src="/img/avatars/tia.jpg" alt="">
-            </div>
-            <div class="name">Motyat Olatunmbi</div>
-            <div class="position">{!! trans('team.bios.motyat.position') !!}</div>
-            {!! trans('team.bios.motyat.text') !!}
-        </div>
-        <div class="col-md-3 member">
+        <div class="col-md-4 member">
             <div class="avatar">
                 <img src="/img/avatars/galen.jpg" alt="">
             </div>
@@ -51,7 +43,7 @@
             <div class="position">{!!  trans('team.bios.galen.position') !!}</div>
             {!!  trans('team.bios.galen.text') !!}
         </div>
-        <div class="col-md-3 member">
+        <div class="col-md-4 member">
             <div class="avatar">
                 <img src="/img/avatars/victor.jpg" alt="">
             </div>
