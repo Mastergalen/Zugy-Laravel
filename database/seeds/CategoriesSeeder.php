@@ -24,6 +24,7 @@ class CategoriesSeeder extends Seeder
             ['id' => 17, 'parent_id' => 16], //Packs
             ['id' => 18, 'parent_id' => 7], //Craft Beer
             ['id' => 19, 'parent_id' => null], // Other products
+            ['id' => 20, 'parent_id' => 1],
         ]);
 
         DB::table('category_translations')->insert([
@@ -83,6 +84,9 @@ class CategoriesSeeder extends Seeder
 
             ['category_id' => 19, 'locale' => 'en',  'name' => 'Other products', 'slug' => 'other-products'],
             ['category_id' => 19, 'locale' => 'it',  'name' => 'Altri prodotti', 'slug' => 'alti-prodotti'],
+
+            ['category_id' => 20, 'locale' => 'en',  'name' => 'Premium', 'slug' => 'premium'],
+            ['category_id' => 20, 'locale' => 'it',  'name' => 'Premium', 'slug' => 'premium'],
         ]);
     }
 }
