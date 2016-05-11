@@ -4,14 +4,14 @@
             <div class="row">
                 <div class="col-xs-3">
                     <div class="cart-product-thumb">
-                        <a href="{!! $item->product->getUrl() !!}"><img
-                                    src="{!! $item->product->thumbnail_url !!}"
-                                    alt="{{ $item->product->title }}"></a>
+                        <a href="{!! $item->product()->withTrashed()->first()->getUrl() !!}"><img
+                                    src="{!! $item->product()->withTrashed()->first()->thumbnail_url !!}"
+                                    alt="{{ $item->product()->withTrashed()->first()->title }}"></a>
                     </div>
                 </div>
                 <div class="col-xs-9">
                     <div class="cart-description">
-                        <h4><a href="{!! $item->product->getUrl() !!}">{{ $item->product->title }}</a></h4>
+                        <h4><a href="{!! $item->product()->withTrashed()->first()->getUrl() !!}">{{ $item->product()->withTrashed()->first()->title }}</a></h4>
 
                         <div class="price">{{ money_format("%i", $item->price) }}&euro;</div>
 
