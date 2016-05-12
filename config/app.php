@@ -171,6 +171,7 @@ return [
         Zugy\PaymentGateway\PaymentGatewayServiceProvider::class,
         Zugy\Helpers\Maps\MapsServiceProvider::class,
         Zugy\ActivityLogParser\ActivityLogParserServiceProvider::class,
+        Zugy\Charts\ChartsServiceProvider::class,
 
     ],
 

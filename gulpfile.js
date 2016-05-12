@@ -35,13 +35,14 @@ elixir(function(mix) {
     ], 'public/dist/js/app.js');
 
     mix.scripts([
-        'vendor/adminLTE/adminLTE.js'
+        'vendor/adminLTE/adminLTE.js',
+        'vendor/Chart.js/Chart.js'
     ], 'public/dist/js/admin.js');
 
     mix.scripts([
         'vendor/formvalidation/formValidation.min.js',
         'vendor/formvalidation/bootstrap.js',
-        'vendor/formvalidation/language/it_IT.js',
+        'vendor/formvalidation/language/it_IT.js'
     ], 'public/dist/js/formvalidation.js');
 
 

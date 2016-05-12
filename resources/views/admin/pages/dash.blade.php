@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-offset-3 col-md-2">
             <!-- small box -->
             <div class="small-box bg-aqua">
                 <div class="inner">
@@ -19,13 +19,15 @@
                 <div class="icon">
                     <i class="fa fa-shopping-cart"></i>
                 </div>
+                {{--
                 <a href="{!! action('Admin\OrderController@index', ['filter' => 'incomplete']) !!}" class="small-box-footer">
                     {!! trans('buttons.more-info') !!} <i class="fa fa-arrow-circle-right"></i>
                 </a>
+                --}}
             </div>
         </div>
         <!-- ./col -->
-        <div class="col-md-3">
+        <div class="col-md-2">
             <!-- small box -->
             <div class="small-box bg-green">
                 <div class="inner">
@@ -40,7 +42,7 @@
         </div>
         <!-- ./col -->
 
-        <div class="col-md-3">
+        <div class="col-md-2">
             <!-- small box -->
             <div class="small-box bg-green">
                 <div class="inner">
@@ -54,4 +56,61 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Last 30 days</h3>
+                </div>
+                <div class="box-body">
+                    <canvas id="chart-30d"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('scripts')
+    <script>
+        var chart30d = $('#chart-30d');
+        var myChart = new Chart(chart30d, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($chart['30-days']['x']) !!},
+                datasets: [{
+                    label: "Revenue",
+                    data: {!! json_encode($chart['30-days']['y']) !!},
+                    backgroundColor: "rgba(151,187,205,0.5)",
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            return tooltipItem.yLabel + "\u20AC";
+                        }
+                    }
+
+                },
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Revenue (Euro)'
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            callback: function (tickValue, index, ticks) {
+                                return Number(tickValue).toFixed(2).replace(',','.') + '\u20AC';
+                            }
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
 @endsection
