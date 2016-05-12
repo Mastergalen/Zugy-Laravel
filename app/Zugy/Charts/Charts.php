@@ -55,7 +55,7 @@ class Charts
                 $result['y'][] = 0;
             }
 
-
+            if(!isset($rows[$i])) break;
         }
 
         return $result;
