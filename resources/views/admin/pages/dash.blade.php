@@ -91,7 +91,7 @@
                 tooltips: {
                     callbacks: {
                         label: function(tooltipItem, data) {
-                            return tooltipItem.yLabel + "\u20AC";
+                            return Number(tooltipItem.yLabel).toFixed(2).replace(',', '.') + "\u20AC";
                         }
                     }
 

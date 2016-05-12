@@ -20,6 +20,7 @@ class Charts
             $end = Carbon::now();
         }
 
+        //Ignore cancelled orders
         $rows = DB::select("
             SELECT DATE(t.date) AS day, SUM(t.total) AS total
             FROM (
