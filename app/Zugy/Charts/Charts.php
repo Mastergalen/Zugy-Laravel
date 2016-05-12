@@ -46,7 +46,7 @@ class Charts
         foreach($period as $day) {
             $date = $day->format('Y-m-d');
 
-            if($rows[$i]->day == $date) {
+            if(isset($rows[$i]) && $rows[$i]->day == $date) {
                 $result['x'][] = $date;
                 $result['y'][] = $rows[$i]->total;
                 $i++;
@@ -54,8 +54,6 @@ class Charts
                 $result['x'][] = $date;
                 $result['y'][] = 0;
             }
-
-            if(!isset($rows[$i])) break;
         }
 
         return $result;
