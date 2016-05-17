@@ -19,7 +19,7 @@ return [
     'shop.title' => 'Negozio',
     'home.title' => 'Home',
     'home.meta_description' => 'Zugy è un negozio di liquori online a Milano che consegna nel giro di un\'ora.',
-    'home.meta-title' => 'Consegna di alcol a richiesta su Milano',
+    'home.meta-title' => 'Alcool a domicilio Milano',
     'home.tagline' => 'La tua birra, vino e liquore preferiti, consegnati direttamente a casa tua.',
     'home.marketing.address.title' => 'Imposta l\'indirizzo',
     'home.marketing.address.desc' => 'Inserisci il codice postale dove desideri ricevere l\'ordine',
