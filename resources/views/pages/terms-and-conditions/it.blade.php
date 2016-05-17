@@ -50,5 +50,5 @@
     <p>In caso di violazione delle presenti Condizioni d'Uso e non ci assumiamo alcuna azione, ci sarà ancora il diritto di utilizzare i nostri diritti e rimedi in qualsiasi altra situazione in cui di violazione di queste Condizioni d'Uso.</p>
 
     <h2>12. MINORI</h2>
-    <p>Non vendiamo prodotti per l'acquisto da parte dei minori. Consenti solo acquisto da parte di adulti. Se hai meno di 18 'vietato utilizzare i Servizi Zugy solo con il coinvolgimento di un genitore o tutore. È vietato acquistare alcol sotto i 18 anni di età in Italia.</p>
+    <p>Non vediamo bevande alcoliche ai minori. È consentita la vendita solo ad adulti sopra i diciotto anni di età. Se hai mano di diciotto anni è necessario il coinvolgimento di un genitore responsabile o di un tutore  legalmente riconosciuto.</p>
 @endsection
