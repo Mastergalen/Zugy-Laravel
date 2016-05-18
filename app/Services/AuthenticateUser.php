@@ -37,11 +37,12 @@ class AuthenticateUser
     public function loginOrCreateUser($oauth_provider, $oauth_user) {
 
         $oauth_authorisation = OAuthAuthorisations::where('network', '=', $oauth_provider)
-                               ->where('network_user_id', '=', $oauth_user->id)
+                               ->where('network_user_id', '=', (int) $oauth_user->id)
                                ->first();
 
         if($oauth_authorisation === null) {
-            $user = User::where('email', 'LIKE', $oauth_user->email)->first();
+            $user = User::where('email', '=', $oauth_user->email)->first();
+
             if($user === null) {
                 //Create user
                 $user = $this->createUser($oauth_user->name, $oauth_user->email);
