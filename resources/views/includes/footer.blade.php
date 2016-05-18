@@ -14,7 +14,6 @@
                 <ul>
                     <li><a href="{!! localize_url('routes.about-us') !!}">{!! trans('pages.about-us.title') !!}</a></li>
                     <li><a href="{!! localize_url('routes.contact') !!}">{!! trans('pages.contact.title') !!}</a></li>
-                    <li><a href="{!! localize_url('routes.team') !!}">{!! trans('pages.team') !!}</a></li>
                     <li>
                         <a href="{!! localize_url('routes.terms-and-conditions') !!}">{!! trans('pages.terms-and-conditions') !!}</a>
                     </li>

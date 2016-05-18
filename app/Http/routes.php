@@ -73,10 +73,6 @@ function() {
         return view('pages.contact');
     });
 
-    Route::get(Localization::transRoute('routes.team'), function () {
-        return view('pages.team');
-    });
-
     Route::get(Localization::transRoute('routes.terms-and-conditions'), function() {
         return view('pages.terms-and-conditions.index');
     });
