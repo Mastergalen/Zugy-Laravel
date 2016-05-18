@@ -27,7 +27,7 @@ return  [
      */
     'pushbullet' => [
         'channels' => [
-            'orders' => 'zugyorders',
+            'orders' => env('PUSHBULLET_ORDER_CHANNEL'),
         ],
     ],
 ];
