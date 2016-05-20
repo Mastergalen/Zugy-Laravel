@@ -29,7 +29,7 @@ class SendOrderConfirmationMail
                 $m->to($event->order->email)->subject(trans('order.email.confirmation.subject', ['id' => $event->order->id]));
             });
         } catch (\Exception $e) {
-            \Log::critical('Could not send order confirmation email');
+            \Log::critical($e);
         }
     }
 }

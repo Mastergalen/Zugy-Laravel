@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Address;
 use App\Exceptions\OutOfStockException;
+use App\Exceptions\TooManyOrdersException;
 use App\Order;
 use App\Services\CreateOrUpdateAddress;
 use App\Services\Order\PlaceOrder;
@@ -165,6 +166,12 @@ class CheckoutController extends Controller
         ]);
     }
 
+    /**
+     * POST /checkout/review
+     * @param Request $request
+     * @param PlaceOrder $service
+     * @return $this|Order
+     */
     public function postCheckoutReview(Request $request, PlaceOrder $service)
     {
         $user = auth()->user();
@@ -179,6 +186,9 @@ class CheckoutController extends Controller
                 $stripeErrorMsg,
                 trans('checkout.payment.form.error.different', ['paymentUrl' => localize_url('routes.checkout.payment')])
             ]);
+        } catch(TooManyOrdersException $e) {
+            return redirect(localize_url('routes.checkout.review'))
+                ->withErrors([trans('checkout.review.error.too-fast')]);
         } catch(PaymentFailedException $e) {
             return redirect(localize_url('routes.checkout.review'))
                 ->withErrors([trans('checkout.payment.form.error.different', ['paymentUrl' => localize_url('routes.checkout.payment')])]);

@@ -2,6 +2,7 @@
 
 namespace App\Services\Order;
 
+use App\Exceptions\TooManyOrdersException;
 use Illuminate\Support\Facades\Validator;
 use Log;
 use App\Events\OrderWasPlaced;
@@ -42,6 +43,11 @@ class PlaceOrder
         {
             return redirect(localize_url('routes.checkout.landing'));
         }
+
+        //Prevent duplicate orders, have a cooldown of 30 seconds
+        if($user->orders()->where('created_at', '>', Carbon::now()->subSeconds(30))->count() > 0) {
+            throw new TooManyOrdersException();
+        } 
 
         $this->checkStock();
 

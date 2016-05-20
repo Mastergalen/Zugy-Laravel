@@ -125,7 +125,7 @@
                 'grandTotal' => Cart::grandTotal(),
                 'couponDeduction' => Cart::couponDeduction()
             ])
-            <form action="{!! localize_url('routes.checkout.review') !!}" method="POST">
+            <form action="{!! localize_url('routes.checkout.review') !!}" id="form-place-order" method="POST">
                 {!! Form::token() !!}
                 {!! Form::hidden('delivery_date', Input::old('delivery_date', 'asap'), ['id' => 'delivery_date-hidden']) !!}
                 {!! Form::hidden('delivery_time', Input::old('delivery_date'), ['id' => 'delivery_time-hidden']) !!}
@@ -157,6 +157,12 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
     <script>
         $(document).on('ready pjax:success', function(){
+            $('#form-place-order').submit(function() {
+                $("button[type='submit']", this).prop('disabled', true);
+
+                return true;
+            });
+
             $('#vat-expand').popover({
                 html: true,
                 title: 'VAT Summary',
