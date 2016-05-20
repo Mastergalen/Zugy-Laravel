@@ -13,7 +13,7 @@ class ProductImage extends Model
     protected $appends = ['url'];
 
     public function getURLAttribute() {
-        if(env('FILE_DISC') == 's3') {
+        if(config('filesystems.default') == 's3') {
             return "https://s3." . env('AWS_REGION') . ".amazonaws.com/" . env('AWS_BUCKET') . "/" . $this->attributes['location'];
         } else {
             return url('uploads/' . $this->attributes['location']);
@@ -41,7 +41,7 @@ class ProductImage extends Model
         }
 
         try {
-            Storage::disk(env('FILE_DISC'))->delete($this->attributes['location']);
+            Storage::disk(config('filesystems.default'))->delete($this->attributes['location']);
         } catch(FileNotFoundException $e) {
             //Carry on
         }
