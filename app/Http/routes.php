@@ -109,7 +109,8 @@ Route::group(['prefix' => 'api', 'middleware' => ['api']], function () {
         //No auth required
         Route::patch('cart', 'API\CartController@bulkUpdate');
         Route::resource('cart', 'API\CartController', ['except' => [
-            'update'
+            'update',
+            'show'
         ]]);
         Route::get('postcode/check/{postcode}', ['uses' => 'API\PostcodeController@checkPostcode']);
 
