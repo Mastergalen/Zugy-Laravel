@@ -10,7 +10,7 @@ class ZugyModelHelper extends ModelHelper
 {
     public function getFinalIndexName(Model $model, $indexName)
     {
-        $appEnv = (App::environment() == 'testing') ? 'local' : App::environment();
+        $appEnv = App::environment('testing') ? 'local' : App::environment();
 
         $env_suffix = property_exists($model, 'perEnvironment') && $model::$perEnvironment === true ? '_' . $appEnv : '';
 

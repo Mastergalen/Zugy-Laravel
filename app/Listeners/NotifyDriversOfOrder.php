@@ -21,8 +21,7 @@ class NotifyDriversOfOrder
      */
     public function __construct()
     {
-        //
-        $this->pb = new Pushbullet(env('PUSHBULLET_TOKEN'));
+        $this->pb = new Pushbullet(config('services.pushbullet.token'));
     }
 
     /**

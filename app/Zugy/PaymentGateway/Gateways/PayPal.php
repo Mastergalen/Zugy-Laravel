@@ -25,10 +25,10 @@ class PayPal extends AbstractGateway
         $this->gateway = Omnipay::create('PayPal_Express');
 
         $this->gateway->initialize([
-            'username'  => env('PAYPAL_USERNAME'),
-            'password'  => env('PAYPAL_PASSWORD'),
-            'signature' => env('PAYPAL_SIGNATURE'),
-            'testMode'  => env('PAYPAL_TESTMODE') == "true",
+            'username'  => config('services.paypal.username'),
+            'password'  => config('services.paypal.password'),
+            'signature' => config('services.paypal.signature'),
+            'testMode'  => config('services.paypal.testMode'),
         ]);
     }
 

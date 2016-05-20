@@ -238,7 +238,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.3.2/jquery.payment.min.js"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script>
-        Stripe.setPublishableKey('{!! env('STRIPE_PUBLIC') !!}');
+        Stripe.setPublishableKey('{!! config('services.stripe.public') !!}');
 
         jQuery(function($) {
             /*

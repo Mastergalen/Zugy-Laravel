@@ -15,7 +15,7 @@ class VerifyAge
      */
     public function handle($request, Closure $next)
     {
-        if(env('APP_ENV') === "testing") {
+        if(app()->environment("testing")) {
             return $next($request);
         }
 

@@ -14,6 +14,11 @@ return [
     |
     */
 
+    'aws' => [
+        'region' => env('AWS_REGION'),
+        'bucket' => env('AWS_BUCKET')
+    ],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
@@ -23,6 +28,11 @@ return [
         'key'    => '',
         'secret' => '',
         'region' => 'us-east-1',
+    ],
+
+    'stripe' => [
+        'secret' => env('STRIPE_SECRET'),
+        'public' => env('STRIPE_PUBLIC'),
     ],
 
     'google' => [
@@ -36,9 +46,24 @@ return [
         'redirect' => env('APP_URL') . '/auth/login/facebook',
     ],
 
-    'rollbar' => array(
+    'rollbar' => [
         'access_token' => env('ROLLBAR_ACCESS_TOKEN'),
+        'post_client_item' => env('ROLLBAR_POST_CLIENT_ITEM'),
         'level' => 'error',
-    ),
+    ],
+
+    'paypal' => [
+        'username'  => env('PAYPAL_USERNAME'),
+        'password'  => env('PAYPAL_PASSWORD'),
+        'signature' => env('PAYPAL_SIGNATURE'),
+        'testMode'  => env('PAYPAL_TESTMODE') == "true",
+    ],
+
+    'pushbullet' => [
+        'token' => env('PUSHBULLET_TOKEN'),
+        'channels' => [
+            'order' => env('PUSHBULLET_ORDER_CHANNEL'),
+        ]
+    ]
 
 ];

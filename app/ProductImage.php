@@ -14,7 +14,7 @@ class ProductImage extends Model
 
     public function getURLAttribute() {
         if(config('filesystems.default') == 's3') {
-            return "https://s3." . env('AWS_REGION') . ".amazonaws.com/" . env('AWS_BUCKET') . "/" . $this->attributes['location'];
+            return "https://s3." . config('services.aws.region') . ".amazonaws.com/" . config('services.aws.bucket') . "/" . $this->attributes['location'];
         } else {
             return url('uploads/' . $this->attributes['location']);
         }

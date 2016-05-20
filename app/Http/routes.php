@@ -11,11 +11,10 @@
 |
 */
 
-use App\Exceptions\NoTranslationException;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
-    'prefix' => (env('APP_ENV') === 'testing' ? 'en' : Localization::setLocale()),
+    'prefix' => (app()->environment('testing') ? 'en' : Localization::setLocale()),
     'middleware' => ['web', 'localeSessionRedirect', 'localizationRedirect' ]
 ], function() {
     Route::get('/', function () {
@@ -24,7 +23,7 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => (env('APP_ENV') === 'testing' ? 'en' : Localization::setLocale()),
+    'prefix' => (app()->environment('testing') ? 'en' : Localization::setLocale()),
     'middleware' => [ 'web', 'localize', 'localeSessionRedirect', 'setLocale'] // Route translate middleware
 ],
 function() {

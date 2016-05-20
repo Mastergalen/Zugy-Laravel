@@ -62,7 +62,7 @@
 @if(app()->environment() == 'production')
     <script>
         var _rollbarConfig = {
-            accessToken: "{!! env('ROLLBAR_POST_CLIENT_ITEM') !!}",
+            accessToken: "{!! config('services.rollbar.post_client_item') !!}",
             captureUncaught: true,
             captureUnhandledRejections: false,
             payload: {

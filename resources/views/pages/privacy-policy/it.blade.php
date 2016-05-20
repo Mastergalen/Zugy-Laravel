@@ -7,7 +7,7 @@
     <div class="page-header">
         <h1>PROTEZIONE DELLA PROPRIETÁ INTELLETTUALE</h1>
     </div>
-    <p>Questa politica sulla privacy illustra le norme sulla privacy per {!! env('APP_URL') !!}. Questa politica sulla privacy si applica esclusivamente alle informazioni raccolte da questo sito web. Esso ti avviserà di quanto segue:</p>
+    <p>Questa politica sulla privacy illustra le norme sulla privacy per {!! config('app.url') !!}. Questa politica sulla privacy si applica esclusivamente alle informazioni raccolte da questo sito web. Esso ti avviserà di quanto segue:</p>
 
     <ol>
         <li>Quali dati personali vengono raccolti da voi attraverso il sito web, come viene utilizzato e con i quali possono essere condivise.</li>

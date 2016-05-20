@@ -7,7 +7,7 @@
     <div class="page-header">
         <h1>Privacy Policy</h1>
     </div>
-    <p>This privacy policy discloses the privacy practices for {!! env('APP_URL') !!}. This privacy policy applies solely to information collected by this web site. It will notify you of the following:</p>
+    <p>This privacy policy discloses the privacy practices for {!! config('app.url') !!}. This privacy policy applies solely to information collected by this web site. It will notify you of the following:</p>
     <ol>
         <li>What personally identifiable information is collected from you through the web site, how it is used and with whom it may be shared.</li>
         <li>What choices are available to you regarding the use of your data?</li>

@@ -35,7 +35,7 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
-        if(env('APP_ENV') == 'production' && $this->shouldReport($e)) {
+        if(app()->environment('production') && $this->shouldReport($e)) {
             \Log::error($e);
         }
 
@@ -71,7 +71,7 @@ class Handler extends ExceptionHandler
             return response()->view('errors.404', [], 404);
         }
 
-        if (env('APP_DEBUG') == false) {
+        if (config('app.debug') == false) {
             return response()->view('errors.500', [], 500);
         }
 

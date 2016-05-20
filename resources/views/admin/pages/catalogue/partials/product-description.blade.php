@@ -16,7 +16,7 @@
 <div class="form-group">
     <label for="meta[{!! $l['code'] !!}][slug]">Slug</label>
     <div class="input-group">
-        <span class="input-group-addon">{{ env('APP_URL') }}/product/</span>
+        <span class="input-group-addon">{{ config('app.url') }}/product/</span>
         {!! Form::text(
             "meta[{$l['code']}][slug]",
             Input::old("meta[{$l['code']}][slug]", $translations[$l['code']]['slug']),

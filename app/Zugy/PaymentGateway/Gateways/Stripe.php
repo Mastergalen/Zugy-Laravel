@@ -19,7 +19,7 @@ class Stripe extends AbstractGateway
     {
         parent::__construct($paymentMethod);
 
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
     }
 
     public function addOrUpdateMethod()
