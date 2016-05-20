@@ -34,6 +34,7 @@ class Category extends Model
 
             $ref['id'] = $row->id;
             $ref['parent_id']  = $row->parent_id;
+            $ref['position'] = $row->position;
             $ref['name'] = $row->name;
             $ref['slug'] = $row->slug;
             $ref['product_count'] = $row->products()->inStock()->count();
@@ -68,9 +69,13 @@ class Category extends Model
      */
     static public function printList() {
         return Cache::remember('ui.category-sidebar.lang-' . \Localization::getCurrentLocale(), 5, function() {
-            $list = Category::buildTree();
+            //Sort by position column, 0 comes first
+            $list = collect(Category::buildTree())->sortBy(function($menuItem, $key) {
+                if($menuItem['position'] === null) return PHP_INT_MAX;
+                else return $menuItem['position'];
+            });
 
-            return self::toUL($list);
+            return self::toUL($list->toArray());
         });
     }
 
