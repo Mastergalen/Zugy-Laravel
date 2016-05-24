@@ -151,6 +151,7 @@ return [
         Jenssegers\Rollbar\RollbarServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -227,6 +228,7 @@ return [
          * Optional Laravel Components
          */
         'Carbon'           => Carbon\Carbon::class,
+        'Debugbar'         => Barryvdh\Debugbar\Facade::class,
         'Form'             => Collective\Html\FormFacade::class,
         'HTML'             => Collective\Html\HTMLFacade::class,
         'Recaptcha'        => Greggilbert\Recaptcha\Facades\Recaptcha::class,
