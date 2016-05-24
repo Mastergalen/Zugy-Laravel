@@ -97,10 +97,15 @@ function() {
     });
 });
 
+/*
+ * No localisation needed
+ */
 Route::group(['prefix' => 'auth', 'middleware' => ['web']], function () {
     Route::get('login/facebook', 'Auth\AuthController@facebookLogin');
     Route::get('login/google', 'Auth\AuthController@googleLogin');
     Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
+
+    Route::post('adminLogin', ['uses' => 'Auth\AuthController@postAdminLogin']);
 });
 
 /* API */

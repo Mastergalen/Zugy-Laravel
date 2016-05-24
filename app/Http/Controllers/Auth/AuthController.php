@@ -32,7 +32,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'getLogout']);
+        $this->middleware('guest', ['except' => ['getLogout', 'postAdminLogin']]);
     }
 
     public function redirectPath()
@@ -71,12 +71,36 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * GET /auth/login
+     * Show login page
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getLogin(Request $request) {
         if($request->has('intended')) {
             session()->put('url.intended', $request->input('intended'));
         }
 
         return view('auth.login');
+    }
+
+    /**
+     * POST /auth/adminLogin
+     * Allow an already authenticated admin to sign in as another user
+     * @param Request $request
+     */
+    public function postAdminLogin(Request $request) {
+        $toBeSignedInAsUser = User::findOrFail($request->user_id);
+
+        //If Super Admin
+        if(auth()->user()->can('signInAsUser', $toBeSignedInAsUser)) {
+            auth()->loginUsingId($toBeSignedInAsUser->id);
+
+            return redirect('/')->withSuccess('Successfully signed in as ' . $toBeSignedInAsUser->name);
+        } else {
+            abort(403);
+        }
     }
 
     /**

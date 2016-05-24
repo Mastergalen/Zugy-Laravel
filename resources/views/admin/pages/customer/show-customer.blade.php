@@ -140,4 +140,21 @@
             </dl>
         </div>
     </div>
+
+    @can('signInAsUser', $customer)
+        <div class="box box-danger">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    Danger Zone
+                </h3>
+            </div>
+            <div class="box-body">
+                <form action="{!! action('Auth\AuthController@postAdminLogin') !!}" method="POST">
+                    {!! Form::token() !!}
+                    {!! Form::hidden('user_id', $customer->id) !!}
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-user"></i> Sign in as this user</button>
+                </form>
+            </div>
+        </div>
+    @endcan
 @endsection

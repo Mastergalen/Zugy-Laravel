@@ -53,11 +53,13 @@
                         <ul class="dropdown-menu">
                             @if(auth()->user()->isAdmin)
                                 <li><a href="/admin"><i class="fa fa-dashboard"></i> {!! trans('menu.admin-dashboard') !!}</a></li>
-                                <li class="divider"></li>
+                                <li class="divider" role="separator"></li>
                             @endif
                             <li><a href="{!! localize_url('routes.account.index') !!}"><i class="fa fa-user"></i> {!! trans('menu.my-account') !!}</a></li>
                             <li><a href="{!! localize_url('routes.account.settings') !!}"><i class="fa fa-cog"></i> {!! trans('menu.account-settings') !!}</a></li>
                             <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> {!! trans('menu.sign-out') !!}</a></li>
+                            <li class="divider" role="separator"></li>
+                            <li class="dropdown-header">{!! auth()->user()->name !!}</li>
                         </ul>
                     </li>
                 @else

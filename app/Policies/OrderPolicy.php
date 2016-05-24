@@ -8,7 +8,7 @@ use App\User;
 class OrderPolicy extends BasePolicy
 {
     public function before(User $user, $ability) {
-        if($this->isAdmin($user)) {
+        if($this->isSuperAdmin($user)) {
             return true;
         }
     }

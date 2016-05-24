@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="page-header">
-        <h1>{!! trans('your-account.title') !!}</h1>
+        <h1>{!! trans('your-account.title') !!} <small>{!! auth()->user()->name !!}</small></h1>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">

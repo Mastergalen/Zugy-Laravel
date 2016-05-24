@@ -6,8 +6,21 @@ use App\User;
 
 class BasePolicy
 {
-    protected $adminGroups = [1, 2, 3]; //Super Admin, Admin and Driver
-    protected $writeAccessGroups = [1, 2];
+    private $superAdminGroupId = 1;
+    private $adminGroupId = 2;
+    private $driverGroupId = 3;
+
+    private $adminGroups;
+
+    public function __construct()
+    {
+        $this->adminGroups = [$this->superAdminGroupId, $this->adminGroupId, $this->driverGroupId];
+    }
+
+    protected function isSuperAdmin(User $user)
+    {
+        return $user->group_id === $this->superAdminGroupId;
+    }
 
     protected function isAdmin(User $user)
     {
@@ -16,6 +29,9 @@ class BasePolicy
 
     protected function hasWriteAccess(User $user)
     {
-        return in_array($user->group_id, $this->writeAccessGroups);
+        return in_array($user->group_id, [
+            $this->superAdminGroupId,
+            $this->adminGroupId
+        ]);
     }
 }
