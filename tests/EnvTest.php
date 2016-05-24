@@ -4,39 +4,39 @@ class EnvTest extends TestCase
 {
     public function testFacebook()
     {
-        $this->assertTrue(env('FACEBOOK_CLIENT_ID') !== null);
-        $this->assertTrue(env('FACEBOOK_SECRET') !== null);
+        $this->assertTrue(config('services.facebook.client_id') !== null);
+        $this->assertTrue(config('services.facebook.client_secret') !== null);
     }
 
     public function testStripe()
     {
-        $this->assertTrue(env('STRIPE_SECRET') !== null);
-        $this->assertTrue(env('STRIPE_PUBLIC') !== null);
+        $this->assertTrue(config('services.stripe.secret') !== null);
+        $this->assertTrue(config('services.stripe.public') !== null);
     }
 
     public function testMailgun()
     {
-        $this->assertTrue(env('MAILGUN_DOMAIN') !== null);
-        $this->assertTrue(env('MAILGUN_SECRET') !== null);
+        $this->assertTrue(config('services.mailgun.domain') !== null);
+        $this->assertTrue(config('services.mailgun.secret') !== null);
     }
 
     public function testGoogle()
     {
-        $this->assertTrue(env('GOOGLE_CLIENT_ID') !== null);
-        $this->assertTrue(env('GOOGLE_SECRET') !== null);
+        $this->assertTrue(config('services.google.client_id') !== null);
+        $this->assertTrue(config('services.google.client_secret') !== null);
     }
 
     public function testPaypal()
     {
         if(env('APP_ENV') == 'production') {
-            $this->assertTrue(env('PAYPAL_TESTMODE') == 'false');
+            $this->assertFalse(config('services.paypal.testMode'));
         } else {
-            $this->assertTrue(env('PAYPAL_TESTMODE') == 'true');
+            $this->assertTrue(config('services.paypal.testMode'));
         }
 
-        $this->assertTrue(env('PAYPAL_USERNAME') !== null);
-        $this->assertTrue(env('PAYPAL_PASSWORD') !== null);
-        $this->assertTrue(env('PAYPAL_SIGNATURE') !== null);
+        $this->assertTrue(config('services.paypal.username') !== null);
+        $this->assertTrue(config('services.paypal.password') !== null);
+        $this->assertTrue(config('services.paypal.signature') !== null);
     }
 
     public function testAlgolia()
@@ -48,18 +48,19 @@ class EnvTest extends TestCase
 
     public function testRollbar()
     {
-        $this->assertTrue(env('ROLLBAR_ACCESS_TOKEN') !== null);
+        $this->assertNotNull(config('services.rollbar.access_token'));
+        $this->assertNotNull(config('services.rollbar.post_client_item'));
     }
 
     public function testAWS()
     {
-        $this->assertTrue(env('FILE_DISC') !== null);
+        $this->assertNotNull(config('filesystems.default'));
 
         if(env('FILE_DISC') == 's3') {
-            $this->assertTrue(env('AWS_KEY') !== null);
-            $this->assertTrue(env('AWS_SECRET') !== null);
-            $this->assertTrue(env('AWS_REGION') !== null);
-            $this->assertTrue(env('AWS_BUCKET') !== null);
+            $this->assertNotNull(config('services.aws.region'));
+            $this->assertNotNull(config('services.aws.bucket'));
+            $this->assertNotNull(env('AWS_KEY') !== null);
+            $this->assertNotNull(env('AWS_SECRET') !== null);
         }
     }
 }
