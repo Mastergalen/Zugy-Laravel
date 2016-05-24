@@ -39,17 +39,32 @@ class PlaceOrder
         $this->billingAddress = Checkout::getBillingAddress();
         $this->paymentMethod = Checkout::getPaymentMethod();
 
-        if($this->deliveryAddress === null || $this->billingAddress === null || $this->paymentMethod === null)
+        Log::debug('Trying to place order', ['user' => $user]);
+
+        if($this->deliveryAddress === null || $this->paymentMethod === null)
         {
+            Log::debug('Missing details, redirecting.', [
+                'delivery' => $this->deliveryAddress,
+                'payment' => $this->paymentMethod
+            ]);
+
             return redirect(localize_url('routes.checkout.landing'));
+        }
+
+        //Use delivery address as billing address if billing address is null
+        if($this->billingAddress === null) {
+            $this->billingAddress = $this->deliveryAddress;
         }
 
         //Prevent duplicate orders, have a cooldown of 30 seconds
         if($user->orders()->where('created_at', '>', Carbon::now()->subSeconds(30))->count() > 0) {
+            Log::info('User tried to place too many orders in a short period of time', ['user' => $user]);
             throw new TooManyOrdersException();
         } 
 
         $this->checkStock();
+
+        \Log::debug('Sufficient stock available');
 
         //Load delivery time session if it not set
         if(empty(request('delivery_date')) && empty(request('delivery_time'))) {
@@ -113,10 +128,13 @@ class PlaceOrder
     /**
      * Check if items are in stock
      */
-    public function checkStock() //TODO Test if works
+    public function checkStock()
     {
         $productIds = [];
         $cart = [];
+
+        Log::debug('Checking stock...');
+
         foreach(Cart::content() as $item) {
             $productIds[] = $item->id;
             $cart[] = ['qty' => $item->qty];
