@@ -13,25 +13,24 @@ use Webpatser\Countries\Countries;
 
 class CreateOrUpdateAddress
 {
-    protected $rules = [
+    protected $defaultRules = [
         'name' => 'required|string|max:64',
         'line_1' => 'required|string|max:64',
         'line_2' => 'string|max:64',
-        'postcode' => 'required|max:5|deliveryPostcode', //TODO Validate ZIP in delivery radius
+        'postcode' => 'required|max:5|deliveryPostcode',
         'city' => 'required|max:32',
         'country' => 'required|size:3|exists:countries,iso_3166_3', //TODO validate is Italy
     ];
 
     public function delivery(array $deliveryInput, Address $address = null)
     {
-        $this->rules['delivery_instructions'] = 'max:1000';
-        $this->rules['phone'] = 'required'; //TODO Validate valid phone
+        $deliveryRules = $this->defaultRules;
+        $deliveryRules['delivery_instructions'] = 'max:1000';
+        $deliveryRules['phone'] = 'required'; //TODO Validate valid phone
 
-        $validator = Validator::make($deliveryInput, $this->rules);
+        $validator = Validator::make($deliveryInput, $deliveryRules);
 
         if($validator->fails()) {
-            \Log::debug('Address validation failed', ['errors' => $validator->errors()]);
-
             return $validator;
         }
 
@@ -41,9 +40,7 @@ class CreateOrUpdateAddress
             $address->fill($deliveryInput);
         }
 
-        $country_id = Countries::where('iso_3166_3', '=', $deliveryInput['country'])->first()->id;
-
-        $address->country_id = $country_id;
+        $address->country_id = Countries::where('iso_3166_3', '=', $deliveryInput['country'])->first()->id;
 
         if(isset($deliveryInput['default'])) {
             auth()->user()->addresses()->update(['isShippingPrimary' => false]);
@@ -62,24 +59,29 @@ class CreateOrUpdateAddress
 
     public function billing(array $billingInput, Address $address = null)
     {
-        $validator = Validator::make($billingInput, $this->rules);
+        $billingRules = $this->defaultRules;
+        $billingRules['postcode'] = 'required|max:5';
+
+        $validator = Validator::make($billingInput, $billingRules);
 
         if($validator->fails()) {
             return $validator;
         }
 
-        $address = auth()->user()->addresses()->create($billingInput);
-
-        $country_id = Countries::where('iso_3166_3', '=', $billingInput['country'])->first()->pluck('id');
-
-        $address->country_id = $country_id;
-
-        if(isset($deliveryInput['default'])) {
-            auth()->user()->addresses()->update(['isShippingPrimary' => false]);
-            $address->isShippingPrimary = true;
+        if($address == null) {
+            $address = new Address($billingInput);
+        } else {
+            $address->fill($billingInput);
         }
 
-        $address->save();
+        $address->country_id = Countries::where('iso_3166_3', '=', $billingInput['country'])->first()->id;
+
+        if(isset($billingInput['default'])) {
+            auth()->user()->addresses()->update(['isBillingPrimary' => false]);
+            $address->isBillingPrimary = true;
+        }
+
+        auth()->user()->addresses()->save($address);
 
         return $address;
     }

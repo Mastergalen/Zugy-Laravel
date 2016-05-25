@@ -24,6 +24,7 @@ class CartController extends Controller
     }
 
     /**
+     * POST /api/v1/cart
      * Add a new item to cart
      *
      * @param  Request  $request
@@ -33,7 +34,7 @@ class CartController extends Controller
     {
         $this->validate($request, [
             'id' => 'required|integer|exists:products',
-            'qty' => 'required|integer|min:0',
+            'qty' => 'required|integer|min:1',
             'options' => 'array',
         ]);
 
