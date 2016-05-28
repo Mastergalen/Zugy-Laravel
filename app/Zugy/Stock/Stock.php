@@ -28,8 +28,6 @@ class Stock
 
         $productStock = Product::findMany($productIds, ['id', 'stock_quantity'])->keyBy('id');
 
-        \Log::debug('$productStock', [$productStock]);
-
         $outOfStockProducts = [];
         foreach(Cart::content() as $product) {
             \Log::debug('Checking stock for', ['id' => $product->id, 'in_stock' => $productStock[$product->id]['stock_quantity'], 'in_cart' => $product['qty']]);

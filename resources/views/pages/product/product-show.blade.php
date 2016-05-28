@@ -54,6 +54,14 @@
         @endforeach
         <li class="active">{!! $product->title !!}</li>
     </ul>
+
+    @can('update', $product)
+        <div class="alert alert-info">
+            <h4>{!! trans('menu.admin-dashboard') !!}</h4>
+            <a href="{!! action('Admin\CatalogueController@edit', $product->id) !!}" class="btn btn-default"><i class="fa fa-pencil"></i> {!! trans('buttons.edit') !!}</a>
+        </div>
+    @endcan
+
     <div class="row">
         <div class="col-md-6">
             <div class="gallery sp-wrap">
