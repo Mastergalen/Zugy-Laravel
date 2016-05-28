@@ -40,7 +40,7 @@ class CartController extends Controller
 
         $qty = (int) $request->input('qty');
 
-        \Log::debug("Adding item to cart", ['productId' =>$request->input('id'),  'qty' => $qty]);
+        \Log::debug("Trying to add item to cart", ['productId' =>$request->input('id'),  'qty' => $qty]);
 
         $product = Product::find($request->input('id'));
 
@@ -90,7 +90,7 @@ class CartController extends Controller
 
     /**
      * Update multiple items in the cart
-     *
+     * PATCH /api/v1/cart
      * @param  Request  $request
      * @param  int  $id
      * @return Response

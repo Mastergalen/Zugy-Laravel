@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class AddressTest extends TestCase
 {
-    //use DatabaseTransactions;
+    use DatabaseTransactions;
 
     private $user;
 
@@ -17,9 +17,12 @@ class AddressTest extends TestCase
         $this->user = factory(App\User::class)->create();
         $this->actingAs($this->user);
 
-        //Add item to cart
+        //Add item to cart to bypass checkout middleware, which requires a non-empty cart
+        $product = factory(App\Product::class)->create();
+        $product->translations()->save(factory(App\ProductTranslation::class)->make());
+
         $this->json('POST', 'api/v1/cart', [
-            'id' => \App\Product::first()->id,
+            'id' => $product->id,
             'qty' => 1, //Qty 1
         ])->seeJson(['status' => 'success']);
     }

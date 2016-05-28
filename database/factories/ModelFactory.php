@@ -39,3 +39,24 @@ $factory->define(App\Address::class, function($faker) {
         'delivery_instructions' => $faker->text(),
     ];
 });
+
+$factory->define(App\Product::class, function($faker) {
+    return [
+        'stock_quantity' => $faker->numberBetween(1, 10000),
+        'price' => $faker->randomNumber(2),
+        'compare_price' => null,
+        'weight' => $faker->randomFloat(2, 0, 100),
+        'tax_class_id' => 1,
+        'thumbnail_id' => null
+    ];
+});
+
+$factory->define(App\ProductTranslation::class, function($faker) {
+    return [
+        'locale' => 'en',
+        'slug' => $faker->slug,
+        'title' => $faker->sentence(),
+        'description' => $faker->sentence(),
+        'meta_description' => $faker->sentence()
+    ];
+});
