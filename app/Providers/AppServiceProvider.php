@@ -30,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register('Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider');
             $this->app->register('Barryvdh\Debugbar\ServiceProvider');
             AliasLoader::getInstance()->alias('Debugbar', 'Barryvdh\Debugbar\Facade'); //Register alias
+
+            $this->app->register('Fitztrev\QueryTracer\Providers\QueryTracerServiceProvider');
         }
 
         $this->app->bind(AuthenticateUser::class, function() {
