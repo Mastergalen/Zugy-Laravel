@@ -173,6 +173,7 @@ return [
         Zugy\Helpers\Maps\MapsServiceProvider::class,
         Zugy\ActivityLogParser\ActivityLogParserServiceProvider::class,
         Zugy\Charts\ChartsServiceProvider::class,
+        Zugy\Stock\StockServiceProvider::class,
 
     ],
 
@@ -242,6 +243,7 @@ return [
         'DeliveryTime'     => Zugy\Facades\DeliveryTime::class,
         'PaymentGateway'   => Zugy\Facades\PaymentGateway::class,
         'Maps'             => Zugy\Facades\Maps::class,
+        'Stock'            => Zugy\Facades\Stock::class,
     ],
 
 ];

@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Zugy\DeliveryTime\Exceptions\ClosedException;
 use Zugy\DeliveryTime\Exceptions\PastDeliveryTimeException;
 use Zugy\Facades\Cart;
+use Zugy\Facades\Stock;
 
 use Zugy\Facades\Checkout;
 use Zugy\Facades\DeliveryTime;
@@ -26,7 +27,6 @@ use App\Exceptions\OutOfStockException;
 class PlaceOrder
 {
     protected $user;
-    protected $products;
 
     protected $deliveryAddress;
     protected $billingAddress;
@@ -62,9 +62,7 @@ class PlaceOrder
             throw new TooManyOrdersException();
         } 
 
-        $this->checkStock();
-
-        \Log::debug('Sufficient stock available');
+        Stock::checkCartStock();
 
         //Load delivery time session if it not set
         if(empty(request('delivery_date')) && empty(request('delivery_time'))) {
@@ -123,37 +121,6 @@ class PlaceOrder
         \Event::fire(new OrderWasPlaced($order));
 
         return $order;
-    }
-
-    /**
-     * Check if items are in stock
-     */
-    public function checkStock()
-    {
-        $productIds = [];
-        $cart = [];
-
-        Log::debug('Checking stock...');
-
-        foreach(Cart::content() as $item) {
-            $productIds[] = $item->id;
-            $cart[] = ['qty' => $item->qty];
-        }
-
-        $this->products = Product::select(['id', 'stock_quantity'])->find($productIds);
-
-        $products = $this->products->zip($cart);
-
-        $outOfStockProducts = [];
-        foreach($products as $p) {
-            if($p[0]['stock_quantity'] < $p[1]['qty']) {
-                $outOfStockProducts[] = $p[0];
-            }
-        }
-
-        if(count($outOfStockProducts) > 0) throw new OutOfStockException($outOfStockProducts);
-
-        return true;
     }
 
     public function processPayment() {

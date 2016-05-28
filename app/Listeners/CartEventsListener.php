@@ -63,7 +63,7 @@ class CartEventsListener
      */
     public function onLogin()
     {
-        \Log::debug('User logged in');
+        \Log::debug('User logged in', ['id' => auth()->user()->id, 'name' => auth()->user()->name]);
 
         $guestCart = Cart::content();
 
