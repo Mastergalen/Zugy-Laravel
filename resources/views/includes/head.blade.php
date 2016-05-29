@@ -94,6 +94,15 @@
 
     <!-- Crisp Live Chat -->
     <script type="text/javascript">CRISP_WEBSITE_ID = "-K4rvQmW22wetbVM5Z-_";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+
+    @if(auth()->check())
+    <script type="text/javascript">
+        window.CRISP_READY_TRIGGER = function(){
+            console.log("Setting email");
+            $crisp.user.email.set("{!! auth()->user()->email !!}")
+        }
+    </script>
+    @endif
 @endif
 
 <link href="//cloud.github.com/downloads/lafeber/world-flags-sprite/flags32.css" rel="stylesheet" />

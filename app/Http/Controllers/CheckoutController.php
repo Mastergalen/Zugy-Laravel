@@ -167,6 +167,7 @@ class CheckoutController extends Controller
     }
 
     /**
+     * Place the actual order finally
      * POST /checkout/review
      * @param Request $request
      * @param PlaceOrder $service

@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Validator;
 use Log;
 use App\Events\OrderWasPlaced;
 use App\Payment;
-use App\Product;
 use App\User;
 use App\Order;
 use App\OrderItem;
@@ -21,8 +20,6 @@ use Zugy\Facades\Stock;
 use Zugy\Facades\Checkout;
 use Zugy\Facades\DeliveryTime;
 use Zugy\Facades\PaymentGateway;
-
-use App\Exceptions\OutOfStockException;
 
 class PlaceOrder
 {
@@ -90,7 +87,7 @@ class PlaceOrder
             $delivery_time = Carbon::parse(request('delivery_date') . " " . request('delivery_time'));
 
             try {
-                DeliveryTime::isValidDeliiveryTime($delivery_time);
+                DeliveryTime::isValidDeliveryTime($delivery_time);
             } catch (PastDeliveryTimeException $e) {
                 return redirect()->back()->withErrors(['delivery_date' => trans('checkout.review.delivery-time.error.late')]);
             } catch (ClosedException $e) {
