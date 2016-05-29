@@ -125,6 +125,10 @@ Route::group(['prefix' => 'api', 'middleware' => ['api']], function () {
             Route::resource('order', 'API\OrderController');
             Route::post('coupon/apply', 'API\CouponController@apply');
         });
+
+        Route::group(['prefix' => 'shop'], function() {
+            Route::get('statistics', 'API\ShopStatisticsController@getStatistics');
+        });
     });
 });
 
