@@ -71,7 +71,7 @@ class OrderController extends Controller
     }
     
     public function index(Request $request) {
-        if(Gate::denies('index', Order::class)) {
+        if(Gate::denies('index', new Order())) {
             abort(403);
         }
 
