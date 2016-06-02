@@ -5,12 +5,27 @@ namespace App\Http\Controllers\Api;
 use App\Events\OrderStatusChanged;
 use App\Http\Controllers\Controller;
 use App\Order;
+use Zugy\Repos\Order\OrderRepository;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
+    /**
+     * @var OrderRepository
+     */
+    protected $orderRepository;
+
+    /**
+     * OrderController constructor.
+     */
+    public function __construct(OrderRepository $orderRepository)
+    {
+        $this->orderRepository = $orderRepository;
+    }
+
     public function update(Request $request, $orderId)
     {
         $order = Order::findOrFail($orderId);
@@ -53,5 +68,13 @@ class OrderController extends Controller
         }
 
         return $order;
+    }
+    
+    public function index(Request $request) {
+        if(Gate::denies('index', Order::class)) {
+            abort(403);
+        }
+
+        return $this->orderRepository->orderBy('order_placed', 'desc')->paginate(30);
     }
 }
