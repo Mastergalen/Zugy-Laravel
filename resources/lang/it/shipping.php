@@ -4,6 +4,7 @@ return [
     'shipping-method' => 'Metodo di spedizione',
     'time' => 'Tempo di spedizione',
     'hour-delivery' => 'Consegna in 45 minuti',
+    'max-duration' => '45 minuti',
     'cost' => 'Costo',
     'standard' => 'Standard',
     'hour' => '{1} 1 ora |[0,Inf] :count ore',

@@ -165,7 +165,7 @@
                         </thead>
                         <tr>
                             <td>{!! trans('shipping.standard') !!}</td>
-                            <td>{!! trans_choice('shipping.hour', 1) !!}</td>
+                            <td>{!! trans('shipping.max-duration') !!}</td>
                             <td>{!! trans('shipping.free-shipping') !!}</td>
                         </tr>
                     </table>
