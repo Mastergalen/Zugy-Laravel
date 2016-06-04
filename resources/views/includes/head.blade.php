@@ -98,7 +98,6 @@
     @if(auth()->check())
     <script type="text/javascript">
         window.CRISP_READY_TRIGGER = function(){
-            console.log("Setting email");
             $crisp.user.email.set("{!! auth()->user()->email !!}")
         }
     </script>

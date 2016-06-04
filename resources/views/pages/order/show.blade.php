@@ -28,6 +28,8 @@
     @else
         @if(auth()->guest())
             <div class="well">{!! trans('order.sign-in', ['loginUrl' => route('login', ['intended' => request()->url()])]) !!}</div>
+        @else
+            <div class="alert alert-danger">You do not have permission to view details of this order.</div>
         @endif
     @endcan
 
@@ -46,4 +48,26 @@
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
+
+    @if(session('orderConfirmation'))
+        <!-- Google Code for Website Purchase Conversion Page -->
+        <script type="text/javascript">
+            /* <![CDATA[ */
+            var google_conversion_id = 1005124087;
+            var google_conversion_language = "en";
+            var google_conversion_format = "3";
+            var google_conversion_color = "ffffff";
+            var google_conversion_label = "aE7uCOHgjWcQ9_Oj3wM";
+            var google_conversion_value = {{  $order->total }};
+            var google_conversion_currency = "EUR";
+            var google_remarketing_only = false;
+            /* ]]> */
+        </script>
+        <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+        <noscript>
+            <div style="display:inline;">
+                <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/1005124087/?value={{ $order->total }}&amp;currency_code=EUR&amp;label=aE7uCOHgjWcQ9_Oj3wM&amp;guid=ON&amp;script=0"/>
+            </div>
+        </noscript>
+    @endif
 @endsection

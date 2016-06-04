@@ -201,7 +201,10 @@ class CheckoutController extends Controller
         if(!$result instanceof Order) return $result;
 
         return redirect(localize_url('routes.order.show', ['id' => $result->id]))
-            ->withSuccess(trans('checkout.order.success'));
+            ->with([
+                'success' => trans('checkout.order.success'),
+                'orderConfirmation' => true
+            ]);
     }
 
     /**
