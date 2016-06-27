@@ -38,15 +38,7 @@
 
 <h2 style="text-align: center">{!! trans('pages.team') !!}</h2>
 <div class="row">
-    <div class="col-md-6 member">
-        <div class="avatar">
-            <img src="/img/avatars/rafael.jpg" alt="">
-        </div>
-        <div class="name">Rafael Ruah Arié</div>
-        <div class="position">{!!  trans('team.bios.rafael.position') !!}</div>
-        {!!  trans('team.bios.rafael.text') !!}
-    </div>
-    <div class="col-md-6 member">
+    <div class="col-md-3 member">
         <div class="avatar">
             <img src="/img/avatars/andres.jpg" alt="">
         </div>
@@ -54,10 +46,7 @@
         <div class="position">{!!  trans('team.bios.andres.position') !!}</div>
         {!!  trans('team.bios.andres.text') !!}
     </div>
-</div>
-<hr>
-<div class="row">
-    <div class="col-md-4 member">
+    <div class="col-md-3 member">
         <div class="avatar">
             <img src="/img/avatars/matthias.jpg" alt="">
         </div>
@@ -65,7 +54,7 @@
         <div class="position">{!!  trans('team.bios.matthias.position') !!}</div>
         {!!  trans('team.bios.matthias.text') !!}
     </div>
-    <div class="col-md-4 member">
+    <div class="col-md-3 member">
         <div class="avatar">
             <img src="/img/avatars/galen.jpg" alt="">
         </div>
@@ -73,7 +62,7 @@
         <div class="position">{!!  trans('team.bios.galen.position') !!}</div>
         {!!  trans('team.bios.galen.text') !!}
     </div>
-    <div class="col-md-4 member">
+    <div class="col-md-3 member">
         <div class="avatar">
             <img src="/img/avatars/victor.jpg" alt="">
         </div>
