@@ -26,6 +26,7 @@ class DeliveryTime
     }
 
     /**
+     * Check if for given time we are delivering or not
      * Open everyday from 1pm to 1am
      * @param Carbon $time
      * @return bool
@@ -37,14 +38,14 @@ class DeliveryTime
             case Carbon::SATURDAY:
             case Carbon::SUNDAY:
             case Carbon::MONDAY:
-                return ($hour < 2 || $hour >= 13);
+                return ($hour < 1 || $hour >= 13);
             default:
                 return ($hour < 1 || $hour >= 13);
         }
     }
 
     /**
-     * 
+     * Generate array of days for <select>
      * @param $days
      * @return array
      */

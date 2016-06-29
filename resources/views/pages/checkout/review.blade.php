@@ -228,7 +228,7 @@
                             case 6:
                             case 7: //Sun
                             case 1: //Monday
-                                if(i > 1 && i < 13) continue;
+                                if(i > 0 && i < 13) continue;
                                 break;
                             // Mon-Thu
                             default:
