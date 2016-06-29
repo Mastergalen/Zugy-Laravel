@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'bios.andres.position' => 'Presidente/Fondatore',
+    'bios.andres.position' => 'Presidente/Co-Fondatore',
     'bios.andres.text' => '<p>Sono nato in Canada dopo che i miei genitori si sono trasferiti dalla Colombia e sono cresciuto a Mississauga prima di spostarmi a Milano per studiare. Decisi di fare richiesta d\'ammissione in università estere perché volevo espandere i miei orizzonti in termini di prospettive lavorative e perché volevo sperimentare una cultura diversa. Ho cominciato a frequentare l\'Università bocconi nel settembre del 2014 e ho scelto un major in finanza. Spero di riuscire a trasferirmi a Management, economia pura o informatica.</p>
 <p>Voglio che Zugy diventi la soluzione sostenibile per i consumatori del ventunesimo secolo e che continui a sviluppare nuovi metodi per soddisfare i suoi clienti.</p>',
     'bios.galen.position' => 'Responsabile della Tecnologia',

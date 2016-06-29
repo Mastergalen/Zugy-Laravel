@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'bios.andres.position' => 'President/Founder',
+    'bios.andres.position' => 'President/Co-Founder',
     'bios.andres.text' => '<p>I was born in Canada after my parents moved there from Colombia and grew up mostly in Mississauga before moving to Milan for school. I decided to apply to schools outside of Canada because I wanted to expand my horizon in terms of job prospects and experience a new culture. I started at Università Bocconi in September 2014 and am currently majoring in Finance within the International Economics and Finance program but hoping to transfer to Economics, Management, and Computer Science.</p>
 <p>My ambition for Zugy is that it becomes the sustainable solution for the consumers of the 21st century and that it continues to develop new methods to please its customers.</p>',
     'bios.galen.position' => 'Chief Technology Officer',
