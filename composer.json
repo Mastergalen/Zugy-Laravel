@@ -26,7 +26,8 @@
         "league/flysystem-aws-s3-v3": "~1.0",
         "spatie/laravel-backup": "^2.9",
         "greggilbert/recaptcha": "dev-master",
-        "predis/predis": "^1.0"
+        "predis/predis": "^1.0",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
