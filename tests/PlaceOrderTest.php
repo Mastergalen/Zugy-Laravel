@@ -25,6 +25,7 @@ class PlaceOrderTest extends TestCase
      */
     /*
      * FIXME: Test Disabled until this bug is fixed: https://github.com/laravel/framework/issues/12711
+     * TODO: Write negative test for when a user tries to place an "asap" order when the shop is closed
     public function testPlaceOrderPositive()
     {
         $this->expectsEvents(App\Events\OrderWasPlaced::class);

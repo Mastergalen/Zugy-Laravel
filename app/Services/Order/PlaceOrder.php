@@ -83,7 +83,11 @@ class PlaceOrder
         }
 
         //Validate delivery time
-        if(request('delivery_date') != 'asap') {
+        if(request('delivery_date') === 'asap') {
+            if(!DeliveryTime::isOpen(Carbon::now())) {
+                return redirect()->back()->withError(trans('opening-times.prompt-select'));
+            }
+        } else {
             $delivery_time = Carbon::parse(request('delivery_date') . " " . request('delivery_time'));
 
             try {

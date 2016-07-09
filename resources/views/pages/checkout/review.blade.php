@@ -76,7 +76,7 @@
                     @if(!DeliveryTime::isOpen(Carbon::now()))
                         <div class="alert alert-info">
                             {!! trans('opening-times.closed') !!}
-                            {!! trans('opening-times.asap-closed-explanation') !!}
+                            {!! trans('opening-times.prompt-select') !!}
                         </div>
                     @endif
                     @include('pages.checkout.partials._delivery-time-selector', ['days' => 8])

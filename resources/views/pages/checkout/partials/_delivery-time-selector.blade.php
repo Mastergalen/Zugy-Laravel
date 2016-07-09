@@ -1,7 +1,10 @@
 <div class="form-group">
     <label for="delivery_date">{!! trans('checkout.review.delivery-time.label') !!}</label>
     <select id="delivery_date" name="delivery_date" class="form-control" data-today="{!! Carbon::now()->toDateString() !!}" data-time-now="{!! Carbon::now()->format("H:i") !!}">
-        <option value="asap">{!! trans('checkout.review.delivery-time.asap') !!}</option>
+        {{-- Only show ASAP option when store is open --}}
+        @if(DeliveryTime::isOpen(Carbon::now()))
+            <option value="asap">{!! trans('checkout.review.delivery-time.asap') !!}</option>
+        @endif
         @foreach(DeliveryTime::daySelect(8) as $currentDay)
             <option value="{!! $currentDay->toDateString() !!}">{!! $currentDay->toFormattedDateString() !!}</option>
         @endforeach
