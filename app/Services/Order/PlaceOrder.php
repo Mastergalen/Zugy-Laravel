@@ -29,6 +29,13 @@ class PlaceOrder
     protected $billingAddress;
     protected $paymentMethod;
 
+    private $checkoutReviewUrl;
+
+    public function __construct()
+    {
+        $this->checkoutReviewUrl = localize_url('routes.checkout.review');
+    }
+
     public function handler(User $user) {
         $this->user = $user;
 
@@ -85,7 +92,7 @@ class PlaceOrder
         //Validate delivery time
         if(request('delivery_date') === 'asap') {
             if(!DeliveryTime::isOpen(Carbon::now())) {
-                return redirect()->back()->withError(trans('opening-times.prompt-select'));
+                return redirect($this->checkoutReviewUrl)->withError(trans('opening-times.prompt-select'));
             }
         } else {
             $delivery_time = Carbon::parse(request('delivery_date') . " " . request('delivery_time'));
@@ -93,9 +100,9 @@ class PlaceOrder
             try {
                 DeliveryTime::isValidDeliveryTime($delivery_time);
             } catch (PastDeliveryTimeException $e) {
-                return redirect()->back()->withErrors(['delivery_date' => trans('checkout.review.delivery-time.error.late')]);
+                return redirect($this->checkoutReviewUrl)->withErrors(['delivery_date' => trans('checkout.review.delivery-time.error.late')]);
             } catch (ClosedException $e) {
-                return redirect()->back()->withErrors(['delivery_date' => trans('checkout.review.delivery-time.error.closed')]);
+                return redirect($this->checkoutReviewUrl)->withErrors(['delivery_date' => trans('checkout.review.delivery-time.error.closed')]);
             }
         }
 
@@ -119,7 +126,7 @@ class PlaceOrder
         //Empty checkout session settings
         Checkout::forget();
 
-        \Event::fire(new OrderWasPlaced($order));
+        event(new OrderWasPlaced($order));
 
         return $order;
     }

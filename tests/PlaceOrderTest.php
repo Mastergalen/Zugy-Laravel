@@ -23,9 +23,6 @@ class PlaceOrderTest extends TestCase
      * Test an order that should be placed without issues.
      * Should fire event OrderWasPlaced
      */
-    /*
-     * FIXME: Test Disabled until this bug is fixed: https://github.com/laravel/framework/issues/12711
-     * TODO: Write negative test for when a user tries to place an "asap" order when the shop is closed
     public function testPlaceOrderPositive()
     {
         $this->expectsEvents(App\Events\OrderWasPlaced::class);
@@ -34,6 +31,8 @@ class PlaceOrderTest extends TestCase
             'stock_quantity' => 10,
         ]);
         $product->translations()->save(factory(App\ProductTranslation::class)->make());
+
+        \Log::debug('product', [$product]);
 
         $quantity = 5;
 
@@ -58,8 +57,53 @@ class PlaceOrderTest extends TestCase
         $this->post('/en/checkout/review', [
             'delivery_date' => 'asap'
         ]);
+
+        //Assert that product billing is calculated correctly
+        $this->seeInDatabase('order_payments', ['amount' => $quantity * $product->price]);
     }
-    */
+
+    /**
+     * Test shipping fee is added correctly for orders under free delivery limit
+     */
+    public function testPlaceOrderShippingFeePositive()
+    {
+        $this->expectsEvents(App\Events\OrderWasPlaced::class);
+
+        $product = factory(App\Product::class)->create([
+            'stock_quantity' => 10,
+            'price' => 5.10
+        ]);
+        $product->translations()->save(factory(App\ProductTranslation::class)->make());
+
+        \Log::debug('product', [$product]);
+
+        $quantity = 2;
+
+        //Add item to cart
+        $this->json('POST', 'api/v1/cart', [
+            'id' => $product->id,
+            'qty' => $quantity,
+        ])->seeJson(['status' => 'success']);
+
+        $address = factory(App\Address::class)->make();
+
+        $this->user->addresses()->save($address);
+
+        Checkout::setShippingAddress($address);
+        Checkout::setBillingAddress($address);
+
+        //Set payment method
+        $this->post('en/checkout/payment', [
+            'method' => 'cash',
+        ]);
+
+        $this->post('/en/checkout/review', [
+            'delivery_date' => 'asap'
+        ]);
+
+        //Assert that product billing is calculated correctly with shipping fee
+        $this->seeInDatabase('order_payments', ['amount' => 10.20 + config('site.shippingFee')]);
+    }
 
     public function testPlaceOrderOutOfHoursNegative()
     {
@@ -95,6 +139,50 @@ class PlaceOrderTest extends TestCase
             ->assertRedirectedTo('en/checkout/review')
             ->followRedirects()
             ->see(trans('checkout.review.delivery-time.error.closed'));
+    }
+
+    /**
+     * This test should fail as "asap" delivery time orders cannot be placed when the store is closed
+     */
+    public function testPlaceAsapOrderOutOfHoursNegative()
+    {
+        $this->doesntExpectEvents(App\Events\OrderWasPlaced::class);
+
+        $product = factory(App\Product::class)->create([
+            'stock_quantity' => 10,
+        ]);
+        $product->translations()->save(factory(App\ProductTranslation::class)->make());
+
+        \Log::debug('product', [$product]);
+
+        $quantity = 5;
+
+        //Add item to cart
+        $this->json('POST', 'api/v1/cart', [
+            'id' => $product->id,
+            'qty' => $quantity,
+        ])->seeJson(['status' => 'success']);
+
+        $address = factory(App\Address::class)->make();
+
+        $this->user->addresses()->save($address);
+
+        Checkout::setShippingAddress($address);
+        Checkout::setBillingAddress($address);
+
+        //Set payment method
+        $this->post('en/checkout/payment', [
+            'method' => 'cash',
+        ]);
+
+        //Set mock time that is when the store is closed
+        $outOfHourTime = Carbon::now()->tomorrow()->hour(4);
+        Carbon::setTestNow($outOfHourTime);
+
+        $this->post('/en/checkout/review', [
+            'delivery_date' => 'asap'
+        ])->followRedirects()
+            ->see(trans('opening-times.prompt-select')); //Should see the out of hours error message
     }
 
     public function testOrderOutOfStockNegative()
