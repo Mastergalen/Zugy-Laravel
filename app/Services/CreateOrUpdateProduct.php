@@ -83,8 +83,10 @@ class CreateOrUpdateProduct
         }
 
         if($productId != null) {
+            \Log::info('Product updated', ['user' => auth()->user()->id, 'ip' => $_SERVER['REMOTE_ADDR'], 'product' => $product]);
             return redirect()->back()->with('success', 'Product updated');
         } else {
+            \Log::info('Product created', ['user' => auth()->user()->id, 'ip' => $_SERVER['REMOTE_ADDR'], 'product' => $product]);
             return redirect()->action('Admin\CatalogueController@index')->with('success', 'Product added successfully');
         }
     }

@@ -33,6 +33,8 @@ class ImageController extends Controller
 
         $this->garbageCollect();
 
+        \Log::info('Uploading new image', ['user_id' => auth()->user()->id, 'ip' => $_SERVER['REMOTE_ADDR'], 'image_id' => $image->id]);
+
         return response()->json(['status' => 'success', 'id' => $image->id]);
     }
 
@@ -41,6 +43,8 @@ class ImageController extends Controller
         $image = ProductImage::findOrFail($id);
 
         $image->delete();
+
+        \Log::info('Deleting image', ['user_id' => auth()->user()->id, 'ip' => $_SERVER['REMOTE_ADDR'], 'image_id' => $id]);
 
         return response()->json(['status' => 'success', 'id' => $id]);
     }

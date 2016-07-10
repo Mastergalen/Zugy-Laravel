@@ -146,6 +146,8 @@ class CatalogueController extends Controller
             $i->delete();
         }
 
+        \Log::info('Deleting product', ['user' => auth()->user()->id, 'ip' => $_SERVER['REMOTE_ADDR'], 'product' => $product->id]);
+
         //Soft delete product
         $product->delete($id);
 

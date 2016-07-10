@@ -63,11 +63,9 @@ class CartEventsListener
      */
     public function onLogin()
     {
-        \Log::debug('User logged in', ['id' => auth()->user()->id, 'name' => auth()->user()->name]);
-
         $guestCart = Cart::content();
 
-        \Log::debug('Cart content', ['cart' => $guestCart]);
+        \Log::debug('Guest cart content', ['cart' => $guestCart]);
 
         $guestProductIds = [];
         foreach($guestCart as $item) {

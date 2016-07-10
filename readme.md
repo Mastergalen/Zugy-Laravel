@@ -23,3 +23,4 @@ https://myzugy.com
   * it_IT.utf8
   * en_GB.utf8
 * Run tests on production
+* Ensure that Real Visitor IP is revealed by installing additional modules for Apache or nginx due to Cloudflare

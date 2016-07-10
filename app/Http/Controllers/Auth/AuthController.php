@@ -120,7 +120,12 @@ class AuthController extends Controller
             );
         }
 
-        Auth::guard($this->getGuard())->login($this->create($request->all()));
+        \Log::info('Registering new user', [$request->all(), 'ip' => $_SERVER['REMOTE_ADDR']]);
+
+        Auth::guard($this->getGuard())
+            ->login(
+                $this->create($request->all())
+            );
 
         return redirect($this->redirectPath())->withSuccess(trans('auth.register.success'));
     }
