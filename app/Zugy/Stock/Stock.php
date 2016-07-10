@@ -6,6 +6,7 @@ use App\Product;
 
 use Zugy\Facades\Cart;
 
+use App\Exceptions\EmptyCartException;
 use App\Exceptions\OutOfStockException;
 
 class Stock
@@ -13,6 +14,7 @@ class Stock
     /**
      * Check if the cart of the current user has sufficient stock
      * @return boolean
+     * @throws EmptyCartException
      * @throws OutOfStockException
      */
     public function checkCartStock() {
@@ -20,6 +22,10 @@ class Stock
         $cart = [];
 
         \Log::debug('Checking stock...');
+        
+        if(Cart::count() === 0) {
+            throw new EmptyCartException();
+        }
 
         foreach (Cart::content() as $item) {
             $productIds[] = $item->id;
