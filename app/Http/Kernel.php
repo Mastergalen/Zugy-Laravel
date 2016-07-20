@@ -30,6 +30,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Spatie\Pjax\Middleware\FilterIfPjax::class,
             \App\Http\Middleware\VerifyAge::class,
+            \App\Http\Middleware\ShopClosed::class,
         ],
         'api' => [
             \App\Http\Middleware\SetLocaleFromSession::class,

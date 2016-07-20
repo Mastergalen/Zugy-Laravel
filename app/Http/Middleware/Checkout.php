@@ -35,6 +35,9 @@ class Checkout
      */
     public function handle($request, Closure $next)
     {
+
+        return response()->view('pages.holiday-closed', [], 503);
+
         if(Cart::count() == 0) {
             return redirect(localize_url('routes.cart'));
         }
