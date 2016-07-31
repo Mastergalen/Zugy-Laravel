@@ -15,13 +15,7 @@ class ShopClosed
      */
     public function handle($request, Closure $next)
     {
-        /*
-        if($request->session()->has('error')) {
-            dd($request->session()->get('error'));
-        }
-
-        $request->session()->put('error', "Sorry, we are closed for a short summer break! We will be back open on the 29th July.");
-        */
+        $request->session()->put('error', "Sorry, we are closed for a short summer break! We will be back open on the 8th August.");
 
         return $next($request);
     }

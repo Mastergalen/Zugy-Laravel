@@ -12,6 +12,14 @@ https://myzugy.com
   * Stripe
   * Paypal
   * Cash
+  
+## Docker
+
+To start the Docker environment run
+
+```
+docker-compose up -d nginx mysql redis
+```
 
 ## Deployment Checklist
 
