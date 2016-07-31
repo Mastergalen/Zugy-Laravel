@@ -1,0 +1,3 @@
+[submodule "Zugy-laradock"]
+	path = laradock
+	url = git@github.com:Mastergalen/Zugy-laradock.git
