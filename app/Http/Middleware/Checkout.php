@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Zugy\Facades\Cart;
 use Illuminate\Contracts\Auth\Guard;
+use Carbon\Carbon;
 
 class Checkout
 {
@@ -37,7 +38,7 @@ class Checkout
     {
         $reopeningTime = Carbon::create(2016, 9, 20, 4, 0, 0); //4 am Tuesday
 
-        if(\Carbon\Carbon::now() < $reopeningTime) {
+        if(Carbon::now() < $reopeningTime) {
             return response()->view('pages.holiday-closed', [], 503);
         }
 

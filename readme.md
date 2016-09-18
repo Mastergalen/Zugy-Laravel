@@ -21,6 +21,40 @@ To start the Docker environment run
 docker-compose up -d nginx mysql redis
 ```
 
+Inside `.env` set `DB_HOST` and `REDIS_HOST`
+
+```
+DB_HOST=mysql
+
+REDIS_HOST=redis
+```
+
+Connect to a container:
+
+```
+docker exec -it workspace bash
+```
+
+## Installation
+
+Install composer dependencies:
+
+```
+composer install
+```
+
+Migrate Database tables
+
+```
+php artisan migrate
+```
+
+Seed the Database
+
+```
+php artisan db:seed
+```
+
 ## Deployment Checklist
 
 * Verify all API keys are working and are not test keys
