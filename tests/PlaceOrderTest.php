@@ -32,8 +32,6 @@ class PlaceOrderTest extends TestCase
         ]);
         $product->translations()->save(factory(App\ProductTranslation::class)->make());
 
-        \Log::debug('product', [$product]);
-
         $quantity = 5;
 
         //Add item to cart
@@ -55,11 +53,26 @@ class PlaceOrderTest extends TestCase
         ]);
 
         $this->post('/en/checkout/review', [
-            'delivery_date' => 'asap'
+            'delivery_date' => Carbon::now()->addDay(1)->toDateString(),
+            'delivery_time' => '18:00'
         ]);
 
         //Assert that product billing is calculated correctly
         $this->seeInDatabase('order_payments', ['amount' => $quantity * $product->price]);
+    }
+
+    /**
+     * Should allow order to be placed with ASAP selected when store is open, need to mock time
+     */
+    public function testPlaceOrderPositiveAsap() {
+
+    }
+
+    /**
+     * Should NOT allow order to be placed with ASAP selected when store is closed, need to mock time
+     */
+    public function testPlaceOrderNegativeAsap() {
+
     }
 
     /**
@@ -98,7 +111,8 @@ class PlaceOrderTest extends TestCase
         ]);
 
         $this->post('/en/checkout/review', [
-            'delivery_date' => 'asap'
+            'delivery_date' => Carbon::now()->addDay(1)->toDateString(),
+            'delivery_time' => '18:00'
         ]);
 
         //Assert that product billing is calculated correctly with shipping fee
