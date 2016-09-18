@@ -35,8 +35,11 @@ class Checkout
      */
     public function handle($request, Closure $next)
     {
+        $reopeningTime = Carbon::create(2016, 9, 20, 4, 0, 0); //4 am Tuesday
 
-        return response()->view('pages.holiday-closed', [], 503);
+        if(\Carbon\Carbon::now() < $reopeningTime) {
+            return response()->view('pages.holiday-closed', [], 503);
+        }
 
         if(Cart::count() == 0) {
             return redirect(localize_url('routes.cart'));
