@@ -36,7 +36,7 @@ class Checkout
      */
     public function handle($request, Closure $next)
     {
-        $reopeningTime = Carbon::create(2016, 9, 20, 4, 0, 0); //4 am Tuesday
+        $reopeningTime = Carbon::create(2016, 9, 24, 4, 0, 0); //4 am Saturday
 
         if(Carbon::now() < $reopeningTime) {
             return response()->view('pages.holiday-closed', [], 503);
