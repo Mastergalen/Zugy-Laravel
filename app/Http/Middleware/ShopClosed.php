@@ -16,7 +16,7 @@ class ShopClosed
      */
     public function handle($request, Closure $next)
     {
-        $reopeningTime = Carbon::create(2016, 9, 28, 4, 0, 0); //4 am Wednesday
+        $reopeningTime = Carbon::create(2017, 9, 28, 4, 0, 0); //4 am Wednesday
 
         if(Carbon::now() < $reopeningTime) {
             $request->session()->put('error', "Sorry, we are closed for a short summer break! We will be back open on the 8th August.");
