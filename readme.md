@@ -1,18 +1,18 @@
-# Zugy
+# Zugy eCommerce
 
 Laravel project for Zugy eCommerce store.
 
-https://myzugy.com
-
 ## Features
+
+* Admin panel for managing products
 * Coupons
-* Delivery Time Notifications
+* Rider push notifications when an order is placed
 * Order status tracking
 * Payment methods
   * Stripe
   * Paypal
   * Cash
-  
+
 ## Docker
 
 To start the Docker environment run
@@ -53,6 +53,12 @@ Seed the Database
 
 ```
 php artisan db:seed
+```
+
+## Run tests
+
+```
+phpunit
 ```
 
 ## Deployment Checklist
